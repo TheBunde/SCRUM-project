@@ -8,9 +8,9 @@ app.use(bodyParser.json()); // for å tolke JSON
 let pool = mysql.createPool({ 
     connectionLimit: 5,
     host: "mysql.stud.iie.ntnu.no", 
-    user: "",
-    password: "", 
-    database: "", 
+    user: "g_scrum_5",
+    password: "TYQHbYDq", 
+    database: "g_scrum_5", 
     debug: false
 });
 

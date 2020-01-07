@@ -20,7 +20,7 @@ class Navbar extends Component{
                             <a class="nav-link" onClick={()=> window.location.href="#/overview"} >Oversikt</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Arrangementer
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="navbarDropdown">

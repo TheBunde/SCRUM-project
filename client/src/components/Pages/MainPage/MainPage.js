@@ -5,8 +5,13 @@ class MainPage extends Component{
     render() {
         return (
             <div>
-                <h1> hello </h1>
-                <button className="btn btn-primary" type="submit">Button</button>
+
+                <div id="MainPageDiv">
+                    <h1> Harmoni </h1>
+                    <button type="button" className="btn btn-primary">log in</button>
+                    <button type="button" className="btn btn-secondary">register</button>
+                </div>
+
             </div>
         );
     }

@@ -6,6 +6,7 @@ class MainPage extends Component{
         return (
             <div>
                 <h1> hello </h1>
+                <button className="btn btn-primary" type="submit">Button</button>
             </div>
         );
     }

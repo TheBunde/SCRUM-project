@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {HashRouter, Route} from 'react-router-dom';
 import './css/index.css';
 import * as serviceWorker from './serviceWorker';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import ToTop from './components/ToTop/ToTop.js';
 import LoginPage from './components/Pages/LoginPage/LoginPage.js'
 import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js'

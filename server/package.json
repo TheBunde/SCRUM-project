@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mysql": "^2.16.0",
+    "body-parser": "^1.18.3"
+  },
+  "scripts": {
+    "start": "nodemon --exec src/server.js",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "cross-env": "^6.0.3",
+    "nodemon": "^1.19.4",
+    "reload": "^3.0.2"
+  }
+}

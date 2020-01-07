@@ -9,10 +9,10 @@ import LoginPage from './components/Pages/LoginPage/LoginPage.js'
 import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js'
 import OverviewPage from './components/Pages/OverviewPage/OverviewPage.js'
 import MainPage from './components/Pages/MainPage/MainPage.js'
-import EventPage from './components/Events/EventPage/EventPage.js'
-import EventView from './components/Events/EventView/EventView.js'
-import EditEvent from './components/Events/EditEvent/EditEvent.js'
-import AddEvent from './components/Events/AddEvent/AddEvent.js'
+import EventPage from './components/Pages/EventPage/EventPage.js'
+import EventView from './components/Pages/EventView/EventView.js'
+import EditEvent from './components/Pages/EditEvent/EditEvent.js'
+import AddEvent from './components/Pages/AddEvent/AddEvent.js'
 
 
 ReactDOM.render(

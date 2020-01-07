@@ -7,14 +7,8 @@
     "body-parser": "^1.18.3"
   },
   "scripts": {
-<<<<<<< HEAD
-    "start": "nodemon --exec node server.js",
+    "start": "nodemon --exec src/server.js",
     "test": "jest"
-=======
-    "start": "nodemon --exec node src/server.js",
-    "test": "jest",
-    "flow": "flow"
->>>>>>> 2ee34a5f274ab2d7baaa7e935ba4aa1a29c2e20f
   },
   "devDependencies": {
     "jest": "^24.9.0",

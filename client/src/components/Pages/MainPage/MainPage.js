@@ -1,10 +1,13 @@
 import React, {Component} from 'react'; 
 
+import Navbar from '../../Navbar/Navbar'
+
 class MainPage extends Component{
     
     render() {
         return (
             <div>
+                <Navbar />
 
                 <div id="MainPageDiv">
                     <h1> Harmoni </h1>

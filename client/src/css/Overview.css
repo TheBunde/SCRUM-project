@@ -5,5 +5,10 @@
 }
 
 #OverviewButtonsDiv{
-    padding: 50px;
+    padding: 10px;
+    alignment: center;
+    align-content: center;
+}
+#OverviewTitle{
+    padding: 0 0 50px 0;
 }

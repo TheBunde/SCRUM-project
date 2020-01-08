@@ -1,7 +1,7 @@
 import React, {Component} from 'react'; 
 import "../../../css/MainPage.css"
 
-import Navbar from '../../Navbar/Navbar'
+import {NavbarMainPage} from '../../Navbar/Navbar.js'
 
 
 class MainPage extends Component{
@@ -9,7 +9,7 @@ class MainPage extends Component{
     render() {
         return (
             <div>
-                <Navbar />
+                <NavbarMainPage />
                 <div id="MainPageDiv">
                     <div id="MainPageButtons">
                         <button type="button" className="btn btn-outline-primary btn-lg">Logg inn</button>

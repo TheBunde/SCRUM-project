@@ -9,8 +9,10 @@ test("RegisterPage rendrer uten å krasje", () => {
     ReactDOM.unmountComponentAtNode(div)
 });
 
+
 test("LoginPage renders without crashing", () => {
     const div = document.createElement("div");
     ReactDOM.render(<LoginPage/>, div);
     ReactDOM.unmountComponentAtNode(div);
 });
+

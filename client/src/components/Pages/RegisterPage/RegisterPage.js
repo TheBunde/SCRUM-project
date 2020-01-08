@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import Navbar from '../../Navbar/Navbar'
 import "./RegisterPage.css"
+import UserService, {User} from "../../../services/UserService.js";
 
 
 
@@ -78,12 +79,17 @@ class RegisterPage extends Component{
 
     regUser = () => {
         {if(this.state.password === this.state.repeatedPassword){
-
-            // SERVICE KODE HER
-
+            let userService = new UserService();
+            let user = new User(this.state.name, this.state.email, this.state.phone, this.state.password, null, null);
+            userService.registerUser(user)
+                .then(() => {
+                    console.log("Registration complete");
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
         }else{
-
-            // MODAL HER DERSOM PASSORDENE IKKE STEMMER OVERENS
+            console.log("The registration did not work");
 
         }}
         console.log("Navn: " + this.state.name + ", email: " + this.state.email + ", telefon: " + this.state.phone +

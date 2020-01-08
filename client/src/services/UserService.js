@@ -5,18 +5,19 @@ export class User {
     name;
     email;
     phone;
-    salt;
-    password_hash;
-    roleId;
+    password;
+    approved;
+    roleid;
 
-    constructor(name, email, phone, salt, password_hash, roleId) {
+    constructor(name, email, phone, password, approved, roleId) {
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.salt = salt;
-        this.password_hash = password_hash;
-        this.roleId = roleId;
+        this.password = password;
+        this.approved = approved;
+        this.roleid = roleId;
     }
+
 
 }
 
@@ -25,3 +26,5 @@ export class UserService {
         return Axios.post("http://localhost:8080/user", user);
     }
 }
+
+export default UserService;

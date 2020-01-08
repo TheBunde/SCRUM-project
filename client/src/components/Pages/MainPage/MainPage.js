@@ -5,7 +5,7 @@ import { createHashHistory } from 'history';
 import {NavbarMainPage} from '../../Navbar/Navbar.js'
 import Footer from "../../Footer/Footer";
 
-
+const history = createHashHistory();
 
 
 
@@ -19,8 +19,8 @@ class MainPage extends Component{
                 <div id="MainPageDiv">
                     <h1 id="MainPageTitle"> Harmoni </h1>
                     <div id="MainPageBtnDiv">
-                        <a id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg mr-5" href="#/login">Log in</a>
-                        <a id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg" href="#/register">Register</a>
+                        <button id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg mr-5" onClick={this.logIn}>Logg inn</button>
+                        <button id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg" onClick={this.register}>Register</button>
                     </div>
 
                 </div>
@@ -28,6 +28,14 @@ class MainPage extends Component{
 
             </div>
         );
+    }
+
+    logIn(){
+        history.push("/login")
+    }
+
+    register(){
+        history.push("/register")
     }
 
 }

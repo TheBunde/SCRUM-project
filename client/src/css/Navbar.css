@@ -1,7 +1,7 @@
 #navbar{
-    /*background-color: rgb(34, 33, 33);*/
     /*position: fixed;*/
-    background-image: linear-gradient(to bottom right, black, grey);
+    background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(68, 111, 184));
+    /*background-image: linear-gradient(to bottom right, rgb(140, 54, 27), rgb(37, 66, 118));*/
     width: 100%;
     z-index: 100;
 }
@@ -38,11 +38,11 @@
 
 #navbarSupportedContent a:hover{
     /*color: rgb(34, 91, 160);*/
-    color: rgb(133, 133, 133)
+    color:black;
 }
 
 #navbarDropdown{
-    background-color: rgb(66,66,66);
+    background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(43, 83, 154))
     /*background-color: rgb(34, 33, 33);*/
     
 }

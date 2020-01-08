@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import "../../../css/MainPage.css"
 import { createHashHistory } from 'history';
 
-import Navbar from '../../Navbar/Navbar'
+import {NavbarMainPage} from '../../Navbar/Navbar.js'
 
 const history = createHashHistory();
 
@@ -12,8 +12,9 @@ class MainPage extends Component{
     render() {
         return (
             <div>
-                <Navbar />
-                <body background="mainPageBackground.jpg">
+
+                <NavbarMainPage />
+                <body background="mainPageBackground.png">
                 <div id="MainPageDiv">
                     <h1 id="MainPageTitle"> Harmoni </h1>
                     <div id="MainPageBtnDiv">

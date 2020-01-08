@@ -9,14 +9,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
 
 import ToTop from './components/ToTop/ToTop.js';
-import LoginPage from './components/Pages/LoginPage/LoginPage.js'
-import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js'
-import OverviewPage from './components/Pages/OverviewPage/OverviewPage.js'
-import MainPage from './components/Pages/MainPage/MainPage.js'
-import EventPage from './components/Pages/EventPage/EventPage.js'
-import EventView from './components/Pages/EventView/EventView.js'
-import EditEvent from './components/Pages/EditEvent/EditEvent.js'
-import AddEvent from './components/Pages/AddEvent/AddEvent.js'
+import Footer from './components/Footer/Footer.js';
+import LoginPage from './components/Pages/LoginPage/LoginPage.js';
+import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js';
+import OverviewPage from './components/Pages/OverviewPage/OverviewPage.js';
+import MainPage from './components/Pages/MainPage/MainPage.js';
+import EventPage from './components/Pages/EventPage/EventPage.js';
+import EventView from './components/Pages/EventView/EventView.js';
+import EditEvent from './components/Pages/EditEvent/EditEvent.js';
+import AddEvent from './components/Pages/AddEvent/AddEvent.js';
 
 ReactDOM.render(
     <HashRouter>
@@ -30,6 +31,7 @@ ReactDOM.render(
             <Route exact path="/event/:id/edit" component={EditEvent} />
             <Route exact path="/overview/addEvent" component={AddEvent} />
             <ToTop />
+            <Footer />
         </div>
     </HashRouter>
     , (document.getElementById('root')));

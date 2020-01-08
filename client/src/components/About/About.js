@@ -9,7 +9,6 @@ class About extends Component {
   render() {  
     return (
         <div>
-            <NavbarMainPage/>
             <div id="AboutDiv">
                 <div id="AboutTitle"><img src={Logo} width="300" /></div>
                 <div id="AboutText"><h4>En portal for informasjonsflyt under planlegging av arrangementer</h4></div>

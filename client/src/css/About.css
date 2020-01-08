@@ -1,10 +1,10 @@
 #AboutDiv{
     margin: auto;
     text-align: center;
-    padding-top: 140px;
+    padding-top: 180px;
     background-image: url('../img/Backgrounds/Background 1.jpeg');
     background-size: cover;
-    height: 800px;
+    min-height: 93vh;
 }
 
 #AboutTitle {

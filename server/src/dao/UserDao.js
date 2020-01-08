@@ -25,6 +25,7 @@ module.exports = class UserDao extends dao {
         return passwordData;
     };
 
+    //Needs to find a way to catch the sql error if they occur
     registerUser(json, callback) {
         let pass = this.saltHashPassword(json.password);
         console.log(pass);
@@ -35,6 +36,7 @@ module.exports = class UserDao extends dao {
             callback
         );
     }
+
 
 
 };

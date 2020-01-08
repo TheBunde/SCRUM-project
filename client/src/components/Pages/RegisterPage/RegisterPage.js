@@ -133,13 +133,17 @@ class RegisterPage extends Component{
                     this.toggleModal("Bruker registrert!")
                 })
                 .catch((error) => {
-                    console.error(error);
+                    if (error.response.data.sqlMessage.indexOf("email") > -1) {
+                        console.log("e-post");
+                        this.toggleModal("E-posten er allerede i bruk");
+                    }
+                    if (error.response.data.sqlMessage.indexOf("phone") > -1) {
+                        console.log("telefon");
+                        this.toggleModal("Telefonnummeret er allerede i bruk");
+                    }
                 })
             }
         }
-
-        console.log("Navn: " + this.state.name + ", email: " + this.state.email + ", telefon: " + this.state.phone +
-            ", rolle: " + this.state.role + ", passord: " + this.state.password + ", r.password: " + this.state.repeatedPassword);
     };
 
 

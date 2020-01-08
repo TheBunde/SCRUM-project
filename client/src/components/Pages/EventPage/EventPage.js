@@ -20,12 +20,12 @@ class EventPage extends Component{
                                 <div className="dropdown">
                                     <button className="btn btn-outline dropdown-toggle" type="button" id="dropdownMenuButton"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Show
+                                        Vis
                                     </button>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a className="dropdown-item" href="#">Action</a>
-                                        <a className="dropdown-item" href="#">Another action</a>
-                                        <a className="dropdown-item" href="#">Something else here</a>
+                                        <a className="dropdown-item" href="#">Alle arrangementer</a>
+                                        <a className="dropdown-item" href="#">Kommende arrangementer</a>
+                                        <a className="dropdown-item" href="#">Utførte arrangementer</a>
                                     </div>
                                 </div>
                             </div>
@@ -33,17 +33,24 @@ class EventPage extends Component{
                                 <div className="dropdown">
                                     <button className="btn btn-outline dropdown-toggle" type="button" id="dropdownMenuButton"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Sort by
+                                        Sorter etter
                                     </button>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a className="dropdown-item" href="#">Action</a>
-                                        <a className="dropdown-item" href="#">Another action</a>
-                                        <a className="dropdown-item" href="#">Something else here</a>
+                                        <a className="dropdown-item" href="#">Navn</a>
+                                        <a className="dropdown-item" href="#">Dato</a>
+                                        <a className="dropdown-item" href="#">Kategori</a>
                                     </div>
                                 </div>
                             </div>
                             <div id="eventPageSearchBar">
-                                <input className="form-control" type="text" placeholder="Search" aria-label="Search"></input>
+                                <input className="form-control" type="text" placeholder="Søk" aria-label="Search"></input>
+                            </div>
+                            <div id="eventPageInnerContainer">
+                                <ul>
+                                    <li>
+
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

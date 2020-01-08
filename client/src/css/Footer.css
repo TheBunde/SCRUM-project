@@ -3,7 +3,6 @@
     bottom: 0;
     z-index: 3;
     width: 100%;
-    position: fixed;
 }
 
 #Footer nav{
@@ -15,7 +14,13 @@
 }
 
 #Footer a{
-    color: grey;
+    color: white;
+}
+#Footer p{
+    color: white;
+}
+#Footer h5{
+    color: white;
 }
 
 #Footer a:hover{

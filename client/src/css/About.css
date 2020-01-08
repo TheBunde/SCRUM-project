@@ -3,7 +3,7 @@
     text-align: center;
     padding-top: 140px;
     background-image: url('../img/Backgrounds/Background 1.jpeg');
-    background-size: contain;
+    background-size: cover;
     height: 800px;
 }
 

@@ -86,7 +86,7 @@ class RegisterPage extends Component{
                     console.log("Registration complete");
                 })
                 .catch((error) => {
-                    console.error(error);
+                    console.error(error.response.data);
                 })
         }else{
             console.log("The registration did not work");

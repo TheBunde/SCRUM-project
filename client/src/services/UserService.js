@@ -1,5 +1,5 @@
 import Axios from "axios";
-Axios.interceptors.response.use(response => response.data);
+//Axios.interceptors.response.use(response => response.data);
 
 export class User {
     name;

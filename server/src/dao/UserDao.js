@@ -37,7 +37,7 @@ module.exports = class UserDao extends dao {
             val,
             callback
         );
-}
+    }
 
 
 

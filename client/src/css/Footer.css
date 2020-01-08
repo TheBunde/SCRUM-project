@@ -1,5 +1,5 @@
 #Footer{
-    background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(68, 111, 184));
+    background-color: rgb(54,77,115);
     bottom: 0;
     z-index: 3;
     width: 100%;
@@ -18,17 +18,13 @@
     color: white;
 }
 #Footer h5{
-    color: white;
+    color: rgb(145, 142, 143);
 }
 
-#Footer a:hover{
+#Footer h5:hover{
     color: rgb(43, 205, 242);
 }
 
-
-#FooterText {
-    color: white;
-}
 
 /*Lagede klasse for å gjøre hyperlinker sorte*/
 .sortTekst{

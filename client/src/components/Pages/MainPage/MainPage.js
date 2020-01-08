@@ -15,7 +15,6 @@ class MainPage extends Component{
         return (
             <div>
 
-                <NavbarMainPage />
                 <body  id="MainPageBody" background="mainPageBackground.jpg">
                 <div id="MainPageDiv">
                     <h1 id="MainPageTitle"> Harmoni </h1>

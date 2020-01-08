@@ -9,7 +9,7 @@ class MainPage extends Component{
                 <div id="MainPageDiv">
                     <h1> Harmoni </h1>
                     <button type="button" className="btn btn-primary">log in</button>
-                    <button type="button" className="btn btn-secondary">register</button>
+                    <a className="btn btn-primary" href="/#/register" role="button">Registrer bruker</a>
                 </div>
 
             </div>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import Navbar from '../../Navbar/Navbar'
+import Login_Form from "../../Login_Form/Login_Form"
 
 class LoginPage extends Component{
     
@@ -8,6 +9,7 @@ class LoginPage extends Component{
         return (
             <div>
                 <Navbar />
+                <Login_Form />
             </div>
         );
     }

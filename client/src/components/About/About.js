@@ -10,7 +10,7 @@ class About extends Component {
     return (
         <div>
             <div id="AboutDiv">
-                <div id="AboutTitle"><img src={Logo} width="300" /></div>
+                <div id="AboutTitle"><a>HARMONI</a></div>
                 <div id="AboutText"><h4>En portal for informasjonsflyt under planlegging av arrangementer</h4></div>
                 <div id="AboutButtonDiv">
                     <div id="AboutButtons">

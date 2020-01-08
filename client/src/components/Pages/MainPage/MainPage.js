@@ -8,13 +8,14 @@ class MainPage extends Component{
 
                 <div id="MainPageDiv">
                     <h1> Harmoni </h1>
-                    <button type="button" className="btn btn-primary">log in</button>
-                    <button type="button" className="btn btn-secondary">register</button>
+                    <button id="MainPageLogInbtn" type="button" className="btn btn-outline-dark btn-lg" onClick={this.handleLogIn}>Log in</button>
+                    <button id="MainPageRegisterbtn" type="button" className="btn btn-outline-dark btn-lg">Register</button>
                 </div>
 
             </div>
         );
     }
+
 }
 
 export default MainPage;

@@ -18,7 +18,7 @@ class LoginForm extends Component{
         /*if(UserService.validate(this.state.email, this.state.pw)){
 
         }*/
-        console.log("yo");
+        console.log(this.state);
     }
 
 
@@ -27,7 +27,7 @@ class LoginForm extends Component{
         this.setState({
             [e.target.name]: e.target.value 
         });
-        //console.log(this.state);
+        console.log(this.state.pw);
     }
 
     render(){

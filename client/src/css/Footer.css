@@ -1,0 +1,49 @@
+#Footer{
+    background-color: rgb(30, 33, 53);
+    bottom: 0;
+    z-index: 3;
+    width: 100%;
+    position: fixed;
+}
+
+#Footer nav{
+    padding-left: 30px;
+}
+
+#FooterContainer a{
+    padding: 10px;
+}
+
+#Footer a{
+    color: grey;
+}
+
+#Footer a:hover{
+    color: rgb(43, 205, 242);
+}
+
+
+#FooterText {
+    color: white;
+}
+
+/*Lagede klasse for å gjøre hyperlinker sorte*/
+.sortTekst{
+    color: black;
+}
+.sortTekst:hover{
+    color: black;
+}
+
+#footerProsjekt:hover{
+    color: white;
+}
+
+@Media only screen and (max-width: 780px){
+    #footerDropUp{
+        padding-bottom: 5px;
+    }
+    .dropup-content {
+        bottom: 27px;
+    }
+}

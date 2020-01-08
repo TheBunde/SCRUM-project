@@ -1,0 +1,13 @@
+form{
+    margin: 0 auto;
+    width: 50%;
+}
+
+#login-title{
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+#login-button{
+    width: 25%
+}

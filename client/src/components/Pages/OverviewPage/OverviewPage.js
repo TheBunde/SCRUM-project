@@ -10,20 +10,21 @@ class OverviewPage extends Component{
     render() {
         return (
             <div>
-                <Navbar />
-
+                <Navbar/>
                 <div id="OverviewDiv">
-                    <h1 id="OverviewTitle"> Main page</h1>
-                    <div id="OverviewButtonsDiv">
-
-                        <button id="OverviewButtons" type="button" className="btn btn-info btn-lg mr-5" onClick={this.addEvent} >Legg til nytt event</button>
-                        <button id="OverviewButtons" type="button" className="btn btn-info btn-lg mr-5" onClick={this.seEvents}>Se alle arrangementer</button>
-                        <button id="OverviewButtons" type="button" className="btn btn-info btn-lg" >Se profil</button>
+                    <div id="OverviewTitle"><h1>Forside</h1></div>
+                    <div id="OverviewButtonDiv">
+                        <div id="OverviewButtons">
+                            <button type="button" className="btn btn-info btn-lg" onClick={this.addEvent}>Legg til ny event</button>
+                        </div>
+                        <div id="OverviewButtons">
+                            <button type="button" className="btn btn-info btn-lg" onClick={this.seEvents}>Se alle eventer</button>
+                        </div>
+                        <div id="OverviewButtons">
+                            <button type="button" className="btn btn-info btn-lg" onClick={this.seEvents}>Vis profil</button>
+                        </div>
                     </div>
-
                 </div>
-
-
             </div>
         );
     }

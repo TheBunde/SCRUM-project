@@ -1,14 +1,24 @@
 #OverviewDiv{
-    padding: 100px 0 100px 0;
     margin: auto;
     text-align: center;
+    padding-top: 180px;
+
+    min-height: 93vh;
 }
 
-#OverviewButtonsDiv{
-    padding: 10px;
-    alignment: center;
-    align-content: center;
+#OverviewTitle {
+    padding-bottom: 35px;
+
 }
-#OverviewTitle{
-    padding: 0 0 50px 0;
+
+#OverviewButtonDiv{
+    padding: 35px 0 0 0;
+}
+
+#OverviewButtons{
+    padding: 10px 0 10px 0;
+}
+
+#OverviewButtons button{
+    width: 300px;
 }

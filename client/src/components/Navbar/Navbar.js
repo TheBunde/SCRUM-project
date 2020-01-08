@@ -43,7 +43,7 @@ class NavbarMainPage extends Component{
         return (
             <div>
                 <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
-                    <a class="navbar-brand" href="#/overview"><h1>Harmoni</h1></a>
+                    <a class="navbar-brand" href="#"><h1>Harmoni</h1></a>
                 </nav>
             </div>
         );

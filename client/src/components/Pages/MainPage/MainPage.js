@@ -3,8 +3,10 @@ import "../../../css/MainPage.css"
 import { createHashHistory } from 'history';
 
 import {NavbarMainPage} from '../../Navbar/Navbar.js'
+import Footer from "../../Footer/Footer";
 
-const history = createHashHistory();
+
+
 
 
 class MainPage extends Component{
@@ -14,7 +16,7 @@ class MainPage extends Component{
             <div>
 
                 <NavbarMainPage />
-                <body background="mainPageBackground.png">
+                <body  id="MainPageBody" background="mainPageBackground.jpg">
                 <div id="MainPageDiv">
                     <h1 id="MainPageTitle"> Harmoni </h1>
                     <div id="MainPageBtnDiv">
@@ -24,7 +26,6 @@ class MainPage extends Component{
 
                 </div>
                 </body>
-
 
             </div>
         );

@@ -64,18 +64,6 @@ class RegisterPage extends Component{
                     </div>
                 </form>
 
-                <Modal show={this.state.synligPhoneModal} name={"phoneModal"} onHide={() => {this.togglePhoneModal()}}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Feil</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>Nummeret er feil.</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="primary" onClick={() => {this.togglePhoneModal()}}>
-                            Ok!
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-
                 <Modal show={this.state.synligModal} name={"passwordModal"} onHide={() => {this.toggleModal("")}}>
                     <Modal.Header closeButton>
                         <Modal.Title>{this.state.modalTitle}</Modal.Title>

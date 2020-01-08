@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import Navbar from '../../Navbar/Navbar'
 import "./RegisterPage.css"
+import UserService, {User} from "../../../services/UserService.js";
 
 
 
@@ -12,7 +13,7 @@ class RegisterPage extends Component{
         name: "",
         email: "",
         phone: "",
-        role: "",
+        role: "ingenRolle",
         password: "",
         repeatedPassword: "",
 
@@ -53,40 +54,18 @@ class RegisterPage extends Component{
                                onChange={this.handleTextChange.bind(this)}
                                placeholder="Gjenta passord..."/>
 
-
-                        <label htmlFor="exampleInputEmail1">Rolle:</label>
-                        <div className="dropdown">
-                            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
-                            </button>
-                            <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <button className="dropdown-item" onClick={event => this.handleDropdownChange(event)}
-                                        value={"rolle1"} type="button">Rolle 1</button>
-                                <button className="dropdown-item" onClick={event => this.handleDropdownChange(event)}
-                                        value={"rolle2"} type="button">Rolle 2</button>
-                                <button className="dropdown-item" onClick={event => this.handleDropdownChange(event)}
-                                        value={"rolle3"} type="button">Rolle 3</button>
-                            </div>
-                        </div>
-
                         <button type="button"
                                 id={"regBtn"}
                                 className="btn btn-primary btn-lg"
-                                onClick={(event) => this.regUser(event)}>Registrer
+                                onClick={(event) => this.regUser(event)} disabled={this.state.role === "ingenRolle" ||this.state.name === "" || this.state.email === ""
+                        || this.state.phone === "" || this.state.password === "" || this.state.repeatedPassword === ""}>Registrer
+
                         </button>
                     </div>
                 </form>
             </div>
         );
     }
-
-    handleDropdownChange = event => {
-        event.preventDefault();
-        this.setState({
-            role: event.target.value
-        });
-    };
 
     handleTextChange = event => {
         event.preventDefault();
@@ -100,12 +79,17 @@ class RegisterPage extends Component{
 
     regUser = () => {
         {if(this.state.password === this.state.repeatedPassword){
-
-            // SERVICE KODE HER
-
+            let userService = new UserService();
+            let user = new User(this.state.name, this.state.email, this.state.phone, this.state.password, null, null);
+            userService.registerUser(user)
+                .then(() => {
+                    console.log("Registration complete");
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
         }else{
-
-            // MODAL HER DERSOM PASSORDENE IKKE STEMMER OVERENS
+            console.log("The registration did not work");
 
         }}
         console.log("Navn: " + this.state.name + ", email: " + this.state.email + ", telefon: " + this.state.phone +

@@ -28,9 +28,9 @@ module.exports = class UserDao extends dao {
     //Needs to find a way to catch the sql error if they occur
     registerUser(json, callback) {
         let pass = this.saltHashPassword(json.password);
-        let val = [json.name, json.email, json.phone, pass.salt, pass.passwordHash, json.role_id];
+        let val = [json.name, json.email, json.phone, pass.salt, pass.passwordHash];
         super.query(
-            "INSERT into User (name, email, phone, salt, password_hash, role_id) values (?, ?, ?,  ?, ?, ?)",
+            "INSERT into User (name, email, phone, salt, password_hash) values (?, ?, ?,  ?, ?)",
             val,
             callback
         );

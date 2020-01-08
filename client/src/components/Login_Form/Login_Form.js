@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import "../../css/Login_Form.css";
-import {UserService} from "../../services/UserService.js"
+import UserService from "../../services/UserService.js"
 
 class Login_Form extends Component{
     constructor(props){

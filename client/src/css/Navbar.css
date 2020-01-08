@@ -1,6 +1,7 @@
 #navbar{
-    background-color: rgb(34, 33, 33);
-    position: fixed;
+    /*position: fixed;*/
+    background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(68, 111, 184));
+    /*background-image: linear-gradient(to bottom right, rgb(140, 54, 27), rgb(37, 66, 118));*/
     width: 100%;
     z-index: 100;
 }
@@ -14,6 +15,16 @@
 }
 */
 
+#navbarSupportedContent{
+    margin: auto;
+    padding-right: 50px;
+
+}
+
+#navbar a{
+    color: white;
+}
+
 #navbarSupportedContent a{
     color: white;
     font-weight: bold;
@@ -26,11 +37,14 @@
 
 
 #navbarSupportedContent a:hover{
-    color: rgb(237, 216, 56);
+    /*color: rgb(34, 91, 160);*/
+    color:black;
 }
 
 #navbarDropdown{
-    background-color: rgb(34, 33, 33);
+    background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(43, 83, 154))
+    /*background-color: rgb(34, 33, 33);*/
+    
 }
 
 /*Må endre til id per nav-item og dropdown-item for at dette sjal fungere

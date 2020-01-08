@@ -2,8 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter, Route} from 'react-router-dom';
 import './css/index.css';
-import * as serviceWorker from './serviceWorker';
+import $ from 'jquery';
+import Popper from 'popper.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import * as serviceWorker from './serviceWorker';
 
 import ToTop from './components/ToTop/ToTop.js';
 import LoginPage from './components/Pages/LoginPage/LoginPage.js'

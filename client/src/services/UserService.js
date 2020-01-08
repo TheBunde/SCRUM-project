@@ -25,6 +25,10 @@ export class UserService {
     registerUser(user) {
         return Axios.post("http://localhost:8080/user", user);
     }
+
+    validate(email, pw){
+        return Axios.get("http://localhost:8080/user", email, pw);
+    }
 }
 
 export default UserService;

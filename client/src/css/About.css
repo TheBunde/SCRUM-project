@@ -1,14 +1,18 @@
 #AboutDiv{
     margin: auto;
     text-align: center;
-    padding-top: 140px;
+    padding-top: 180px;
     background-image: url('../img/Backgrounds/Background 1.jpeg');
     background-size: cover;
-    min-height: 93vh;
+    min-height: 94vh;
 }
 
 #AboutTitle {
+    color: white;
+    font-family: Georgia;
+    font-size: 80px;
     padding-bottom: 35px;
+
 }
 
 #AboutText {
@@ -31,4 +35,5 @@
 #AboutButtons button{
     width: 220px;
 }
+
 

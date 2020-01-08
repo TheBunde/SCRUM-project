@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import "../../css/Login_Form.css";
+import "../../css/LoginForm.css";
 import UserService from "../../services/UserService.js"
 
-class Login_Form extends Component{
+class LoginForm extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -49,4 +49,4 @@ class Login_Form extends Component{
     }
 }
 
-export default Login_Form;
+export default LoginForm;

@@ -1,10 +1,10 @@
 #eventViewBackground{
     background-color: #212529;
-    min-height: 90vh;
+    min-height: 68vh;
 }
 #eventViewContainer{
     width: 80%;
-    min-height: 90vh;
+    min-height: 68vh;
     padding-top: 20px;
     text-align: center;
     background-color: white;
@@ -38,19 +38,19 @@
 .mapouter {
     position:relative;
     text-align:right;
-    height:300px;
-    width:300px;
+    height:350px;
+    width:350px;
 }
 .gmap_canvas {
      overflow:hidden;
      background:none
      !important;
-     height:300px;
-     width:300px;
+     height:350px;
+     width:350px;
 }
 .gmap_canvas iframe{
-    height: 300px;
-    width: 300px;
+    height: 350px;
+    width: 350px;
 }
 @media only screen and (max-width: 800px) {
     .gmap_canvas {

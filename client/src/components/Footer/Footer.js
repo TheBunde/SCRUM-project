@@ -7,7 +7,7 @@ class Footer extends Component<> {
         <div id="Footer">
             <nav class="navbar navbar-expand-lg navbar-dark" id="FooterContainer">
                 <a class="navbar-brand" href="#/about"><h5>Om</h5></a>
-                <a class="navbar-brand" href="#/terms"><h5>Kontakt</h5></a>
+                <a class="navbar-brand" href="mailto:noreply.harmoni@gmail.com?Subject=Hello%20again"><h5>Kontakt</h5></a>
             </nav>
         </div>
     )

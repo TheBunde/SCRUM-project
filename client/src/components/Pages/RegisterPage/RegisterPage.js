@@ -44,12 +44,12 @@ class RegisterPage extends Component{
                                aria-describedby="emailHelp" placeholder="Telefon..."/>
 
                         <label htmlFor="exampleInputPassword1">Passord:</label>
-                        <input type="password" className="form-control" id="passwordInput"
+                        <input type="password" name="password" className="form-control" id="passwordInput"
                                onChange={this.handleTextChange.bind(this)}
                                placeholder="Passord..."/>
 
                         <label htmlFor="exampleInputPassword1">Gjenta passord:</label>
-                        <input type="password" className="form-control" id="passwordInput"
+                        <input type="password" name={"repeatedPassword"} className="form-control" id="passwordInput"
                                onChange={this.handleTextChange.bind(this)}
                                placeholder="Gjenta passord..."/>
 
@@ -99,7 +99,17 @@ class RegisterPage extends Component{
     };
 
     regUser = () => {
-        console.log("Navn: " + this.state.name + ", email: " + this.state.email + ", telefon: " + this.state.phone + ", rolle: " + this.state.role);
+        {if(this.state.password === this.state.repeatedPassword){
+
+            // SERVICE KODE HER
+
+        }else{
+
+            // MODAL HER DERSOM PASSORDENE IKKE STEMMER OVERENS
+
+        }}
+        console.log("Navn: " + this.state.name + ", email: " + this.state.email + ", telefon: " + this.state.phone +
+            ", rolle: " + this.state.role + ", passord: " + this.state.password + ", r.password: " + this.state.repeatedPassword);
     };
 
     componentDidMount() {

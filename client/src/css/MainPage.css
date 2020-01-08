@@ -5,6 +5,12 @@
     text-align: center;
 }
 
+#MainPageBody{
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+}
+
 #MainPageTitle{
     font-family: Castellar;
     font-size: 150px;

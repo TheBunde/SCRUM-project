@@ -20,8 +20,8 @@ class MainPage extends Component{
                 <div id="MainPageDiv">
                     <h1 id="MainPageTitle"> Harmoni </h1>
                     <div id="MainPageBtnDiv">
-                        <a id="MainPageButtons" type="button" className="btn btn-outline-dark btn-lg mr-5" href="#/login">Log in</a>
-                        <a id="MainPageButtons" type="button" className="btn btn-outline-dark btn-lg" href="#/register">Register</a>
+                        <a id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg mr-5" href="#/login">Log in</a>
+                        <a id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg" href="#/register">Register</a>
                     </div>
 
                 </div>

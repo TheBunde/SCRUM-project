@@ -1,0 +1,55 @@
+#eventViewContainer{
+    padding-top: 20px;
+    text-align: center;
+}
+#eventViewInnerContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+            "infoBox mapBox";
+    text-align: left;
+    padding: 20px 20px 0 20px;
+    margin: auto;
+    width: 50%;
+}
+#eventViewButtons{
+    width: 50%;
+    margin: auto;
+    padding: 20px 0 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+#eventViewTitle h1{
+    margin: auto;
+}
+.table th{
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+.map-container-5{
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+}
+.map-container-5 iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+.mapouter {
+    position:relative;
+    text-align:right;
+    height:300px;
+    width:300px;
+}
+.gmap_canvas {
+     overflow:hidden;
+     background:none
+     !important;
+     height:300px;
+     width:300px;
+}

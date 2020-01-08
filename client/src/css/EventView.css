@@ -1,6 +1,14 @@
+#eventViewBackground{
+    background-color: #212529;
+    min-height: 90vh;
+}
 #eventViewContainer{
+    width: 80%;
+    min-height: 90vh;
     padding-top: 20px;
     text-align: center;
+    background-color: white;
+    margin: auto;
 }
 #eventViewInnerContainer{
     display: grid;
@@ -27,19 +35,6 @@
     padding: 0 0 0 0;
     margin: 0 0 0 0;
 }
-.map-container-5{
-    overflow:hidden;
-    padding-bottom:56.25%;
-    position:relative;
-    height:0;
-}
-.map-container-5 iframe{
-    left:0;
-    top:0;
-    height:100%;
-    width:100%;
-    position:absolute;
-}
 .mapouter {
     position:relative;
     text-align:right;
@@ -52,4 +47,39 @@
      !important;
      height:300px;
      width:300px;
+}
+.gmap_canvas iframe{
+    height: 300px;
+    width: 300px;
+}
+@media only screen and (max-width: 800px) {
+    .gmap_canvas {
+        height:250px;
+        width:250px;
+    }
+    .gmap_canvas iframe{
+        height: 250px;
+        width: 250px;
+    }
+    .mapouter {
+        height:250px;
+        width:250px;
+    }
+    #eventViewInnerContainer{
+         grid-template-columns: 1fr;
+         grid-template-areas:
+                 "infoBox"
+                 "mapBox";
+         width: 80%;
+    }
+    #eventViewContainer{
+        padding-bottom: 20px;
+    }
+    #eventViewBackground{
+        background-color: white;
+    }
+}
+
+@media (max-width: 1400px) {
+
 }

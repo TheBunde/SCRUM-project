@@ -11,8 +11,13 @@
 #FooterContainer a{
     padding: 10px;
 }
-
 #Footer a{
+    color: white;
+}
+#Footer p{
+    color: white;
+}
+#Footer h5{
     color: white;
 }
 

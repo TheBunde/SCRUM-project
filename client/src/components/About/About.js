@@ -3,13 +3,14 @@ import '../../css/About.css';
 
 import Navbar from '../Navbar/Navbar.js';
 import Logo from '../../img/Logo1.png'
+import {NavbarMainPage} from "../Navbar/Navbar";
 
 class About extends Component {
   render() {  
     return (
         <div>
-            <Navbar />
-     
+            <NavbarMainPage/>
+
             <div id="AboutDiv">
                 <div id="AboutTitle"><img src={Logo} width="300" /></div>
                 <div id="AboutText"><h4>En portal for god informasjonsflyt under arrangementplanlegging</h4></div>

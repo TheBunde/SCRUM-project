@@ -57,7 +57,7 @@ class RegisterPage extends Component{
                         <button type="button"
                                 id={"regBtn"}
                                 className="btn btn-primary btn-lg"
-                                onClick={(event) => this.regUser(event)} disabled={this.state.role === "ingenRolle" ||this.state.name === "" || this.state.email === ""
+                                onClick={(event) => this.regUser(event)} disabled={this.state.name === "" || this.state.email === ""
                         || this.state.phone === "" || this.state.password === "" || this.state.repeatedPassword === ""}>Registrer
 
                         </button>

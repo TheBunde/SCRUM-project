@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import "../../css/Login_Form.css";
+import "../../css/LoginForm.css";
 import UserService from "../../services/UserService.js"
 
-class Login_Form extends Component{
+class LoginForm extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -18,7 +18,7 @@ class Login_Form extends Component{
         /*if(UserService.validate(this.state.email, this.state.pw)){
 
         }*/
-        console.log("yo");
+        console.log(this.state);
     }
 
 
@@ -27,7 +27,7 @@ class Login_Form extends Component{
         this.setState({
             [e.target.name]: e.target.value 
         });
-        //console.log(this.state);
+        console.log(this.state.pw);
     }
 
     render(){
@@ -49,4 +49,4 @@ class Login_Form extends Component{
     }
 }
 
-export default Login_Form;
+export default LoginForm;

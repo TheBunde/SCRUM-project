@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import Navbar from '../../Navbar/Navbar'
-import Login_Form from "../../Login_Form/Login_Form"
+import LoginForm from "../../LoginForm/LoginForm"
 
 class LoginPage extends Component{
     
@@ -9,7 +9,7 @@ class LoginPage extends Component{
         return (
             <div>
                 <Navbar />
-                <Login_Form />
+                <LoginForm />
             </div>
         );
     }

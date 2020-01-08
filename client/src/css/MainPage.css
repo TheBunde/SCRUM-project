@@ -1,0 +1,14 @@
+
+#MainPageDiv{
+    padding: 200px 0 0 0;
+    margin: auto;
+    text-align: center;
+}
+
+#MainPageButtons{
+    padding: 20px 0 20px 0;
+}
+
+#MainPageButtons button{
+    width: 30%;
+}

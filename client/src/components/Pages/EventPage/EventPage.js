@@ -32,6 +32,7 @@ componentDidMount(){
     let event1 = new event(1, "Pers fest", "01.01.19", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
     let event2 = new event(1, "Simons på skitur", "01.01.19", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
 
+
     this.setState({events: [event1, event2]});
 }
 
@@ -94,7 +95,7 @@ class EventCard extends Component {
     render(){
         return (
             <div id="eventPageEventCardLink">
-                <a onClick={() => window.location.href = ""}>
+                <a onClick={() => window.location.href = "#/event/" + this.props.event_id}>
                     <div class="card eventPageEventCard">
                             <img class="card-img-top eventPageEventCardImg" src={this.props.img_url} alt="Card image cap" />
                             <div class="card-body">

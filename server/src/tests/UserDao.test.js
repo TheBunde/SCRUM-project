@@ -38,9 +38,10 @@ test("that we can register a user", done => {
 test("that we can not register a user that has already been registered", done => {
     function callback(status, data) {
         console.log("Test callback: status = " + status + ", data = " + JSON.stringify(data));
-        //expect(status.to)
+        //expect()
     }
     userDao.registerUser(
+        //This has to be an user which is already registered (from the database-test-set)
         {
             name: "Test testesen", email: "test@test.no", phone: "12345678", password: "hei123"
         },callback

@@ -31,4 +31,4 @@ class EventService{
 }
 
 
-export default EventService;
+export let eventService = new EventService();

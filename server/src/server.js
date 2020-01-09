@@ -9,11 +9,8 @@ dotenv.config();
 
 app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
-<<<<<<< HEAD
 const ProfileDao = require("../src/dao/profileDao");
-=======
 const EventDao = require("../src/dao/eventDao");
->>>>>>> 017c689b08fe5feea151a9d254c0ffe0bfde0446
 
 let pool = mysql.createPool({
     connectionLimit: 5,

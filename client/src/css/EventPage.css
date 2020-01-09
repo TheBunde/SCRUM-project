@@ -7,7 +7,7 @@
 
 #eventPageBar{
     display: grid;
-    padding-bottom: 30px;
+    padding: 20px 0 30px 0;
     grid-template-columns: 1fr 1fr 1fr;
 }
 #eventPageSearchBar{

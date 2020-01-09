@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import Navbar from '../../Navbar/Navbar'
 import ViewUser from "./ViewUser";
-import AdminService from '../../../service/AdminService'
+import {adminService} from '../../../service/AdminService'
 
 class AdminUsersPage extends Component {
 
@@ -50,7 +50,6 @@ class AdminUsersPage extends Component {
     }
 
     componentDidMount() {
-        let adminService = new AdminService();
         adminService.getUsers()
             .then((users) => {
                     this.setState({

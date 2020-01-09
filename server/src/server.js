@@ -1,18 +1,26 @@
-
-let express = require("express"); 
+let express = require("express");
 let mysql = require("mysql");
 let app = express();
-let bodyParser = require("body-parser"); 
+let bodyParser = require("body-parser");
+const UserDao = require("./dao/UserDao");
+const dotenv = require('dotenv');
+dotenv.config();
+
+
 app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
+<<<<<<< HEAD
 const ProfileDao = require("../src/dao/profileDao");
+=======
+const EventDao = require("../src/dao/eventDao");
+>>>>>>> 017c689b08fe5feea151a9d254c0ffe0bfde0446
 
-let pool = mysql.createPool({ 
+let pool = mysql.createPool({
     connectionLimit: 5,
-    host: "mysql.stud.iie.ntnu.no", 
+    host: "mysql.stud.iie.ntnu.no",
     user: "g_scrum_5",
-    password: "TYQHbYDq", 
-    database: "g_scrum_5", 
+    password: "TYQHbYDq",
+    database: "g_scrum_5",
     debug: false
 });
 
@@ -24,8 +32,25 @@ app.use(function(req, res, next) {
     next();
 });
 
+const userDao = new UserDao(pool);
 let adminDao = new AdminDao(pool);
 let profileDao = new ProfileDao(pool);
+let eventDao = new EventDao(pool);
+
+app.post("/user", (req, res) => {
+    userDao.registerUser(req.body, (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
+app.get("/user/:userID", (req, res) => {
+    adminDao.getUser(req.params.userID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
 
 app.get("/users/", (req, res) => {
     console.log("/users/ fikk request fra klient");
@@ -34,6 +59,41 @@ app.get("/users/", (req, res) => {
         res.json(data);
     });
 });
+
+
+app.get("/validate/:email", (req, res) => {
+    console.log("/login request");
+    userDao.getHashAndSalt(req.params.email, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+    /*
+    let salt = "123";
+
+    let dbHash = userDao.getHash(req.body.email, (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+
+    let hash = userDao.hashPassword(req.body.password, salt);
+
+
+    console.log("Hash : "+hash.passwordHash);
+    console.log(userSalt);
+
+
+    if (dbHash === hash) {
+        console.log("Password is OK");
+        //res.json({ "passwordOK": true });
+        //res.status(200);
+    } else {
+        console.log("Password not ok");
+        //res.json({ "passwordOK": false });
+    }
+
+     */
+});
+
 
 app.put("/users/:userID", (req, res) => {
     console.log("users/:userID fikk request fra klient");
@@ -68,4 +128,12 @@ app.put("/profile/:userId/edit", (req, res) => {
 });
 
 
+app.post("/event", (req, res) => {
+    eventDao.addEvent(req.body, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
 let server = app.listen(8080);
+

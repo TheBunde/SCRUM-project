@@ -1,11 +1,25 @@
 import axios from 'axios';
-import event from '../components/Pages/EventPage/EventPage.js';
+
+export class event {
+    constructor(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url){
+        this.name = name;
+        this.date = date;
+        this.place = place;
+        this.artists = artists;
+        this.tech_rider = tech_rider;
+        this.hospitality_rider = hospitality_rider;
+        this.personnel = personnel;
+        this.img_url = img_url;
+        this.description = description;
+    }
+}
 
 class EventService{
 
-    addEvents(event_id, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, category_id, filed, pending, img_url){
-        let newEvent = new event(event_id, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, category_id, filed, pending, img_url);
-        return axios.post("http://localhost:8080/event/", newEvent).then(response => response.data);
+    addEvents(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url){
+        let newEvent = new event(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url);
+        console.log(newEvent);
+        return axios.post("http://localhost:8080/event", newEvent).then(response => response.data);
     }
 
     getEvents(){
@@ -13,10 +27,8 @@ class EventService{
     }
 
     getEventById(eventID){
-        return axios.get("http://localhost:8080/event/" + event_id).then(response => response.data);
+        return axios.get("http://localhost:8080/event/" + eventID).then(response => response.data);
     }
-    
 }
 
-
-export default EventService;
+export let eventService = new EventService();

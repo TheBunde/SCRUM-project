@@ -16,7 +16,11 @@ export const auth = {
     }
 };
 
-class LoginForm extends Component<{props: submit}>{
+/*class LoginForm extends Component<{props: submit}>{
+const jwt =  require('jsonwebtoken');
+//const private_key = 'pizza1234';*/
+
+class LoginForm extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -33,14 +37,18 @@ class LoginForm extends Component<{props: submit}>{
         console.log(this.state.email);
         userService.getHashAndSalt(this.state.email)
             .then((hashAndSalt) => {
+                /*
                 console.log(hashAndSalt.data[0]);
                 console.log(this.sha512(this.state.pw, hashAndSalt.data[0].salt));
-
                 if (this.sha512(this.state.pw, hashAndSalt.data[0].salt).passwordHash == hashAndSalt.data[0].password_hash) {
-                    console.log("Login verified");
-                } else {
-                    console.log("Not correct password");
+                    let token = jwt.sign({ email: this.state.email }, privateKey, {
+                        expiresIn: 360
+                    });
+                    console.log(token);
+
                 }
+
+                 */
 
 
             })

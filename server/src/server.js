@@ -8,6 +8,7 @@ dotenv.config();
 
 
 app.use(bodyParser.json()); // for å tolke JSON
+const AdminDao = require("../src/dao/adminDao");
 
 let pool = mysql.createPool({
     connectionLimit: 5,
@@ -31,6 +32,18 @@ const userDao = new UserDao(pool);
 
 app.post("/user", (req, res) => {
     userDao.registerUser(req.body, (status, data) => {
+let adminDao = new AdminDao(pool);
+
+app.get("/user/:userID", (req, res) => {
+    adminDao.getUser(req.params.userID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.get("/users/", (req, res) => {
+    console.log("/users/ fikk request fra klient");
+    adminDao.getUsers((status, data) => {
         res.status(status);
         res.json(data);
     });
@@ -70,6 +83,28 @@ app.get("/validate/:email", (req, res) => {
 });
 
 
+app.put("/users/:userID", (req, res) => {
+    console.log("users/:userID fikk request fra klient");
+    adminDao.approveUser(req.params.userID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.post("/users/:userID/role/", (req, res) => {
+    console.log("users/:userID/role fikk request fra klient");
+    adminDao.assignRole(req.params.userID, req.body, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.delete("/users/:userID/", (req, res) => {
+    adminDao.deleteUser(req.params.userID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
 
 
 let server = app.listen(8080);

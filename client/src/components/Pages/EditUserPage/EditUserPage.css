@@ -1,0 +1,45 @@
+.EditUserPageWrapper{
+    height: 100%;
+    width: 100%;
+}
+
+.pbContainer{
+    width: 300px;
+    height: 300px;
+    border: 2px solid green;
+    float: right;
+    margin: 80px 100px auto auto;
+}
+
+.infoContainer form{
+    margin: 50px auto auto auto;
+    width: 50%;
+    float: left;
+}
+
+.column{
+    height: 500px;
+    width: 50%;
+}
+
+.btnRow{
+    width:100%;
+    margin-bottom: 20px;
+    display:flex;
+}
+
+#roleDropdown{
+    width: 50%;
+}
+
+#deleteBtn{
+    width: 100%;
+}
+.dropdownColumn{
+    width: 50%;
+
+}
+.btnColumn{
+    width: 50%;
+
+}

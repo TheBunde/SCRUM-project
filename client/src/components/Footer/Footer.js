@@ -7,9 +7,9 @@ class Footer extends Component<> {
 
         <div>
             <div id="Footer">
-                <a className="navbar-brand" href="#/about"><h5>Om</h5></a>
-                <a className="navbar-brand" href="mailto:noreply.harmoni@gmail.com?Subject=Hello%20again">
-                    <h5>Kontakt</h5></a>
+                <a id="FooterLink" className="navbar-brand" href="#/about"><h5>Om</h5></a>
+                <a id="FooterLink" className="navbar-brand" href="mailto:noreply.harmoni@gmail.com?Subject=Hello%20again">
+                    <h5>Kontakt oss</h5></a>
             </div>
 
         </div>

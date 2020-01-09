@@ -2,12 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter, Route, Link, Redirect} from 'react-router-dom';
 import './css/index.css';
-import $ from 'jquery';
-import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
-
 import ToTop from './components/ToTop/ToTop.js';
 import {auth} from "./components/LoginForm/LoginForm.js";
 import Footer from './components/Footer/Footer.js';
@@ -20,6 +17,12 @@ import EventView from './components/Pages/EventView/EventView.js';
 import EditEvent from './components/Pages/EditEvent/EditEvent.js';
 import AddEvent from './components/Pages/AddEvent/AddEvent.js';
 import About from './components/About/About.js';
+import ShowProfile from "./components/Pages/ShowProfile/ShowProfile";
+import EditProfile from "./components/Pages/EditProfile/EditProfile";
+import AdminUserPage from './components/Pages/AdminUsersPage/AdminUsersPage';
+import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
+
+
 
 const Public = () => <h3>Public</h3>
 const Protected = () => <h3>Protected</h3>

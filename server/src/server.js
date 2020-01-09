@@ -94,7 +94,6 @@ app.put("/users/:userID", (req, res) => {
         res.json(data);
     })
 });
->>>>>>> 8d13d37b14e8ada5eaa11eaf28e4ae39aba58ffa
 
 app.post("/users/:userID/role/", (req, res) => {
     console.log("users/:userID/role fikk request fra klient");

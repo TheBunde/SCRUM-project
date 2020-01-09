@@ -18,10 +18,10 @@ class OverviewPage extends Component{
                             <button type="button" className="btn btn-info btn-lg" onClick={this.addEvent}>Legg til ny event</button>
                         </div>
                         <div id="OverviewButtons">
-                            <button type="button" className="btn btn-info btn-lg" onClick={this.seEvents}>Se alle eventer</button>
+                            <button type="button" className="btn btn-info btn-lg" onClick={this.seeEvents}>Se alle eventer</button>
                         </div>
                         <div id="OverviewButtons">
-                            <button type="button" className="btn btn-info btn-lg" onClick={this.seEvents}>Vis profil</button>
+                            <button type="button" className="btn btn-info btn-lg" onClick={this.seeProfile}>Vis profil</button>
                         </div>
                     </div>
                 </div>
@@ -33,12 +33,12 @@ class OverviewPage extends Component{
         history.push("/overview/addEvent")
     }
 
-    seEvents(){
+    seeEvents(){
         history.push("/event")
     }
 
-    seProfile(){
-
+    seeProfile(){
+        history.push("/profile/user")
     }
 }
 

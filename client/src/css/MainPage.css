@@ -1,14 +1,26 @@
 
 #MainPageDiv{
-    padding: 200px 0 0 0;
+    padding: 100px 0 0 0;
     margin: auto;
     text-align: center;
 }
 
-#MainPageButtons{
-    padding: 20px 0 20px 0;
+#MainPageBody{
+    margin: 0px;
+    height: 100%;
+    width: 100%;
 }
 
-#MainPageButtons button{
-    width: 30%;
+#MainPageTitle{
+    font-family: Castellar;
+    font-size: 150px;
+}
+
+#MainPageBtnDiv{
+ padding: 100px 0 300px 0;
+    align-content: center;
+}
+
+#MainPageButtons{
+    padding: 20px 30px 20px 30px;
 }

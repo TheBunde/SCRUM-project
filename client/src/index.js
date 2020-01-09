@@ -10,14 +10,16 @@ import * as serviceWorker from './serviceWorker';
 
 import ToTop from './components/ToTop/ToTop.js';
 import {auth} from "./components/LoginForm/LoginForm.js";
-import LoginPage from './components/Pages/LoginPage/LoginPage.js'
-import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js'
-import OverviewPage from './components/Pages/OverviewPage/OverviewPage.js'
-import MainPage from './components/Pages/MainPage/MainPage.js'
-import EventPage from './components/Pages/EventPage/EventPage.js'
-import EventView from './components/Pages/EventView/EventView.js'
-import EditEvent from './components/Pages/EditEvent/EditEvent.js'
-import AddEvent from './components/Pages/AddEvent/AddEvent.js'
+import Footer from './components/Footer/Footer.js';
+import LoginPage from './components/Pages/LoginPage/LoginPage.js';
+import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js';
+import OverviewPage from './components/Pages/OverviewPage/OverviewPage.js';
+import MainPage from './components/Pages/MainPage/MainPage.js';
+import EventPage from './components/Pages/EventPage/EventPage.js';
+import EventView from './components/Pages/EventView/EventView.js';
+import EditEvent from './components/Pages/EditEvent/EditEvent.js';
+import AddEvent from './components/Pages/AddEvent/AddEvent.js';
+import About from './components/About/About.js';
 
 const Public = () => <h3>Public</h3>
 const Protected = () => <h3>Protected</h3>
@@ -36,12 +38,14 @@ ReactDOM.render(
             <Route exact path="/" component={MainPage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
+            <Route exact path="/about" component={About} />
             <PrivateRoute exact path="/overview" component={OverviewPage} />
             <PrivateRoute exact path="/event" component={EventPage} />
             <PrivateRoute exact path="/event/:id" component={EventView} />
             <PrivateRoute exact path="/event/:id/edit" component={EditEvent} />
             <PrivateRoute exact path="/overview/addEvent" component={AddEvent} />
             <ToTop />
+            <Footer />
         </div>
     </HashRouter>
     , (document.getElementById('root')));

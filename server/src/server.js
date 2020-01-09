@@ -41,7 +41,7 @@ app.get("/validate/:email", (req, res) => {
     userDao.getHashAndSalt(req.params.email, (status, data) => {
         res.status(status);
         res.json(data);
-    });
+    })
     /*
     let salt = "123";
 

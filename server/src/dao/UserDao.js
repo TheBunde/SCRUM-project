@@ -68,11 +68,8 @@ module.exports = class UserDao extends dao {
     }
 
 
-    hashPassword = (userPassword, salt) => {
+    hashPassword(userPassword, salt){
         let passwordData = this.sha512(userPassword, salt);
         return passwordData;
     };
-
-
-
 };

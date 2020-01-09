@@ -6,7 +6,7 @@ let bodyParser = require("body-parser");
 app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
 
-let pool = mysql.createPool({ 
+let pool = mysql.createPool({
     connectionLimit: 5,
     host: "mysql.stud.iie.ntnu.no",
     user: "g_scrum_5",

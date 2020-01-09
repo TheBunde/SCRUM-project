@@ -90,7 +90,7 @@ class AddEvent extends Component{
 
                     <div id ="EventInputCheckboxes">
                         <p id = "EventInputLabels">Billettyper:</p>
-                        <label id = "EventTicketLabels">Gratis billett</label>
+                        <label id = "EventTicketLabels">Gratisbillett</label>
                         <input type ="checkbox"
                                id="FreeTicketBox"
                                name="FreeTicketAmount"
@@ -126,7 +126,7 @@ class AddEvent extends Component{
                         <input type ="number"
                                id ="FreeTicketAmount"
                                class ="form-control"
-                               placeholder = "Antall gratis billetter"
+                               placeholder = "Antall gratisbilletter"
                                value = {this.state.FreeTicketAmount}
                                disabled={!this.state.FreeTicketBox}
                                onChange={this.changeAmount}

@@ -31,11 +31,6 @@ module.exports = class UserDao extends dao {
         return passwordData;
     };
     */
-
-    hashPassword = (passPlainText) => {
-
-
-    };
     registerUser(json, callback) {
 
         let val = [json.name, json.email, json.phone];

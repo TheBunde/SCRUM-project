@@ -1,0 +1,20 @@
+
+#EventInputFields{
+    width: 47%;
+    margin-left: 100px;
+}
+
+#EventInputLabels{
+    font-weight: bold;
+}
+
+#EventInputButton{
+    padding: 20px 0 40px 45%
+}
+
+#EventInputCheckboxes{
+    padding: 20px 0 0 100px;
+}
+#EventTicketLabels {
+    padding: 0 10px 0 50px
+}

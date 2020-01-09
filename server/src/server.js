@@ -9,6 +9,7 @@ dotenv.config();
 
 app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
+const EventDao = require("../src/dao/eventDao");
 
 let pool = mysql.createPool({
     connectionLimit: 5,
@@ -29,6 +30,7 @@ app.use(function(req, res, next) {
 
 const userDao = new UserDao(pool);
 let adminDao = new AdminDao(pool);
+let eventDao = new EventDao(pool);
 
 app.post("/user", (req, res) => {
     userDao.registerUser(req.body, (status, data) => {
@@ -105,6 +107,13 @@ app.post("/users/:userID/role/", (req, res) => {
 
 app.delete("/users/:userID/", (req, res) => {
     adminDao.deleteUser(req.params.userID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.post("/event", (req, res) => {
+    eventDao.addEvent(req.body, (status, data) => {
         res.status(status);
         res.json(data);
     })

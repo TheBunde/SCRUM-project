@@ -1,5 +1,4 @@
 const Dao = require("./dao.js");
-import event from '../../../client/src/service/EventService.js'
 
 module.exports = class adminDao extends Dao{
 

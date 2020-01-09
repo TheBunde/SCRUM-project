@@ -5,6 +5,7 @@ let app = express();
 let bodyParser = require("body-parser"); 
 app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
+const ProfileDao = require("../src/dao/profileDao");
 
 let pool = mysql.createPool({ 
     connectionLimit: 5,
@@ -24,6 +25,7 @@ app.use(function(req, res, next) {
 });
 
 let adminDao = new AdminDao(pool);
+let profileDao = new ProfileDao(pool);
 
 app.get("/users/", (req, res) => {
     console.log("/users/ fikk request fra klient");
@@ -54,6 +56,15 @@ app.delete("/users/:userID/", (req, res) => {
         res.status(status);
         res.json(data);
     })
+});
+
+app.put("/profile/:userId/edit", (req, res) => {
+    console.log('/profile/:userId/edit: fikk request fra klient');
+    profileDao.updateProfile(req.body, (status, data) => {
+        console.log(data);
+        res.status(status);
+        res.json(data);
+    });
 });
 
 

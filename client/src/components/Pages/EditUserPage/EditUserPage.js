@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 
 import Navbar from '../../Navbar/Navbar'
 import "./EditUserPage.css"
+import {adminService} from "../../../service/AdminService";
 
-import AdminService from "../../../service/AdminService";
 class EditUserPage extends Component{
 
 
@@ -11,6 +11,7 @@ class EditUserPage extends Component{
         name: "",
         email: "",
         phone: "",
+        roles: [],
     };
 
 
@@ -19,7 +20,6 @@ class EditUserPage extends Component{
         return (
             <div className={"EditUserPageWrapper"}>
                 <Navbar />
-                <h1>USER EDIT PAGE</h1>
 
                 <div className={"row"}>
                     <div className={"column"}>
@@ -37,17 +37,17 @@ class EditUserPage extends Component{
                             <form>
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1">Navn</label>
-                                    <input className="form-control" type="text" placeholder="Readonly input here…"
+                                    <input value={this.state.name} className="form-control" type="text" placeholder="Readonly input here…"
                                            readOnly/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="exampleInputPassword1">E-post</label>
-                                    <input className="form-control" type="text" placeholder="Readonly input here…"
+                                    <input value={this.state.email} className="form-control" type="text" placeholder="Readonly input here…"
                                            readOnly/>
                                 </div>
                                 <div className="form-group">
                                     <label className="form-check-label" htmlFor="exampleCheck1">Telefon</label>
-                                    <input className="form-control" type="text" placeholder="Readonly input here…"
+                                    <input value={this.state.phone} className="form-control" type="text" placeholder="Readonly input here…"
                                            readOnly/>
                                 </div>
                                 <label className={"form-check-label"}>Rolle</label>
@@ -87,23 +87,30 @@ class EditUserPage extends Component{
                                 </div>
 
 
-
                             </form>
 
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
             </div>
         );
+
     }
 
-
+    componentDidMount() {
+        adminService.getUser(this.props.match.params.id)
+            .then((user) => {
+                    this.setState({
+                        name: user[0].name,
+                        email: user[0].email,
+                        phone: user[0].phone,
+                    })
+                }
+            )
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 }
 
 export default EditUserPage;

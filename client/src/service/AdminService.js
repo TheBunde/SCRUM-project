@@ -4,7 +4,7 @@ import axios from 'axios';
 class AdminService{
 
     getUser(userID){
-        return axios.get("http://localhost:8080/user/:" + userID).then(response => response.data);
+        return axios.get("http://localhost:8080/user/" + userID).then(response => response.data);
     }
 
     getUsers(){
@@ -23,7 +23,8 @@ class AdminService{
     deleteUser(userID){
         return axios.delete("http://localhost:8080/users/:" + userID).then(response => response.data);
     }
+
 }
 
 
-export default AdminService;
+export let adminService = new AdminService();

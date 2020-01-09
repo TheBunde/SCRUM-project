@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter, Route} from 'react-router-dom';
+import {HashRouter, Route, Link, Redirect} from 'react-router-dom';
 import './css/index.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
 import ToTop from './components/ToTop/ToTop.js';
+import {auth} from "./components/LoginForm/LoginForm.js";
 import Footer from './components/Footer/Footer.js';
 import LoginPage from './components/Pages/LoginPage/LoginPage.js';
 import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js';
@@ -23,22 +24,29 @@ import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 
 
 
+const Public = () => <h3>Public</h3>
+const Protected = () => <h3>Protected</h3>
+
+const PrivateRoute = ({component: Component, ...rest}) => (
+    <Route {...rest} render={(props) => (
+        auth.authenticated === true // This is the check for authentication. Later use tokens instead when implemented. Then we good.
+        ? <Component {...props}/>
+        : <Redirect to="/login" />
+    )}/>
+)
+
 ReactDOM.render(
     <HashRouter>
         <div>
             <Route exact path="/" component={MainPage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/overview" component={OverviewPage} />
-            <Route exact path="/profile/user" component={ShowProfile} />
-            <Route exact path="/profile/user/edit" component={EditProfile} />
-            <Route exact path="/event" component={EventPage} />
-            <Route exact path="/event/:id" component={EventView} />
-            <Route exact path="/event/:id/edit" component={EditEvent} />
-            <Route exact path="/overview/addEvent" component={AddEvent} />
-            <Route exact path="/admin/users" component={AdminUserPage}/>
-            <Route exact path="/admin/users/:id/edit" component={EditUserPage}/>
             <Route exact path="/about" component={About} />
+            <PrivateRoute exact path="/overview" component={OverviewPage} />
+            <PrivateRoute exact path="/event" component={EventPage} />
+            <PrivateRoute exact path="/event/:id" component={EventView} />
+            <PrivateRoute exact path="/event/:id/edit" component={EditEvent} />
+            <PrivateRoute exact path="/overview/addEvent" component={AddEvent} />
             <ToTop />
             <Footer />
         </div>

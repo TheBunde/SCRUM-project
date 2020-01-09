@@ -1,17 +1,21 @@
-
-let express = require("express"); 
+let express = require("express");
 let mysql = require("mysql");
 let app = express();
-let bodyParser = require("body-parser"); 
+let bodyParser = require("body-parser");
+const UserDao = require("./dao/UserDao");
+const dotenv = require('dotenv');
+dotenv.config();
+
+
 app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
 
 let pool = mysql.createPool({
     connectionLimit: 5,
-    host: "mysql.stud.iie.ntnu.no", 
+    host: "mysql.stud.iie.ntnu.no",
     user: "g_scrum_5",
-    password: "TYQHbYDq", 
-    database: "g_scrum_5", 
+    password: "TYQHbYDq",
+    database: "g_scrum_5",
     debug: false
 });
 
@@ -23,6 +27,11 @@ app.use(function(req, res, next) {
     next();
 });
 
+const userDao = new UserDao(pool);
+
+
+app.post("/user", (req, res) => {
+    userDao.registerUser(req.body, (status, data) => {
 let adminDao = new AdminDao(pool);
 
 app.get("/user/:userID", (req, res) => {
@@ -39,6 +48,40 @@ app.get("/users/", (req, res) => {
         res.json(data);
     });
 });
+
+app.get("/validate/:email", (req, res) => {
+    console.log("/login request");
+    userDao.getHashAndSalt(req.params.email, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+    /*
+    let salt = "123";
+
+    let dbHash = userDao.getHash(req.body.email, (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+
+    let hash = userDao.hashPassword(req.body.password, salt);
+
+
+    console.log("Hash : "+hash.passwordHash);
+    console.log(userSalt);
+
+
+    if (dbHash === hash) {
+        console.log("Password is OK");
+        //res.json({ "passwordOK": true });
+        //res.status(200);
+    } else {
+        console.log("Password not ok");
+        //res.json({ "passwordOK": false });
+    }
+
+     */
+});
+
 
 app.put("/users/:userID", (req, res) => {
     console.log("users/:userID fikk request fra klient");

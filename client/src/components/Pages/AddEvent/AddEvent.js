@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import "../../../css/AddEvent.css"
-import EventService from "../../../service/EventService";
+import {eventService} from "../../../service/EventService";
 
 import Navbar from '../../Navbar/Navbar'
 
@@ -227,9 +227,9 @@ class AddEvent extends Component{
             + VIPTicket +"\n" + VIPTicketAmount + " \n" + earlyBirdTicket +"\n" + earlyBirdTicketAmount + " \n"
             + goldenCircleTicket + "\n" + goldenCircleTicketAmount)*/
 
-        /*EventService
-            .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
-            .catch(Error => console.log(Error))*/
+        eventService
+            .addEvents(name, null, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
+            .catch(Error => console.log(Error))
 
     }
 }

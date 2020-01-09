@@ -12,6 +12,7 @@ class EditUserPage extends Component{
         email: "",
         phone: "",
         roles: [],
+        approved: "",
     };
 
 
@@ -80,7 +81,7 @@ class EditUserPage extends Component{
                                 </div>
 
                                 <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1"/>
+                                    <input onClick={() => this.handleCheckboxChange()} className="form-check-input" type="checkbox" checked={this.state.approved} value="checkbox" id="defaultCheck1"/>
                                         <label className="form-check-label" htmlFor="defaultCheck1">
                                             Godkjent
                                         </label>
@@ -97,6 +98,17 @@ class EditUserPage extends Component{
 
     }
 
+    handleCheckboxChange = () => {
+
+        {if(!this.state.approved){
+            adminService.approveUser(this.props.match.params.id).then()
+        }}
+
+        this.setState({
+            approved: !this.state.approved
+        })
+    };
+
     componentDidMount() {
         adminService.getUser(this.props.match.params.id)
             .then((user) => {
@@ -104,6 +116,7 @@ class EditUserPage extends Component{
                         name: user[0].name,
                         email: user[0].email,
                         phone: user[0].phone,
+
                     })
                 }
             )

@@ -40,13 +40,7 @@ app.get("/users/", (req, res) => {
     });
 });
 
-app.put("/users/:userID", (req, res) => {
-    console.log("users/:userID fikk request fra klient");
-    adminDao.approveUser(req.params.userID, (status, data) => {
-        res.status(status);
-        res.json(data);
-    })
-});
+
 
 app.post("/users/:userID/role/", (req, res) => {
     console.log("users/:userID/role fikk request fra klient");
@@ -62,8 +56,5 @@ app.delete("/users/:userID/", (req, res) => {
         res.json(data);
     })
 });
-
-
-
 
 let server = app.listen(8080);

@@ -2,12 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter, Route} from 'react-router-dom';
 import './css/index.css';
-import $ from 'jquery';
-import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
-
 import ToTop from './components/ToTop/ToTop.js';
 import Footer from './components/Footer/Footer.js';
 import LoginPage from './components/Pages/LoginPage/LoginPage.js';
@@ -21,6 +18,9 @@ import AddEvent from './components/Pages/AddEvent/AddEvent.js';
 import About from './components/About/About.js';
 import ShowProfile from "./components/Pages/ShowProfile/ShowProfile";
 import EditProfile from "./components/Pages/EditProfile/EditProfile";
+import AdminUserPage from './components/Pages/AdminUsersPage/AdminUsersPage';
+
+
 
 ReactDOM.render(
     <HashRouter>
@@ -35,6 +35,7 @@ ReactDOM.render(
             <Route exact path="/event/:id" component={EventView} />
             <Route exact path="/event/:id/edit" component={EditEvent} />
             <Route exact path="/overview/addEvent" component={AddEvent} />
+            <Route exact path="/admin/users" component={AdminUserPage}/>
             <Route exact path="/about" component={About} />
             <ToTop />
             <Footer />

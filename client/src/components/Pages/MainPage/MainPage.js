@@ -14,14 +14,13 @@ class MainPage extends Component{
     render() {
         return (
             <div>
-
                 <NavbarMainPage />
                 <body  id="MainPageBody" background="mainPageBackground.jpg">
                 <div id="MainPageDiv">
                     <h1 id="MainPageTitle"> Harmoni </h1>
                     <div id="MainPageBtnDiv">
-                        <a id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg mr-5" href="#/login">Log in</a>
-                        <a id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg" href="#/register">Register</a>
+                        <a id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg mr-5" href="#/event">Log in</a>
+                        <a id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg" href="#/event/1">Register</a>
                     </div>
 
                 </div>

@@ -1,15 +1,38 @@
-#eventPageBar{
-    display: grid;
-    padding-bottom: 30px;
-    grid-template-columns: 1fr 1fr 1fr;
-}
 #eventPageContainer{
     padding: 0 0 0 0;
     margin: auto;
     text-align: center;
     width: 90%;
 }
+
+#eventPageBar{
+    display: grid;
+    padding-bottom: 30px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
 #eventPageSearchBar{
     padding: 0 0 0 0;
     width: 80%;
+}
+
+
+#eventPageEventTable{
+    width: 78vw;
+    margin: auto auto 50px auto;
+}
+.eventPageEventCard{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    max-height: 200px;
+    margin: 20px;
+}
+.eventPageEventCardLink{
+    cursor: pointer;
+}
+.eventPageEventCardImg{
+    height: 100%;
+}
+.eventPageEventCardButton{
+    postion: relative;
+    margin: auto;
 }

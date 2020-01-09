@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-class adminServices{
+
+class AdminServices{
 
     getUsers(){
         return axios.get("http://localhost:8080/users/").then(response => response.data);
@@ -19,3 +20,6 @@ class adminServices{
         return axios.delete("http://localhost:8080/users/:" + userID).then(response => response.data);
     }
 }
+
+
+export default AdminService;

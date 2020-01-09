@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-class AdminServices{
+class AdminService{
 
     getUsers(){
         return axios.get("http://localhost:8080/users/").then(response => response.data);

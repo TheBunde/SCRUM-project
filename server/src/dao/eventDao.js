@@ -1,4 +1,5 @@
 const Dao = require("./dao.js");
+import event from '../../../client/src/service/EventService.js'
 
 module.exports = class adminDao extends Dao{
 
@@ -10,7 +11,7 @@ module.exports = class adminDao extends Dao{
         super.query("SELECT * FROM Event WHERE event_id=?", [eventID], callback);
     }
 
-    postEvent(json, callback){
-        super.query("INSERT INTO Event(name, description, date, place, img_url, artists, tech_rider, hospitality_rider, personnel) VALUES (?,?,?,?,?,?,?,?,?)", [json.name, json.description, json.date, json.place, json.img_url, json.artists, json.tech_rider, json.hospitality_rider, json.personnel], callback)
+    addEvent(event, callback){
+        super.query("INSERT INTO Event(name, description, date, place, img_url, artists, tech_rider, hospitality_rider, personnel) VALUES (?,?,?,?,?,?,?,?,?)", [event.name, event.description, event.date, event.place, event.img_url, event.artists, event.tech_rider, event.hospitality_rider, event.personnel], callback)
     }
 };

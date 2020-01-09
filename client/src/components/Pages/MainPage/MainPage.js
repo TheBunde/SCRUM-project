@@ -16,16 +16,14 @@ class MainPage extends Component{
             <div>
                 <NavbarMainPage />
                 <body  id="MainPageBody" background="mainPageBackground.jpg">
-                <div id="MainPageDiv">
-                    <h1 id="MainPageTitle"> Harmoni </h1>
-                    <div id="MainPageBtnDiv">
-                        <button id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg mr-5" onClick={this.logIn}>Logg inn</button>
-                        <button id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg" onClick={this.register}>Register</button>
+                    <div id="MainPageDiv">
+                        <h1 id="MainPageTitle"> Harmoni </h1>
+                        <div id="MainPageBtnDiv">
+                            <button id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg mr-5" onClick={this.logIn}>Logg inn</button>
+                            <button id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg" onClick={this.register}>Register</button>
+                        </div>
                     </div>
-
-                </div>
                 </body>
-
             </div>
         );
     }

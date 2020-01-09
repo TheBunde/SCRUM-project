@@ -26,7 +26,8 @@
     margin: 20px;
     height: 200px;
 }
-.eventPageEventCardLink{
+.eventPageEventCard:hover{
+    background-color: rgb(250, 250, 250);
     cursor: pointer;
 }
 .eventPageEventCardImg{

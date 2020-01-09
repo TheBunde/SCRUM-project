@@ -111,9 +111,4 @@ app.delete("/users/:userID/", (req, res) => {
     })
 });
 
-<<<<<<< HEAD
 let server = app.listen(8080);
-=======
-
-let server = app.listen(8080);
->>>>>>> 8d13d37b14e8ada5eaa11eaf28e4ae39aba58ffa

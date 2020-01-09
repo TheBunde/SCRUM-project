@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import "../../css/LoginForm.css";
 import UserService from "../../services/UserService.js"
+import {User} from "../../services/UserService";
+let crypto = require('crypto');
 
 class LoginForm extends Component{
     constructor(props){
@@ -15,11 +17,38 @@ class LoginForm extends Component{
     // Submitting the values in state to a validate function to check if email/pw are valid.
     // If so, send the user to the home page/overview page.
     submit = (e) => {
+        let userService = new UserService();
+        console.log(this.state.email);
+        userService.getHashAndSalt(this.state.email)
+            .then((hashAndSalt) => {
+                console.log(hashAndSalt.data[0]);
+                console.log(this.sha512(this.state.pw, hashAndSalt.data[0].salt));
+
+                if (this.sha512(this.state.pw, hashAndSalt.data[0].salt).passwordHash == hashAndSalt.data[0].password_hash) {
+                    console.log("Login verified");
+                } else {
+                    console.log("Not correct password");
+                }
+
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
         /*if(UserService.validate(this.state.email, this.state.pw)){
 
         }*/
-        console.log(this.state);
-    }
+    };
+
+    sha512 = (password, salt) => {
+        let hash = crypto.createHmac('sha512', salt); /** Hashing algorithm sha512 */
+        hash.update(password);
+        let value = hash.digest('hex');
+        return {
+            salt:salt,
+            passwordHash:value
+        };
+    };
 
 
     // Runs every time input-fields are updated. Updates the state with the most current values.

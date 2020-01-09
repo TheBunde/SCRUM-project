@@ -9,12 +9,12 @@ dotenv.config();
 
 app.use(bodyParser.json()); // for å tolke JSON
 
-let pool = mysql.createPool({ 
+let pool = mysql.createPool({
     connectionLimit: 5,
-    host: process.env.DB_URL,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB,
+    host: "mysql.stud.iie.ntnu.no",
+    user: "g_scrum_5",
+    password: "TYQHbYDq",
+    database: "g_scrum_5",
     debug: false
 });
 
@@ -28,6 +28,7 @@ app.use(function(req, res, next) {
 
 const userDao = new UserDao(pool);
 
+
 app.post("/user", (req, res) => {
     userDao.registerUser(req.body, (status, data) => {
         res.status(status);
@@ -35,14 +36,13 @@ app.post("/user", (req, res) => {
     });
 });
 
-app.get("/validate", (req, res) => {
+app.get("/validate/:email", (req, res) => {
     console.log("/login request");
-    let userSalt = userDao.getSalt(req.body.email, (status, data) => {
+    userDao.getHashAndSalt(req.params.email, (status, data) => {
         res.status(status);
         res.json(data);
-        //console.log(res);
     });
-
+    /*
     let salt = "123";
 
     let dbHash = userDao.getHash(req.body.email, (status, data) => {
@@ -65,6 +65,8 @@ app.get("/validate", (req, res) => {
         console.log("Password not ok");
         //res.json({ "passwordOK": false });
     }
+
+     */
 });
 
 

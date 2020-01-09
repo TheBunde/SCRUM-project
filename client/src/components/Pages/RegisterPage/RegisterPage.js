@@ -32,12 +32,9 @@ class RegisterPage extends Component{
 
                 <form>
                     <div className="form-group">
-
-
                         <label htmlFor="exampleInputEmail1">Navn: </label>
                         <input type="name" name={"name"} className="form-control" id="firstNameInput"
                                onChange={this.handleTextChange.bind(this)} aria-describedby="emailHelp" placeholder="Navn..."/>
-
 
                         <label htmlFor="exampleInputEmail1">Email: </label>
                         <input type="email" name={"email"} className="form-control" id="emailInput"

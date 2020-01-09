@@ -28,11 +28,14 @@ app.use(function(req, res, next) {
 });
 
 const userDao = new UserDao(pool);
-
+let adminDao = new AdminDao(pool);
 
 app.post("/user", (req, res) => {
     userDao.registerUser(req.body, (status, data) => {
-let adminDao = new AdminDao(pool);
+        res.status(status);
+        res.json(data);
+    });
+});
 
 app.get("/user/:userID", (req, res) => {
     adminDao.getUser(req.params.userID, (status, data) => {

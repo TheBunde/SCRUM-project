@@ -29,6 +29,8 @@ ReactDOM.render(
             <Route exact path="/event/:id" component={EventView} />
             <Route exact path="/event/:id/edit" component={EditEvent} />
             <Route exact path="/overview/addEvent" component={AddEvent} />
+            <Route exact path="/admin" component={AdminPage} />
+            <Route exact path="/admin/users" component={AdminUserPage}/>
             <ToTop />
         </div>
     </HashRouter>

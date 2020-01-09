@@ -22,4 +22,6 @@ module.exports = class adminDao extends Dao{
     deleteUser(userID, callback){
         super.query("DELETE FROM User WHERE user_id=?", [userID], callback);
     }
+
+
 };

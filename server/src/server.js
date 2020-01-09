@@ -8,7 +8,7 @@ const AdminDao = require("../src/dao/adminDao");
 
 let pool = mysql.createPool({ 
     connectionLimit: 5,
-    host: "mysql.stud.iie.ntnu.no", 
+    host: "mysql.stud.iie.ntnu.no",
     user: "g_scrum_5",
     password: "TYQHbYDq", 
     database: "g_scrum_5", 
@@ -62,6 +62,8 @@ app.delete("/users/:userID/", (req, res) => {
         res.json(data);
     })
 });
+
+
 
 
 let server = app.listen(8080);

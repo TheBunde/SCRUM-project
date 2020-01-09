@@ -3,6 +3,10 @@ import axios from 'axios';
 
 class AdminService{
 
+    getUser(userID){
+        return axios.get("http://localhost:8080/user/:" + userID).then(response => response.data);
+    }
+
     getUsers(){
         return axios.get("http://localhost:8080/users/").then(response => response.data);
     }

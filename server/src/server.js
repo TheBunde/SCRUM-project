@@ -25,6 +25,13 @@ app.use(function(req, res, next) {
 
 let adminDao = new AdminDao(pool);
 
+app.get("/user/:userID", (req, res) => {
+    adminDao.getUser(req.params.userID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
 app.get("/users/", (req, res) => {
     console.log("/users/ fikk request fra klient");
     adminDao.getUsers((status, data) => {

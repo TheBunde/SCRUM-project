@@ -1,0 +1,16 @@
+#ShowProfileDiv{
+    text-align: center;
+    margin: auto;
+    padding-top: 50px;
+    min-height: 93vh;
+}
+
+#ShowProfileText{
+    padding: 50px 0 50px 0;
+}
+
+#ShowProfileBtn{
+    padding: 10px 0 10px 0;
+}
+
+

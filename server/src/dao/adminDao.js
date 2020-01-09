@@ -2,6 +2,10 @@ const Dao = require("./dao.js");
 
 module.exports = class adminDao extends Dao{
 
+    getUser(userID, callback){
+        super.query("SELECT * FROM User WHERE user_id=?", [userID], callback);
+    }
+
     getUsers(callback){
         super.query("SELECT user_id, name, email, phone, role_id, approved FROM User ORDER BY user_id", [], callback);
     }

@@ -26,21 +26,49 @@ class EventPage extends Component{
         this.state = {
             events: []
         }
-}
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
+    }
 
-componentDidMount(){
-    let event1 = new event(1, "Pers fest", "01.01.19", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
-    let event2 = new event(1, "Simons på skitur", "01.01.19", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
+    handleChange(event) {
+        this.setState({value: event.target.value});
+    }
 
+    handleSearch() {
+        const searchTitleElement = document.getElementById("searchBar");
+        let searchTitle = searchTitleElement.value;
+        if(searchTitle !== ""){
+            this.setState({events: this.state.events.filter(e => e.name.toLowerCase().includes(searchTitle.toLowerCase()) || e.description.toLowerCase().includes(searchTitle.toLowerCase()))});
+        } else {
+            // Here you would have to copy the componentDidMount() when backend is up and running
+            let event1 = new event(1, "Pers fest", "01.01.19", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
+            let event2 = new event(1, "Simons på skitur", "01.01.19", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
+            this.setState({events: [event1, event2]});
+        }
+    }
 
-    this.setState({events: [event1, event2]});
-}
+    componentDidMount(){
+        let event1 = new event(1, "Pers fest", "01.01.19", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
+        let event2 = new event(1, "Simons på skitur", "01.01.19", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
+        this.setState({events: [event1, event2]});
+    }
+
+    componentDidUpdate(prevProps){
+        if(this.props.match.params.id !== prevProps.match.params.id){
+            window.scrollTo(0,0);
+            
+        let event1 = new event(1, "Pers fest", "01.01.19", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
+        let event2 = new event(1, "Simons på skitur", "01.01.19", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
+        this.setState({events: [event1, event2]});
+
+        }
+    }
 
     render() {
         return (
             <div>
                 <Navbar />
-
+                
                 <div id="eventPageBackground">
                     <div id="eventPageContainer">
                         <div id="eventPageTitle">
@@ -74,7 +102,8 @@ componentDidMount(){
                                 </div>
                             </div>
                             <div id="eventPageSearchBar">
-                                <input className="form-control" type="text" placeholder="Søk" aria-label="Search"></input>
+                                <input className="form-control" type="text" placeholder="Søk" aria-label="Search" id="searchBar"></input>
+                                <button type="button" class="btn btn-primary btn-rounded" onClick={() => this.handleSearch()}>Søk</button>
                             </div>
                         </div>
                         <div id="eventPageEventTable">

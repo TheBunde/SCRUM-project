@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 
-import Navbar from '../../Navbar/Navbar'
 import "./RegisterPage.css"
 import UserService, {User} from "../../../services/UserService.js";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-
-
+import {NavbarMainPage} from '../../Navbar/Navbar'
 
 class RegisterPage extends Component{
 
@@ -25,8 +23,7 @@ class RegisterPage extends Component{
     render() {
         return (
             <div className={"wrapper"}>
-                <Navbar />
-
+                <NavbarMainPage/>
                 <div className={"registerContainer"}>
                 <h1 id={"regTitle"}>Registrer ny bruker</h1>
 

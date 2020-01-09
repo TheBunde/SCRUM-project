@@ -5,9 +5,9 @@ import {User} from "../../services/UserService";
 let crypto = require('crypto');
 
 export const auth = {
-    authenticated: false,
+    authenticated: true,
     authenticate(callback){
-        this.authenticated = true;
+        this.authenticated = true; // Remember to fix this later!!!!
         setTimeout(callback, 100);
     },
     signout(callback){

@@ -76,43 +76,39 @@ module.exports = class UserDao extends dao {
          */
     }
 
+    getSalt(email, callback)
+    {
+        super.query(
+            "SELECT salt FROM User WHERE email LIKE ?",
+            [email],
+            callback
+        );
+
+    }
+
+    getHashAndSalt(email, callback)
+    {
+        super.query(
+            "SELECT password_hash, salt from User where email = ?",
+            [email],
+            callback
+        );
+    }
 
 
+    getHash(email, callback)
+    {
 
+        super.query(
+            "SELECT password_hash FROM User WHERE email LIKE ?",
+            email,
+            callback
+        );
+        //console.log(callback);
+    }
 
-getSalt(email, callback)
-{
-    super.query(
-        "SELECT salt FROM User WHERE email LIKE ?",
-        [email],
-        callback
-    );
-
-}
-
-getHashAndSalt(email, callback)
-{
-    super.query(
-        "SELECT password_hash, salt from User where email = ?",
-        [email],
-        callback
-    );
-}
-
-
-getHash(email, callback)
-{
-
-    super.query(
-        "SELECT password_hash FROM User WHERE email LIKE ?",
-        email,
-        callback
-    );
-    //console.log(callback);
-}
-
-
-
-
-}
-;
+    hashPassword(userPassword, salt){
+        let passwordData = this.sha512(userPassword, salt);
+        return passwordData;
+    };
+};

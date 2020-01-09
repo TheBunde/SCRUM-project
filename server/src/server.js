@@ -6,6 +6,12 @@ const UserDao = require("./dao/UserDao");
 const dotenv = require('dotenv');
 dotenv.config();
 
+let bcrypt = require("bcrypt");
+let saltRounds = 10;
+
+
+const jwt = require('jsonwebtoken');
+
 
 app.use(bodyParser.json()); // for å tolke JSON
 
@@ -35,6 +41,8 @@ app.post("/user", (req, res) => {
         res.json(data);
     });
 });
+
+
 
 app.get("/validate/:email", (req, res) => {
     console.log("/login request");

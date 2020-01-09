@@ -134,6 +134,7 @@ class RegisterPage extends Component{
                     this.toggleModal("Bruker registrert!")
                 })
                 .catch((error) => {
+                    console.error(error.response.data);
                     if (error.response.data.sqlMessage.indexOf("email") > -1) {
                         console.log("e-post");
                         this.toggleModal("E-posten er allerede i bruk");

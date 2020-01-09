@@ -24,8 +24,10 @@ class RegisterPage extends Component{
     
     render() {
         return (
-            <div className={"registerContainer"}>
+            <div className={"wrapper"}>
                 <Navbar />
+
+                <div className={"registerContainer"}>
                 <h1 id={"regTitle"}>Registrer ny bruker</h1>
 
                 <form>
@@ -79,6 +81,8 @@ class RegisterPage extends Component{
                     </Modal.Footer>
                 </Modal>
             </div>
+            </div>
+
         );
     }
 

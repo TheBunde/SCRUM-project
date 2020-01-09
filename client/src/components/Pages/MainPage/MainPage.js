@@ -17,9 +17,7 @@ class MainPage extends Component{
                     <div id="MainPageButtons">
                         <button type="button" className="btn btn-outline-secondary btn-lg">Registrer ny bruker</button>
                     </div>
-                    
                 </div>
-
             </div>
         );
     }

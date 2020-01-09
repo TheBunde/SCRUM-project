@@ -28,7 +28,7 @@ app.use(function(req, res, next) {
 
 const userDao = new UserDao(pool);
 
-app.post("/users", (req, res) => {
+app.post("/user", (req, res) => {
     userDao.registerUser(req.body, (status, data) => {
         res.status(status);
         res.json(data);

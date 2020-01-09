@@ -3,13 +3,15 @@ let crypto = require('crypto');
 
 module.exports = class UserDao extends dao {
     //Creating the salt
-    genRandomString = (length) => {
+
+    genRandomString(length) {
         return crypto.randomBytes(Math.ceil(length/2))
             .toString('hex') /** convert to hexadecimal format */
             .slice(0,length);   /** return required number of characters */
     };
 
-    sha512 = (password, salt) => {
+
+    sha512(password, salt) {
         let hash = crypto.createHmac('sha512', salt); /** Hashing algorithm sha512 */
         hash.update(password);
         let value = hash.digest('hex');
@@ -19,18 +21,19 @@ module.exports = class UserDao extends dao {
         };
     };
 
-    saltHashPassword = (userPassword) => {
+
+    saltHashPassword(userPassword) {
         let salt = this.genRandomString(16); /** Gives us salt of length 16 */
         let passwordData = this.sha512(userPassword, salt);
         return passwordData;
     };
 
+    //Needs to find a way to catch the sql error if they occur
     registerUser(json, callback) {
         let pass = this.saltHashPassword(json.password);
-        console.log(pass);
-        let val = [json.name, json.email, json.phone, pass.salt, pass.passwordHash, json.role_id];
+        let val = [json.name, json.email, json.phone, pass.salt, pass.passwordHash];
         super.query(
-            "INSERT into User (name, email, phone, salt, password_hash, role_id) values (?, ?, ?,  ?, ?, ?)",
+            "INSERT into User (name, email, phone, salt, password_hash) values (?, ?, ?,  ?, ?)",
             val,
             callback
         );
@@ -62,6 +65,7 @@ module.exports = class UserDao extends dao {
         let passwordData = this.sha512(userPassword, salt);
         return passwordData;
     };
+
 
 
 };

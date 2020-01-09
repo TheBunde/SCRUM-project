@@ -1,0 +1,32 @@
+
+.registerContainer{
+    width: 100%;
+}
+
+
+#regTitle{
+
+    text-align: center;
+    margin: 100px auto auto auto;
+    width: 50%;
+}
+
+#regDropdown{
+    margin-bottom: 30px;
+}
+
+#regBtn{
+    margin: 50px auto 200px auto;
+    display: block;
+    width: 33%;
+}
+
+.registerContainer form{
+
+    margin: 40px auto auto auto;
+    width: 50%;
+}
+
+.registerContainer input{
+    margin-bottom: 20px;
+}

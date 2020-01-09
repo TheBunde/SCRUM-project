@@ -24,7 +24,7 @@ class ShowProfile extends Component{
                     <h1>Min profil</h1>
                     <div id="ShowProfileText">
                         <h4>Brukernavn: {this.name}</h4>
-                        <h4>telf: {this.tlf}</h4>
+                        <h4>tlf: {this.tlf}</h4>
                         <h4>E-mail: {this.email}</h4>
                     </div>
 

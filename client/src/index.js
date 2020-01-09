@@ -19,6 +19,7 @@ import About from './components/About/About.js';
 import ShowProfile from "./components/Pages/ShowProfile/ShowProfile";
 import EditProfile from "./components/Pages/EditProfile/EditProfile";
 import AdminUserPage from './components/Pages/AdminUsersPage/AdminUsersPage';
+import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 
 
 
@@ -36,6 +37,7 @@ ReactDOM.render(
             <Route exact path="/event/:id/edit" component={EditEvent} />
             <Route exact path="/overview/addEvent" component={AddEvent} />
             <Route exact path="/admin/users" component={AdminUserPage}/>
+            <Route exact path="/admin/users/:id/edit" component={EditUserPage}/>
             <Route exact path="/about" component={About} />
             <ToTop />
             <Footer />

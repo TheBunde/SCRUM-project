@@ -1,7 +1,8 @@
 #ShowProfileDiv{
     text-align: center;
     margin: auto;
-    padding-top: 100px;
+    padding-top: 50px;
+    min-height: 93vh;
 }
 
 #ShowProfileText{

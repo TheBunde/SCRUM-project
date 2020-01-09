@@ -23,14 +23,16 @@
 .eventPageEventCard{
     display: grid;
     grid-template-columns: 1fr 2fr;
-    max-height: 200px;
     margin: 20px;
+    height: 200px;
 }
 .eventPageEventCardLink{
     cursor: pointer;
 }
 .eventPageEventCardImg{
+    width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 .eventPageEventCardButton{
     postion: relative;

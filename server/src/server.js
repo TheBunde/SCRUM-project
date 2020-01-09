@@ -112,6 +112,7 @@ app.delete("/users/:userID/", (req, res) => {
     })
 });
 
+
 app.post("/event", (req, res) => {
     eventDao.addEvent(req.body, (status, data) => {
         res.status(status);
@@ -120,3 +121,4 @@ app.post("/event", (req, res) => {
 });
 
 let server = app.listen(8080);
+

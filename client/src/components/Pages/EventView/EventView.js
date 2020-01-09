@@ -64,7 +64,7 @@ class EventView extends Component{
                         </div>
                         <div id="eventViewButtons">
                             <div id="eventViewBack">
-                                <button type="button" className="btn btn-outline-primary">Back</button>
+                                <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Back</button>
                             </div>
                             <div id="eventViewArchive">
                                 <button type="button" className="btn btn-outline-primary">Archive</button>

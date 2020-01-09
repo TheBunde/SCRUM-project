@@ -45,7 +45,7 @@ class EventPage extends Component{
                             <div id="eventPageSearchBar">
                                 <input className="form-control" type="text" placeholder="Søk" aria-label="Search"></input>
                             </div>
-                            <div id="eventPageInnerContainer">
+                            <div id="eventPageCardContainer">
                                 <ul>
                                     <li>
 

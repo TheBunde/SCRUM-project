@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 import Navbar from '../../Navbar/Navbar'
 import "./EditUserPage.css"
+
+import AdminService from "../../../service/AdminService";
 class EditUserPage extends Component{
 
 
@@ -101,9 +103,6 @@ class EditUserPage extends Component{
         );
     }
 
-    componentDidMount() {
-        AdminService.getUser()
-    }
 
 }
 

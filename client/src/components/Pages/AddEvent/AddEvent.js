@@ -25,9 +25,11 @@ class AddEvent extends Component{
         this.changeAmount = this.changeAmount.bind(this);
     }
 
+
     changeBox(event){
         this.setState({[event.target.id]: event.target.checked});
         if(this.state[event.target.id]) this.setState({[event.target.name]: 0});
+
     }
 
     changeAmount(event){
@@ -226,7 +228,8 @@ class AddEvent extends Component{
             + goldenCircleTicket + "\n" + goldenCircleTicketAmount)*/
 
         /*EventService
-            .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, null, null, null, picture)*/
+            .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
+            .catch(Error => console.log(Error))*/
 
     }
 }

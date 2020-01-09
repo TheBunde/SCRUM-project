@@ -15,7 +15,7 @@ let pool = mysql.createPool({
 
 
 let userDao = new UserDao(pool);
-
+/*
 beforeAll(done => {
     runsqlfile("create_tables.sql", pool, () => {
         runsqlfile("create_testdata.sql", pool, done);
@@ -52,3 +52,5 @@ test("that we can not register a user that has already been registered", done =>
 afterAll() => {
     pool.end();
 }
+
+ */

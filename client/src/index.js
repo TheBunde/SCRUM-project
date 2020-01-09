@@ -19,6 +19,8 @@ import EventView from './components/Pages/EventView/EventView.js';
 import EditEvent from './components/Pages/EditEvent/EditEvent.js';
 import AddEvent from './components/Pages/AddEvent/AddEvent.js';
 import About from './components/About/About.js';
+import ShowProfile from "./components/Pages/ShowProfile/ShowProfile";
+import EditProfile from "./components/Pages/EditProfile/EditProfile";
 
 ReactDOM.render(
     <HashRouter>
@@ -27,6 +29,8 @@ ReactDOM.render(
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/overview" component={OverviewPage} />
+            <Route exact path="/profile/user" component={ShowProfile} />
+            <Route exact path="/profile/user/edit" component={EditProfile} />
             <Route exact path="/event" component={EventPage} />
             <Route exact path="/event/:id" component={EventView} />
             <Route exact path="/event/:id/edit" component={EditEvent} />

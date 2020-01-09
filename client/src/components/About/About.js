@@ -19,7 +19,7 @@ class About extends Component {
                     <div id="AboutButtons">
                         <button type="button" className="btn btn-outline-light btn-lg" onClick={()=> window.location.href = "#/register"}>Registrer ny bruker</button>
                     </div> 
-                </div>  
+                </div>          
             </div>
         </div>
     )

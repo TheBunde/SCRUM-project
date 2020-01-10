@@ -35,29 +35,14 @@ class LoginForm extends Component{
     submit = (e) => {
         let userService = new UserService();
         console.log(this.state.email);
-        userService.getHashAndSalt(this.state.email)
-            .then((hashAndSalt) => {
-                /*
-                console.log(hashAndSalt.data[0]);
-                console.log(this.sha512(this.state.pw, hashAndSalt.data[0].salt));
-                if (this.sha512(this.state.pw, hashAndSalt.data[0].salt).passwordHash == hashAndSalt.data[0].password_hash) {
-                    let token = jwt.sign({ email: this.state.email }, privateKey, {
-                        expiresIn: 360
-                    });
-                    console.log(token);
-
-                }
-
-                 */
-
-
+        userService.validate(this.state.email, this.state.pw)
+            .then(() => {
+                console.log("Gikk");
             })
-            .catch((error) => {
-                console.error(error);
-            });
-        /*if(UserService.validate(this.state.email, this.state.pw)){
+            .catch((err) => {
+                console.error(err);
+            })
 
-        }*/
     };
 
     sha512 = (password, salt) => {

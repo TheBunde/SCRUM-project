@@ -22,8 +22,6 @@ import EditProfile from "./components/Pages/EditProfile/EditProfile";
 import AdminUserPage from './components/Pages/AdminUsersPage/AdminUsersPage';
 import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 
-
-
 const Public = () => <h3>Public</h3>
 const Protected = () => <h3>Protected</h3>
 

@@ -5,6 +5,7 @@ let bodyParser = require("body-parser");
 const UserDao = require("./dao/UserDao");
 const dotenv = require('dotenv');
 dotenv.config();
+//import validatePassword from "./middleware";
 
 let bcrypt = require("bcrypt");
 let saltRounds = 10;
@@ -43,12 +44,11 @@ app.post("/user", (req, res) => {
     });
 });
 
-app.get("/user/:userID", (req, res) => {
-    adminDao.getUser(req.params.userID, (status, data) => {
-        res.status(status);
-        res.json(data);
-    })
+app.post("/validate", (req,res) => {
+    console.log(req);
+    //validatePassword(req.body.password);
 });
+
 
 app.get("/users/", (req, res) => {
     console.log("/users/ fikk request fra klient");
@@ -60,35 +60,14 @@ app.get("/users/", (req, res) => {
 
 app.get("/validate/:email", (req, res) => {
     console.log("/login request");
-    userDao.getHashAndSalt(req.params.email, (status, data) => {
-        res.status(status);
-        res.json(data);
-    })
-    /*
-    let salt = "123";
-
-    let dbHash = userDao.getHash(req.body.email, (status, data) => {
+    /*userDao.getHash(req.params.email, (status, data) => {
         res.status(status);
         res.json(data);
     });
 
-    let hash = userDao.hashPassword(req.body.password, salt);
-
-
-    console.log("Hash : "+hash.passwordHash);
-    console.log(userSalt);
-
-
-    if (dbHash === hash) {
-        console.log("Password is OK");
-        //res.json({ "passwordOK": true });
-        //res.status(200);
-    } else {
-        console.log("Password not ok");
-        //res.json({ "passwordOK": false });
-    }
-
      */
+
+
 });
 
 

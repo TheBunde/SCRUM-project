@@ -27,10 +27,10 @@ export class UserService {
     }
 
     validate(email, pw){
-        return Axios.get("http://localhost:8080/user", email, pw);
+        return Axios.post("http://localhost:8080/validate", email, pw);
     }
 
-    getHashAndSalt(email) {
+    getHash(email) {
         return Axios.get("http://localhost:8080/validate/" + email);
     }
 }

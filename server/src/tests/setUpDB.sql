@@ -13,8 +13,7 @@ create table Event
   personnel text,
   filed tinyint not null default 0,
   pending tinyint not null default 1,
-  constraint event_pk primary key (event_id),
-  fulltext (name, description, place, artists)
+  constraint event_pk primary key (event_id)
 );
 
 create table Ticket_Category

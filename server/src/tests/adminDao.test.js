@@ -1,5 +1,6 @@
 let mysql = require("mysql");
 const AdminDao = require("../dao/adminDao.js");
+let runsqlfile = require("./runsqlfile.js");
 
 // GitLab CI Pool
 let pool = mysql.createPool({
@@ -13,6 +14,11 @@ let pool = mysql.createPool({
 });
 
 let adminDao = new AdminDao(pool);
+
+
+beforeAll(done => {
+    runsqlfile("../CreateDB.sql", pool, done);
+});
 
 afterAll(() => {
     pool.end();

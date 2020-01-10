@@ -3,21 +3,18 @@ let mysql = require('mysql');
 const ProfileDao = require('../dao/profileDao');
 const runsqlfile = require('./runsqlfile');
 
-let pool = mysql.createPool({
+// GitLab CI Pool
+let pool: mysql.Pool = mysql.createPool({
     connectionLimit: 1,
-    host: "mysql.stud.iie.ntnu.no",
-    user: "g_scrum_5",
-    password: "TYQHbYDq",
-    database: "g_scrum_5",
+    host: "mysql",
+    user: "root",
+    password: "secret",
+    database: "supertestdb",
     debug: false,
-    multipleStatements : true
+    multipleStatements: true
 });
 
 let profileDao = new ProfileDao(pool);
-
-
-
-
 
 
 

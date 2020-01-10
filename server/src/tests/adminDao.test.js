@@ -3,12 +3,12 @@ const AdminDao = require("../dao/adminDao.js");
 let runsqlfile = require("./runsqlfile.js");
 
 // GitLab CI Pool
-let pool = mysql.createPool({
+let pool: mysql.Pool = mysql.createPool({
     connectionLimit: 1,
-    host: "mysql.stud.iie.ntnu.no",
-    user: "g_scrum_5",
-    password: "TYQHbYDq",
-    database: "g_scrum_5",
+    host: "mysql",
+    user: "root",
+    password: "secret",
+    database: "supertestdb",
     debug: false,
     multipleStatements: true
 });

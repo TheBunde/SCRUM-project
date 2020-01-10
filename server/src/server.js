@@ -1,5 +1,3 @@
-import {eventService} from "../../client/src/service/EventService";
-
 let express = require("express");
 let mysql = require("mysql");
 let app = express();

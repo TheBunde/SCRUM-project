@@ -15,6 +15,6 @@ module.exports = class adminDao extends Dao{
     }
 
     getCategories(callback){
-        super.query("SELECT * FROM Category", callback);
+        super.query("SELECT * FROM Category", [], callback);
     }
 };

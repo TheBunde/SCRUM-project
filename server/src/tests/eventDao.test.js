@@ -1,7 +1,6 @@
 let mysql = require("mysql");
 const EventDao = require("../dao/eventDao.js");
 let runsqlfile = require("./runsqlfile.js");
-import {Event} from "..../client/src/service/EventService.js";
 
 // GitLab CI Pool
 let pool = mysql.createPool({
@@ -17,10 +16,6 @@ let pool = mysql.createPool({
 let eventDao = new EventDao(pool);
 
 
-beforeAll(done => {
-    runsqlfile("../CreateDB.sql", pool, done);
-});
-
 afterAll(() => {
     pool.end();
 });
@@ -33,7 +28,6 @@ test("get event from DB", done =>{
         expect(data.length).toBe(1);
         expect(data[0].event_id).toBe(1);
         expect(data[0].name).toBe("the Donn party");
-        expect(data[0].date).toBe("2020-02-03 20:30:00");
         done();
     }
 
@@ -61,7 +55,6 @@ test("add event to DB", done =>{
         );
         expect(data[0].filed).toBe(0);
         expect(data[0].name).toBe("Just added");
-        expect(data[0].date).toBe("2020-01-20 20:45:00");
         done();
     }
     
@@ -69,8 +62,8 @@ test("add event to DB", done =>{
         eventDao.getEvent(3,callback2);
     }
     
-    let event = new Event("Just added",  "2020-01-20 20:45:00", "the DB test made this", "Sukkerhuset", "Javascript, mysql, ci, nodeJs ", "nintendo switch", "potato chips", "Team 5", "eagle.png"); 
-    eventDao.addEvent(1, callback);
+    let event = {name : "Just added", date:  "2020-01-20 20:45:00",description:  "the DB test made this", place : "Sukkerhuset", artists : "Javascript, mysql, ci, nodeJs ", tech_rider:  "nintendo switch", hospitality_rider: "potato chips", personnel: "Team 5", img_url: "eagle.png"};
+    eventDao.addEvent(event, callback);
 });
 
 

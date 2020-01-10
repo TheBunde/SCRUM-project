@@ -4,15 +4,28 @@ import UserService from "../../services/UserService.js"
 import {User} from "../../services/UserService";
 let crypto = require('crypto');
 
+export const auth = {
+    authenticated: false,
+    authenticate(callback){
+        this.authenticated = true;
+        setTimeout(callback, 100);
+    },
+    signout(callback){
+        this.authenticated = false;
+        setTimeout(callback, 100)
+    }
+};
+
+/*class LoginForm extends Component<{props: submit}>{
 const jwt =  require('jsonwebtoken');
-//const private_key = 'pizza1234';
+//const private_key = 'pizza1234';*/
 
 class LoginForm extends Component{
     constructor(props){
         super(props);
         this.state = {
             email: "",
-            pw: ""
+            pw: "",
         }
     }
 
@@ -42,7 +55,6 @@ class LoginForm extends Component{
         };
     };
 
-
     // Runs every time input-fields are updated. Updates the state with the most current values.
     updateInputValue = (e) => {
         this.setState({
@@ -52,7 +64,7 @@ class LoginForm extends Component{
     }
 
     render(){
-
+        
         return(
             <form>
                 <h1 id="login-title">Innlogging</h1>

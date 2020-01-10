@@ -11,7 +11,7 @@ import Back from "../../Back/Back";
 const history = createHashHistory();
 
 //export class User{
-class User{
+export class User{
     user_id;
     name;
     tlf;
@@ -26,10 +26,10 @@ class User{
 
 }
 
-class EditProfile extends Component{
+class EditProfile extends Component {
     constructor(props) {
         super(props);
-        this.state = {user : {}}
+        this.state = {user : {props}}
     }
     name = "Grete";
     tlf = 12345678;

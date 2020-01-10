@@ -23,6 +23,9 @@ class OverviewPage extends Component{
                         <div id="OverviewButtons">
                             <button type="button" className="btn btn-info btn-lg" onClick={this.seeProfile}>Vis profil</button>
                         </div>
+                        <div id="OverviewButtonsLogOut">
+                            <button type="button" className="btn btn-dark btn-lg" onClick={this.logOut}>logg ut</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -39,6 +42,10 @@ class OverviewPage extends Component{
 
     seeProfile(){
         history.push("/profile/user")
+    }
+
+    logOut(){
+        history.push("/")
     }
 }
 

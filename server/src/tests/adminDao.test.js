@@ -55,7 +55,6 @@ test("get User from DB", done =>{
     adminDao.getUsers(callback);
 });
 
-
 /*
     tests assignRole: assignes role 2 to user_id 1
 */

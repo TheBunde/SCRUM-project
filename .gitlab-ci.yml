@@ -13,7 +13,7 @@ variables:
 server_tests:
   stage: test
   script:
-    - cd Server
+    - cd server
     - npm install
     - npm test
   artifacts:

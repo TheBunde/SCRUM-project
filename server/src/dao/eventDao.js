@@ -2,8 +2,8 @@ const Dao = require("./dao.js");
 
 module.exports = class adminDao extends Dao{
 
-    getEvent(callback){
-        super.query("SELECT * FROM Event WHERE filed IS 0 ORDER BY date DESC", [], callback);
+    getEvents(callback){
+        super.query(" SELECT * FROM Event WHERE filed = 0 ORDER BY date DESC limit 25", [], callback);
     }
 
     getEvent(eventID, callback){
@@ -12,5 +12,13 @@ module.exports = class adminDao extends Dao{
 
     addEvent(event, callback){
         super.query("INSERT INTO Event(name, description, date, place, img_url, artists, tech_rider, hospitality_rider, personnel) VALUES (?,?,?,?,?,?,?,?,?)", [event.name, event.description, event.date, event.place, event.img_url, event.artists, event.tech_rider, event.hospitality_rider, event.personnel], callback)
+    }
+
+    getCategories(callback){
+        super.query("SELECT * FROM Category", [], callback);
+    }
+
+    getTicket(callback){
+        super.query("SELECT * FROM Ticket_Category", [], callback)
     }
 };

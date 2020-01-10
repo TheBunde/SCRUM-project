@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import "../../../css/EditProfile.css"
 import { createHashHistory } from 'history';
+import {profileService} from '../../../service/ProfileService'
 
 
 
@@ -9,12 +10,33 @@ import Back from "../../Back/Back";
 
 const history = createHashHistory();
 
+//export class User{
+class User{
+    user_id;
+    name;
+    tlf;
+    email;
+
+    constructor(user_id, name, tlf, email) {
+        this.user_id = user_id;
+        this.name = name;
+        this.tlf = tlf;
+        this.email = email;
+    }
+
+}
+
 class EditProfile extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {user : {}}
+    }
     name = "Grete";
     tlf = 12345678;
     email = "grete@ntnu.no";
     newPassword = null;
     oldPassword = null;
+
 
     render(){
         return(
@@ -86,7 +108,7 @@ class EditProfile extends Component{
                                     className="form-control form-control-lg"
                                     type="text"
                                     placeholder="Nytt passord"
-                                    aria-describedby="titleHelp"
+                                    aria-describedby="newPasHelp"
                                 />
                                 <br/>
                             </div>
@@ -98,7 +120,7 @@ class EditProfile extends Component{
                                     className="form-control form-control-lg"
                                     type="text"
                                     placeholder="Gammelt passord"
-                                    aria-describedby="titleHelp"
+                                    aria-describedby="oldPasHelp"
                                 />
                                 <br/>
                             </div>
@@ -113,12 +135,35 @@ class EditProfile extends Component{
         )
     }
 
-    save(){
-        let name = document.getElementById("nameInput").value;
-        let tlf = document.getElementById("tlfInput").value;
-        let email = document.getElementById("emailInput").value;
+
+
+    componentDidMount(){
+        let testUser = new User(1, "Grethe", "12345678", "grethe@ntnu.no");
+        this.setState({user : testUser});
+        console.log(this.state.user)
+    }
+
+    save = (e) => {
+
+        let newUser = new User(
+            this.state.user.user_id,
+            document.getElementById("nameInput").value,
+            document.getElementById("tlfInput").value,
+            document.getElementById("emailInput").value
+        );
+
+
+        let newName = document.getElementById("nameInput").value;
+        let newTlf = document.getElementById("tlfInput").value;
+        let newEmail = document.getElementById("emailInput").value;
         let newPassword = document.getElementById("newPasswordInput").value;
         let oldPassword = document.getElementById("oldPasswordInput").value;
+
+        console.log(this.state.user);
+        this.setState({user: newUser});
+        console.log(newUser);
+
+
 
 
         if(oldPassword === ""){
@@ -127,17 +172,20 @@ class EditProfile extends Component{
         if(newPassword === ""){
             newPassword = null;
         }
-        if(oldPassword !== null && newPassword !== null){
-            console.log("Se her Helene")
-        }
 
         if(oldPassword !== null && newPassword === null || oldPassword === null && newPassword !== null){
             console.log("mangler å legge inn noe")
+        }else if(newName === "" || newTlf === "" || newEmail === ""){
+            console.log("Ikke gi tomme feilter");
+        }else{
+            if(oldPassword !== null && newPassword !== null){
+                console.log("vi ønsker å endre passord ")
+            }
+
+            profileService.updateUser(newUser).catch(e => console.error(e));
         }
 
-        console.log(name);
-        console.log(tlf);
-        console.log(email);
+
         console.log(newPassword);
         console.log(oldPassword);
 

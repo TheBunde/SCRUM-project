@@ -20,10 +20,12 @@ create table Event
   artists varchar(100) not null,
   tech_rider longtext not null,
   hospitality_rider longtext,
+  contract longtext,
   personnel text,
   filed tinyint not null default 0,
   pending tinyint not null default 1,
-  constraint event_pk primary key (event_id)
+  constraint event_pk primary key (event_id),
+  fulltext (name, description, place, artists)
 );
 
 create table Ticket_Category
@@ -57,12 +59,12 @@ create table User
   name varchar(100) not null,
   email varchar(320) not null unique,
   phone varchar(12) not null unique,
-  salt varchar(128) not null,
+ -- salt varchar(128) not null,
   password_hash varchar(128) not null,
   role_id int,
   approved tinyint not null default 0,
   constraint user_pk primary key (user_id)
-);
+)engine=InnoDB;
 
 create table Event_Category
 (
@@ -125,28 +127,27 @@ insert into Role(role) values ('Festplanlegger');
 
 
 -- passwords 'testing'
-insert into User(name, email, phone, salt, password_hash, role_id) values ('test1', 'test1@tester.no', '12345678', '7cd0c25c87c7d366','3856f5086eb7138f2e4e3d42d8569ce4f4b66a83cbce3192da65ee129e8c01d2832057b4bd8f124a2a47d376de0c1808cabc2e467275cc9f7b8a059d618c04bd', 1);
-insert into User(name, email, phone, salt, password_hash, role_id) values ('test2', 'test2@tester.no', '87654321', 'cdda3097998e838f','75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 1);
+insert into User(name, email, phone, password_hash, role_id) values ('test1', 'test1@tester.no', '12345678','3856f5086eb7138f2e4e3d42d8569ce4f4b66a83cbce3192da65ee129e8c01d2832057b4bd8f124a2a47d376de0c1808cabc2e467275cc9f7b8a059d618c04bd', 1);
+insert into User(name, email, phone, password_hash, role_id) values ('test2', 'test2@tester.no', '87654321','75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 1);
+insert into User(name, email, phone, password_hash, role_id) values ('test3', 'test3@tester.no', '98765432','75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 1);
 
 
-insert into Category(name) values ('lecture');
-insert into Category(name) values ('concert');
-insert into Category(name) values ('cool');
+insert into Category(name) values ('forelesning');
+insert into Category(name) values ('konsert');
+insert into Category(name) values ('kul');
 
 
 insert into Ticket_Category(name) values ('Standard');
 insert into Ticket_Category(name) values ('Gratis');
 insert into Ticket_Category(name) values ('VIP');
-insert into Ticket_Category(name) values ('Golden Circle');
-insert into Ticket_Category(name) values ('Early Bird');
-insert into Ticket_Category(name) values ('auditorium');
-insert into Ticket_Category(name) values ('stage-bomber');
+insert into Ticket_Category(name) values ('GoldenCircle');
+insert into Ticket_Category(name) values ('EarlyBird');
 
 
 insert into Event(name, description, date, place, artists, tech_rider, hospitality_rider, personnel, filed)
-  values ('the Donn party', 'Donn holder repetisjonsforelesning i OS', '2020-02-03 20:30:00', 'Sukkerhuset', 'Donn Morrison', 'speakers 2x\n vocal solo mic 1x\n soundtrack with playback player 1x\n projector to show lectures\n all with linux', 'give him a beer or something to put an OS in, and compliment his lectures... just do it', 'an audience', 0);
+values ('the Donn party', 'Donn holder repetisjonsforelesning i OS', '2020-02-03 20:30:00', 'Sukkerhuset', 'Donn Morrison', 'speakers 2x\n vocal solo mic 1x\n soundtrack with playback player 1x\n projector to show lectures\n all with linux', 'give him a beer or something to put an OS in, and compliment his lectures... just do it', 'an audience', 0);
 insert into Event(name, description, date, place, artists, tech_rider, hospitality_rider, personnel, filed)
-  values ('Metallica metal', 'Metallica kommer til Sukkerhuset!', '2020-01-09 14:30:00', 'Sukkerhuset', 'Metallica' , 'speakers 6x\n vocal solo mic 1x\n more speakers', 'lots of cool looking drinks and beer', 'has their own', 0);
+values ('Metallica metal', 'Metallica kommer til Sukkerhuset!', '2020-01-09 14:30:00', 'Sukkerhuset', 'Metallica' , 'speakers 6x\n vocal solo mic 1x\n more speakers', 'lots of cool looking drinks and beer', 'has their own', 0);
 
 insert into Event_Category(event_id, category_id) values (1,1);
 insert into Event_Category(event_id, category_id) values (1,3);
@@ -156,6 +157,6 @@ insert into Event_Category(event_id, category_id) values (2,3);
 insert into Contact_Info( name, phone, email, event_id) values ('Donn team', '1991', 'Donn@linux.OS', 1);
 insert into Contact_Info( name, phone, email, event_id) values ('Metallica', '2386724692', 'metallica@metal.band', 1);
 
-insert into Event_Ticket(event_id, ticket_category_id, price, number) values (1, 6, 0, 95);
+insert into Event_Ticket(event_id, ticket_category_id, price, number) values (1, 4, 0, 95);
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2, 1, 850, 200);
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2, 3, 1000, 2);

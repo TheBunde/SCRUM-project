@@ -1,3 +1,4 @@
+
 let express = require("express");
 let mysql = require("mysql");
 let app = express();
@@ -9,11 +10,8 @@ dotenv.config();
 
 app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
-<<<<<<< HEAD
 const ProfileDao = require("../src/dao/profileDao");
-=======
 const EventDao = require("../src/dao/eventDao");
->>>>>>> 017c689b08fe5feea151a9d254c0ffe0bfde0446
 
 let pool = mysql.createPool({
     connectionLimit: 5,
@@ -133,6 +131,20 @@ app.post("/event", (req, res) => {
         res.status(status);
         res.json(data);
     })
+});
+
+app.get("/categories", (req, res) => {
+    eventDao.getCategories((status, data) => {
+        res.status(status);
+        res.json(data)
+    })
+});
+
+app.get("/tickets", (req, res) => {
+   eventDao.getTicket((status, data) => {
+       res.status(status);
+       res.json(data)
+   })
 });
 
 let server = app.listen(8080);

@@ -6,6 +6,8 @@ import Navbar from '../../Navbar/Navbar'
 
 
 class AddEvent extends Component{
+    categories = [];
+
     constructor(props){
         super(props);
         this.state ={
@@ -25,6 +27,9 @@ class AddEvent extends Component{
         this.changeAmount = this.changeAmount.bind(this);
     }
 
+    componentDidMount() {
+
+    }
 
     changeBox(event){
         this.setState({[event.target.id]: event.target.checked});
@@ -40,7 +45,6 @@ class AddEvent extends Component{
         return (
             <div>
                 <Navbar />
-                <form>
                     <div id = "EventInputFields">
                         <p id = "EventInputLabels">Navn på arrangementet:</p>
                         <input type="text"
@@ -111,42 +115,52 @@ class AddEvent extends Component{
                                id = "contractInput"
                         />
                     </div>
-
+                    <p id = "EventInputTitle">Billettyper:</p>
                     <div id ="EventInputCheckboxes">
-                        <p id = "EventInputLabels">Billettyper:</p>
+                        <div id ="EventInputSingleBox">
                         <label id = "EventTicketLabels">Gratisbillett</label>
                         <input type ="checkbox"
                                id="FreeTicketBox"
                                name="FreeTicketAmount"
                                onChange={this.changeBox}
                         />
+                        </div>
+                        <div id ="EventInputSingleBox">
                         <label id = "EventTicketLabels">Standard billett</label>
                         <input type ="checkbox"
                                id="StandardTicketBox"
                                name="StandardTicketAmount"
                                onChange={this.changeBox}
                         />
+                        </div>
+                        <div id ="EventInputSingleBox">
                         <label id = "EventTicketLabels">VIP billett</label>
                         <input type ="checkbox"
                                id="VIPTicketBox"
                                name="VIPTicketAmount"
                                onChange={this.changeBox}
                         />
+                        </div>
+                        <div id ="EventInputSingleBox">
                         <label id = "EventTicketLabels">Early Bird billett</label>
                         <input type ="checkbox"
                                id="EarlyBirdTicketBox"
                                name="EarlyBirdTicketAmount"
                                onChange={this.changeBox}
                         />
+                        </div>
+                        <div id ="EventInputSingleBox">
                         <label id = "EventTicketLabels">Golden Circle billett</label>
                         <input type ="checkbox"
                                id="GoldenCircleTicketBox"
                                name="GoldenCircleTicketAmount"
                                onChange={this.changeBox}
                         />
+                        </div>
                     </div>
 
                     <div id="EventTicketAmount">
+                        <div>
                         <input type ="number"
                                id ="FreeTicketAmount"
                                class ="form-control"
@@ -155,6 +169,8 @@ class AddEvent extends Component{
                                disabled={!this.state.FreeTicketBox}
                                onChange={this.changeAmount}
                         />
+                        </div>
+                        <div>
                         <input type="number"
                                id ="StandardTicketAmount"
                                className="form-control"
@@ -163,6 +179,8 @@ class AddEvent extends Component{
                                disabled={!this.state.StandardTicketBox}
                                onChange={this.changeAmount}
                         />
+                        </div>
+                        <div>
                         <input type="number"
                                id="VIPTicketAmount"
                                className="form-control"
@@ -171,6 +189,8 @@ class AddEvent extends Component{
                                disabled={!this.state.VIPTicketBox}
                                onChange={this.changeAmount}
                         />
+                        </div>
+                        <div>
                         <input type="number"
                                id="EarlyBirdTicketAmount"
                                className="form-control"
@@ -179,6 +199,8 @@ class AddEvent extends Component{
                                disabled={!this.state.EarlyBirdTicketBox}
                                onChange={this.changeAmount}
                         />
+                        </div>
+                        <div>
                         <input type="number"
                                id="GoldenCircleTicketAmount"
                                className="form-control"
@@ -187,6 +209,7 @@ class AddEvent extends Component{
                                disabled={!this.state.GoldenCircleTicketBox}
                                onChange={this.changeAmount}
                         />
+                        </div>
                     </div>
 
                     <div id = "EventInputButton">
@@ -194,7 +217,6 @@ class AddEvent extends Component{
                             Registrer arrangement
                         </button>
                     </div>
-                </form>
             </div>
         );
     }
@@ -228,9 +250,8 @@ class AddEvent extends Component{
             + goldenCircleTicket + "\n" + goldenCircleTicketAmount)*/
 
         eventService
-            .addEvents(name, null, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
+            .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
             .catch(Error => console.log(Error))
-
     }
 }
 

@@ -29,6 +29,10 @@ class EventService{
     getEventById(eventID){
         return axios.get("http://localhost:8080/event/" + eventID).then(response => response.data);
     }
+
+    getCategories(){
+        return axios.get("http://localhost:8080/categories").then(response => response.date);
+    }
 }
 
 export let eventService = new EventService();

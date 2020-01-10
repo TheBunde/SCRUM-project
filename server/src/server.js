@@ -1,3 +1,5 @@
+import {eventService} from "../../client/src/service/EventService";
+
 let express = require("express");
 let mysql = require("mysql");
 let app = express();
@@ -129,6 +131,13 @@ app.post("/event", (req, res) => {
     eventDao.addEvent(req.body, (status, data) => {
         res.status(status);
         res.json(data);
+    })
+});
+
+app.get("/categories", (req, res) => {
+    eventDao.getCategories((status, data) => {
+        res.status(status);
+        res.json(data)
     })
 });
 

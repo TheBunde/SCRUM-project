@@ -129,6 +129,7 @@ insert into Role(role) values ('Festplanlegger');
 -- passwords 'testing'
 insert into User(name, email, phone, password_hash, role_id) values ('test1', 'test1@tester.no', '12345678','3856f5086eb7138f2e4e3d42d8569ce4f4b66a83cbce3192da65ee129e8c01d2832057b4bd8f124a2a47d376de0c1808cabc2e467275cc9f7b8a059d618c04bd', 1);
 insert into User(name, email, phone, password_hash, role_id) values ('test2', 'test2@tester.no', '87654321','75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 1);
+insert into User(name, email, phone, password_hash, role_id) values ('test3', 'test3@tester.no', '98765432','75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 1);
 
 
 insert into Category(name) values ('forelesning');
@@ -139,10 +140,8 @@ insert into Category(name) values ('kul');
 insert into Ticket_Category(name) values ('Standard');
 insert into Ticket_Category(name) values ('Gratis');
 insert into Ticket_Category(name) values ('VIP');
-insert into Ticket_Category(name) values ('Golden Circle');
-insert into Ticket_Category(name) values ('Early Bird');
-insert into Ticket_Category(name) values ('auditorium');
-insert into Ticket_Category(name) values ('stage-bomber');
+insert into Ticket_Category(name) values ('GoldenCircle');
+insert into Ticket_Category(name) values ('EarlyBird');
 
 
 insert into Event(name, description, date, place, artists, tech_rider, hospitality_rider, personnel, filed)
@@ -158,6 +157,6 @@ insert into Event_Category(event_id, category_id) values (2,3);
 insert into Contact_Info( name, phone, email, event_id) values ('Donn team', '1991', 'Donn@linux.OS', 1);
 insert into Contact_Info( name, phone, email, event_id) values ('Metallica', '2386724692', 'metallica@metal.band', 1);
 
-insert into Event_Ticket(event_id, ticket_category_id, price, number) values (1, 6, 0, 95);
+insert into Event_Ticket(event_id, ticket_category_id, price, number) values (1, 4, 0, 95);
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2, 1, 850, 200);
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2, 3, 1000, 2);

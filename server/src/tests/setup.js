@@ -17,5 +17,5 @@ module.exports = async () => {
         pool.end();
     }
 
-    runsqlfile("./src/tests/setUpDB.sql", pool, done);
+    runsqlfile("./setUpDB.sql", pool, done);
 };

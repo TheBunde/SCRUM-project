@@ -6,7 +6,6 @@ import Navbar from '../../Navbar/Navbar'
 
 
 class AddEvent extends Component{
-    categories = [];
 
     constructor(props){
         super(props);
@@ -20,21 +19,23 @@ class AddEvent extends Component{
             EarlyBirdTicketBox: false,
             EarlyBirdTicketAmount: null,
             GoldenCircleTicketBox: false,
-            GoldenCircleTicketAmount: null
-
+            GoldenCircleTicketAmount: null,
+            Categories: []
         };
         this.changeBox = this.changeBox.bind(this);
         this.changeAmount = this.changeAmount.bind(this);
     }
 
     componentDidMount() {
-
+        eventService
+            .getCategories()
+            .then(categories => this.setState({Categories: categories}))
+            .catch(Error => console.log(Error));
     }
 
     changeBox(event){
         this.setState({[event.target.id]: event.target.checked});
         if(this.state[event.target.id]) this.setState({[event.target.name]: 0});
-
     }
 
     changeAmount(event){
@@ -45,178 +46,197 @@ class AddEvent extends Component{
         return (
             <div>
                 <Navbar />
-                    <div id = "EventInputFields">
-                        <p id = "EventInputLabels">Navn på arrangementet:</p>
-                        <input type="text"
-                               class = "form-control"
-                               id = "nameInput"
-                        />
-                    </div>
-                    <div id = "EventInputFields">
-                        <p id = "EventInputLabels">Dato for arrangementet:</p>
-                        <input type="text"
-                               class = "form-control"
-                               id = "dateInput"
-                        />
-                    </div>
-                    <div id="EventInputFields">
-                        <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
-                        <input type="text"
-                               className="form-control"
-                               id="descriptionInput"
-                        />
-                    </div>
-                    <div id="EventInputFields">
-                        <p id="EventInputLabels">Sted for arrangementet:</p>
-                        <input type="text"
-                               className="form-control"
-                               id="placeInput"
-                        />
-                    </div>
-                    <div id = "EventInputFields">
-                        <p id = "EventInputLabels">Artister:</p>
-                        <input type="text"
-                               class = "form-control"
-                               id = "artistInput"
-                        />
-                    </div>
-                    <div id = "EventInputFields">
-                        <p id = "EventInputLabels">Tech Riders:</p>
-                        <input type="text"
-                               class = "form-control"
-                               id = "tech_ridersInput"
-                        />
-                    </div>
-                    <div id="EventInputFields">
-                        <p id="EventInputLabels">Hospitality Riders:</p>
-                        <input type="text"
-                               className="form-control"
-                               id="hospitality_ridersInput"
-                        />
-                    </div>
-                    <div id = "EventInputFields">
-                        <p id = "EventInputLabels">Nødvendig personell:</p>
-                        <input type="text"
-                               class = "form-control"
-                               id = "personnelInput"
-                        />
-                    </div>
-                    <div id = "EventInputFields">
-                        <p id = "EventInputLabels">Bilde:</p>
-                        <input type="text"
-                               class = "form-control"
-                               id = "pictureInput"
-                        />
-                    </div>
-                    <div id = "EventInputFields">
-                        <p id = "EventInputLabels">Kontrakt:</p>
-                        <input type="text"
-                               class = "form-control"
-                               id = "contractInput"
-                        />
-                    </div>
-                    <p id = "EventInputTitle">Billettyper:</p>
-                    <div id ="EventInputCheckboxes">
-                        <div id ="EventInputSingleBox">
-                        <label id = "EventTicketLabels">Gratisbillett</label>
-                        <input type ="checkbox"
-                               id="FreeTicketBox"
-                               name="FreeTicketAmount"
-                               onChange={this.changeBox}
-                        />
-                        </div>
-                        <div id ="EventInputSingleBox">
-                        <label id = "EventTicketLabels">Standard billett</label>
-                        <input type ="checkbox"
-                               id="StandardTicketBox"
-                               name="StandardTicketAmount"
-                               onChange={this.changeBox}
-                        />
-                        </div>
-                        <div id ="EventInputSingleBox">
-                        <label id = "EventTicketLabels">VIP billett</label>
-                        <input type ="checkbox"
-                               id="VIPTicketBox"
-                               name="VIPTicketAmount"
-                               onChange={this.changeBox}
-                        />
-                        </div>
-                        <div id ="EventInputSingleBox">
-                        <label id = "EventTicketLabels">Early Bird billett</label>
-                        <input type ="checkbox"
-                               id="EarlyBirdTicketBox"
-                               name="EarlyBirdTicketAmount"
-                               onChange={this.changeBox}
-                        />
-                        </div>
-                        <div id ="EventInputSingleBox">
-                        <label id = "EventTicketLabels">Golden Circle billett</label>
-                        <input type ="checkbox"
-                               id="GoldenCircleTicketBox"
-                               name="GoldenCircleTicketAmount"
-                               onChange={this.changeBox}
-                        />
-                        </div>
-                    </div>
+                <div id = "EventInputFields">
+                    <p id = "EventInputLabels">Navn på arrangementet:</p>
+                    <input type="text"
+                           class = "form-control"
+                           id = "nameInput"
+                    />
+                </div>
+                <div id = "EventInputFields">
+                    <p id = "EventInputLabels">Dato for arrangementet:</p>
+                    <input type="text"
+                           class = "form-control"
+                           id = "dateInput"
+                    />
+                </div>
+                <div id="EventInputFields">
+                    <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
+                    <input type="text"
+                           className="form-control"
+                           id="descriptionInput"
+                    />
+                </div>
+                <div id="EventInputFields">
+                    <p id="EventInputLabels">Sted for arrangementet:</p>
+                    <input type="text"
+                           className="form-control"
+                           id="placeInput"
+                    />
+                </div>
+                <div id = "EventInputFields">
+                    <p id = "EventInputLabels">Artister:</p>
+                    <input type="text"
+                           class = "form-control"
+                           id = "artistInput"
+                    />
+                </div>
+                <div id = "EventInputFields">
+                    <p id = "EventInputLabels">Tech Riders:</p>
+                    <input type="text"
+                           class = "form-control"
+                           id = "tech_ridersInput"
+                    />
+                </div>
+                <div id="EventInputFields">
+                    <p id="EventInputLabels">Hospitality Riders:</p>
+                    <input type="text"
+                           className="form-control"
+                           id="hospitality_ridersInput"
+                    />
+                </div>
+                <div id = "EventInputFields">
+                    <p id = "EventInputLabels">Nødvendig personell:</p>
+                    <input type="text"
+                           class = "form-control"
+                           id = "personnelInput"
+                    />
+                </div>
+                <div id = "EventInputFields">
+                    <p id = "EventInputLabels">Bilde:</p>
+                    <input type="text"
+                           class = "form-control"
+                           id = "pictureInput"
+                    />
+                </div>
+                <div id = "EventInputFields">
+                    <p id = "EventInputLabels">Kontrakt:</p>
+                    <input type="text"
+                           class = "form-control"
+                           id = "contractInput"
+                    />
+                </div>
 
-                    <div id="EventTicketAmount">
-                        <div>
-                        <input type ="number"
-                               id ="FreeTicketAmount"
-                               class ="form-control"
-                               placeholder = "Antall gratisbilletter"
-                               value = {this.state.FreeTicketAmount}
-                               disabled={!this.state.FreeTicketBox}
-                               onChange={this.changeAmount}
-                        />
-                        </div>
-                        <div>
-                        <input type="number"
-                               id ="StandardTicketAmount"
-                               className="form-control"
-                               placeholder="Antall standard billetter"
-                               value={this.state.StandardTicketAmount}
-                               disabled={!this.state.StandardTicketBox}
-                               onChange={this.changeAmount}
-                        />
-                        </div>
-                        <div>
-                        <input type="number"
-                               id="VIPTicketAmount"
-                               className="form-control"
-                               placeholder="Antall VIP billetter"
-                               value={this.state.VIPTicketAmount}
-                               disabled={!this.state.VIPTicketBox}
-                               onChange={this.changeAmount}
-                        />
-                        </div>
-                        <div>
-                        <input type="number"
-                               id="EarlyBirdTicketAmount"
-                               className="form-control"
-                               placeholder="Antall Early Bird billetter"
-                               value={this.state.EarlyBirdTicketAmount}
-                               disabled={!this.state.EarlyBirdTicketBox}
-                               onChange={this.changeAmount}
-                        />
-                        </div>
-                        <div>
-                        <input type="number"
-                               id="GoldenCircleTicketAmount"
-                               className="form-control"
-                               placeholder="Antall Golden Circle billetter"
-                               value={this.state.GoldenCircleTicketAmount}
-                               disabled={!this.state.GoldenCircleTicketBox}
-                               onChange={this.changeAmount}
-                        />
-                        </div>
-                    </div>
+                <div id ="EventInputFields">
+                    <p id = "EventInputLabels">Kategori for arrangementet:</p>
+                    <select type ="number"
+                            class ="form-control"
+                            id ="categoryInput"
+                    >
+                        {this.state.Categories.map(category =>
+                            <option
+                            key={category.id}
+                            value ={category.id}
+                            defaultValue={category.id}
+                            >
+                                {category.name}
+                            </option>
+                        )};
+                    </select>
+                </div>
 
-                    <div id = "EventInputButton">
-                        <button type="button" className="btn btn-outline-primary btn-lg" onClick={this.registerEvent}>
-                            Registrer arrangement
-                        </button>
+                <p id = "EventInputTitle">Billettyper:</p>
+                <div id ="EventInputCheckboxes">
+                    <div id ="EventInputSingleBox">
+                    <label id = "EventTicketLabels">Gratisbillett</label>
+                    <input type ="checkbox"
+                           id="FreeTicketBox"
+                           name="FreeTicketAmount"
+                           onChange={this.changeBox}
+                    />
                     </div>
+                    <div id ="EventInputSingleBox">
+                    <label id = "EventTicketLabels">Standard billett</label>
+                    <input type ="checkbox"
+                           id="StandardTicketBox"
+                           name="StandardTicketAmount"
+                           onChange={this.changeBox}
+                    />
+                    </div>
+                    <div id ="EventInputSingleBox">
+                    <label id = "EventTicketLabels">VIP billett</label>
+                    <input type ="checkbox"
+                           id="VIPTicketBox"
+                           name="VIPTicketAmount"
+                           onChange={this.changeBox}
+                    />
+                    </div>
+                    <div id ="EventInputSingleBox">
+                    <label id = "EventTicketLabels">Early Bird billett</label>
+                    <input type ="checkbox"
+                           id="EarlyBirdTicketBox"
+                           name="EarlyBirdTicketAmount"
+                           onChange={this.changeBox}
+                    />
+                    </div>
+                    <div id ="EventInputSingleBox">
+                    <label id = "EventTicketLabels">Golden Circle billett</label>
+                    <input type ="checkbox"
+                           id="GoldenCircleTicketBox"
+                           name="GoldenCircleTicketAmount"
+                           onChange={this.changeBox}
+                    />
+                    </div>
+                </div>
+
+                <div id="EventTicketAmount">
+                    <div>
+                    <input type ="number"
+                           id ="FreeTicketAmount"
+                           class ="form-control"
+                           placeholder = "Antall gratisbilletter"
+                           value = {this.state.FreeTicketAmount}
+                           disabled={!this.state.FreeTicketBox}
+                           onChange={this.changeAmount}
+                    />
+                    </div>
+                    <div>
+                    <input type="number"
+                           id ="StandardTicketAmount"
+                           className="form-control"
+                           placeholder="Antall standard billetter"
+                           value={this.state.StandardTicketAmount}
+                           disabled={!this.state.StandardTicketBox}
+                           onChange={this.changeAmount}
+                    />
+                    </div>
+                    <div>
+                    <input type="number"
+                           id="VIPTicketAmount"
+                           className="form-control"
+                           placeholder="Antall VIP billetter"
+                           value={this.state.VIPTicketAmount}
+                           disabled={!this.state.VIPTicketBox}
+                           onChange={this.changeAmount}
+                    />
+                    </div>
+                    <div>
+                    <input type="number"
+                           id="EarlyBirdTicketAmount"
+                           className="form-control"
+                           placeholder="Antall Early Bird billetter"
+                           value={this.state.EarlyBirdTicketAmount}
+                           disabled={!this.state.EarlyBirdTicketBox}
+                           onChange={this.changeAmount}
+                    />
+                    </div>
+                    <div>
+                    <input type="number"
+                           id="GoldenCircleTicketAmount"
+                           className="form-control"
+                           placeholder="Antall Golden Circle billetter"
+                           value={this.state.GoldenCircleTicketAmount}
+                           disabled={!this.state.GoldenCircleTicketBox}
+                           onChange={this.changeAmount}
+                    />
+                    </div>
+                </div>
+
+                <div id = "EventInputButton">
+                    <button type="button" className="btn btn-outline-primary btn-lg" onClick={this.registerEvent}>
+                        Registrer arrangement
+                    </button>
+                </div>
             </div>
         );
     }
@@ -231,6 +251,7 @@ class AddEvent extends Component{
         var hospitality_riders = document.getElementById("hospitality_ridersInput").value;
         var personnel = document.getElementById("personnelInput").value;
         var picture = document.getElementById("pictureInput").value;
+        var category = document.getElementById("categoryInput").value;
         var contract = document.getElementById("contractInput").value;
 
         var freeTicket = document.getElementById("FreeTicketBox").checked;

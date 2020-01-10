@@ -3,6 +3,7 @@
     padding: 100px 0 0 0;
     margin: auto;
     text-align: center;
+    min-height: 93vh;
 }
 
 #MainPageBody{
@@ -13,16 +14,17 @@
 }
 
 #MainPageTitle{
-    font-family: Castellar;
-    font-size: 150px;
+    font-family: Georgia;
+    font-size: 125px;
     color: white;
 }
 
 #MainPageBtnDiv{
- padding: 100px 0 300px 0;
+ padding: 125px 0 0 0;
     align-content: center;
 }
 
 #MainPageButtons{
     padding: 20px 30px 20px 30px;
+    width: 250px;
 }

@@ -16,10 +16,6 @@ let pool = mysql.createPool({
 let eventDao = new EventDao(pool);
 
 
-afterAll(() => {
-    pool.end();
-});
-
 test("get event from DB", done =>{
     function callback(status, data) {
         console.log(

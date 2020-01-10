@@ -140,5 +140,12 @@ app.get("/categories", (req, res) => {
     })
 });
 
+app.get("/tickets", (req, res) => {
+   eventDao.getTicket((status, data) => {
+       res.status(status);
+       res.json(data)
+   })
+});
+
 let server = app.listen(8080);
 

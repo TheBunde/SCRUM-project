@@ -44,3 +44,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
+
+#EventTicketBoxes{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}

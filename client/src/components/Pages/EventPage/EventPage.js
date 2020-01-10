@@ -20,13 +20,36 @@ export class event {
     }
 }
 
-class EventPage extends Component{
-    constructor(props){
+class EventPage extends Component {
+    constructor(props) {
         super(props);
         this.state = {
             events: []
         }
         this.handleSearch = this.handleSearch.bind(this);
+        this.eventFilterAll = this.eventFilterAll.bind(this);
+        this.eventFilterAll = this.eventFilterFuture.bind(this);
+        this.eventFilterAll = this.eventFilterPast.bind(this);
+    }
+
+    getCurrentDate() {
+        //let currentDate = new Date()
+        let currentDate = "20.01.10";
+        return currentDate;
+    }
+
+    eventFilterAll(){
+        // Here you would have to copy the componentDidMount() when backend is up and running
+        let event1 = new event(1, "Pers fest", "20.11.07", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
+        let event2 = new event(1, "Simon på skitur", "19.01.01", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
+        let event3 = new event(1, "Martin på skitur", "19.03.01", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
+        this.setState({events: [event1, event2, event3]});
+    }
+    eventFilterFuture(){
+        this.setState({events: this.state.events.filter(e => e.date >= this.getCurrentDate())});
+    }
+    eventFilterPast() {
+        this.setState({events: this.state.events.filter(e => e.date < this.getCurrentDate())})
     }
 
     handleSearch() {
@@ -36,17 +59,18 @@ class EventPage extends Component{
             this.setState({events: this.state.events.filter(e => e.name.toLowerCase().includes(searchTitle.toLowerCase()) || e.description.toLowerCase().includes(searchTitle.toLowerCase()))});
         } else {
             // Here you would have to copy the componentDidMount() when backend is up and running
-            let event1 = new event(1, "Pers fest", "01.01.19", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
-            let event2 = new event(1, "Simon på skitur", "01.01.19", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
-            let event3 = new event(1, "Martin på skitur", "01.01.19", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
+            let event1 = new event(1, "Pers fest", "20.11.07", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
+            let event2 = new event(1, "Simon på skitur", "19.01.01", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
+            let event3 = new event(1, "Martin på skitur", "19.03.01", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
             this.setState({events: [event1, event2, event3]});
         }
     }
 
+
     componentDidMount(){
-        let event1 = new event(1, "Pers fest", "01.01.19", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
-        let event2 = new event(1, "Simons på skitur", "01.01.19", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
-        let event3 = new event(1, "Martin på skitur", "01.01.19", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
+        let event1 = new event(1, "Pers fest", "20.11.07", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
+        let event2 = new event(1, "Simons på skitur", "19.01.01", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 2, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
+        let event3 = new event(1, "Martin på skitur", "19.03.01", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 1, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
             this.setState({events: [event1, event2, event3]});
     }
 
@@ -68,9 +92,9 @@ class EventPage extends Component{
                                         Vis
                                     </button>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a className="dropdown-item" href="#">Alle arrangementer</a>
-                                        <a className="dropdown-item" href="#">Kommende arrangementer</a>
-                                        <a className="dropdown-item" href="#">Utførte arrangementer</a>
+                                        <a className="dropdown-item" onClick={this.eventFilterAll}>Alle arrangementer</a>
+                                        <a className="dropdown-item" onClick={this.eventFilterFuture}>Kommende arrangementer</a>
+                                        <a className="dropdown-item" onClick={this.eventFilterPast}>Utførte arrangementer</a>
                                     </div>
                                 </div>
                             </div>
@@ -81,9 +105,9 @@ class EventPage extends Component{
                                         Sorter etter
                                     </button>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a className="dropdown-item" href="#">Navn</a>
-                                        <a className="dropdown-item" href="#">Dato</a>
-                                        <a className="dropdown-item" href="#">Kategori</a>
+                                        <a className="dropdown-item" onClick={() => this.setState(this.state.events.sort((a, b) => a.name.localeCompare(b.name)))}>Navn</a>
+                                        <a className="dropdown-item" onClick={() => this.setState(this.state.events.sort((a, b) => b.date.localeCompare(a.date)))}>Dato</a>
+                                        <a className="dropdown-item" onClick={() => this.setState(this.state.events.sort((a, b) => b.category_id - a.category_id))}>Kategori</a>
                                     </div>
                                 </div>
                             </div>

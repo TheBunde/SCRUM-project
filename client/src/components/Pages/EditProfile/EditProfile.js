@@ -157,8 +157,8 @@ class EditProfile extends Component{
         let newTlf = document.getElementById("tlfInput").value;
         let newEmail = document.getElementById("emailInput").value;
         let newPassword = document.getElementById("newPasswordInput").value;
-
         let oldPassword = document.getElementById("oldPasswordInput").value;
+
         console.log(this.state.user);
         this.setState({user: newUser});
         console.log(newUser);

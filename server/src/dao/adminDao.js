@@ -12,7 +12,7 @@ module.exports = class adminDao extends Dao{
 
     assignRole(userID, json, callback){
         var val = json.roleID;
-        super.query("UPDATE User SET role_id=? WHERE user_id=?", [val, userID], callback);
+        super.query("UPDATE User SET role_id=?, approved = 1 WHERE user_id=?", [val, userID], callback);
     }
 
     deleteUser(userID, callback){

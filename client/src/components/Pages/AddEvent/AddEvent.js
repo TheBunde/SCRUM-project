@@ -6,7 +6,6 @@ import Navbar from '../../Navbar/Navbar'
 
 
 class AddEvent extends Component{
-
     constructor(props){
         super(props);
         this.state ={
@@ -20,7 +19,12 @@ class AddEvent extends Component{
             EarlyBirdTicketAmount: null,
             GoldenCircleTicketBox: false,
             GoldenCircleTicketAmount: null,
-            Categories: []
+            Categories: [],
+            DateYear: [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030],
+            DateMonth: [1,2,3,4,5,6,7,8,9,10,11,12],
+            DateDay: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
+            DateHour:["00","01","02","03","04","05","06","07","08","09",10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+            DateMin:["00","01","02","03","04","05","06","07","08","09",10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59]
         };
         this.changeBox = this.changeBox.bind(this);
         this.changeAmount = this.changeAmount.bind(this);
@@ -49,16 +53,79 @@ class AddEvent extends Component{
                 <div id = "EventInputFields">
                     <p id = "EventInputLabels">Navn på arrangementet:</p>
                     <input type="text"
-                           class = "form-control"
+                           className = "form-control"
                            id = "nameInput"
                     />
                 </div>
                 <div id = "EventInputFields">
                     <p id = "EventInputLabels">Dato for arrangementet:</p>
-                    <input type="text"
-                           class = "form-control"
-                           id = "dateInput"
-                    />
+                    <div id ="EventDateInput">
+                        <select className="form-control"
+                                id ="dateDayInput"
+                        >
+                            {this.state.DateDay.map(day =>
+                                <option
+                                    key={day}
+                                    value ={day}
+                                    defaultValue={day}
+                                >
+                                    {day}
+                                </option>
+                            )}
+                        </select>
+                        <select className="form-control"
+                                id ="dateMonthInput"
+                        >
+                            {this.state.DateMonth.map(month =>
+                                <option
+                                    key={month}
+                                    value ={month}
+                                    defaultValue={month}
+                                >
+                                    {month}
+                                </option>
+                            )}
+                        </select>
+                        <select className="form-control"
+                                id ="dateYearInput"
+                        >
+                            {this.state.DateYear.map(year =>
+                                <option
+                                    key={year}
+                                    value ={year}
+                                    defaultValue={year}
+                                >
+                                    {year}
+                                </option>
+                            )}
+                        </select>
+                        <select className="form-control"
+                                id ="dateHourInput"
+                        >
+                            {this.state.DateHour.map(year =>
+                                <option
+                                    key={year}
+                                    value ={year}
+                                    defaultValue={year}
+                                >
+                                    {year}
+                                </option>
+                            )}
+                        </select>
+                        <select className="form-control"
+                                id ="dateMinInput"
+                        >
+                            {this.state.DateMin.map(year =>
+                                <option
+                                    key={year}
+                                    value ={year}
+                                    defaultValue={year}
+                                >
+                                    {year}
+                                </option>
+                            )}
+                        </select>
+                    </div>
                 </div>
                 <div id="EventInputFields">
                     <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
@@ -77,14 +144,14 @@ class AddEvent extends Component{
                 <div id = "EventInputFields">
                     <p id = "EventInputLabels">Artister:</p>
                     <input type="text"
-                           class = "form-control"
+                           className = "form-control"
                            id = "artistInput"
                     />
                 </div>
                 <div id = "EventInputFields">
                     <p id = "EventInputLabels">Tech Riders:</p>
                     <input type="text"
-                           class = "form-control"
+                           className = "form-control"
                            id = "tech_ridersInput"
                     />
                 </div>
@@ -98,29 +165,28 @@ class AddEvent extends Component{
                 <div id = "EventInputFields">
                     <p id = "EventInputLabels">Nødvendig personell:</p>
                     <input type="text"
-                           class = "form-control"
+                           className = "form-control"
                            id = "personnelInput"
                     />
                 </div>
                 <div id = "EventInputFields">
                     <p id = "EventInputLabels">Bilde:</p>
                     <input type="text"
-                           class = "form-control"
+                           className = "form-control"
                            id = "pictureInput"
                     />
                 </div>
                 <div id = "EventInputFields">
                     <p id = "EventInputLabels">Kontrakt:</p>
                     <input type="text"
-                           class = "form-control"
+                           className = "form-control"
                            id = "contractInput"
                     />
                 </div>
 
                 <div id ="EventInputFields">
                     <p id = "EventInputLabels">Kategori for arrangementet:</p>
-                    <select type ="number"
-                            class ="form-control"
+                    <select className ="form-control"
                             id ="categoryInput"
                     >
                         {this.state.Categories.map(category =>
@@ -183,7 +249,7 @@ class AddEvent extends Component{
                     <div>
                     <input type ="number"
                            id ="FreeTicketAmount"
-                           class ="form-control"
+                           className ="form-control"
                            placeholder = "Antall gratisbilletter"
                            value = {this.state.FreeTicketAmount}
                            disabled={!this.state.FreeTicketBox}
@@ -243,7 +309,7 @@ class AddEvent extends Component{
 
     registerEvent(){
         var name = document.getElementById("nameInput").value;
-        var date = document.getElementById("dateInput").value;
+        var date = document.getElementById("dateYearInput").value + "-" + document.getElementById("dateMonthInput").value+ "-" + document.getElementById("dateDayInput").value;
         var description = document.getElementById("descriptionInput").value;
         var place = document.getElementById("placeInput").value;
         var artists = document.getElementById("artistInput").value;
@@ -270,9 +336,10 @@ class AddEvent extends Component{
             + VIPTicket +"\n" + VIPTicketAmount + " \n" + earlyBirdTicket +"\n" + earlyBirdTicketAmount + " \n"
             + goldenCircleTicket + "\n" + goldenCircleTicketAmount)*/
 
-        eventService
+        console.log(date)
+        /*eventService
             .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
-            .catch(Error => console.log(Error))
+            .catch(Error => console.log(Error))*/
     }
 }
 

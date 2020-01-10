@@ -20,6 +20,7 @@ create table Event
   artists varchar(100) not null,
   tech_rider longtext not null,
   hospitality_rider longtext,
+  contract longtext,
   personnel text,
   filed tinyint not null default 0,
   pending tinyint not null default 1,
@@ -130,9 +131,9 @@ insert into User(name, email, phone, password_hash, role_id) values ('test1', 't
 insert into User(name, email, phone, password_hash, role_id) values ('test2', 'test2@tester.no', '87654321','75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 1);
 
 
-insert into Category(name) values ('lecture');
-insert into Category(name) values ('concert');
-insert into Category(name) values ('cool');
+insert into Category(name) values ('forelesning');
+insert into Category(name) values ('konsert');
+insert into Category(name) values ('kul');
 
 
 insert into Ticket_Category(name) values ('Standard');

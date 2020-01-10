@@ -4,7 +4,7 @@ const ProfileDao = require('../dao/profileDao');
 const runsqlfile = require('./runsqlfile');
 
 // GitLab CI Pool
-let pool: mysql.Pool = mysql.createPool({
+let pool = mysql.createPool({
     connectionLimit: 1,
     host: "mysql",
     user: "root",

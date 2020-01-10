@@ -3,7 +3,7 @@ let runsqlfile = require("./runsqlfile.js");
 
 // GitLab CI Pool
 module.exports = async () => {
-    let pool: mysql.Pool = mysql.createPool({
+    let pool = mysql.createPool({
         connectionLimit: 1,
         host: "mysql",
         user: "root",

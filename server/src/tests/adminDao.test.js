@@ -3,7 +3,7 @@ const AdminDao = require("../dao/adminDao.js");
 let runsqlfile = require("./runsqlfile.js");
 
 // GitLab CI Pool
-let pool: mysql.Pool = mysql.createPool({
+let pool = mysql.createPool({
     connectionLimit: 1,
     host: "mysql",
     user: "root",

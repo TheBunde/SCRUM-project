@@ -63,7 +63,7 @@ create table User
   role_id int,
   approved tinyint not null default 0,
   constraint user_pk primary key (user_id)
-);
+)engine=InnoDB;
 
 create table Event_Category
 (

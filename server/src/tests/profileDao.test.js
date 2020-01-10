@@ -16,9 +16,7 @@ let pool = mysql.createPool({
 let profileDao = new ProfileDao(pool);
 
 
-beforeAll(done => {
-    runsqlfile("../CreateDB.sql", pool, done);
-});
+
 
 
 
@@ -30,12 +28,8 @@ test('Changing contact information', done => {
         done();
     }
 
-    profileDao.updateProfile({ name: 'Grete', tlf: '09876543', email : 'new@mail.com', user_id: 1 }, callback);
+    profileDao.updateProfile({ name: 'Grete', tlf: '09876543', email : 'new@mail.com', user_id: 3 }, callback);
 });
 
 
-
-afterAll(() => {
-    pool.end();
-});
 

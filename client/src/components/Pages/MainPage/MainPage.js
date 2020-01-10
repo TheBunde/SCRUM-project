@@ -19,8 +19,8 @@ class MainPage extends Component{
                     <div id="MainPageDiv">
                         <h1 id="MainPageTitle"> Harmoni </h1>
                         <div id="MainPageBtnDiv">
-                            <button id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg mr-5" onClick={this.logIn}>Logg inn</button>
-                            <button id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg" onClick={this.register}>Register</button>
+                            <button id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg mr-5 font-weight-bold" onClick={this.logIn}>Logg inn</button>
+                            <button id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg font-weight-bold" onClick={this.register}>Registrer bruker</button>
                         </div>
                     </div>
                 </body>

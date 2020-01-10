@@ -16,14 +16,6 @@ let pool = mysql.createPool({
 let adminDao = new AdminDao(pool);
 
 
-beforeAll(done => {
-    runsqlfile("../CreateDB.sql", pool, done);
-});
-
-afterAll(() => {
-    pool.end();
-});
-
 
 /*
     tests getUser: henter User med Id 1
@@ -52,7 +44,7 @@ test("get User from DB", done =>{
         console.log(
             "Test getUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data.length).toBe(2);
+        expect(data.length).toBe(3);
         expect(data[0].user_id).toBe(1);
         expect(data[1].user_id).toBe(2);
         expect(data[0].name).toBe("test1");

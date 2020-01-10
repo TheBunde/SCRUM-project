@@ -56,183 +56,186 @@ class AddEvent extends Component{
         return (
             <div>
                 <Navbar />
-                <div id = "EventInputFields">
-                    <p id = "EventInputLabels">Navn på arrangementet:</p>
-                    <input type="text"
-                           className = "form-control"
-                           id = "nameInput"
-                    />
-                </div>
-                <div id = "EventInputFields">
-                    <p id = "EventInputLabels">Dato for arrangementet:</p>
-                    <div id ="EventDateInput">
-                        <select className="form-control"
-                                id ="dateDayInput"
+                <div id="EventInputContainer">
+                    <h2 id ="EventInputHeader">Registering av nytt arrangement</h2>
+                    <div id = "EventInputFields">
+                        <p id = "EventInputLabels">Navn på arrangementet:</p>
+                        <input type="text"
+                               className = "form-control"
+                               id = "nameInput"
+                        />
+                    </div>
+                    <div id = "EventInputFields">
+                        <p id = "EventInputLabels">Dato for arrangementet:</p>
+                        <div id ="EventDateInput">
+                            <select className="form-control"
+                                    id ="dateDayInput"
+                            >
+                                {this.state.DateDay.map(day =>
+                                    <option
+                                        key={day}
+                                        value ={day}
+                                        defaultValue={day}
+                                    >
+                                        {day}
+                                    </option>
+                                )}
+                            </select>
+                            <select className="form-control"
+                                    id ="dateMonthInput"
+                            >
+                                {this.state.DateMonth.map(month =>
+                                    <option
+                                        key={month}
+                                        value ={month}
+                                        defaultValue={month}
+                                    >
+                                        {month}
+                                    </option>
+                                )}
+                            </select>
+                            <select className="form-control"
+                                    id ="dateYearInput"
+                            >
+                                {this.state.DateYear.map(year =>
+                                    <option
+                                        key={year}
+                                        value ={year}
+                                        defaultValue={year}
+                                    >
+                                        {year}
+                                    </option>
+                                )}
+                            </select>
+                            <select className="form-control"
+                                    id ="dateHourInput"
+                            >
+                                {this.state.DateHour.map(year =>
+                                    <option
+                                        key={year}
+                                        value ={year}
+                                        defaultValue={year}
+                                    >
+                                        {year}
+                                    </option>
+                                )}
+                            </select>
+                            <select className="form-control"
+                                    id ="dateMinInput"
+                            >
+                                {this.state.DateMin.map(year =>
+                                    <option
+                                        key={year}
+                                        value ={year}
+                                        defaultValue={year}
+                                    >
+                                        {year}
+                                    </option>
+                                )}
+                            </select>
+                        </div>
+                    </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
+                        <input type="text"
+                               className="form-control"
+                               id="descriptionInput"
+                        />
+                    </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Sted for arrangementet:</p>
+                        <input type="text"
+                               className="form-control"
+                               id="placeInput"
+                        />
+                    </div>
+                    <div id = "EventInputFields">
+                        <p id = "EventInputLabels">Artister:</p>
+                        <input type="text"
+                               className = "form-control"
+                               id = "artistInput"
+                        />
+                    </div>
+                    <div id = "EventInputFields">
+                        <p id = "EventInputLabels">Tech Riders:</p>
+                        <input type="text"
+                               className = "form-control"
+                               id = "tech_ridersInput"
+                        />
+                    </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Hospitality Riders:</p>
+                        <input type="text"
+                               className="form-control"
+                               id="hospitality_ridersInput"
+                        />
+                    </div>
+                    <div id = "EventInputFields">
+                        <p id = "EventInputLabels">Nødvendig personell:</p>
+                        <input type="text"
+                               className = "form-control"
+                               id = "personnelInput"
+                        />
+                    </div>
+                    <div id = "EventInputFields">
+                        <p id = "EventInputLabels">Bilde:</p>
+                        <input type="text"
+                               className = "form-control"
+                               id = "pictureInput"
+                        />
+                    </div>
+                    <div id = "EventInputFields">
+                        <p id = "EventInputLabels">Kontrakt:</p>
+                        <input type="text"
+                               className = "form-control"
+                               id = "contractInput"
+                        />
+                    </div>
+
+                    <div id ="EventInputFields">
+                        <p id = "EventInputLabels">Kategori for arrangementet:</p>
+                        <select className ="form-control"
+                                id ="categoryInput"
                         >
-                            {this.state.DateDay.map(day =>
+                            {this.state.Categories.map(category =>
                                 <option
-                                    key={day}
-                                    value ={day}
-                                    defaultValue={day}
+                                key={category.id}
+                                value ={category.id}
+                                defaultValue={category.id}
                                 >
-                                    {day}
+                                    {category.name}
                                 </option>
-                            )}
-                        </select>
-                        <select className="form-control"
-                                id ="dateMonthInput"
-                        >
-                            {this.state.DateMonth.map(month =>
-                                <option
-                                    key={month}
-                                    value ={month}
-                                    defaultValue={month}
-                                >
-                                    {month}
-                                </option>
-                            )}
-                        </select>
-                        <select className="form-control"
-                                id ="dateYearInput"
-                        >
-                            {this.state.DateYear.map(year =>
-                                <option
-                                    key={year}
-                                    value ={year}
-                                    defaultValue={year}
-                                >
-                                    {year}
-                                </option>
-                            )}
-                        </select>
-                        <select className="form-control"
-                                id ="dateHourInput"
-                        >
-                            {this.state.DateHour.map(year =>
-                                <option
-                                    key={year}
-                                    value ={year}
-                                    defaultValue={year}
-                                >
-                                    {year}
-                                </option>
-                            )}
-                        </select>
-                        <select className="form-control"
-                                id ="dateMinInput"
-                        >
-                            {this.state.DateMin.map(year =>
-                                <option
-                                    key={year}
-                                    value ={year}
-                                    defaultValue={year}
-                                >
-                                    {year}
-                                </option>
-                            )}
+                            )};
                         </select>
                     </div>
                 </div>
-                <div id="EventInputFields">
-                    <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
-                    <input type="text"
-                           className="form-control"
-                           id="descriptionInput"
-                    />
-                </div>
-                <div id="EventInputFields">
-                    <p id="EventInputLabels">Sted for arrangementet:</p>
-                    <input type="text"
-                           className="form-control"
-                           id="placeInput"
-                    />
-                </div>
-                <div id = "EventInputFields">
-                    <p id = "EventInputLabels">Artister:</p>
-                    <input type="text"
-                           className = "form-control"
-                           id = "artistInput"
-                    />
-                </div>
-                <div id = "EventInputFields">
-                    <p id = "EventInputLabels">Tech Riders:</p>
-                    <input type="text"
-                           className = "form-control"
-                           id = "tech_ridersInput"
-                    />
-                </div>
-                <div id="EventInputFields">
-                    <p id="EventInputLabels">Hospitality Riders:</p>
-                    <input type="text"
-                           className="form-control"
-                           id="hospitality_ridersInput"
-                    />
-                </div>
-                <div id = "EventInputFields">
-                    <p id = "EventInputLabels">Nødvendig personell:</p>
-                    <input type="text"
-                           className = "form-control"
-                           id = "personnelInput"
-                    />
-                </div>
-                <div id = "EventInputFields">
-                    <p id = "EventInputLabels">Bilde:</p>
-                    <input type="text"
-                           className = "form-control"
-                           id = "pictureInput"
-                    />
-                </div>
-                <div id = "EventInputFields">
-                    <p id = "EventInputLabels">Kontrakt:</p>
-                    <input type="text"
-                           className = "form-control"
-                           id = "contractInput"
-                    />
-                </div>
-
-                <div id ="EventInputFields">
-                    <p id = "EventInputLabels">Kategori for arrangementet:</p>
-                    <select className ="form-control"
-                            id ="categoryInput"
-                    >
-                        {this.state.Categories.map(category =>
-                            <option
-                            key={category.id}
-                            value ={category.id}
-                            defaultValue={category.id}
-                            >
-                                {category.name}
-                            </option>
-                        )};
-                    </select>
-                </div>
-
                 <p id = "EventInputTitle">Billettyper:</p>
-                <div id ="EventInputCheckboxes">
+                <div id ="EventInputTicketContainer">
                     {this.state.Tickets.map(tickets =>
-                        <div id ="EventTicketBoxes">
-                            <label id ="EventTicketLabels">{tickets.name + " billetter"}</label>
+                    <div id = "EventInputTicketBoxes">
+                        <div id="EventInputCheckboxes">
+                            <div id ="EventTicketInnerLabel">
+                            <label id="EventTicketLabels">{tickets.name + " billetter"}</label>
+                            </div>
+                            <div id ="EventTicketInnerCheckbox">
                             <input type ="checkbox"
-                                   id={tickets.name + "TicketBox"}
+                                   id ={tickets.name + "TicketBox"}
                                    name ={tickets.name + "TicketAmount"}
                                    onChange={this.changeBox}
                             />
+                            </div>
                         </div>
-                    )}
-                </div>
-
-                <div id="EventTicketAmount">
-                    {this.state.Tickets.map(tickets =>
-                        <div>
-                            <input type ="number"
-                                   id ={tickets.name + "TicketAmount"}
-                                   className="form-control"
+                        <div id ="EventTicketAmount">
+                            <input type = "number"
+                                   id={tickets.name +"TicketAmount"}
+                                   className ="form-control"
                                    placeholder={"Antall " + tickets.name + " billetter"}
-                                   value = {this.state[tickets.name +"TicketAmount"]}
-                                   disabled={!this.state[tickets.name + "TicketBox"]}
+                                   value = {this.state[tickets.name + "TicketAmount"]}
+                                   disabled = {!this.state[tickets.name + "TicketBox"]}
                                    onChange={this.changeAmount}
                             />
                         </div>
+                    </div>
                     )}
                 </div>
 

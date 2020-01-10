@@ -9,8 +9,8 @@ class AddEvent extends Component{
     constructor(props){
         super(props);
         this.state ={
-            FreeTicketBox: false,
-            FreeTicketAmount: null,
+            GratisTicketBox: false,
+            GratisTicketAmount: null,
             StandardTicketBox: false,
             StandardTicketAmount: null,
             VIPTicketBox: false,
@@ -20,6 +20,7 @@ class AddEvent extends Component{
             GoldenCircleTicketBox: false,
             GoldenCircleTicketAmount: null,
             Categories: [],
+            Tickets: [],
             DateYear: [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030],
             DateMonth: [1,2,3,4,5,6,7,8,9,10,11,12],
             DateDay: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
@@ -35,6 +36,11 @@ class AddEvent extends Component{
             .getCategories()
             .then(categories => this.setState({Categories: categories}))
             .catch(Error => console.log(Error));
+
+        eventService
+            .getTicket()
+            .then(tickets => this.setState({Tickets: tickets}))
+            .catch(Error => console.log(Error))
     }
 
     changeBox(event){
@@ -203,99 +209,31 @@ class AddEvent extends Component{
 
                 <p id = "EventInputTitle">Billettyper:</p>
                 <div id ="EventInputCheckboxes">
-                    <div id ="EventInputSingleBox">
-                    <label id = "EventTicketLabels">Gratisbillett</label>
-                    <input type ="checkbox"
-                           id="FreeTicketBox"
-                           name="FreeTicketAmount"
-                           onChange={this.changeBox}
-                    />
-                    </div>
-                    <div id ="EventInputSingleBox">
-                    <label id = "EventTicketLabels">Standard billett</label>
-                    <input type ="checkbox"
-                           id="StandardTicketBox"
-                           name="StandardTicketAmount"
-                           onChange={this.changeBox}
-                    />
-                    </div>
-                    <div id ="EventInputSingleBox">
-                    <label id = "EventTicketLabels">VIP billett</label>
-                    <input type ="checkbox"
-                           id="VIPTicketBox"
-                           name="VIPTicketAmount"
-                           onChange={this.changeBox}
-                    />
-                    </div>
-                    <div id ="EventInputSingleBox">
-                    <label id = "EventTicketLabels">Early Bird billett</label>
-                    <input type ="checkbox"
-                           id="EarlyBirdTicketBox"
-                           name="EarlyBirdTicketAmount"
-                           onChange={this.changeBox}
-                    />
-                    </div>
-                    <div id ="EventInputSingleBox">
-                    <label id = "EventTicketLabels">Golden Circle billett</label>
-                    <input type ="checkbox"
-                           id="GoldenCircleTicketBox"
-                           name="GoldenCircleTicketAmount"
-                           onChange={this.changeBox}
-                    />
-                    </div>
+                    {this.state.Tickets.map(tickets =>
+                        <div id ="EventTicketBoxes">
+                            <label id ="EventTicketLabels">{tickets.name + " billetter"}</label>
+                            <input type ="checkbox"
+                                   id={tickets.name + "TicketBox"}
+                                   name ={tickets.name + "TicketAmount"}
+                                   onChange={this.changeBox}
+                            />
+                        </div>
+                    )}
                 </div>
 
                 <div id="EventTicketAmount">
-                    <div>
-                    <input type ="number"
-                           id ="FreeTicketAmount"
-                           className ="form-control"
-                           placeholder = "Antall gratisbilletter"
-                           value = {this.state.FreeTicketAmount}
-                           disabled={!this.state.FreeTicketBox}
-                           onChange={this.changeAmount}
-                    />
-                    </div>
-                    <div>
-                    <input type="number"
-                           id ="StandardTicketAmount"
-                           className="form-control"
-                           placeholder="Antall standard billetter"
-                           value={this.state.StandardTicketAmount}
-                           disabled={!this.state.StandardTicketBox}
-                           onChange={this.changeAmount}
-                    />
-                    </div>
-                    <div>
-                    <input type="number"
-                           id="VIPTicketAmount"
-                           className="form-control"
-                           placeholder="Antall VIP billetter"
-                           value={this.state.VIPTicketAmount}
-                           disabled={!this.state.VIPTicketBox}
-                           onChange={this.changeAmount}
-                    />
-                    </div>
-                    <div>
-                    <input type="number"
-                           id="EarlyBirdTicketAmount"
-                           className="form-control"
-                           placeholder="Antall Early Bird billetter"
-                           value={this.state.EarlyBirdTicketAmount}
-                           disabled={!this.state.EarlyBirdTicketBox}
-                           onChange={this.changeAmount}
-                    />
-                    </div>
-                    <div>
-                    <input type="number"
-                           id="GoldenCircleTicketAmount"
-                           className="form-control"
-                           placeholder="Antall Golden Circle billetter"
-                           value={this.state.GoldenCircleTicketAmount}
-                           disabled={!this.state.GoldenCircleTicketBox}
-                           onChange={this.changeAmount}
-                    />
-                    </div>
+                    {this.state.Tickets.map(tickets =>
+                        <div>
+                            <input type ="number"
+                                   id ={tickets.name + "TicketAmount"}
+                                   className="form-control"
+                                   placeholder={"Antall " + tickets.name + " billetter"}
+                                   value = {this.state[tickets.name +"TicketAmount"]}
+                                   disabled={!this.state[tickets.name + "TicketBox"]}
+                                   onChange={this.changeAmount}
+                            />
+                        </div>
+                    )}
                 </div>
 
                 <div id = "EventInputButton">
@@ -331,15 +269,11 @@ class AddEvent extends Component{
         var goldenCircleTicket = document.getElementById("GoldenCircleTicketBox").checked;
         var goldenCircleTicketAmount = document.getElementById("GoldenCircleTicketAmount").value;
 
-        /*console.log(name + " \n" + date + " \n" + artists + " \n" + riders + " \n" + staff + "\n" + picture + " \n" + contract + " \n"
-            + freeTicket + "\n" + freeTicketAmount +"\n" + standardTicket +"\n" + standardTicketAmount + " \n"
-            + VIPTicket +"\n" + VIPTicketAmount + " \n" + earlyBirdTicket +"\n" + earlyBirdTicketAmount + " \n"
-            + goldenCircleTicket + "\n" + goldenCircleTicketAmount)*/
 
-        console.log(date)
-        /*eventService
+        eventService
             .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
-            .catch(Error => console.log(Error))*/
+            .catch(Error => console.log(Error))
+
     }
 }
 

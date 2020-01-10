@@ -33,6 +33,10 @@ class EventService{
     getCategories(){
         return axios.get("http://localhost:8080/categories").then(response => response.data);
     }
+
+    getTicket(){
+        return axios.get("http://localhost:8080/tickets").then(response => response.data);
+    }
 }
 
 export let eventService = new EventService();

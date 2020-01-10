@@ -139,10 +139,8 @@ insert into Category(name) values ('kul');
 insert into Ticket_Category(name) values ('Standard');
 insert into Ticket_Category(name) values ('Gratis');
 insert into Ticket_Category(name) values ('VIP');
-insert into Ticket_Category(name) values ('Golden Circle');
-insert into Ticket_Category(name) values ('Early Bird');
-insert into Ticket_Category(name) values ('auditorium');
-insert into Ticket_Category(name) values ('stage-bomber');
+insert into Ticket_Category(name) values ('GoldenCircle');
+insert into Ticket_Category(name) values ('EarlyBird');
 
 
 insert into Event(name, description, date, place, artists, tech_rider, hospitality_rider, personnel, filed)
@@ -158,6 +156,6 @@ insert into Event_Category(event_id, category_id) values (2,3);
 insert into Contact_Info( name, phone, email, event_id) values ('Donn team', '1991', 'Donn@linux.OS', 1);
 insert into Contact_Info( name, phone, email, event_id) values ('Metallica', '2386724692', 'metallica@metal.band', 1);
 
-insert into Event_Ticket(event_id, ticket_category_id, price, number) values (1, 6, 0, 95);
+insert into Event_Ticket(event_id, ticket_category_id, price, number) values (1, 4, 0, 95);
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2, 1, 850, 200);
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2, 3, 1000, 2);

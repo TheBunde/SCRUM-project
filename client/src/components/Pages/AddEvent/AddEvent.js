@@ -8,6 +8,7 @@ class AddEvent extends Component{
     constructor(props){
         super(props);
         this.state ={
+            EventID: null,
             GratisTicketBox: false,
             GratisTicketAmount: null,
             StandardTicketBox: false,
@@ -29,6 +30,7 @@ class AddEvent extends Component{
         this.changeBox = this.changeBox.bind(this);
         this.changeAmount = this.changeAmount.bind(this);
         this.registerEvent = this.registerEvent.bind(this);
+        this.registerTickets = this.registerTickets.bind(this);
     }
 
     componentDidMount() {
@@ -39,8 +41,9 @@ class AddEvent extends Component{
 
         eventService
             .getTicket()
-            .then(tickets => this.setState({Tickets: tickets}))
+            .then(data => this.setState({Tickets: data}))
             .catch(Error => console.log(Error));
+
     }
 
     changeBox(event){
@@ -261,24 +264,20 @@ class AddEvent extends Component{
         var category = document.getElementById("categoryInput").value;
         var contract = document.getElementById("contractInput").value;
 
-        var freeTicket = document.getElementById("GratisTicketBox").checked;
-        var freeTicketAmount = document.getElementById("GratisTicketAmount").value;
-        var standardTicket = document.getElementById("StandardTicketBox").checked;
-        var standardTicketAmount = document.getElementById("StandardTicketAmount").value;
-        var VIPTicket = document.getElementById("VIPTicketBox").checked;
-        var VIPTicketAmount = document.getElementById("VIPTicketAmount").value;
-        var earlyBirdTicket = document.getElementById("EarlyBirdTicketBox").checked;
-        var earlyBirdTicketAmount = document.getElementById("EarlyBirdTicketAmount").value;
-        var goldenCircleTicket = document.getElementById("GoldenCircleTicketBox").checked;
-        var goldenCircleTicketAmount = document.getElementById("GoldenCircleTicketAmount").value;
-
         eventService
             .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
+            .then(data => this.registerTickets(data.insertId))
             .catch(Error => console.log(Error));
+    }
 
+    registerTickets(EventId){
         this.state.Tickets.map(ticket =>{
             if(this.state[ticket.name + "TicketBox"]){
                 if(this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
+                    console.log(ticket.ticket_category_id + " " + EventId + " " + this.state[ticket.name + "TicketAmount"]);
+                    eventService
+                        .addTicket(ticket.ticket_category_id, EventId, this.state[ticket.name + "TicketAmount"])
+                        .catch(Error => console.log(Error))
                 }
             }
         })

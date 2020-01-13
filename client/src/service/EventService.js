@@ -15,10 +15,10 @@ export class event {
 }
 
 class ticket{
-    constructor(ticketID, eventID, number){
+    constructor(ticketID, eventID, amount){
         this.ticketID = ticketID;
         this.eventID = eventID;
-        this.number = number;
+        this.number = amount;
     }
 }
 
@@ -47,9 +47,9 @@ class EventService{
         return axios.get("http://localhost:8080/tickets").then(response => response.data);
     }
 
-    addTicket(ticketID, eventID, number){
-        let newTicket = new ticket(ticketID, eventID, number);
-        return axios.post("http://localhost:8080/ticket", newTicket).then(response => response.data)
+    addTicket(ticketID, eventID, amount){
+        let newTicket = {ticketID: ticketID, eventID: eventID, amount: amount};
+        return axios.post("http://localhost:8080/tickets", newTicket).then(response => response.data)
     }
 }
 

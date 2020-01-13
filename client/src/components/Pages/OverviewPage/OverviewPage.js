@@ -3,11 +3,36 @@ import "../../../css/Overview.css"
 import { createHashHistory } from 'history';
 
 import Navbar from '../../Navbar/Navbar'
+import {profileService} from "../../../service/ProfileService";
 const history = createHashHistory();
 
 class OverviewPage extends Component{
+    user_id = 9;
+    user;
+
+    constructor(props) {
+        super(props);
+        this.state = {user : {}}
+
+    }
+
+    componentDidMount() {
+        profileService.getUser(this.user_id)
+            .then(user =>
+                    this.setState({
+                        user: user
+                    })
+
+            )
+            .catch((error) => {
+                console.error(error);
+            });
+        console.log("SE ME " + this.state.user)
+    };
     
     render() {
+        let id = this.state.user.user_id;
+        console.log(id);
         return (
             <div>
                 <Navbar/>
@@ -21,7 +46,7 @@ class OverviewPage extends Component{
                             <button type="button" className="btn btn-info btn-lg" onClick={this.seeEvents}>Se alle eventer</button>
                         </div>
                         <div id="OverviewButtons">
-                            <button type="button" className="btn btn-info btn-lg" onClick={this.seeProfile}>Vis profil</button>
+                            <button type="button" className="btn btn-info btn-lg" onClick={() => this.seeProfile(this.state.user.user_id)}>Vis profil</button>
                         </div>
                     </div>
                 </div>
@@ -37,8 +62,10 @@ class OverviewPage extends Component{
         history.push("/event")
     }
 
-    seeProfile(){
-        history.push("/profile/user")
+    seeProfile(id){
+        console.log("SE ME ");
+
+        history.push("/profile/" + id)
     }
 }
 

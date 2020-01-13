@@ -8,6 +8,7 @@ class AddEvent extends Component{
     constructor(props){
         super(props);
         this.state ={
+            Category: 1,
             GratisTicketBox: false,
             GratisTicketAmount: null,
             StandardTicketBox: false,
@@ -33,8 +34,6 @@ class AddEvent extends Component{
     }
 
     componentDidMount() {
-        let tickets = [];
-
         eventService
             .getCategories()
             .then(categories => this.setState({Categories: categories}))
@@ -54,6 +53,11 @@ class AddEvent extends Component{
 
     changeAmount(event){
         this.setState({[event.target.id]: event.target.value})
+    }
+
+    changeCategory(event){
+        this.setState({Category: event.target.value})
+        console.log(this.state.Category)
     }
 
     render() {
@@ -212,9 +216,8 @@ class AddEvent extends Component{
                         >
                             {this.state.Categories.map(category =>
                                 <option
-                                key={category.id}
-                                value ={category.id}
-                                defaultValue={category.id}
+                                value ={category.category_id}
+                                defaultValue={category.category_id}
                                 >
                                     {category.name}
                                 </option>

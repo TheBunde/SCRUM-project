@@ -1,6 +1,7 @@
 form{
     margin: 0 auto;
     width: 50%;
+    min-height: 100vh;
 }
 
 #login-title{

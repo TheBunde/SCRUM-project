@@ -3,6 +3,7 @@ import Navbar from '../../Navbar/Navbar'
 import "../../../css/EventPage.css"
 import {eventService} from "../../../service/EventService";
 import $ from 'jquery';
+import Footer from '../../Footer/Footer'
 
 export class event {
     constructor(event_id, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, category_id, filed, pending, img_url){
@@ -105,61 +106,63 @@ class EventPage extends Component {
         });
 
         return (
-            <div>
+            <div class="pageSetup">
                 <Navbar />
-                
-                <div id="eventPageBackground">
-                    <div id="eventPageContainer">
-                        <div id="eventPageTitle">
-                            <h1>Arrangementer</h1>
-                        </div>
-                        <div id="eventPageBar">
-                            <div id="eventPageShow">
-                                <div className="dropdown">
-                                    <button className="btn btn-outline dropdown-toggle" type="button" id="dropdownMenuButton"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Vis
-                                    </button>
-                                    <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
-                                        <a className="dropdown-item" onClick={() => this.eventFilterAll()}>Alle arrangementer</a>
-                                        <a className="dropdown-item" onClick={() => this.eventFilterFuture()}>Kommende arrangementer</a>
-                                        <a className="dropdown-item" onClick={() => this.eventFilterPast()}>Utførte arrangementer</a>
+                <div>
+                    <div id="eventPageBackground">
+                        <div id="eventPageContainer">
+                            <div id="eventPageTitle">
+                                <h1>Arrangementer</h1>
+                            </div>
+                            <div id="eventPageBar">
+                                <div id="eventPageShow">
+                                    <div className="dropdown">
+                                        <button className="btn btn-outline dropdown-toggle" type="button" id="dropdownMenuButton"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Vis
+                                        </button>
+                                        <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
+                                            <a className="dropdown-item" onClick={() => this.eventFilterAll()}>Alle arrangementer</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterFuture()}>Kommende arrangementer</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterPast()}>Utførte arrangementer</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="eventPageSort">
-                                <div className="dropdown">
-                                    <button className="btn btn-outline dropdown-toggle" type="button" id="dropdownMenuButton"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Sorter etter
-                                    </button>
-                                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a className="dropdown-item" onClick={() => this.sortByName()}>Navn</a>
-                                        <a className="dropdown-item" onClick={() => this.sortByDate()}>Dato</a>
-                                        <a className="dropdown-item" onClick={() => this.sortByCategory()}>Kategori</a>
+                                <div id="eventPageSort">
+                                    <div className="dropdown">
+                                        <button className="btn btn-outline dropdown-toggle" type="button" id="dropdownMenuButton"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Sorter etter
+                                        </button>
+                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a className="dropdown-item" onClick={() => this.sortByName()}>Navn</a>
+                                            <a className="dropdown-item" onClick={() => this.sortByDate()}>Dato</a>
+                                            <a className="dropdown-item" onClick={() => this.sortByCategory()}>Kategori</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="eventPageSearchBar">
-                                <input className="form-control" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}></input>
-                            </div>
-                        </div>
-                        <div id="eventPageEventTable">
-                            {this.state.shownEvents.slice(0, this.state.length).map(event => (
-                                <div>
-                                    <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={event.date} place={event.place}/>
+                                <div id="eventPageSearchBar">
+                                    <input className="form-control" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}></input>
                                 </div>
-                            ))}  
+                            </div>
+                            <div id="eventPageEventTable">
+                                {this.state.shownEvents.slice(0, this.state.length).map(event => (
+                                    <div>
+                                        <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={event.date} location={event.location}/>
+                                    </div>
+                                ))}  
+                            </div>
                         </div>
-                    </div>
-                    <div id="eventPageFetchMoreEventsButton">
-                        {this.state.shownEvents.length > this.state.length && 
-                        <div>
-                            <button type="button" class="btn btn-light" onClick={() => this.setState({length: this.state.length+6})}>Last inn flere arrangementer</button>
-                        </div> 
-                    }
+                        <div id="eventPageFetchMoreEventsButton">
+                            {this.state.shownEvents.length > this.state.length && 
+                            <div>
+                                <button type="button" class="btn btn-light" onClick={() => this.setState({length: this.state.length+6})}>Last inn flere arrangementer</button>
+                            </div> 
+                        }
+                        </div>
                     </div>
                 </div>
+                <Footer />
             </div>
         );
     }

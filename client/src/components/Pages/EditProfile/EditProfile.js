@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import "../../../css/EditProfile.css"
 import { createHashHistory } from 'history';
-import {ProfileService} from '../../../service/ProfileService'
-import {User} from "../../../services/UserService";
+import {profileService} from '../../../service/ProfileService'
+import {User} from "../../../service/UserService";
 
 
 import Navbar from "../../Navbar/Navbar";

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import "../../css/LoginForm.css";
-import UserService from "../../services/UserService.js"
-import {User, auth, authenticate} from "../../services/UserService";
+import UserService from "../../service/UserService.js"
+import {User, auth, authenticate} from "../../service/UserService";
 import Footer from '../Footer/Footer.js';
 import {NavbarMainPage} from '../Navbar/Navbar.js'
 

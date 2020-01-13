@@ -17,7 +17,7 @@ class ViewUser extends Component {
 
     render() {
         return(
-            <div>
+            <div class="pageSetup">
                 <div className="row" id={"ViewUserMain"}>
                     <div className="col" id={"idCol"}>
                         <p>{this.props.id}</p>

@@ -6,16 +6,16 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
 import ToTop from './components/ToTop/ToTop.js';
-import {auth, authenticate} from "./services/UserService.js";
+import {auth, authenticate} from "./service/UserService.js";
 import LoginPage from './components/Pages/LoginPage/LoginPage.js';
 import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js';
 import OverviewPage from './components/Pages/OverviewPage/OverviewPage.js';
-import MainPage from './components/Pages/MainPage/MainPage.js';
+import MainPage from './components/Pages/MainPage/MainPage';
 import EventPage from './components/Pages/EventPage/EventPage.js';
 import EventView from './components/Pages/EventView/EventView.js';
 import EditEvent from './components/Pages/EditEvent/EditEvent.js';
 import AddEvent from './components/Pages/AddEvent/AddEvent.js';
-import About from './components/About/About.js';
+import About from './components/Pages/About/About.js';
 import ShowProfile from "./components/Pages/ShowProfile/ShowProfile";
 import EditProfile from "./components/Pages/EditProfile/EditProfile";
 import AdminUserPage from './components/Pages/AdminUsersPage/AdminUsersPage';
@@ -52,8 +52,8 @@ ReactDOM.render(
             <PrivateRoute exact path="/overview" component={OverviewPage} />
             <PrivateRoute exact path="/profile/:userID" component={ShowProfile} />
             <PrivateRoute exact path="/profile/:userID/edit" component={EditProfile} />
-            <PrivateRoute exact path="/event" component={EventPage} />
-            <PrivateRoute exact path="/event/:id" component={EventView} />
+            <Route exact path="/event" component={EventPage} />
+            <Route exact path="/event/:id" component={EventView} />
             <PrivateRoute exact path="/event/:id/edit" component={EditEvent} />
             <PrivateRoute exact path="/overview/addEvent" component={AddEvent} />
             <AdminRoute exact path="/admin" component={AdminUserPage} />

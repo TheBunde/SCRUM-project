@@ -43,6 +43,8 @@ ReactDOM.render(
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/about" component={About} />
             <PrivateRoute exact path="/overview" component={OverviewPage} />
+            <PrivateRoute exact path="/profile/user" component={ShowProfile} />
+            <PrivateRoute exact path="/profile/user/edit" component={EditProfile} />
             <PrivateRoute exact path="/event" component={EventPage} />
             <PrivateRoute exact path="/event/:id" component={EventView} />
             <PrivateRoute exact path="/event/:id/edit" component={EditEvent} />

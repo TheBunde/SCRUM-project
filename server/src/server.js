@@ -1,3 +1,4 @@
+
 let express = require("express");
 let mysql = require("mysql");
 let app = express();
@@ -7,6 +8,8 @@ const dotenv = require('dotenv');
 
 app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
+const ProfileDao = require("../src/dao/profileDao");
+const EventDao = require("../src/dao/eventDao");
 
 let pool = mysql.createPool({
     connectionLimit: 5,
@@ -27,6 +30,8 @@ app.use(function(req, res, next) {
 
 const userDao = new UserDao(pool);
 let adminDao = new AdminDao(pool);
+let profileDao = new ProfileDao(pool);
+let eventDao = new EventDao(pool);
 
 app.post("/user", (req, res) => {
     userDao.registerUser(req.body, (status, data) => {
@@ -41,6 +46,7 @@ app.get("/user/:userID", (req, res) => {
         res.json(data);
     })
 });
+
 
 app.get("/users/", (req, res) => {
     console.log("/users/ fikk request fra klient");
@@ -109,4 +115,37 @@ app.delete("/users/:userID/", (req, res) => {
     })
 });
 
+
+app.put("/profile/:userId/edit", (req, res) => {
+    console.log('/profile/:userId/edit: fikk request fra klient');
+    profileDao.updateProfile(req.body, (status, data) => {
+        console.log(data);
+        res.status(status);
+        res.json(data);
+    });
+});
+
+
+app.post("/event", (req, res) => {
+    eventDao.addEvent(req.body, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.get("/categories", (req, res) => {
+    eventDao.getCategories((status, data) => {
+        res.status(status);
+        res.json(data)
+    })
+});
+
+app.get("/tickets", (req, res) => {
+   eventDao.getTicket((status, data) => {
+       res.status(status);
+       res.json(data)
+   })
+});
+
 let server = app.listen(8080);
+

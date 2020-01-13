@@ -18,7 +18,8 @@ class EventService{
 
     addEvents(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url){
         let newEvent = new event(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url);
-        return axios.post("http://localhost:8080/event/", newEvent).then(response => response.data);
+        console.log(newEvent);
+        return axios.post("http://localhost:8080/event", newEvent).then(response => response.data);
     }
 
     getEvents(){
@@ -28,7 +29,14 @@ class EventService{
     getEventById(eventID){
         return axios.get("http://localhost:8080/event/" + eventID).then(response => response.data);
     }
+
+    getCategories(){
+        return axios.get("http://localhost:8080/categories").then(response => response.data);
+    }
+
+    getTicket(){
+        return axios.get("http://localhost:8080/tickets").then(response => response.data);
+    }
 }
 
-
-export default EventService;
+export let eventService = new EventService();

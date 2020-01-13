@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import "../../../css/EditProfile.css"
 import { createHashHistory } from 'history';
-import {profileService} from '../../../service/ProfileService'
+import {ProfileService} from '../../../service/ProfileService'
 import {User} from "../../../services/UserService";
 
 
@@ -22,6 +22,7 @@ class EditProfile extends Component{
     }
 
     componentDidMount() {
+        let profileService = new ProfileService();
         profileService.getUser(this.user_id)
             .then(user =>
                 this.setState({
@@ -158,7 +159,7 @@ save = (e) => {
     let check = true;
 
 
-
+    let profileService = new ProfileService();
     if(oldPassword === ""){
         oldPassword = null;
     }

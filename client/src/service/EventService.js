@@ -53,7 +53,7 @@ class EventService{
     }
 
     addCategory(eventID, categoryID){
-        let newCategory = {eventID: eventID, categoryID: categoryID}
+        let newCategory = {eventID: eventID, categoryID: categoryID};
         return axios.post("http://localhost:8080/categories", newCategory).then(response => response.data)
     }
 }

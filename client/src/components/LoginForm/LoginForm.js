@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import "../../css/LoginForm.css";
 import UserService from "../../services/UserService.js"
 import {User, auth, authenticate} from "../../services/UserService";
+import Footer from '../Footer/Footer.js';
+import {NavbarMainPage} from '../Navbar/Navbar.js'
+
 let crypto = require('crypto');
 
 /*class LoginForm extends Component<{props: submit}>{
@@ -52,7 +55,7 @@ class LoginForm extends Component{
             <form>
                 <h1 id="login-title">Innlogging</h1>
                 <div class="form-group" id="email-input-container">
-                    <label for="email-input">E-post adresse</label>
+                    <label for="email-input">E-post</label>
                     <input type="email" class="form-control" id="email-input" placeholder="Skriv inn e-post" name="email" onChange={this.updateInputValue} />
                 </div>
                 <div class="form-group" id="password-input-container">

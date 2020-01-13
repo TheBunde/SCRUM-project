@@ -4,7 +4,8 @@
     padding-top: 180px;
     background-image: url('../img/Backgrounds/Background 1.jpeg');
     background-size: cover;
-    min-height: 94vh;
+    min-height: 100vh;
+    z-index: 2000;
 }
 
 #AboutTitle {

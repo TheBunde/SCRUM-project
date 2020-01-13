@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Navbar from '../../Navbar/Navbar'
 import "../../../css/EventPage.css"
 import {eventService} from "../../../service/EventService";
+import $ from 'jquery';
 
 export class event {
     constructor(event_id, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, category_id, filed, pending, img_url){
@@ -33,14 +34,31 @@ class EventPage extends Component {
     }
 
     getCurrentDate() {
-        //let currentDate = new Date()
-        let currentDate = "20200110";
-        return currentDate;
+        let newDate = new Date()
+        let date = newDate.getDate();
+        if(date<10){
+            date = "0" + date;
+        }
+        let month = newDate.getMonth()+1;
+        if(month<10){
+            month = "0" + month;
+        }
+        let year = newDate.getFullYear();
+        let hours = newDate.getHours();
+        if(hours<10){
+            hours = "0" + hours;
+        }
+        let minutes = newDate.getMinutes();
+        if(minutes<10){
+            minutes = "0" + minutes;
+        }
+        return year + "-" + month + "-" + date + " " + hours + ":" + minutes;
     }
     eventFilterAll(){
         this.setState({shownEvents: this.state.allEvents})
     }
     eventFilterFuture(){
+        console.log(this.getCurrentDate())
         this.setState({shownEvents: this.state.allEvents.filter(e => e.date >= this.getCurrentDate())})
     }
     eventFilterPast() {
@@ -76,6 +94,16 @@ class EventPage extends Component {
     }
 
     render() {
+
+        $(function(){
+            $("#eventPageShow a").click(function(){
+                $("#eventPageShow .btn:first-child ").text($(this).text());
+            });
+            $("#eventPageSort a").click(function(){
+                $("#eventPageSort .btn:first-child ").text($(this).text());
+            });
+        });
+
         return (
             <div>
                 <Navbar />
@@ -92,7 +120,7 @@ class EventPage extends Component {
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Vis
                                     </button>
-                                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
                                         <a className="dropdown-item" onClick={() => this.eventFilterAll()}>Alle arrangementer</a>
                                         <a className="dropdown-item" onClick={() => this.eventFilterFuture()}>Kommende arrangementer</a>
                                         <a className="dropdown-item" onClick={() => this.eventFilterPast()}>Utførte arrangementer</a>
@@ -119,7 +147,7 @@ class EventPage extends Component {
                         <div id="eventPageEventTable">
                             {this.state.shownEvents.slice(0, this.state.length).map(event => (
                                 <div>
-                                    <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description}/>
+                                    <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={event.date} location={event.location}/>
                                 </div>
                             ))}  
                         </div>
@@ -147,6 +175,12 @@ class EventCard extends Component {
                             <div class="card-body">
                                 <h5 class="card-title">{this.props.name}</h5>
                                 <p class="card-text">{this.props.description}</p>
+                                <div id="eventPageCardDate">
+                                    {this.props.date}
+                                </div>
+                                <div id="eventPageCardLocation">
+                                    {this.props.location}
+                                </div>
                             </div>
                     </div>
                 </a>

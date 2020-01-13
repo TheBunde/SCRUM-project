@@ -42,8 +42,7 @@ class AddEvent extends Component{
 
         eventService
             .getTicket()
-            .then(data => data.map(info => tickets.push({id: info.ticket_category_id, name: info.name, checked: false, amount: null, index: tickets.length})))
-            .then(data2 => this.setState({Tickets: tickets}))
+            .then(data => this.setState({Tickets: data}))
             .catch(Error => console.log(Error));
 
     }
@@ -290,7 +289,13 @@ class AddEvent extends Component{
                         .catch(Error => console.log(Error))
                 }
             }
-        })
+        });
+
+        let category = document.getElementById("categoryInput").value;
+
+        eventService
+            .addCategory(EventId, category)
+            .catch(Error => console.log(Error))
     }
 }
 

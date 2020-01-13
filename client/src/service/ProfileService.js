@@ -2,7 +2,7 @@ import axios from 'axios';
 import {User} from "../services/UserService";
 
 
-class ProfileService{
+export class ProfileService{
 
     updateUser(user){
         console.log("It is fixed");
@@ -26,7 +26,8 @@ class ProfileService{
         }).catch(error => console.log(error));
     }
 
+
 }
 
-export let profileService = new ProfileService();
+export default ProfileService;
 

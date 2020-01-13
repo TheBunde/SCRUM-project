@@ -4,7 +4,6 @@ import {eventService} from "../../../service/EventService";
 
 import Navbar from '../../Navbar/Navbar'
 
-
 class AddEvent extends Component{
     constructor(props){
         super(props);
@@ -29,6 +28,7 @@ class AddEvent extends Component{
         };
         this.changeBox = this.changeBox.bind(this);
         this.changeAmount = this.changeAmount.bind(this);
+        this.registerEvent = this.registerEvent.bind(this);
     }
 
     componentDidMount() {
@@ -40,7 +40,7 @@ class AddEvent extends Component{
         eventService
             .getTicket()
             .then(tickets => this.setState({Tickets: tickets}))
-            .catch(Error => console.log(Error))
+            .catch(Error => console.log(Error));
     }
 
     changeBox(event){
@@ -261,8 +261,8 @@ class AddEvent extends Component{
         var category = document.getElementById("categoryInput").value;
         var contract = document.getElementById("contractInput").value;
 
-        var freeTicket = document.getElementById("FreeTicketBox").checked;
-        var freeTicketAmount = document.getElementById("FreeTicketAmount").value;
+        var freeTicket = document.getElementById("GratisTicketBox").checked;
+        var freeTicketAmount = document.getElementById("GratisTicketAmount").value;
         var standardTicket = document.getElementById("StandardTicketBox").checked;
         var standardTicketAmount = document.getElementById("StandardTicketAmount").value;
         var VIPTicket = document.getElementById("VIPTicketBox").checked;
@@ -272,11 +272,16 @@ class AddEvent extends Component{
         var goldenCircleTicket = document.getElementById("GoldenCircleTicketBox").checked;
         var goldenCircleTicketAmount = document.getElementById("GoldenCircleTicketAmount").value;
 
-
         eventService
             .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
-            .catch(Error => console.log(Error))
+            .catch(Error => console.log(Error));
 
+        this.state.Tickets.map(ticket =>{
+            if(this.state[ticket.name + "TicketBox"]){
+                if(this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
+                }
+            }
+        })
     }
 }
 

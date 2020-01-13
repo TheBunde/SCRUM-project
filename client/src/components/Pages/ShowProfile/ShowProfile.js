@@ -46,19 +46,27 @@ class ShowProfile extends Component{
                 <div id="ShowProfileDiv">
                     <h1>Min profil</h1>
                     <div id="ShowProfileText">
-                        <h4>Brukernavn: {this.state.user.name}</h4>
-                        <h4>tlf: {this.state.user.phone}</h4>
-                        <h4>E-mail: {this.state.user.email}</h4>
+                        <div id="ShowProfileLine">
+                            <h4 id="h4">Brukernavn: </h4> <h5 id="h5">{this.state.user.name}</h5>
+                        </div>
+                        <div id="ShowProfileLine">
+                            <h4 id="h4">tlf: </h4><h5 id="h5">{this.state.user.phone}</h5>
+                        </div>
+                        <div id="ShowProfileLine">
+                            <h4 id="h4">E-mail: </h4><h5 id="h5">{this.state.user.email}</h5>
+                        </div>
                     </div>
+
 
                     <div id="ShowProfileButtonDiv">
                         <div id="ShowProfileBtn">
                             <button type="button" className="btn btn-info btn-lg" onClick={() => this.editProfile(this.user_id)}>Endre profil</button>
                         </div>
                     </div>
-
                 </div>
+
             </div>
+
         )
     }
 

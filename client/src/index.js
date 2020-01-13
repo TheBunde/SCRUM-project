@@ -25,6 +25,17 @@ import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 const Public = () => <h3>Public</h3>
 const Protected = () => <h3>Protected</h3>
 
+
+let parseJwt =  (token) => {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+};
+
 const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={(props) => (
         localStorage.getItem("token")
@@ -32,7 +43,7 @@ const PrivateRoute = ({component: Component, ...rest}) => (
         ? <Component {...props}/>
         : <Redirect to="/login" />
     )}/>
-)
+);
 
 ReactDOM.render(
     <HashRouter>

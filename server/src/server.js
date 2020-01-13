@@ -44,6 +44,7 @@ let privateKey = (publicKey = secret.secret);
 /*
 app.use("/api/", (req, res, next) => {
     let token = req.headers["authorization"];
+    console.log(token);
     jwt.verify(token, publicKey, (err, decoded) => {
         if (err) {
             console.log("Token IKKE ok");
@@ -57,8 +58,6 @@ app.use("/api/", (req, res, next) => {
 });
 
  */
-
-
 
 
 app.post("/api/posts", verifyToken, (req,res) => {
@@ -96,21 +95,21 @@ app.post("/validate", (req,res) => {
     //Check password and email up against a databsae call
     //If okay create a token, and send that token back
     //else return a 401
-    userDao.getHash(req.body.email, (status, data) => {
+    userDao.getUser(req.body.email, (status, data) => {
         if (data.length > 0) {
             console.log("User exists");
             //console.log(req.body.password);
             let passwordHash = JSON.stringify(data[0].password_hash).slice(1,-1);
-            //console.log(passwordHash);
+            let role = JSON.stringify(data[0].role);
+            let approved = JSON.stringify(data[0].approved);
             bcrypt.compare(req.body.password, passwordHash, function(err, response) {
                 if (err) {
                     console.log("En error occured");
                     console.error(err);
                 }
                 if (response) {
-                    console.log("This is working");
-                    let token = jwt.sign({email: req.body.email}, privateKey, {
-                        expiresIn: 10
+                    let token = jwt.sign({email: req.body.email, role : role, approved : approved}, privateKey, {
+                        expiresIn: 900
                     });
                     res.json({jwt: token});
                 } else {

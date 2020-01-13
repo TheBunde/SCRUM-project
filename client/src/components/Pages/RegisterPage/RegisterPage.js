@@ -128,7 +128,8 @@ class RegisterPage extends Component{
             let user = new User(this.state.name, this.state.email, this.state.phone, this.state.password, null, null);
             userService.registerUser(user)
                 .then(() => {
-                    this.toggleModal("Bruker registrert!")
+                    this.toggleModal("Bruker registrert!");
+                    window.location.hash = "/login";
                 })
                 .catch((error) => {
                     console.error(error.response.data);

@@ -43,6 +43,7 @@ class LoginForm extends Component{
                 console.log("jwt:" + response.data.jwt);
                 let token = response.data.jwt;
                 window.localStorage.setItem("token", token);
+                window.location.hash = "/overview";
             })
             .catch((err) => {
                 console.error(err);

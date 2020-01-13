@@ -127,7 +127,7 @@ class EventPage extends Component {
                     <div id="eventPageFetchMoreEventsButton">
                         {this.state.shownEvents.length > this.state.length && 
                         <div>
-                            <button type="button" class="btn btn-light" onClick={() => this.setState({length: this.state.length+6})}>Last inn flere events</button>
+                            <button type="button" class="btn btn-light" onClick={() => this.setState({length: this.state.length+6})}>Last inn flere arrangementer</button>
                         </div> 
                     }
                     </div>

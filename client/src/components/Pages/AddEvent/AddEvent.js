@@ -55,11 +55,6 @@ class AddEvent extends Component{
         this.setState({[event.target.id]: event.target.value})
     }
 
-    changeCategory(event){
-        this.setState({Category: event.target.value})
-        console.log(this.state.Category)
-    }
-
     render() {
         return (
             <div>
@@ -143,6 +138,7 @@ class AddEvent extends Component{
                                 )}
                             </select>
                         </div>
+
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Beskrivelse for arrangementet:</p>

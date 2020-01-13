@@ -167,5 +167,12 @@ app.get("/tickets", (req, res) => {
    })
 });
 
+app.post("/tickets", (req, res) => {
+    eventDao.addTicket(req.body, (status, data)=>{
+        res.status(status);
+        res.json(data)
+    })
+});
+
 let server = app.listen(8080);
 

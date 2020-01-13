@@ -31,8 +31,7 @@ class OverviewPage extends Component{
     };
     
     render() {
-       // let id = this.state.user.user_id;
-        //console.log(id);
+
         return (
             <div>
                 <Navbar/>

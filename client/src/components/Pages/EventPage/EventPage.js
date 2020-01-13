@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Navbar from '../../Navbar/Navbar'
 import "../../../css/EventPage.css"
+import {eventService} from "../../../service/EventService";
 
 export class event {
     constructor(event_id, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, category_id, filed, pending, img_url){
@@ -25,7 +26,8 @@ class EventPage extends Component {
         super(props);
         this.state = {
             allEvents: [],
-            shownEvents: []
+            shownEvents: [],
+            length: 2
         }
         this.handleSearch = this.handleSearch.bind(this);
         this.eventFilterFuture = this.eventFilterFuture(this);
@@ -68,11 +70,10 @@ class EventPage extends Component {
 
 
     componentDidMount(){
-        let event1 = new event(1, "Pers fest", "20201107", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
-        let event2 = new event(1, "Simons på skitur", "20190101", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 2, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
-        let event3 = new event(1, "Martin på skitur", "20190301", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 1, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
-            this.setState({shownEvents: [event1, event2, event3],
-                                allEvents: [event1, event2, event3]});
+        eventService.getAllEvents().then(events => this.setState({
+            shownEvents: events,
+            allEvents: events}))
+            .catch(error => console.error(error.message));
     }
 
     render() {
@@ -117,12 +118,19 @@ class EventPage extends Component {
                             </div>
                         </div>
                         <div id="eventPageEventTable">
-                            {this.state.shownEvents.map(event => (
+                            {this.state.shownEvents.slice(0, this.state.length).map(event => (
                                 <div>
                                     <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description}/>
                                 </div>
                             ))}  
                         </div>
+                    </div>
+                    <div id="eventPageFetchMoreEventsButton">
+                        {this.state.shownEvents.length > this.state.length && 
+                        <div>
+                            <button type="button" class="btn btn-light" onClick={() => this.setState({length: this.state.length+6})}>Last inn flere events</button>
+                        </div> 
+                    }
                     </div>
                 </div>
             </div>

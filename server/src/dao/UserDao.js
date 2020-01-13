@@ -21,8 +21,9 @@ module.exports = class UserDao extends dao {
             });
     }
 
+
     getHash(email, callback) {
-        super.query("SELECT password_hash from User where email = ?", email, callback);
+        super.query("SELECT password_hash from User where email = ?", [email], callback);
     }
 
     getOne(email, callback) {

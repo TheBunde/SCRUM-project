@@ -21,13 +21,25 @@ export class User {
 
 }
 
+let authenticationHeader = function authenticationHeader() {
+    let token = window.localStorage.getItem("token");
+
+    if (token) {
+        return {Authorization : "Bearer " + token}
+    } else return {}
+};
+
 export class UserService {
     registerUser(user) {
         return Axios.post("http://localhost:8080/user", user);
     }
 
     validate(email, pw){
-        return Axios.post("http://localhost:8080/validate", email, pw);
+        return Axios.post("http://localhost:8080/validate", {"email":  email, "password" : pw});
+    }
+
+    example() {
+        return Axios.post("http://localhost:8080/api/posts",  {}, {headers : authenticationHeader()})
     }
 
     getHash(email) {

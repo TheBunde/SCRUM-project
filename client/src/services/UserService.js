@@ -53,7 +53,7 @@ export const auth = {
         console.log(response);
         if(response !== null){
             this.authenticated = true;
-            this.role = response.role;
+            this.role = response.role.slice(1, response.role.length-1);
             console.log(this.role);
         } else{
             console.log("bruh");

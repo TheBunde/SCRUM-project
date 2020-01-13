@@ -30,8 +30,6 @@ class EventPage extends Component {
             length: 2
         }
         this.handleSearch = this.handleSearch.bind(this);
-        this.eventFilterFuture = this.eventFilterFuture(this);
-        this.eventFilterPast = this.eventFilterPast(this);
     }
 
     getCurrentDate() {
@@ -39,13 +37,14 @@ class EventPage extends Component {
         let currentDate = "20200110";
         return currentDate;
     }
-
+    eventFilterAll(){
+        this.setState({shownEvents: this.state.allEvents})
+    }
     eventFilterFuture(){
-        this.setState({shownEvents: this.state.allEvents.filter(e => (e.date.localeCompare(this.getCurrentDate()))>=0)})
-
+        this.setState({shownEvents: this.state.allEvents.filter(e => e.date >= this.getCurrentDate())})
     }
     eventFilterPast() {
-        this.setState({shownEvents: this.state.allEvents.filter(e => this.getCurrentDate() - e.date)})
+        this.setState({shownEvents: this.state.allEvents.filter(e => e.date < this.getCurrentDate())})
     }
 
     sortByName(){
@@ -94,9 +93,9 @@ class EventPage extends Component {
                                         Vis
                                     </button>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a className="dropdown-item" onClick={() => this.eventFilterAll}>Alle arrangementer</a>
-                                        <a className="dropdown-item" onClick={() => this.eventFilterFuture}>Kommende arrangementer</a>
-                                        <a className="dropdown-item" onClick={() => this.eventFilterPast}>Utførte arrangementer</a>
+                                        <a className="dropdown-item" onClick={() => this.eventFilterAll()}>Alle arrangementer</a>
+                                        <a className="dropdown-item" onClick={() => this.eventFilterFuture()}>Kommende arrangementer</a>
+                                        <a className="dropdown-item" onClick={() => this.eventFilterPast()}>Utførte arrangementer</a>
                                     </div>
                                 </div>
                             </div>

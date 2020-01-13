@@ -4,6 +4,7 @@ import { createHashHistory } from 'history';
 
 import Navbar from '../../Navbar/Navbar'
 import ProfileService from "../../../service/ProfileService";
+import Back from "../../Back/Back";
 const history = createHashHistory();
 
 class OverviewPage extends Component{

@@ -147,7 +147,7 @@ class EventPage extends Component {
                         <div id="eventPageEventTable">
                             {this.state.shownEvents.slice(0, this.state.length).map(event => (
                                 <div>
-                                    <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={event.date} location={event.location}/>
+                                    <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={event.date} place={event.place}/>
                                 </div>
                             ))}  
                         </div>
@@ -179,7 +179,7 @@ class EventCard extends Component {
                                     {this.props.date}
                                 </div>
                                 <div id="eventPageCardLocation">
-                                    {this.props.location}
+                                    {this.props.place}
                                 </div>
                             </div>
                     </div>

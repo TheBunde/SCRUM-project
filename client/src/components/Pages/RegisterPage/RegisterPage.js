@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 
-import "./RegisterPage.css"
-import UserService, {User} from "../../../services/UserService.js";
+import "../../../css/RegisterPage.css"
+import UserService, {User} from "../../../service/UserService.js";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import {NavbarMainPage} from '../../Navbar/Navbar'
+import Footer from '../../Footer/Footer'
 
 class RegisterPage extends Component{
 
@@ -22,8 +23,9 @@ class RegisterPage extends Component{
     
     render() {
         return (
-            <div className={"wrapper"}>
+            <div class="pageSetup">
                 <NavbarMainPage/>
+                    <div className={"wrapper"}> 
                 <div className={"registerContainer"}>
                 <h1 id={"regTitle"}>Registrer ny bruker</h1>
 
@@ -76,7 +78,8 @@ class RegisterPage extends Component{
                 </Modal>
             </div>
             </div>
-
+                <Footer />
+            </div>
         );
     }
 
@@ -127,7 +130,7 @@ class RegisterPage extends Component{
             let userService = new UserService();
             let user = new User(null, this.state.name, this.state.email, this.state.phone, this.state.password, null, null);
             userService.registerUser(user)
-                .thens(() => {
+                .then(() => {
                     this.toggleModal("Bruker registrert!");
                     window.location.hash = "/login";
                 })

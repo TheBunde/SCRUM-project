@@ -1,41 +1,36 @@
-import React, {Component} from 'react'; 
-import "../../../css/MainPage.css"
-import { createHashHistory } from 'history';
+import React, { Component } from 'react';
+import '../../../css/MainPage.css'
 
-import {NavbarMainPage} from '../../Navbar/Navbar.js'
-import Footer from "../../Footer/Footer";
+import Navbar from '../../Navbar/Navbar.js';
+import {NavbarMainPage} from "../../Navbar/Navbar";
+import {FooterTransparent} from '../../Footer/Footer'
 
-const history = createHashHistory();
+class About extends Component {
+    componentDidMount(){
+        window.scrollTo(0,0);
+    }
 
-
-
-class MainPage extends Component{
-    
-    render() {
+    render() {  
         return (
             <div>
-                <NavbarMainPage />
-                <body  id="MainPageBody" background="mainPageBackground.jpg">
-                    <div id="MainPageDiv">
-                        <h1 id="MainPageTitle"> Harmoni </h1>
-                        <div id="MainPageBtnDiv">
-                            <button id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg mr-5 font-weight-bold" onClick={this.logIn}>Logg inn</button>
-                            <button id="MainPageButtons" type="button" className="btn btn-outline-light btn-lg font-weight-bold" onClick={this.register}>Registrer bruker</button>
+                <div id="AboutDiv">
+                    <div id="AboutTitle"><a>HARMONI</a></div>
+                    <div id="AboutText"><h4>En portal for informasjonsflyt under planlegging av arrangementer</h4></div>
+                    <div id="AboutButtonDiv">
+                        <div id="AboutButtons">
+                            <button type="button" className="btn btn-outline-light btn-lg" onClick={()=> window.location.href = "#/login"}>Logg inn</button>
                         </div>
+                        <div id="AboutButtons">
+                            <button type="button" className="btn btn-outline-light btn-lg" onClick={()=> window.location.href = "#/register"}>Registrer ny bruker</button>
+                        </div> 
                     </div>
-                </body>
+                    <div>
+                        <FooterTransparent />
+                    </div>    
+                </div>
             </div>
-        );
+        )
     }
-
-    logIn(){
-        history.push("/login")
-    }
-
-    register(){
-        history.push("/register")
-    }
-
 }
 
-export default MainPage;
+export default About;

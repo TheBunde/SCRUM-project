@@ -28,8 +28,6 @@ class EventPage extends Component {
             shownEvents: []
         }
         this.handleSearch = this.handleSearch.bind(this);
-        this.eventFilterFuture = this.eventFilterFuture(this);
-        this.eventFilterPast = this.eventFilterPast(this);
     }
 
     getCurrentDate() {
@@ -37,13 +35,14 @@ class EventPage extends Component {
         let currentDate = "20200110";
         return currentDate;
     }
-
+    eventFilterAll(){
+        this.setState({shownEvents: this.state.allEvents})
+    }
     eventFilterFuture(){
-        this.setState({shownEvents: this.state.allEvents.filter(e => (e.date.localeCompare(this.getCurrentDate()))>=0)})
-
+        this.setState({shownEvents: this.state.allEvents.filter(e => e.date >= this.getCurrentDate())})
     }
     eventFilterPast() {
-        this.setState({shownEvents: this.state.allEvents.filter(e => this.getCurrentDate() - e.date)})
+        this.setState({shownEvents: this.state.allEvents.filter(e => e.date < this.getCurrentDate())})
     }
 
     sortByName(){
@@ -69,7 +68,7 @@ class EventPage extends Component {
 
     componentDidMount(){
         let event1 = new event(1, "Pers fest", "20201107", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
-        let event2 = new event(1, "Simons på skitur", "20190101", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 2, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
+        let event2 = new event(1, "Simons på skitur", "20200110", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 2, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
         let event3 = new event(1, "Martin på skitur", "20190301", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 1, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
             this.setState({shownEvents: [event1, event2, event3],
                                 allEvents: [event1, event2, event3]});
@@ -93,9 +92,9 @@ class EventPage extends Component {
                                         Vis
                                     </button>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a className="dropdown-item" onClick={() => this.eventFilterAll}>Alle arrangementer</a>
-                                        <a className="dropdown-item" onClick={() => this.eventFilterFuture}>Kommende arrangementer</a>
-                                        <a className="dropdown-item" onClick={() => this.eventFilterPast}>Utførte arrangementer</a>
+                                        <a className="dropdown-item" onClick={() => this.eventFilterAll()}>Alle arrangementer</a>
+                                        <a className="dropdown-item" onClick={() => this.eventFilterFuture()}>Kommende arrangementer</a>
+                                        <a className="dropdown-item" onClick={() => this.eventFilterPast()}>Utførte arrangementer</a>
                                     </div>
                                 </div>
                             </div>

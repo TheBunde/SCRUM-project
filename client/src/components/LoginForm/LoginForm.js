@@ -1,22 +1,8 @@
 import React, {Component} from 'react';
 import "../../css/LoginForm.css";
 import UserService from "../../services/UserService.js"
-import {User} from "../../services/UserService";
+import {User, auth, authenticate} from "../../services/UserService";
 let crypto = require('crypto');
-
-
-
-export const auth = {
-    authenticated: true,
-    authenticate(callback){
-        this.authenticated = true; // Remember to fix this later!!!!
-        setTimeout(callback, 100);
-    },
-    signout(callback){
-        this.authenticated = false;
-        setTimeout(callback, 100)
-    }
-};
 
 /*class LoginForm extends Component<{props: submit}>{
 const jwt =  require('jsonwebtoken');
@@ -34,7 +20,7 @@ class LoginForm extends Component{
 
     // Submitting the values in state to a validate function to check if email/pw are valid.
     // If so, send the user to the home page/overview page.
-    submit = (e) => {
+    submit = () => {
         let userService = new UserService();
         console.log(this.state.email);
         userService.validate(this.state.email, this.state.pw)
@@ -45,23 +31,12 @@ class LoginForm extends Component{
                 window.localStorage.setItem("token", token);
                 window.location.hash = "/overview";
             })
+            .then(authenticate)
             .catch((err) => {
                 console.error(err);
             })
 
     };
-
-    test = () => {
-        let userService = new UserService();
-        userService.example()
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    };
-
 
     // Runs every time input-fields are updated. Updates the state with the most current values.
     updateInputValue = (e) => {

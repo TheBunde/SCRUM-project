@@ -6,7 +6,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
 import ToTop from './components/ToTop/ToTop.js';
-import {auth} from "./components/LoginForm/LoginForm.js";
+import {auth, authenticate} from "./services/UserService.js";
 import Footer from './components/Footer/Footer.js';
 import LoginPage from './components/Pages/LoginPage/LoginPage.js';
 import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js';
@@ -25,21 +25,10 @@ import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 const Public = () => <h3>Public</h3>
 const Protected = () => <h3>Protected</h3>
 
-
-let parseJwt =  (token) => {
-    let base64Url = token.split('.')[1];
-    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    return JSON.parse(jsonPayload);
-};
-
 const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={(props) => (
-        localStorage.getItem("token")
-        //auth.authenticated === true // This is the check for authentication. Later use tokens instead when implemented. Then we good.
+        authenticate(),
+        auth.authenticated === true // This is the check for authentication. Later use tokens instead when implemented. Then we good.
         ? <Component {...props}/>
         : <Redirect to="/login" />
     )}/>

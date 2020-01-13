@@ -275,7 +275,7 @@ class AddEvent extends Component{
 
         eventService
             .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
-            .catch(Error => console.log(Error))
+            .catch(Error => console.log(Error));
 
     }
 }

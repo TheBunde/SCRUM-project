@@ -29,10 +29,12 @@ class EventService{
         return axios.post("http://localhost:8080/event", newEvent).then(response => response.data);
     }
 
-    getEvents(){
-        return axios.get("http://localhost:8080/event/").then(response => response.data);
+    getAllEvents(){
+        return axios.get("http://localhost:8080/event/all").then(response => response.data);
     }
-
+    getNonFiledEvents(){
+        return axios.get("http://localhost:8080/event/nonfiled").then(response => response.data);
+    }
     getEventById(eventID){
         return axios.get("http://localhost:8080/event/" + eventID).then(response => response.data);
     }

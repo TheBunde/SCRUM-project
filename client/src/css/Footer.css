@@ -1,12 +1,12 @@
 #Footer{
-    background-color: rgb(54,77,115);
-    bottom: 0;
+    background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(68, 111, 184));
     z-index: 3;
-    width: 100%;
-    padding: 15px;
+    width: 100vw;
+    padding: 20px 0 20px 0;
     text-align: center;
+    position: absolute;
+    bottom: 0px;
 }
-
 
 #FooterContainer a{
     padding: 10px;

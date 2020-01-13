@@ -47,8 +47,8 @@ class EventService{
         return axios.get("http://localhost:8080/tickets").then(response => response.data);
     }
 
-    addTicket(ticketID, eventID, number){
-        let newTicket = new ticket(ticketID, eventID, number);
+    addTicket(ticketID, eventID, amount){
+        let newTicket = new ticket(ticketID, eventID, amount);
         return axios.post("http://localhost:8080/tickets", newTicket).then(response => response.data)
     }
 }

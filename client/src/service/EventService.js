@@ -14,18 +14,27 @@ export class event {
     }
 }
 
+class ticket{
+    constructor(ticketID, eventID, amount){
+        this.ticketID = ticketID;
+        this.eventID = eventID;
+        this.number = amount;
+    }
+}
+
 class EventService{
 
     addEvents(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url){
         let newEvent = new event(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url);
-        console.log(newEvent);
         return axios.post("http://localhost:8080/event", newEvent).then(response => response.data);
     }
 
-    getEvents(){
-        return axios.get("http://localhost:8080/event/").then(response => response.data);
+    getAllEvents(){
+        return axios.get("http://localhost:8080/event/all").then(response => response.data);
     }
-
+    getNonFiledEvents(){
+        return axios.get("http://localhost:8080/event/nonfiled").then(response => response.data);
+    }
     getEventById(eventID){
         return axios.get("http://localhost:8080/event/" + eventID).then(response => response.data);
     }
@@ -36,6 +45,11 @@ class EventService{
 
     getTicket(){
         return axios.get("http://localhost:8080/tickets").then(response => response.data);
+    }
+
+    addTicket(ticketID, eventID, amount){
+        let newTicket = {ticketID: ticketID, eventID: eventID, amount: amount};
+        return axios.post("http://localhost:8080/tickets", newTicket).then(response => response.data)
     }
 }
 

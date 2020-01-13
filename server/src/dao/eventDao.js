@@ -27,6 +27,6 @@ module.exports = class adminDao extends Dao{
     }
 
     addTicket(ticket, callback){
-        super.query("INSERT INTO Event_Ticket(event_id, ticket_category_id, number) VALUES (?, ?, ?)", [ticket.event_id, ticket.ticketID, ticket.amount], callback)
+        super.query("INSERT INTO Event_Ticket(event_id, ticket_category_id, price, number) VALUES (?, ?, 0, ?)", [ticket.eventID, ticket.ticketID, ticket.amount], callback)
     }
 };

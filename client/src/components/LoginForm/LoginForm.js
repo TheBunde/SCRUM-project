@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import "../../css/LoginForm.css";
 import UserService from "../../services/UserService.js"
 import {User, auth, authenticate} from "../../services/UserService";
+import Footer from '../Footer/Footer.js';
+import {NavbarMainPage} from '../Navbar/Navbar.js'
+
 let crypto = require('crypto');
 
 /*class LoginForm extends Component<{props: submit}>{

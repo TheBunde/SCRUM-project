@@ -19,7 +19,7 @@ class ViewUser extends Component {
         return(
             <div>
                 <div className="row" id={"ViewUserMain"}>
-                    <div className="col">
+                    <div className="col" id={"idCol"}>
                         <p>{this.props.id}</p>
                     </div>
                     <div className="col">
@@ -38,7 +38,7 @@ class ViewUser extends Component {
                         <input type="radio" checked={this.props.approved == 1} readOnly={true} />
                     </div>
                     <div className="col">
-                        <a className="btn btn-primary" href={"#/admin/users/" + this.props.id + "/edit"} role="button">Link</a>
+                        <a className="btn btn-primary" href={"#/admin/users/" + this.props.id + "/edit"} role="button">Rediger</a>
                         <button className="btn-danger">Slett</button>
                     </div>
                 </div>

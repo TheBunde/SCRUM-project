@@ -157,9 +157,10 @@ app.put("/users/:userID", (req, res) => {
 });
 
 
-app.post("/users/:userID/role/", (req, res) => {
+app.post("/users/:userID/role", (req, res) => {
     console.log("users/:userID/role fikk request fra klient");
-    adminDao.assignRole(req.params.userID, req.body, (status, data) => {
+    console.log(req.body);
+    adminDao.assignRole(req.params.userID, req.body.roleID, (status, data) => {
         res.status(status);
         res.json(data);
     })
@@ -225,6 +226,21 @@ app.get("/tickets", (req, res) => {
    })
 });
 
+
+app.get("/roles/:role", (req, res) => {
+    adminDao.getRole(req.params.role, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.get("/roles", (req, res) => {
+    adminDao.getRoles((status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
 app.post("/tickets", (req, res) => {
     eventDao.addTicket(req.body, (status, data) =>{
         res.status(status);
@@ -236,6 +252,20 @@ app.post("/tickets", (req, res) =>{
     eventDao.addCategory(req.body, (status, data) => {
         res.status(status);
         res.json(data)
+    })
+});
+
+app.put("/users/:userID/approve",(req, res) => {
+    adminDao.approveUser(req.params.userID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.put("/users/:userID/disapprove", (req, res) => {
+    adminDao.disapproveUser(req.params.userID, (status, data) => {
+        res.status(status);
+        res.json(data);
     })
 });
 

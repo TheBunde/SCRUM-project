@@ -5,8 +5,6 @@ let app = express();
 let bodyParser = require("body-parser");
 const UserDao = require("./dao/UserDao");
 const dotenv = require('dotenv');
-dotenv.config();
-
 
 app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
@@ -101,6 +99,7 @@ app.put("/users/:userID", (req, res) => {
     })
 });
 
+
 app.post("/users/:userID/role/", (req, res) => {
     console.log("users/:userID/role fikk request fra klient");
     adminDao.assignRole(req.params.userID, req.body, (status, data) => {
@@ -115,6 +114,7 @@ app.delete("/users/:userID/", (req, res) => {
         res.json(data);
     })
 });
+
 
 app.put("/profile/:userId/edit", (req, res) => {
     console.log('/profile/:userId/edit: fikk request fra klient');

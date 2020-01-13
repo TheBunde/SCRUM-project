@@ -25,7 +25,6 @@
     color: rgb(43, 205, 242);
 }
 
-
 /*Lagede klasse for å gjøre hyperlinker sorte*/
 .sortTekst{
     color: black;
@@ -41,6 +40,28 @@
 #FooterLink{
     padding: 0 10px 0 10px;
 }
+
+
+#FooterTransparent{
+    z-index: 3;
+    width: 100vw;
+    padding: 20px 0 20px 0;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+}
+#Footer a{
+    color: white;
+}
+#Footer p{
+    color: white;
+}
+#Footer h5{
+    color: rgb(180, 177, 178);
+}
+
+
+
 
 @Media only screen and (max-width: 780px){
     #footerDropUp{

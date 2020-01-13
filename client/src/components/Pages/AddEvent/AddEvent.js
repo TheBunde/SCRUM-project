@@ -31,7 +31,6 @@ class AddEvent extends Component{
         this.changeAmount = this.changeAmount.bind(this);
         this.registerEvent = this.registerEvent.bind(this);
         this.registerTickets = this.registerTickets.bind(this);
-        this.onClick = this.onClick.bind(this)
     }
 
     componentDidMount() {
@@ -244,7 +243,7 @@ class AddEvent extends Component{
                 </div>
 
                 <div id = "EventInputButton">
-                    <button type="button" className="btn btn-outline-primary btn-lg" onClick={this.onClick}>
+                    <button type="button" className="btn btn-outline-primary btn-lg" onClick={this.registerEvent}>
                         Registrer arrangement
                     </button>
                 </div>
@@ -267,8 +266,7 @@ class AddEvent extends Component{
 
         eventService
             .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
-            .then(data => this.setState({EventID: data.insertId}))
-            .then(data2 => this.registerTickets(this.state.EventID))
+            .then(data => this.registerTickets(data.insertId))
             .catch(Error => console.log(Error));
     }
 
@@ -284,12 +282,6 @@ class AddEvent extends Component{
             }
         })
     }
-
-    onClick(){
-        this.registerEvent();
-        this.registerTickets();
-    }
-
 }
 
 export default AddEvent;

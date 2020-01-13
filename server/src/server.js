@@ -132,6 +132,20 @@ app.post("/event", (req, res) => {
         res.json(data);
     })
 });
+app.get("/event/", (req, res) => {
+    console.log("/event fikk request fra klient");
+    eventDao.getEvents((status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+app.get("/event/:eventID", (req, res) => {
+    console.log("/event/ID fikk request fra klient");
+    eventDao.getEventByID(req.params.eventID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
 
 app.get("/categories", (req, res) => {
     eventDao.getCategories((status, data) => {

@@ -6,7 +6,7 @@ module.exports = class adminDao extends Dao{
         super.query(" SELECT * FROM Event WHERE filed = 0 ORDER BY date DESC limit 25", [], callback);
     }
 
-    getEvent(eventID, callback){
+    getEventByID(eventID, callback){
         super.query("SELECT * FROM Event WHERE event_id=?", [eventID], callback);
     }
 

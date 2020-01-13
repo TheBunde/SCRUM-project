@@ -8,7 +8,7 @@ class AddEvent extends Component{
     constructor(props){
         super(props);
         this.state ={
-            EventID: null,
+            Category: 1,
             GratisTicketBox: false,
             GratisTicketAmount: null,
             StandardTicketBox: false,
@@ -55,6 +55,11 @@ class AddEvent extends Component{
         this.setState({[event.target.id]: event.target.value})
     }
 
+    changeCategory(event){
+        this.setState({Category: event.target.value})
+        console.log(this.state.Category)
+    }
+
     render() {
         return (
             <div>
@@ -66,6 +71,7 @@ class AddEvent extends Component{
                         <input type="text"
                                className = "form-control"
                                id = "nameInput"
+                               required="required"
                         />
                     </div>
                     <div id = "EventInputFields">
@@ -143,6 +149,7 @@ class AddEvent extends Component{
                         <input type="text"
                                className="form-control"
                                id="descriptionInput"
+                               required={true}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -150,6 +157,7 @@ class AddEvent extends Component{
                         <input type="text"
                                className="form-control"
                                id="placeInput"
+                               required={true}
                         />
                     </div>
                     <div id = "EventInputFields">
@@ -164,6 +172,7 @@ class AddEvent extends Component{
                         <input type="text"
                                className = "form-control"
                                id = "tech_ridersInput"
+                               required={true}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -171,6 +180,7 @@ class AddEvent extends Component{
                         <input type="text"
                                className="form-control"
                                id="hospitality_ridersInput"
+                               required={true}
                         />
                     </div>
                     <div id = "EventInputFields">
@@ -178,6 +188,7 @@ class AddEvent extends Component{
                         <input type="text"
                                className = "form-control"
                                id = "personnelInput"
+                               required={true}
                         />
                     </div>
                     <div id = "EventInputFields">
@@ -185,6 +196,7 @@ class AddEvent extends Component{
                         <input type="text"
                                className = "form-control"
                                id = "pictureInput"
+                               required={true}
                         />
                     </div>
                     <div id = "EventInputFields">
@@ -192,6 +204,7 @@ class AddEvent extends Component{
                         <input type="text"
                                className = "form-control"
                                id = "contractInput"
+                               required={true}
                         />
                     </div>
 
@@ -199,12 +212,12 @@ class AddEvent extends Component{
                         <p id = "EventInputLabels">Kategori for arrangementet:</p>
                         <select className ="form-control"
                                 id ="categoryInput"
+                                required={true}
                         >
                             {this.state.Categories.map(category =>
                                 <option
-                                key={category.id}
-                                value ={category.id}
-                                defaultValue={category.id}
+                                value ={category.category_id}
+                                defaultValue={category.category_id}
                                 >
                                     {category.name}
                                 </option>
@@ -274,13 +287,18 @@ class AddEvent extends Component{
         this.state.Tickets.map(ticket =>{
             if(this.state[ticket.name + "TicketBox"]){
                 if(this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
-                    console.log(ticket.ticket_category_id + " " + EventId + " " + this.state[ticket.name + "TicketAmount"]);
                     eventService
                         .addTicket(ticket.ticket_category_id, EventId, this.state[ticket.name + "TicketAmount"])
                         .catch(Error => console.log(Error))
                 }
             }
-        })
+        });
+
+        let category = document.getElementById("categoryInput").value;
+
+        eventService
+            .addCategory(EventId, category)
+            .catch(Error => console.log(Error))
     }
 }
 

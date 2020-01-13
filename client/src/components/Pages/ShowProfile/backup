@@ -20,6 +20,7 @@ class ShowProfile extends Component{
     }
 
     componentDidMount() {
+        console.log(this.hentet);
         let profileService = new ProfileService();
         profileService.getUser(this.user_id)
             .then(user =>
@@ -34,6 +35,12 @@ class ShowProfile extends Component{
         console.log("SE ME " + this.state.user)
     };
 
+    componentDidUpdate(prevProps) {
+        if(this.props !== prevProps){
+            let profileService = new ProfileService();
+            profileService.getUser(this.user_id).then(user => this.setState({user: user}))
+        }
+    }
 
 
     render(){

@@ -33,19 +33,6 @@ module.exports = class UserDao extends dao {
     getHashAndSalt(email, callback)
     {
         super.query(
-            "SELECT password_hash, salt from User where email = ?",
-            [email],
-            callback
-        );
-    }
-
-
-
-
-
-
-
-        super.query(
             "SELECT password_hash FROM User WHERE email LIKE ?",
             email,
             callback

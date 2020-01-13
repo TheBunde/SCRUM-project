@@ -226,7 +226,14 @@ app.get("/tickets", (req, res) => {
 });
 
 app.post("/tickets", (req, res) => {
-    eventDao.addTicket(req.body, (status, data)=>{
+    eventDao.addTicket(req.body, (status, data) =>{
+        res.status(status);
+        res.json(data)
+    })
+});
+
+app.post("/tickets", (req, res) =>{
+    eventDao.addCategory(req.body, (status, data) => {
         res.status(status);
         res.json(data)
     })

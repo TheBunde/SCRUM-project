@@ -1,44 +1,23 @@
 import React, {Component} from 'react';
 import "../../../css/ShowProfile.css"
 import { createHashHistory } from 'history';
-import {adminService} from '../../../service/AdminService'
-import {profileService} from "../../../service/ProfileService";
-import {Link} from "react-router-dom";
+import { User} from "../EditProfile/EditProfile";
+
+import {NavbarMainPage} from '../../Navbar/Navbar.js'
+import Footer from "../../Footer/Footer";
 import Navbar from "../../Navbar/Navbar";
 import Back from "../../Back/Back";
 
 const history = createHashHistory();
 
 class ShowProfile extends Component{
-    hentet = this.props.match.params.userID;
-    user_id = this.props.match.params.userID;
-
-    constructor(props) {
-        super(props);
-        this.state = {user : {}}
-
-    }
-
-    componentDidMount() {
-        console.log(this.hentet);
-        profileService.getUser(this.user_id)
-            .then(user =>
-                this.setState({
-                    user: user
-                })
-
-            )
-            .catch((error) => {
-                console.error(error);
-            });
-        console.log("SE ME " + this.state.user)
-    };
-
+    user = new User(1, "Grete", "09876543", "grete@ntnu.no");
+    name = "Grete";
+    tlf = 12345678;
+    email = "grete@ntnu.no";
 
 
     render(){
-
-
         return(
             <div>
                 <Navbar/>
@@ -46,14 +25,14 @@ class ShowProfile extends Component{
                 <div id="ShowProfileDiv">
                     <h1>Min profil</h1>
                     <div id="ShowProfileText">
-                        <h4>Brukernavn: {this.state.user.name}</h4>
-                        <h4>tlf: {this.state.user.phone}</h4>
-                        <h4>E-mail: {this.state.user.email}</h4>
+                        <h4>Brukernavn: {this.user.name}</h4>
+                        <h4>tlf: {this.user.tlf}</h4>
+                        <h4>E-mail: {this.user.email}</h4>
                     </div>
 
                     <div id="ShowProfileButtonDiv">
                         <div id="ShowProfileBtn">
-                            <button type="button" className="btn btn-info btn-lg" onClick={() => this.editProfile(this.user_id)}>Endre profil</button>
+                            <button type="button" className="btn btn-info btn-lg" onClick={this.editProfile}>Endre profil</button>
                         </div>
                     </div>
 
@@ -62,9 +41,8 @@ class ShowProfile extends Component{
         )
     }
 
-    editProfile(id){
-
-        history.push("/profile/"+ id + "/edit")
+    editProfile(){
+        history.push("/profile/user/edit")
     }
 
 }

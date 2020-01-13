@@ -22,3 +22,11 @@
 #OverviewButtons button{
     width: 300px;
 }
+
+#OverviewButtonsLogOut{
+    padding: 10px 0 10px 0;
+}
+
+#OverviewButtonsLogOut button{
+    width: 100px;
+}

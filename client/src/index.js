@@ -25,6 +25,8 @@ import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 const Public = () => <h3>Public</h3>
 const Protected = () => <h3>Protected</h3>
 
+
+
 const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={(props) => (
         authenticate(),
@@ -32,6 +34,15 @@ const PrivateRoute = ({component: Component, ...rest}) => (
         ? <Component {...props}/>
         : <Redirect to="/login" />
     )}/>
+);
+
+const AdminRoute = ({component : Component, ...rest}) => (
+    <Route {...rest} render={(props) => (
+        authenticate(),
+            auth.role === '"admin"'  && auth.authenticated === true
+        ? <Component {...props} />
+        : <Redirect to={"/overview"}/>
+    )} />
 );
 
 ReactDOM.render(
@@ -46,6 +57,7 @@ ReactDOM.render(
             <PrivateRoute exact path="/event/:id" component={EventView} />
             <PrivateRoute exact path="/event/:id/edit" component={EditEvent} />
             <PrivateRoute exact path="/overview/addEvent" component={AddEvent} />
+            <AdminRoute exact path="/admin/" component={AdminUserPage} />
             <ToTop />
             <Footer />
         </div>

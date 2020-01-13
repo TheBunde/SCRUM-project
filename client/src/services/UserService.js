@@ -58,16 +58,10 @@ export const auth = {
             this.authenticated = false;
             this.role = "";
         }
-    },
-    signout(){
-        this.authenticated = false;
-        this.role = "user";
     }
 };
 
 export let authenticate = auth.authenticate.bind(auth);
-export let signout = auth.signout.bind(auth);
-
 export class UserService {
     registerUser(user) {
         return Axios.post("http://localhost:8080/user", user);

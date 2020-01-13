@@ -60,7 +60,6 @@ class LoginForm extends Component{
                     <input type="password" class="form-control" id="password-input" placeholder="Skriv inn passord" name="pw" onChange={this.updateInputValue} />
                 </div>
                 <button type="button" class="btn btn-primary" id="login-button" onClick={this.submit}>Logg inn</button>
-                <button type="button" className={"btn btn-primary"} onClick={this.test}>Test</button>
             </form>
         )
     }

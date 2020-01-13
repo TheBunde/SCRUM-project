@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
 import ToTop from './components/ToTop/ToTop.js';
 import {auth, authenticate} from "./services/UserService.js";
-import Footer from './components/Footer/Footer.js';
 import LoginPage from './components/Pages/LoginPage/LoginPage.js';
 import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js';
 import OverviewPage from './components/Pages/OverviewPage/OverviewPage.js';
@@ -24,8 +23,6 @@ import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 
 const Public = () => <h3>Public</h3>
 const Protected = () => <h3>Protected</h3>
-
-
 
 const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={(props) => (
@@ -62,8 +59,6 @@ ReactDOM.render(
             <PrivateRoute exact path="/event/:id/edit" component={EditEvent} />
             <PrivateRoute exact path="/overview/addEvent" component={AddEvent} />
             <AdminRoute exact path="/admin/" component={AdminUserPage} />
-            <ToTop />
-            <Footer />
         </div>
     </HashRouter>
     , (document.getElementById('root')));

@@ -95,7 +95,7 @@ app.post("/validate", (req,res) => {
     //Check password and email up against a databsae call
     //If okay create a token, and send that token back
     //else return a 401
-    userDao.getUser(req.body.email, (status, data) => {
+    userDao.getApprovedUser(req.body.email, (status, data) => {
         if (data.length > 0) {
             console.log("User exists");
             //console.log(req.body.password);

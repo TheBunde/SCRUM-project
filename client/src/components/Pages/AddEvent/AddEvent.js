@@ -8,6 +8,7 @@ class AddEvent extends Component{
     constructor(props){
         super(props);
         this.state ={
+            EventID: null,
             GratisTicketBox: false,
             GratisTicketAmount: null,
             StandardTicketBox: false,
@@ -264,12 +265,16 @@ class AddEvent extends Component{
 
         eventService
             .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
+            .then(data => this.setState({EventID: data.insertId}))
             .catch(Error => console.log(Error));
 
         this.state.Tickets.map(ticket =>{
             if(this.state[ticket.name + "TicketBox"]){
                 if(this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
-
+                    console.log(ticket.name);
+                    eventService
+                        .addTicket(ticket.id, this.state.EventID, this.state[ticket.name + "TicketAmount"])
+                        .catch(Error => console.log(Error))
                 }
             }
         })

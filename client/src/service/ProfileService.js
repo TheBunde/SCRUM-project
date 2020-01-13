@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {User} from "../services/UserService";
+import {User} from "../service/UserService";
 
 
 class ProfileService{

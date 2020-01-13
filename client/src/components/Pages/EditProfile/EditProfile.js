@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import "../../../css/EditProfile.css"
 import { createHashHistory } from 'history';
 import {profileService} from '../../../service/ProfileService'
-import {User} from "../../../services/UserService";
+import {User} from "../../../service/UserService";
 
 
 import Navbar from "../../Navbar/Navbar";

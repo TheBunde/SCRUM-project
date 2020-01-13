@@ -4,6 +4,7 @@ import { createHashHistory } from 'history';
 
 import Navbar from '../../Navbar/Navbar'
 import {profileService} from "../../../service/ProfileService";
+import Footer from '../../Footer/Footer'
 const history = createHashHistory();
 
 class OverviewPage extends Component{
@@ -34,7 +35,7 @@ class OverviewPage extends Component{
         //let id = this.state.user.user_id;
         //console.log(id);
         return (
-            <div>
+            <div class="pageSetup">
                 <Navbar/>
                 <div id="OverviewDiv">
                     <div id="OverviewTitle"><h1>Forside</h1></div>
@@ -50,6 +51,7 @@ class OverviewPage extends Component{
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
         );
     }

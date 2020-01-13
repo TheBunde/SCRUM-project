@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import "../../../css/EditProfile.css"
 import { createHashHistory } from 'history';
-import {profileService} from '../../../service/ProfileService'
+import {ProfileService} from '../../../service/ProfileService'
 import {User} from "../../../service/UserService";
 
 

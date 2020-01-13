@@ -4,6 +4,8 @@ import UserService from "../../services/UserService.js"
 import {User} from "../../services/UserService";
 let crypto = require('crypto');
 
+
+
 export const auth = {
     authenticated: true,
     authenticate(callback){
@@ -36,8 +38,11 @@ class LoginForm extends Component{
         let userService = new UserService();
         console.log(this.state.email);
         userService.validate(this.state.email, this.state.pw)
-            .then(() => {
+            .then((response) => {
                 console.log("Gikk");
+                console.log("jwt:" + response.data.jwt);
+                let token = response.data.jwt;
+                window.localStorage.setItem("token", token);
             })
             .catch((err) => {
                 console.error(err);
@@ -45,15 +50,17 @@ class LoginForm extends Component{
 
     };
 
-    sha512 = (password, salt) => {
-        let hash = crypto.createHmac('sha512', salt); /** Hashing algorithm sha512 */
-        hash.update(password);
-        let value = hash.digest('hex');
-        return {
-            salt:salt,
-            passwordHash:value
-        };
+    test = () => {
+        let userService = new UserService();
+        userService.example()
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
     };
+
 
     // Runs every time input-fields are updated. Updates the state with the most current values.
     updateInputValue = (e) => {
@@ -77,6 +84,7 @@ class LoginForm extends Component{
                     <input type="password" class="form-control" id="password-input" placeholder="Skriv inn passord" name="pw" onChange={this.updateInputValue} />
                 </div>
                 <button type="button" class="btn btn-primary" id="login-button" onClick={this.submit}>Logg inn</button>
+                <button type="button" className={"btn btn-primary"} onClick={this.test}>Test</button>
             </form>
         )
     }

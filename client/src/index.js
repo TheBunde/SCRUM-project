@@ -27,7 +27,8 @@ const Protected = () => <h3>Protected</h3>
 
 const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={(props) => (
-        auth.authenticated === true // This is the check for authentication. Later use tokens instead when implemented. Then we good.
+        localStorage.getItem("token")
+        //auth.authenticated === true // This is the check for authentication. Later use tokens instead when implemented. Then we good.
         ? <Component {...props}/>
         : <Redirect to="/login" />
     )}/>

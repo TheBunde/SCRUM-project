@@ -1,22 +1,14 @@
 import React, {Component} from 'react';
 import "../../css/LoginForm.css";
 import UserService from "../../services/UserService.js"
-import {User} from "../../services/UserService";
+import {User, auth, authenticate} from "../../services/UserService";
 let crypto = require('crypto');
 
-export const auth = {
-    authenticated: true,
-    authenticate(callback){
-        this.authenticated = true; // Remember to fix this later!!!!
-        setTimeout(callback, 100);
-    },
-    signout(callback){
-        this.authenticated = false;
-        setTimeout(callback, 100)
-    }
-};
+/*class LoginForm extends Component<{props: submit}>{
+const jwt =  require('jsonwebtoken');
+//const private_key = 'pizza1234';*/
 
-class LoginForm extends Component<{props: submit}>{
+class LoginForm extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -28,38 +20,22 @@ class LoginForm extends Component<{props: submit}>{
 
     // Submitting the values in state to a validate function to check if email/pw are valid.
     // If so, send the user to the home page/overview page.
-    submit = (e) => {
+    submit = () => {
         let userService = new UserService();
         console.log(this.state.email);
-        userService.getHashAndSalt(this.state.email)
-            .then((hashAndSalt) => {
-                console.log(hashAndSalt.data[0]);
-                console.log(this.sha512(this.state.pw, hashAndSalt.data[0].salt));
-
-                if (this.sha512(this.state.pw, hashAndSalt.data[0].salt).passwordHash == hashAndSalt.data[0].password_hash) {
-                    console.log("Login verified");
-                } else {
-                    console.log("Not correct password");
-                }
-
-
+        userService.validate(this.state.email, this.state.pw)
+            .then((response) => {
+                console.log("Gikk");
+                console.log("jwt:" + response.data.jwt);
+                let token = response.data.jwt;
+                window.localStorage.setItem("token", token);
+                window.location.hash = "/overview";
             })
-            .catch((error) => {
-                console.error(error);
-            });
-        /*if(UserService.validate(this.state.email, this.state.pw)){
+            .then(authenticate)
+            .catch((err) => {
+                console.error(err);
+            })
 
-        }*/
-    };
-
-    sha512 = (password, salt) => {
-        let hash = crypto.createHmac('sha512', salt); /** Hashing algorithm sha512 */
-        hash.update(password);
-        let value = hash.digest('hex');
-        return {
-            salt:salt,
-            passwordHash:value
-        };
     };
 
     // Runs every time input-fields are updated. Updates the state with the most current values.

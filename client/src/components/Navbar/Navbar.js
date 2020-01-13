@@ -5,6 +5,11 @@ import $ from 'jquery';
 /*Changing ml-auto to mr-auto will change the placement of the navbar-collapse items to the left besides the logo/name to the left on the Navbar */
 
 class Navbar extends Component{
+    signOut = () => {
+        window.localStorage.removeItem("token");
+        window.location.hash = "/login";
+    }
+
     render() {
         return (
             <div>
@@ -28,7 +33,7 @@ class Navbar extends Component{
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" onClick={()=> window.location.href="#/"}>Logg ut</a>
+                            <a class="nav-link" onClick={()=> this.signOut()}>Logg ut</a>
                         </li>
                         </ul>
                     </div>

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Navbar from '../../Navbar/Navbar'
 import "../../../css/EventPage.css"
+import {eventService} from "../../../service/EventService";
+import $ from 'jquery';
 
 export class event {
     constructor(event_id, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, category_id, filed, pending, img_url){
@@ -24,57 +26,84 @@ class EventPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            events: []
+            allEvents: [],
+            shownEvents: [],
+            length: 2
         }
         this.handleSearch = this.handleSearch.bind(this);
-        this.eventFilterAll = this.eventFilterAll.bind(this);
-        this.eventFilterAll = this.eventFilterFuture.bind(this);
-        this.eventFilterAll = this.eventFilterPast.bind(this);
     }
 
     getCurrentDate() {
-        //let currentDate = new Date()
-        let currentDate = "20.01.10";
-        return currentDate;
+        let newDate = new Date()
+        let date = newDate.getDate();
+        if(date<10){
+            date = "0" + date;
+        }
+        let month = newDate.getMonth()+1;
+        if(month<10){
+            month = "0" + month;
+        }
+        let year = newDate.getFullYear();
+        let hours = newDate.getHours();
+        if(hours<10){
+            hours = "0" + hours;
+        }
+        let minutes = newDate.getMinutes();
+        if(minutes<10){
+            minutes = "0" + minutes;
+        }
+        return year + "-" + month + "-" + date + " " + hours + ":" + minutes;
     }
-
     eventFilterAll(){
-        // Here you would have to copy the componentDidMount() when backend is up and running
-        let event1 = new event(1, "Pers fest", "20.11.07", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
-        let event2 = new event(1, "Simon på skitur", "19.01.01", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
-        let event3 = new event(1, "Martin på skitur", "19.03.01", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
-        this.setState({events: [event1, event2, event3]});
+        this.setState({shownEvents: this.state.allEvents})
     }
     eventFilterFuture(){
-        this.setState({events: this.state.events.filter(e => e.date >= this.getCurrentDate())});
+        console.log(this.getCurrentDate())
+        this.setState({shownEvents: this.state.allEvents.filter(e => e.date >= this.getCurrentDate())})
     }
     eventFilterPast() {
-        this.setState({events: this.state.events.filter(e => e.date < this.getCurrentDate())})
+        this.setState({shownEvents: this.state.allEvents.filter(e => e.date < this.getCurrentDate())})
+    }
+
+    sortByName(){
+        this.setState(this.state.shownEvents.sort((a, b) => a.name.localeCompare(b.name)))
+    }
+    sortByDate() {
+        this.setState(this.state.shownEvents.sort((a, b) => b.date.localeCompare(a.date)))
+    }
+    sortByCategory() {
+        this.setState(this.state.shownEvents.sort((a, b) => b.category_id - a.category_id))
     }
 
     handleSearch() {
         const searchTitleElement = document.getElementById("searchBar");
         let searchTitle = searchTitleElement.value;
         if(searchTitle !== ""){
-            this.setState({events: this.state.events.filter(e => e.name.toLowerCase().includes(searchTitle.toLowerCase()) || e.description.toLowerCase().includes(searchTitle.toLowerCase()))});
+            this.setState({shownEvents: this.state.allEvents.filter(e => e.name.toLowerCase().includes(searchTitle.toLowerCase()) || e.description.toLowerCase().includes(searchTitle.toLowerCase()))});
         } else {
-            // Here you would have to copy the componentDidMount() when backend is up and running
-            let event1 = new event(1, "Pers fest", "20.11.07", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
-            let event2 = new event(1, "Simon på skitur", "19.01.01", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
-            let event3 = new event(1, "Martin på skitur", "19.03.01", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
-            this.setState({events: [event1, event2, event3]});
+            this.componentDidMount()
         }
     }
 
 
     componentDidMount(){
-        let event1 = new event(1, "Pers fest", "20.11.07", "Per hoster moshpit", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 3, "false", "true", "https://media.npr.org/assets/img/2013/03/21/liturgy_wide-b0db450374d1862cacfb1fd49a54360db58aaefc-s800-c85.jpg")
-        let event2 = new event(1, "Simons på skitur", "19.01.01", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 2, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
-        let event3 = new event(1, "Martin på skitur", "19.03.01", "Simon ser frem til fyll og fanteri", "Sukkerhuset", "Metallica", null, null, "Martin & Simon", 1, "false", "true", "https://www.skistar.com/globalassets/bilder-nya-skistar.com/kartor/pistkartor-1920/are_pistkartor_1920x1400_1920.jpg?maxwidth=924&quality=80")
-            this.setState({events: [event1, event2, event3]});
+        eventService.getAllEvents().then(events => this.setState({
+            shownEvents: events,
+            allEvents: events}))
+            .catch(error => console.error(error.message));
     }
 
     render() {
+
+        $(function(){
+            $("#eventPageShow a").click(function(){
+                $("#eventPageShow .btn:first-child ").text($(this).text());
+            });
+            $("#eventPageSort a").click(function(){
+                $("#eventPageSort .btn:first-child ").text($(this).text());
+            });
+        });
+
         return (
             <div>
                 <Navbar />
@@ -91,10 +120,10 @@ class EventPage extends Component {
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Vis
                                     </button>
-                                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a className="dropdown-item" onClick={this.eventFilterAll}>Alle arrangementer</a>
-                                        <a className="dropdown-item" onClick={this.eventFilterFuture}>Kommende arrangementer</a>
-                                        <a className="dropdown-item" onClick={this.eventFilterPast}>Utførte arrangementer</a>
+                                    <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
+                                        <a className="dropdown-item" onClick={() => this.eventFilterAll()}>Alle arrangementer</a>
+                                        <a className="dropdown-item" onClick={() => this.eventFilterFuture()}>Kommende arrangementer</a>
+                                        <a className="dropdown-item" onClick={() => this.eventFilterPast()}>Utførte arrangementer</a>
                                     </div>
                                 </div>
                             </div>
@@ -105,9 +134,9 @@ class EventPage extends Component {
                                         Sorter etter
                                     </button>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a className="dropdown-item" onClick={() => this.setState(this.state.events.sort((a, b) => a.name.localeCompare(b.name)))}>Navn</a>
-                                        <a className="dropdown-item" onClick={() => this.setState(this.state.events.sort((a, b) => b.date.localeCompare(a.date)))}>Dato</a>
-                                        <a className="dropdown-item" onClick={() => this.setState(this.state.events.sort((a, b) => b.category_id - a.category_id))}>Kategori</a>
+                                        <a className="dropdown-item" onClick={() => this.sortByName()}>Navn</a>
+                                        <a className="dropdown-item" onClick={() => this.sortByDate()}>Dato</a>
+                                        <a className="dropdown-item" onClick={() => this.sortByCategory()}>Kategori</a>
                                     </div>
                                 </div>
                             </div>
@@ -116,12 +145,19 @@ class EventPage extends Component {
                             </div>
                         </div>
                         <div id="eventPageEventTable">
-                            {this.state.events.map(event => (
+                            {this.state.shownEvents.slice(0, this.state.length).map(event => (
                                 <div>
-                                    <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description}/>
+                                    <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={event.date} location={event.location}/>
                                 </div>
                             ))}  
                         </div>
+                    </div>
+                    <div id="eventPageFetchMoreEventsButton">
+                        {this.state.shownEvents.length > this.state.length && 
+                        <div>
+                            <button type="button" class="btn btn-light" onClick={() => this.setState({length: this.state.length+6})}>Last inn flere arrangementer</button>
+                        </div> 
+                    }
                     </div>
                 </div>
             </div>
@@ -139,6 +175,12 @@ class EventCard extends Component {
                             <div class="card-body">
                                 <h5 class="card-title">{this.props.name}</h5>
                                 <p class="card-text">{this.props.description}</p>
+                                <div id="eventPageCardDate">
+                                    {this.props.date}
+                                </div>
+                                <div id="eventPageCardLocation">
+                                    {this.props.location}
+                                </div>
                             </div>
                     </div>
                 </a>

@@ -1,15 +1,21 @@
 import React, {Component} from 'react';
 import "../../../css/ShowProfile.css"
 import { createHashHistory } from 'history';
+
 import {adminService} from '../../../service/AdminService'
 import {ProfileService} from "../../../service/ProfileService";
 import {Link} from "react-router-dom";
+
+import { User} from "../EditProfile/EditProfile";
+
+
 import Navbar from "../../Navbar/Navbar";
 import Back from "../../Back/Back";
 
 const history = createHashHistory();
 
 class ShowProfile extends Component{
+
     hentet = this.props.match.params.userID;
     user_id = this.props.match.params.userID;
 
@@ -46,6 +52,7 @@ class ShowProfile extends Component{
                 <div id="ShowProfileDiv">
                     <h1>Min profil</h1>
                     <div id="ShowProfileText">
+
                         <div id="ShowProfileLine">
                             <h4 id="h4">Brukernavn: </h4> <h5 id="h5">{this.state.user.name}</h5>
                         </div>

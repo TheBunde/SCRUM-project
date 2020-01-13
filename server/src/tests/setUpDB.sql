@@ -1,14 +1,3 @@
-drop table if exists Pending_User;
-drop table if exists Event_Category;
-drop table if exists Contact_Info;
-drop table if exists Event_Ticket;
-drop table if exists Event;
-drop table if exists Category;
-drop table if exists Ticket_Category;
-drop table if exists User;
-drop table if exists Role;
-
-
 create table Event
 (
   event_id   int auto_increment not null,
@@ -24,8 +13,7 @@ create table Event
   personnel text,
   filed tinyint not null default 0,
   pending tinyint not null default 1,
-  constraint event_pk primary key (event_id),
-  fulltext (name, description, place, artists)
+  constraint event_pk primary key (event_id)
 );
 
 create table Ticket_Category
@@ -59,7 +47,7 @@ create table User
   name varchar(100) not null,
   email varchar(320) not null unique,
   phone varchar(12) not null unique,
- -- salt varchar(128) not null,
+  -- salt varchar(128) not null,
   password_hash varchar(128) not null,
   role_id int,
   approved tinyint not null default 0,
@@ -128,8 +116,8 @@ insert into Role(role) values ('Festplanlegger');
 
 -- passwords 'testing'
 insert into User(name, email, phone, password_hash, role_id) values ('test1', 'test1@tester.no', '12345678','3856f5086eb7138f2e4e3d42d8569ce4f4b66a83cbce3192da65ee129e8c01d2832057b4bd8f124a2a47d376de0c1808cabc2e467275cc9f7b8a059d618c04bd', 1);
-insert into User(name, email, phone, password_hash, role_id) values ('test2', 'test2@tester.no', '87654321','75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 3);
-insert into User(name, email, phone, password_hash, role_id) values ('test3', 'test3@tester.no', '98765432','75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 7);
+insert into User(name, email, phone, password_hash, role_id) values ('test2', 'test2@tester.no', '87654321','75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 1);
+insert into User(name, email, phone, password_hash, role_id) values ('test3', 'test3@tester.no', '98765432','75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 1);
 
 
 insert into Category(name) values ('forelesning');

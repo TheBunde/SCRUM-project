@@ -8,6 +8,16 @@
     "mysql": "^2.16.0",
     "dotenv": "latest"
   },
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "html"
+    ],
+    "globalSetup": "./src/tests/setup.js",
+    "globalTeardown": "./src/tests/teardown.js"
+  },
   "scripts": {
     "start": "nodemon --exec src/server.js",
     "test": "jest"

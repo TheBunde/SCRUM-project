@@ -1,24 +1,28 @@
-#ViewUserMain {
-    width: 95%;
-    border: 2px solid black;
-    text-align: left;
-    height: 100px;
-    margin: auto auto 20px auto;
-}
+    #ViewUserMain {
+        width: 95%;
+        border: 2px solid black;
+        text-align: left;
+        height: 100px;
+        margin: auto auto 20px auto;
+    }
 
-.viewUserCol{
-    border: 3px solid red;
-}
+    .col{
+        border: 3px solid red;
+    }
 
-.col{
-    margin: auto auto 20px auto;
-    text-align: left;
-    border: 2px solid blue;
-    max-width: 14.28%;
-}
+    .list-group-item{
+        display: flex;
+    }
 
-#idCol{
-    text-align: center;
-    border: 2px gold solid;
-}
+    .col{
+        margin: auto auto 20px auto;
+        text-align: left;
+        max-width: 14.28%;
+    }
+
+    #idCol{
+        text-align: center;
+    }
+
+
 

@@ -1,4 +1,3 @@
-
 let express = require("express");
 let mysql = require("mysql");
 let app = express();
@@ -128,6 +127,27 @@ app.put("/profile/:userId/edit", (req, res) => {
 
 app.post("/event", (req, res) => {
     eventDao.addEvent(req.body, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+app.get("/event/all", (req, res) => {
+    console.log("/event fikk request fra klient");
+    eventDao.getAllEvents((status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+app.get("/event/nonFiled", (req, res) => {
+    console.log("/event fikk request fra klient");
+    eventDao.getNonFiledEvents((status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+app.get("/event/:eventID", (req, res) => {
+    console.log("/event/ID fikk request fra klient");
+    eventDao.getEventByID(req.params.eventID, (status, data) => {
         res.status(status);
         res.json(data);
     })

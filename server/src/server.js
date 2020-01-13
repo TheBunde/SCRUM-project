@@ -4,8 +4,6 @@ let app = express();
 let bodyParser = require("body-parser");
 const UserDao = require("./dao/UserDao");
 const dotenv = require('dotenv');
-dotenv.config();
-
 
 app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
@@ -94,7 +92,7 @@ app.put("/users/:userID", (req, res) => {
         res.json(data);
     })
 });
->>>>>>> 8d13d37b14e8ada5eaa11eaf28e4ae39aba58ffa
+
 
 app.post("/users/:userID/role/", (req, res) => {
     console.log("users/:userID/role fikk request fra klient");
@@ -111,9 +109,4 @@ app.delete("/users/:userID/", (req, res) => {
     })
 });
 
-<<<<<<< HEAD
 let server = app.listen(8080);
-=======
-
-let server = app.listen(8080);
->>>>>>> 8d13d37b14e8ada5eaa11eaf28e4ae39aba58ffa

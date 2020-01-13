@@ -3,26 +3,26 @@ import "../../../css/Overview.css"
 import { createHashHistory } from 'history';
 
 import Navbar from '../../Navbar/Navbar'
-import {profileService} from "../../../service/ProfileService";
+import ProfileService from "../../../service/ProfileService";
 const history = createHashHistory();
 
 class OverviewPage extends Component{
-    user_id = 9;
-    user;
 
     constructor(props) {
         super(props);
-        this.state = {user : {}}
+        this.state = {user_id: 9}
 
     }
 
     componentDidMount() {
-        profileService.getUser(this.user_id)
-            .then(user =>
+        let profileService = new ProfileService();
+        profileService.getUser(this.state.user_id)
+            .then(user => {
+
                     this.setState({
                         user: user
                     })
-
+                }
             )
             .catch((error) => {
                 console.error(error);
@@ -31,8 +31,7 @@ class OverviewPage extends Component{
     };
     
     render() {
-        //let id = this.state.user.user_id;
-        //console.log(id);
+
         return (
             <div>
                 <Navbar/>
@@ -46,7 +45,7 @@ class OverviewPage extends Component{
                             <button type="button" className="btn btn-info btn-lg" onClick={this.seeEvents}>Se alle eventer</button>
                         </div>
                         <div id="OverviewButtons">
-                            <button type="button" className="btn btn-info btn-lg" onClick={() => this.seeProfile(this.state.user.user_id)}>Vis profil</button>
+                            <button type="button" className="btn btn-info btn-lg" onClick={() => this.seeProfile(this.state.user_id)}>Vis profil</button>
                         </div>
                         <div id="OverviewButtonsLogOut">
                             <button type="button" className="btn btn-dark btn-lg" onClick={this.logOut}>logg ut</button>

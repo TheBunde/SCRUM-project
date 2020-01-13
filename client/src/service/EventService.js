@@ -51,6 +51,11 @@ class EventService{
         let newTicket = {ticketID: ticketID, eventID: eventID, amount: amount};
         return axios.post("http://localhost:8080/tickets", newTicket).then(response => response.data)
     }
+
+    addCategory(eventID, categoryID){
+        let newCategory = {eventID: eventID, categoryID: categoryID}
+        return axios.post("http://localhost:8080/categories", newCategory).then(response => response.data)
+    }
 }
 
 export let eventService = new EventService();

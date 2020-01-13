@@ -49,8 +49,6 @@ ReactDOM.render(
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/about" component={About} />
-            <Route exact path={"/admin/users"} component={AdminUserPage}/>
-            <Route exact path={"/admin/users/:id/edit"} component={EditUserPage}/>
             <PrivateRoute exact path="/overview" component={OverviewPage} />
             <PrivateRoute exact path="/profile/:userID" component={ShowProfile} />
             <PrivateRoute exact path="/profile/:userID/edit" component={EditProfile} />
@@ -58,7 +56,9 @@ ReactDOM.render(
             <PrivateRoute exact path="/event/:id" component={EventView} />
             <PrivateRoute exact path="/event/:id/edit" component={EditEvent} />
             <PrivateRoute exact path="/overview/addEvent" component={AddEvent} />
-            <AdminRoute exact path="/admin/" component={AdminUserPage} />
+            <AdminRoute exact path="/admin" component={AdminUserPage} />
+            <AdminRoute exact path="/admin/users" component={AdminUserPage} />
+            <AdminRoute exact path="/admin/users/:id/edit" component={AdminUserPage} />
         </div>
     </HashRouter>
     , (document.getElementById('root')));

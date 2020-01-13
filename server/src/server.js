@@ -78,6 +78,22 @@ app.post("/api/posts", verifyToken, (req,res) => {
 
 });
 
+app.get("/user/:userID", (req, res) => {
+    console.log("/users/ fikk request fra klient");
+    console.log()
+    adminDao.getUser(req.params.userID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+})
+
+app.get("/user/:userID", (req, res) => {
+    adminDao.getUser(req.params.userID,(status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
 
 app.get("/users/", (req, res) => {
     console.log("/users/ fikk request fra klient");
@@ -248,7 +264,7 @@ app.post("/tickets", (req, res) => {
     })
 });
 
-app.post("/tickets", (req, res) =>{
+app.post("/categories", (req, res) =>{
     eventDao.addCategory(req.body, (status, data) => {
         res.status(status);
         res.json(data)

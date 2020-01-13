@@ -9,6 +9,7 @@ class AddEvent extends Component{
     constructor(props){
         super(props);
         this.state ={
+            Category: 1,
             GratisTicketBox: false,
             GratisTicketAmount: null,
             StandardTicketBox: false,
@@ -34,8 +35,6 @@ class AddEvent extends Component{
     }
 
     componentDidMount() {
-        let tickets = [];
-
         eventService
             .getCategories()
             .then(categories => this.setState({Categories: categories}))
@@ -43,8 +42,7 @@ class AddEvent extends Component{
 
         eventService
             .getTicket()
-            .then(data => data.map(info => tickets.push({id: info.ticket_category_id, name: info.name, checked: false, amount: null, index: tickets.length})))
-            .then(data2 => this.setState({Tickets: tickets}))
+            .then(data => this.setState({Tickets: data}))
             .catch(Error => console.log(Error));
 
     }
@@ -141,6 +139,7 @@ class AddEvent extends Component{
                                 )}
                             </select>
                         </div>
+
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
@@ -214,9 +213,8 @@ class AddEvent extends Component{
                         >
                             {this.state.Categories.map(category =>
                                 <option
-                                key={category.id}
-                                value ={category.id}
-                                defaultValue={category.id}
+                                value ={category.category_id}
+                                defaultValue={category.category_id}
                                 >
                                     {category.name}
                                 </option>
@@ -293,7 +291,13 @@ class AddEvent extends Component{
                         .catch(Error => console.log(Error))
                 }
             }
-        })
+        });
+
+        let category = document.getElementById("categoryInput").value;
+
+        eventService
+            .addCategory(EventId, category)
+            .catch(Error => console.log(Error))
     }
 }
 

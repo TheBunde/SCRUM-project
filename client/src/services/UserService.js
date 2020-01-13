@@ -2,6 +2,7 @@ import Axios from "axios";
 //Axios.interceptors.response.use(response => response.data);
 
 export class User {
+    user_id;
     name;
     email;
     phone;
@@ -9,13 +10,14 @@ export class User {
     approved;
     roleid;
 
-    constructor(name, email, phone, password, approved, roleId) {
+    constructor(user_id, name, email, phone, password,roleId, approved) {
+        this.user_id = user_id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.approved = approved;
         this.roleid = roleId;
+        this.approved = approved;
     }
 
 

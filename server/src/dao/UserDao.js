@@ -7,6 +7,8 @@ module.exports = class UserDao extends dao {
 
     registerUser(json, callback) {
         let val = [json.name, json.email, json.phone];
+        console.log(json);
+        console.log(json.password);
         bcrypt.hash(json.password, saltRounds)
             .then((resp) => {
                 val.push(resp);

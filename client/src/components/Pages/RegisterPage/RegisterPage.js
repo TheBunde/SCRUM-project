@@ -125,7 +125,7 @@ class RegisterPage extends Component{
 
         }else{
             let userService = new UserService();
-            let user = new User(this.state.name, this.state.email, this.state.phone, this.state.password, null, null);
+            let user = new User(null, this.state.name, this.state.email, this.state.phone, this.state.password, null, null);
             userService.registerUser(user)
                 .then(() => {
                     this.toggleModal("Bruker registrert!");

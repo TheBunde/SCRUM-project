@@ -69,7 +69,7 @@ class OverviewPage extends Component{
                     <div className="card-body">
                         <h5 className="card-title">Vis profil</h5>
                         <p className="card-text">Vil du endre profilen din kan du gjøre det her.</p>
-                        <a className="btn btn-outline-warning" href="#" role="button">Vis profil</a>
+                        <button className="btn btn-outline-warning" onClick={() => window.location.href="/#/"} role="button">Vis profil</button>
                     </div>
                 </div>
 

@@ -7,6 +7,10 @@ class AdminService{
         return axios.get("http://localhost:8080/roles").then(response => response.data);
     }
 
+    getRoleByID(roleID){
+        return axios.get("http://localhost:8080/role/" + roleID).then(response => response.data);
+    }
+
     getRole(role){
         return axios.get("http://localhost:8080/roles/" + role).then(response => response.data);
     }

@@ -34,6 +34,17 @@ class EventPage extends Component {
         this.handleSearch = this.handleSearch.bind(this);
     }
 
+    formatDate(backendDate) {
+        let tempDate = backendDate;
+        let year = tempDate.slice(0, 4);
+        let month = tempDate.slice(5, 7);
+        let date = tempDate.slice(8, 10);
+        let hours = tempDate.slice(11, 13);
+        let minutes = tempDate.slice(14, 16);
+
+        return date + "-" + month + "-" + year + " " + hours + ":" + minutes;
+    }
+
     getCurrentDate() {
         let newDate = new Date()
         let date = newDate.getDate();
@@ -55,6 +66,7 @@ class EventPage extends Component {
         }
         return year + "-" + month + "-" + date + " " + hours + ":" + minutes;
     }
+
     eventFilterAll(){
         this.setState({shownEvents: this.state.allEvents})
     }
@@ -98,12 +110,12 @@ class EventPage extends Component {
 
         $(function(){
             $("#eventPageShow a").click(function(){
-                $("#eventPageShow .btn:first-child ").text($(this).text());
-            });
-            $("#eventPageSort a").click(function(){
-                $("#eventPageSort .btn:first-child ").text($(this).text());
-            });
+            $("#eventPageShow .btn:first-child ").text($(this).text());
         });
+            $("#eventPageSort a").click(function(){
+            $("#eventPageSort .btn:first-child ").text($(this).text());
+        });
+    });
 
         return (
             <div class="pageSetup">
@@ -148,17 +160,19 @@ class EventPage extends Component {
                             <div id="eventPageEventTable">
                                 {this.state.shownEvents.slice(0, this.state.length).map(event => (
                                     <div>
-                                        <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={event.date} location={event.location}/>
+                                        <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={this.formatDate(event.date)} place={event.place}/>
                                     </div>
-                                ))}  
+                                ))}
+                                <div id="eventPageFetchMoreEventsButton">
+                                    {this.state.shownEvents.length > this.state.length &&
+                                    <div>
+                                        <button type="button" className="btn btn-light"
+                                                onClick={() => this.setState({length: this.state.length + 6})}>Last inn flere arrangementer
+                                        </button>
+                                    </div>
+                                    }
+                                </div>
                             </div>
-                        </div>
-                        <div id="eventPageFetchMoreEventsButton">
-                            {this.state.shownEvents.length > this.state.length && 
-                            <div>
-                                <button type="button" class="btn btn-light" onClick={() => this.setState({length: this.state.length+6})}>Last inn flere arrangementer</button>
-                            </div> 
-                        }
                         </div>
                     </div>
                 </div>
@@ -178,11 +192,11 @@ class EventCard extends Component {
                             <div class="card-body">
                                 <h5 class="card-title">{this.props.name}</h5>
                                 <p class="card-text">{this.props.description}</p>
-                                <div id="eventPageCardDate">
-                                    {this.props.date}
-                                </div>
                                 <div id="eventPageCardLocation">
                                     {this.props.place}
+                                </div>
+                                <div id="eventPageCardDate">
+                                    {this.props.date}
                                 </div>
                             </div>
                     </div>
@@ -193,3 +207,16 @@ class EventCard extends Component {
 }
 
 export default EventPage;
+
+
+//this.props.date.slice(0, 16).replace("T", " ")
+
+//<div id="eventPageFetchMoreEventsButton">
+//    {this.state.shownEvents.length > this.state.length &&
+//    <div>
+//        <button type="button" className="btn btn-light"
+//                onClick={() => this.setState({length: this.state.length + 6})}>Last inn flere arrangementer
+//        </button>
+//    </div>
+//    }
+//</div>

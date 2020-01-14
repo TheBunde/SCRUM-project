@@ -6,6 +6,10 @@ module.exports = class adminDao extends Dao{
         super.query("SELECT role_id FROM Role WHERE role=?", [role], callback);
     }
 
+    getRoleById(roleID, callback){
+        super.query("SELECT role FROM Role WHERE role_id=?", [roleID], callback);
+    }
+
     getRoles(callback){
         super.query("SELECT role FROM Role", [], callback);
     }

@@ -1,4 +1,3 @@
-
 let express = require("express");
 let mysql = require("mysql");
 let app = express();
@@ -17,7 +16,6 @@ const jwt = require('jsonwebtoken');
 
 app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
-const ProfileDao = require("../src/dao/profileDao");
 const EventDao = require("../src/dao/eventDao");
 
 let pool = mysql.createPool({
@@ -39,7 +37,6 @@ app.use(function(req, res, next) {
 
 const userDao = new UserDao(pool);
 let adminDao = new AdminDao(pool);
-let profileDao = new ProfileDao(pool);
 let eventDao = new EventDao(pool);
 
 //Here we need to have a app.use which will verify the token so that you can not use any of them without token!!

@@ -28,6 +28,11 @@ class EventService{
     getAllEvents(){
         return axios.get("http://localhost:8080/event/all").then(response => response.data);
     }
+
+    getAllArchived(){
+        return axios.get("http://localhost:8080/event/archived").then(response => response.data);
+    }
+
     getNonFiledEvents(){
         return axios.get("http://localhost:8080/event/nonfiled").then(response => response.data);
     }
@@ -61,6 +66,10 @@ class EventService{
     addContactInfo(name, phone, email, eventID){
         let newContactInfo = {name: name, phone: phone, email: email, eventID: eventID};
         return axios.post("http://localhost:8080/contactInfo", newContactInfo).then(response => response.data)
+    }
+
+    updateFiled(eventID){
+        return axios.get("http://localhost:8080/event/" + eventID + "/archived").then(response => response.data);
     }
 }
 

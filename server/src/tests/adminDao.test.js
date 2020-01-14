@@ -20,7 +20,7 @@ let adminDao = new AdminDao(pool);
 /*
     tests getUser: henter User med Id 1
 */
-test("get User from DB", done =>{
+test("get User with id 1", done =>{
     function callback(status, data) {
         console.log(
             "Test getUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -39,7 +39,7 @@ test("get User from DB", done =>{
     tests getUsers
 */
 
-test("get User from DB", done =>{
+test("get Users from DB", done =>{
     function callback(status, data) {
         console.log(
             "Test getUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -61,7 +61,7 @@ test("get User from DB", done =>{
 
 test("test assigning roles", done =>{
 
-    function callback2(status, data) {
+    function callback3(status, data) {
         console.log(
             "Test getUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
@@ -71,20 +71,24 @@ test("test assigning roles", done =>{
         done();
     }
 
+    function callback2(status, data){
+        adminDao.getUser(1, callback3);
+    }
+
     function callback(status, data){
-        adminDao.getUser(1, callback2);
+        adminDao.approveUser(1, callback2);
     }
 
     let myjson = {roleID : 2};
-    adminDao.assignRole(1, myjson, callback);
+    adminDao.assignRole(1, 2, callback);
 });
 
 
 /*
-    tests assignRole: assignes role 2 to user_id 1
+    delete user
 */
 
-test("test assigning roles", done =>{
+test("delete user", done =>{
 
     function callback(status, data) {
         console.log(

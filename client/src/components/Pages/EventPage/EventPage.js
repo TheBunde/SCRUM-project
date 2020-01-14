@@ -182,7 +182,7 @@ class EventCard extends Component {
                                     {this.props.date}
                                 </div>
                                 <div id="eventPageCardLocation">
-                                    {this.props.location}
+                                    {this.props.place}
                                 </div>
                             </div>
                     </div>

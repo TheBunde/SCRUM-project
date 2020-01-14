@@ -7,8 +7,6 @@ module.exports = class UserDao extends dao {
 
     registerUser(json, callback) {
         let val = [json.name, json.email, json.phone];
-        console.log(json);
-        console.log(json.password);
         bcrypt.hash(json.password, saltRounds)
             .then((resp) => {
                 val.push(resp);
@@ -34,5 +32,9 @@ module.exports = class UserDao extends dao {
 
     getApprovedUser(email, callback) {
         super.query("SELECT * from User JOIN Role on User.role_id = Role.role_id where email = ? AND approved = 1", email, callback);
+    }
+
+    changePassword(json, callback) {
+        super.query("")
     }
 };

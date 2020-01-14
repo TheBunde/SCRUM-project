@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import "../../../css/EditProfile.css"
 import { createHashHistory } from 'history';
-import {ProfileService} from '../../../service/ProfileService'
-import {User} from "../../../services/UserService";
+import {profileService} from '../../../service/ProfileService'
+import {User} from "../../../service/UserService";
 
 
 import Navbar from "../../Navbar/Navbar";
@@ -169,14 +169,16 @@ save = (e) => {
 
     if(oldPassword !== null && newPassword === null || oldPassword === null && newPassword !== null){
         console.log("mangler å legge inn noe");
-        check = false;
     }else if(newName === "" || newTlf === "" || newEmail === ""){
         console.log("Ikke gi tomme feilter");
-        check = false;
     }else{
         if(oldPassword !== null && newPassword !== null){
             console.log("vi ønsker å endre passord ");
-            check = true; //if the password passes the test;
+            /*
+            Her ønsker vi å først sjekke om det gamle passordet stemmer med det som ligger i databasen
+            dersom det stemmer skal det nye passordet erstattes med det gamle. dersom passordet ikke stemmer skal check settes til false
+             */
+            check = false; //if the password doesn't pass the test;
         }
         if(check){
             console.log("Alt ok");

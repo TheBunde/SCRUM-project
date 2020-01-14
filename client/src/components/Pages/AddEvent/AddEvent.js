@@ -3,6 +3,7 @@ import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
 
 import Navbar from '../../Navbar/Navbar'
+import Footer from '../../Footer/Footer'
 
 class AddEvent extends Component{
     constructor(props){
@@ -55,17 +56,12 @@ class AddEvent extends Component{
         this.setState({[event.target.id]: event.target.value})
     }
 
-    changeCategory(event){
-        this.setState({Category: event.target.value})
-        console.log(this.state.Category)
-    }
-
     render() {
         return (
-            <div>
+            <div class="pageSetup">
                 <Navbar />
                 <div id="EventInputContainer">
-                    <h2 id ="EventInputHeader">Registering av nytt arrangement</h2>
+                    <h2 id ="EventInputHeader">Registrering av nytt arrangement</h2>
                     <div id = "EventInputFields">
                         <p id = "EventInputLabels">Navn på arrangementet:</p>
                         <input type="text"
@@ -143,6 +139,7 @@ class AddEvent extends Component{
                                 )}
                             </select>
                         </div>
+
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
@@ -260,6 +257,8 @@ class AddEvent extends Component{
                         Registrer arrangement
                     </button>
                 </div>
+
+                <Footer />
             </div>
         );
     }

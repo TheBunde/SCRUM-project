@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 
 import Navbar from '../../Navbar/Navbar'
+import Footer from '../../Footer/Footer'
 import ViewUser from "./ViewUser";
 import {adminService} from '../../../service/AdminService'
 import "../../../css/AdminUsersPage.css"
+
 import Card from "react-bootstrap/esm/Card";
+
 class AdminUsersPage extends Component {
 
     constructor(props) {
@@ -17,6 +20,7 @@ class AdminUsersPage extends Component {
 
     render() {
         return (
+
             <div className={"AdminUsersPageWrapper"}>
                 <Navbar/>
 
@@ -55,9 +59,6 @@ class AdminUsersPage extends Component {
                 })}
             </div>
         );
-
-
-
     }
 
     componentDidMount() {

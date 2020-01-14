@@ -8,11 +8,12 @@ class LoginPage extends Component{
     
     render() {
         return (
-            <div id="LoginPageDiv">
-                <NavbarMainPage/>
-                <LoginForm />
-                <Footer />
+            <div class="pageSetup">
+            <NavbarMainPage/>
+            <LoginForm />
+            <Footer />
             </div>
+            
         );
     }
 }

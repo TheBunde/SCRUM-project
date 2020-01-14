@@ -17,9 +17,14 @@ class ViewUser extends Component {
 
     render() {
         return(
+
             <div>
                 <li className="list-group-item">
-                    <div className="col-sm-1">
+
+
+                     <div className="row" id={"ViewUserMain"}>
+
+                    <div className="col" id={"idCol"}>
                         <p>{this.props.id}</p>
                     </div>
                     <div className="col-sm-2">
@@ -41,6 +46,7 @@ class ViewUser extends Component {
                         <a className="btn btn-primary" href={"#/admin/users/" + this.props.id + "/edit"} role="button">Rediger</a>
                         <button className="btn btn-danger">Slett</button>
                     </div>
+                     </div>
                 </li>
             </div>
         )

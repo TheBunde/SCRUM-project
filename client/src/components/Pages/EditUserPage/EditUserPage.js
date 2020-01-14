@@ -6,6 +6,8 @@ import {adminService} from "../../../service/AdminService";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Footer from '../../Footer/Footer'
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 class EditUserPage extends Component {
 
@@ -84,10 +86,7 @@ class EditUserPage extends Component {
                                             </div>
                                         </div>
                                         <div className={"btnColumn"}>
-                                            <button id={"deleteBtn"} onClick={() => {
-                                                this.toggleModal("delete")
-                                            }} type="submit" className="btn btn-danger">Slett
-                                            </button>
+                                            <button id={"deleteBtn"} onClick={() => this.submitDeleteButton()} type={"submit"} className={"btn btn-danger"}>Slett</button>
                                         </div>
                                     </div>
 
@@ -122,12 +121,7 @@ class EditUserPage extends Component {
                             </a>
                         </Modal.Footer>
                     </Modal>
-
-                    <button id={"EditUserSaveBtn"} onClick={() => {
-                        this.saveChanges();
-                        this.toggleModal("save")
-                    }} type="button" className="btn btn-primary">Lagre endringer
-                    </button>
+                    <button id={"EditUserSaveBtn"} type={"button"} className={"btn btn-primary"} onClick={() => this.submitSaveChanges()}>Lagre endringer</button>
 
                 </div>
                 <Footer/>
@@ -161,7 +155,9 @@ class EditUserPage extends Component {
     deleteUser() {
         adminService.deleteUser(this.props.match.params.id).then((response) => {
             window.location.href = "/#/admin/users/"
-        }).catch((error) => console.error(error))
+        })
+            .then(() => window.location.hash="/admin/users")
+            .catch((error) => console.error(error))
     }
 
     handleCheckboxChange() {
@@ -176,9 +172,41 @@ class EditUserPage extends Component {
         })
     }
 
+    submitSaveChanges() {
+        confirmAlert({
+            title: 'Bekreftelse av rediering',
+            message: 'Er du sikker på at du vil redigere brukeren?',
+            buttons: [
+                {
+                    label: 'Ja',
+                    onClick : () => this.saveChanges()
+                },
+                {
+                    label: 'Nei'
+                }
+            ]
+        });
+    }
+
+    submitDeleteButton() {
+        confirmAlert({
+            title: 'Bekreftelse av sletting',
+            message: 'Er du sikker på at du vil slette brukeren?',
+            buttons: [
+                {
+                    label: 'Ja',
+                    onClick : () => this.deleteUser()
+                },
+                {
+                    label: 'Nei'
+                }
+            ]
+        });
+    }
+
     saveChanges() {
         adminService.getRole(this.state.roleChosen).then(id =>
-            adminService.assignRole(this.props.match.params.id, id[0].role_id).then(() => console.log("ok")).catch((error) => console.error(error))).catch((error => {
+            adminService.assignRole(this.props.match.params.id, id[0].role_id).then(() => window.location.hash="/admin/users").catch((error) => console.error(error))).catch((error => {
             console.error(error)
         }));
 

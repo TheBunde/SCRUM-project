@@ -16,8 +16,7 @@ class AddEvent extends Component{
             Name: "", Description: "", Place: "", Artists: "",
             ContactName: "", ContactPhone: "", ContactEmail: "",
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
-            Picture: "",
-            Category: 1,
+            Picture: "", Category: 1,
             GratisTicketBox: false, GratisTicketAmount: null,
             StandardTicketBox: false, StandardTicketAmount: null,
             VIPTicketBox: false, VIPTicketAmount: null,
@@ -28,7 +27,6 @@ class AddEvent extends Component{
             DateMin:["00","01","02","03","04","05","06","07","08","09",10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59]
         };
         this.changeBox = this.changeBox.bind(this);
-        this.changeAmount = this.changeAmount.bind(this);
         this.registerEvent = this.registerEvent.bind(this);
         this.registerByID = this.registerByID.bind(this);
         this.changeDate = this.changeDate.bind(this);
@@ -57,17 +55,11 @@ class AddEvent extends Component{
         if(this.state[event.target.id]) this.setState({[event.target.name]: 0});
     }
 
-    changeAmount(event){
-        this.setState({[event.target.id]: event.target.value})
-    }
-
     changeDate(event) {
         this.setState({date: event})
     }
 
     formValidation(){
-        let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg";
-        if(this.state.Picture === "") this.setState({Picture: altPicture});
 
         return (this.state.Name === "" || this.state.Description === "" || this.state.Place === "" || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || this.state.Tech === "" || this.state.Hospitality === "" || this.state.Personnel === "");
 
@@ -317,7 +309,7 @@ class AddEvent extends Component{
                                    placeholder={"Antall " + tickets.name + " billetter"}
                                    value = {this.state[tickets.name + "TicketAmount"]}
                                    disabled = {!this.state[tickets.name + "TicketBox"]}
-                                   onChange={this.changeAmount}
+                                   onChange={this.changeValue}
                             />
                         </div>
                     </div>
@@ -340,6 +332,9 @@ class AddEvent extends Component{
     }
 
     registerEvent(){
+        let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg";
+        if(this.state.Picture === "") this.setState({Picture: altPicture});
+
         let day = this.state.date.getDate();
         let month = this.state.date.getMonth()+1;
         let year = this.state.date.getFullYear();

@@ -158,6 +158,14 @@ class EventView extends Component{
             .catch(e => console.error(e));
         history.push("/overview")
     }
+
+    archive(id){
+        console.log(id);
+        eventService
+            .updateFiled(id)
+            .catch(e => console.error(e));
+        history.push("/overview")
+    }
 }
 
 export default EventView;

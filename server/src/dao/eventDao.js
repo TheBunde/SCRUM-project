@@ -41,8 +41,10 @@ module.exports = class adminDao extends Dao{
         super.query("DELETE FROM Event WHERE event_id = ?", [eventID], callback)
     }
 
-
-}
+    addContactInfo(contactInfo, callback){
+        super.query("INSERT INTO Contact_Info(name, phone, email, event_id) VALUES (?, ?, ?, ?)", [contactInfo.name, contactInfo.phone, contactInfo.email, contactInfo.eventID], callback)
+    }
+};
 
 function callback2(){
  console.log("Dummy function")

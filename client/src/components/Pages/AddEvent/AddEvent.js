@@ -32,7 +32,7 @@ class AddEvent extends Component{
         this.changeBox = this.changeBox.bind(this);
         this.changeAmount = this.changeAmount.bind(this);
         this.registerEvent = this.registerEvent.bind(this);
-        this.registerTicketsAndCategory = this.registerTicketsAndCategory.bind(this);
+        this.registerByID = this.registerByID().bind(this);
         this.changeDate = this.changeDate.bind(this);
     }
 
@@ -154,7 +154,7 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Kontaktinformasjon - telefonnummer:</p>
                         <input type="text"
                                className="form-control"
-                               id="contactInfoTlfInput"
+                               id="contactInfoPhoneInput"
                                required={true}
                         />
                     </div>
@@ -162,7 +162,7 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Kontaktinformasjon - email:</p>
                         <input type="text"
                                className="form-control"
-                               id="contactInfoEmail"
+                               id="contactInfoEmailInput"
                                required={true}
                         />
                     </div>
@@ -337,7 +337,7 @@ class AddEvent extends Component{
 
         eventService
             .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
-            .then(data => this.registerTicketsAndCategory(data.insertId))
+            .then(data => this.registerByID(data.insertId))
             .catch(Error => console.log(Error));
     }
 
@@ -355,7 +355,7 @@ class AddEvent extends Component{
             })
     }
 
-    registerTicketsAndCategory(EventId){
+    registerByID(EventId){
         this.state.Tickets.map(ticket =>{
             if(this.state[ticket.name + "TicketBox"]){
                 if(this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
@@ -370,7 +370,16 @@ class AddEvent extends Component{
 
         eventService
             .addCategory(EventId, category)
-            .catch(Error => console.log(Error))
+            .catch(Error => console.log(Error));
+
+
+        let number = document.getElementById("ContactInfoNameInput").value;
+        let phone = document.getElementById("ContactInfoPhoneInput").value;
+        let email = document.getElementById("ContactInfoEmailInput").value;
+
+        eventService
+            .addContactInfo(number, phone, email, EventId)
+            .catch(Error => console.log(Error));
     }
 }
 

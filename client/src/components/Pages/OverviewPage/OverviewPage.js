@@ -53,7 +53,7 @@ class OverviewPage extends Component{
                     <div className="card-body">
                         <h5 className="card-title">Legg til arrangement</h5>
                         <p className="card-text">Legg til de eventene du måtte ønske.</p>
-                        <a className="btn btn-outline-primary" href="/#/overview/addEvent" role="button">Legg til arrangement</a>
+                        <button className="btn btn-outline-primary" onClick={this.addEvent} role="button">Legg til arrangement</button>
                     </div>
                 </div>
 
@@ -61,7 +61,7 @@ class OverviewPage extends Component{
                     <div className="card-body">
                         <h5 className="card-title">Se alle eventer</h5>
                         <p className="card-text">Få en oversikt over alle dine arrangementer.</p>
-                        <a className="btn btn-outline-success" href={"/#/event"} role="button">Se alle arrangement</a>
+                        <button className="btn btn-outline-success" onClick={this.seeEvents} role="button">Se alle arrangement</button>
                     </div>
                 </div>
 
@@ -69,7 +69,7 @@ class OverviewPage extends Component{
                     <div className="card-body">
                         <h5 className="card-title">Vis profil</h5>
                         <p className="card-text">Vil du endre profilen din kan du gjøre det her.</p>
-                        <button className="btn btn-outline-warning" onClick={() => window.location.href="/#/"} role="button">Vis profil</button>
+                        <button className="btn btn-outline-warning" onClick={() => this.seeProfile(this.state.user.user_id)} role="button">Vis profil</button>
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@ class OverviewPage extends Component{
 
             </div>
 
-            <button id={"logoutBtn"} type="button" className="btn btn-dark">Logg ut</button>
+            <button id={"logoutBtn"} type="button" className="btn btn-dark" onClick={this.logOut}>Logg ut</button>
 
                 <Footer />
             </div>

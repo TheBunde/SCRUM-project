@@ -71,7 +71,7 @@ test("test: getNonFiledEvents()", done =>{
             "Test getNonFiledEvents eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data.length).toBe(2);
-        expect(data[0].name).toBe("forelesning");
+        expect(data[0].name).toBe("the Donn party");
         expect(data[1].filed).toBe(0);
         done();
     }
@@ -102,12 +102,11 @@ test("test: addCategory()", done =>{
         console.log(
             "Test addCategory(Event_Category) eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data.insertId).toBe(5);
         expect(data.affectedRows).toBe(1);
         done();
     }
 
-    let category = {eventID : 1, categoryID: 5};
+    let category = {eventID : 1, categoryID: 2};
     eventDao.addCategory(category, callback);
 });
 
@@ -133,7 +132,6 @@ test("test: addTicket()", done =>{
         console.log(
             "Test addTicket eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data.insertId).toBe(6);
         expect(data.affectedRows).toBe(1);
         done();
     }

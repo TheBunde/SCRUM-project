@@ -4,16 +4,9 @@ import {adminService} from "../../../service/AdminService";
 
 class ViewUser extends Component {
 
-    deleteUser = () => {
-        adminService.deleteUser(this.props.id)
-            .then(() => {
-                console.log("User deleted")
-            })
-            .catch((error) => {
-                console.error(error);
-            })
+    state = {
+        role: ""
     };
-
 
     render() {
         return(
@@ -37,19 +30,23 @@ class ViewUser extends Component {
                         <p>{this.props.phone}</p>
                     </div>
                     <div className="col-sm-2">
-                        <p>{this.props.role}</p>
+                        <p>{this.state.role}</p>
                     </div>
                     <div className="col-sm-2">
                         <input type="radio" checked={this.props.approved === 1} readOnly={true} />
                     </div>
                     <div className="col-sm-2">
                         <a className="btn btn-primary" href={"#/admin/users/" + this.props.id + "/edit"} role="button">Rediger</a>
-                        <button className="btn btn-danger">Slett</button>
                     </div>
                      </div>
                 </li>
             </div>
         )
+    }
+
+    componentDidMount() {
+        adminService.getRoleByID(this.props.role).then(role =>
+            this.setState({role: role[0].role})).catch((error) => {console.error(error)})
     }
 }
 

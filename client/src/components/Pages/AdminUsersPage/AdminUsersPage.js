@@ -10,6 +10,7 @@ import Card from "react-bootstrap/esm/Card";
 
 class AdminUsersPage extends Component {
 
+
     constructor(props) {
         super(props);
         this.state = {
@@ -55,7 +56,8 @@ class AdminUsersPage extends Component {
                 </div>
 
                 {this.state.users.map((user) => {
-                    return (<ViewUser key={user.user_id} id={user.user_id} name={user.name} email={user.email} phone={user.phone} rolle={user.role} approved={user.approved} />)
+                    console.log(user);
+                    return (<ViewUser key={user.user_id} id={user.user_id} name={user.name} email={user.email} phone={user.phone} role={user.role_id} approved={user.approved} />)
                 })}
             </div>
         );
@@ -64,7 +66,6 @@ class AdminUsersPage extends Component {
     componentDidMount() {
         adminService.getUsers()
             .then((users) => {
-                console.log(users);
                     this.setState({
                         users: users
                     })

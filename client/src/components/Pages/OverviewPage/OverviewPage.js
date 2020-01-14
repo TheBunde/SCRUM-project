@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import "../../../css/Overview.css"
 import { createHashHistory } from 'history';
-
+import "../../../img/concert.jpg"
 import Navbar from '../../Navbar/Navbar'
 import {ProfileService} from "../../../service/ProfileService";
 import Footer from '../../Footer/Footer'
@@ -36,27 +36,55 @@ class OverviewPage extends Component{
         return (
             <div class="pageSetup">
                 <Navbar/>
-                <div id="OverviewDiv">
-                    <div id="OverviewTitle"><h1>Forside</h1></div>
-                    <div id="OverviewButtonDiv">
-                        <div id="OverviewButtons">
-                            <button type="button" className="btn btn-info btn-lg" onClick={this.addEvent}>Legg til ny event</button>
-                        </div>
-                        <div id="OverviewButtons">
-                            <button type="button" className="btn btn-info btn-lg" onClick={this.seeEvents}>Se alle eventer</button>
-                        </div>
-                        <div id="OverviewButtons">
-                            <button type="button" className="btn btn-info btn-lg" onClick={() => this.seeProfile(this.state.user_id)}>Vis profil</button>
-                        </div>
-                        <div id="OverviewButtonsLogOut">
-                            <button type="button" className="btn btn-dark btn-lg" onClick={this.logOut}>logg ut</button>
-                        </div>
+
+
+                <div className="jumbotron jumbotron-fluid">
+                    <div className="container">
+                        <h1 id={"jumbotronTitle"} className="display-4">Harmoni</h1>
+
+
+                        <p className="lead"></p>
                     </div>
                 </div>
+
+                <div className={"cardsContainer"}>
+
+                <div className="card overview">
+                    <div className="card-body">
+                        <h5 className="card-title">Legg til arrangement</h5>
+                        <p className="card-text">Legg til de eventene du måtte ønske.</p>
+                        <a className="btn btn-outline-primary" href="/#/overview/addEvent" role="button">Legg til arrangement</a>
+                    </div>
+                </div>
+
+                <div className="card overview">
+                    <div className="card-body">
+                        <h5 className="card-title">Se alle eventer</h5>
+                        <p className="card-text">Få en oversikt over alle dine arrangementer.</p>
+                        <a className="btn btn-outline-success" href={"/#/event"} role="button">Se alle arrangement</a>
+                    </div>
+                </div>
+
+                <div className="card overview">
+                    <div className="card-body">
+                        <h5 className="card-title">Vis profil</h5>
+                        <p className="card-text">Vil du endre profilen din kan du gjøre det her.</p>
+                        <a className="btn btn-outline-warning" href="#" role="button">Vis profil</a>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <button id={"logoutBtn"} type="button" className="btn btn-dark">Logg ut</button>
+
                 <Footer />
             </div>
         );
     }
+
+
 
     addEvent(){
         history.push("/overview/addEvent")

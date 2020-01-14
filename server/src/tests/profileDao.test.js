@@ -2,6 +2,7 @@ let mysql = require('mysql');
 
 const UserDao = require("../dao/UserDao.js");
 const runsqlfile = require('./runsqlfile');
+const AdminDao = require("../dao/adminDao.js");
 
 // GitLab CI Pool
 let pool = mysql.createPool({
@@ -15,6 +16,7 @@ let pool = mysql.createPool({
 });
 
 let userDao = new UserDao(pool);
+let adminDao = new AdminDao(pool);
 
 
 

@@ -14,14 +14,6 @@ export class event {
     }
 }
 
-class ticket{
-    constructor(ticketID, eventID, amount){
-        this.ticketID = ticketID;
-        this.eventID = eventID;
-        this.number = amount;
-    }
-}
-
 class EventService{
 
     uploadImage(file) {
@@ -63,6 +55,11 @@ class EventService{
     addCategory(eventID, categoryID){
         let newCategory = {eventID: eventID, categoryID: categoryID};
         return axios.post("http://localhost:8080/categories", newCategory).then(response => response.data)
+    }
+
+    addContactInfo(name, phone, email, eventID){
+        let newContactInfo = {name: name, phone: phone, email: email, eventID: eventID};
+        return axios.post("http://localhost:8080/contactInfo", newContactInfo).then(response => response.data)
     }
 }
 

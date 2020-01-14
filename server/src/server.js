@@ -7,6 +7,7 @@ const UserDao = require("./dao/UserDao");
 const dotenv = require('dotenv');
 let secret =  require("./config.json");
 dotenv.config();
+let multer = require("multer");
 
 let bcrypt = require("bcrypt");
 let saltRounds = 10;
@@ -16,7 +17,6 @@ const jwt = require('jsonwebtoken');
 
 app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
-const ProfileDao = require("../src/dao/profileDao");
 const EventDao = require("../src/dao/eventDao");
 
 let pool = mysql.createPool({
@@ -38,7 +38,6 @@ app.use(function(req, res, next) {
 
 const userDao = new UserDao(pool);
 let adminDao = new AdminDao(pool);
-let profileDao = new ProfileDao(pool);
 let eventDao = new EventDao(pool);
 
 //Here we need to have a app.use which will verify the token so that you can not use any of them without token!!
@@ -61,6 +60,33 @@ app.use("/api/", (req, res, next) => {
 });
 
  */
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, '../../client/src/img/uploads');
+    },
+    filename: function (req, file, cb) {
+        cb(null , file.originalname);
+    }
+});
+
+let upload = multer({ storage: storage });
+
+app.post("/upload", upload.single("file"), (req, res) => {
+    if(!req.file) {
+        console.log("No file received");
+        return res.send({
+            success: false
+        });
+    } else {
+        console.log("File received");
+        console.log(req.file.path);
+        return res.send({
+            filePath: req.file.path,
+            success: true
+        })
+    }
+});
 
 
 app.post("/api/posts", verifyToken, (req,res) => {
@@ -199,7 +225,7 @@ app.delete("/users/:userID/", (req, res) => {
 
 app.put("/profile/:userId/edit", (req, res) => {
     console.log('/profile/:userId/edit: fikk request fra klient');
-    profileDao.updateProfile(req.body, (status, data) => {
+    userDao.updateProfile(req.body, (status, data) => {
         console.log(data);
         res.status(status);
         res.json(data);

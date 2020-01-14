@@ -5,7 +5,7 @@ import Navbar from '../../Navbar/Navbar.js';
 import {NavbarMainPage} from "../../Navbar/Navbar";
 import {FooterTransparent} from '../../Footer/Footer'
 
-class About extends Component {
+class MainPage extends Component {
     componentDidMount(){
         window.scrollTo(0,0);
     }
@@ -13,14 +13,14 @@ class About extends Component {
     render() {  
         return (
             <div>
-                <div id="AboutDiv">
-                    <div id="AboutTitle"><a>HARMONI</a></div>
-                    <div id="AboutText"><h4>En portal for informasjonsflyt under planlegging av arrangementer</h4></div>
-                    <div id="AboutButtonDiv">
-                        <div id="AboutButtons">
+                <div id="MainPageDiv">
+                    <div id="MainPageTitle"><a>HARMONI</a></div>
+                    <div id="MainPageText"><h4>En portal for informasjonsflyt under planlegging av arrangementer</h4></div>
+                    <div id="MainPageButtonDiv">
+                        <div id="MainPageButtons">
                             <button type="button" className="btn btn-outline-light btn-lg" onClick={()=> window.location.href = "#/login"}>Logg inn</button>
                         </div>
-                        <div id="AboutButtons">
+                        <div id="MainPageButtons">
                             <button type="button" className="btn btn-outline-light btn-lg" onClick={()=> window.location.href = "#/register"}>Registrer ny bruker</button>
                         </div> 
                     </div>
@@ -33,4 +33,4 @@ class About extends Component {
     }
 }
 
-export default About;
+export default MainPage;

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
 
+import Calendar from 'react-calendar'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 
@@ -9,6 +10,7 @@ class AddEvent extends Component{
     constructor(props){
         super(props);
         this.state ={
+            Date: new Date(),
             Category: 1,
             GratisTicketBox: false,
             GratisTicketAmount: null,
@@ -31,7 +33,7 @@ class AddEvent extends Component{
         this.changeBox = this.changeBox.bind(this);
         this.changeAmount = this.changeAmount.bind(this);
         this.registerEvent = this.registerEvent.bind(this);
-        this.registerTickets = this.registerTickets.bind(this);
+        this.registerTicketsAndCategory = this.registerTicketsAndCategory.bind(this);
     }
 
     componentDidMount() {
@@ -69,6 +71,14 @@ class AddEvent extends Component{
                                id = "nameInput"
                                required="required"
                         />
+                        <div>
+                            <Calendar
+                                onChange={this.change}
+                                value = {this.state.date}
+                            />
+                        </div>
+
+
                     </div>
                     <div id = "EventInputFields">
                         <p id = "EventInputLabels">Dato for arrangementet:</p>
@@ -278,11 +288,11 @@ class AddEvent extends Component{
 
         eventService
             .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
-            .then(data => this.registerTickets(data.insertId))
+            .then(data => this.registerTicketsAndCategory(data.insertId))
             .catch(Error => console.log(Error));
     }
 
-    registerTickets(EventId){
+    registerTicketsAndCategory(EventId){
         this.state.Tickets.map(ticket =>{
             if(this.state[ticket.name + "TicketBox"]){
                 if(this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){

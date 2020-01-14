@@ -3,7 +3,7 @@ const Dao = require("./dao.js");
 module.exports = class adminDao extends Dao{
 
     getAllEvents(callback){
-        super.query(" SELECT * FROM Event ORDER BY date DESC limit 4", [], callback);
+        super.query(" SELECT * FROM Event ORDER BY date DESC", [], callback);
     }
 
     getNonFiledEvents(callback){

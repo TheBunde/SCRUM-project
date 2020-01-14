@@ -9,18 +9,28 @@ import Footer from '../../Footer/Footer'
 import {FooterTransparent} from '../../Footer/Footer'
 
 class RegisterPage extends Component{
-
-    state = {
-        name: "",
-        email: "",
-        phone: "",
-        role: "ingenRolle",
-        password: "",
-        repeatedPassword: "",
-        synligModal: false,
-        modalFeedback: "",
-        modalTitle: "",
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            name: "",
+            email: "",
+            phone: "",
+            role: "ingenRolle",
+            password: "",
+            repeatedPassword: "",
+            synligModal: false,
+            modalFeedback: "",
+            modalTitle: "",
+        };
+        this.keyPressed = this.keyPressed.bind(this);
+        this.regUser = this.regUser.bind(this);
+    }
+    
+    keyPressed(event) {
+        if (event.key === "Enter" && (this.state.name !== "" && this.state.email !== "" && this.state.phone !== "" && this.state.password !== "" && this.state.repeatedPassword !== "")) {
+            this.regUser();
+        }
+    }
     
     render() {
         return (
@@ -31,7 +41,7 @@ class RegisterPage extends Component{
                     <div className={"registerContainer"}>
                         <div class="card RegisterPageCard">
                             <div class="card-body">
-                                <h1 id={"regTitle"}>Registrer ny bruker</h1>
+                                <h1 id={"regTitle"}>Registrer</h1>
                                 <form>
                                     <div className="form-group" id="RegisterPageFormGroup">
                                         <div id="RegisterPageFormFieldsDiv">
@@ -61,7 +71,7 @@ class RegisterPage extends Component{
                                             <label htmlFor="exampleInputPassword1">Gjenta passord:</label>
                                             <input type="password" name={"repeatedPassword"} className="form-control" id="passwordInput"
                                                 onChange={this.handleTextChange.bind(this)}
-                                                placeholder="Gjenta passord..."/>
+                                                placeholder="Gjenta passord..." onKeyPress={this.keyPressed}/> 
                                         </div>
                                         <div id="RegisterPageFormButtonDiv">
                                             <button type="button"
@@ -69,6 +79,9 @@ class RegisterPage extends Component{
                                                     className="btn btn-outline-dark"
                                                     onClick={this.regUser.bind(this)} disabled={this.state.name === "" || this.state.email === ""
                                             || this.state.phone === "" || this.state.password === "" || this.state.repeatedPassword === ""}>Registrer
+                                            </button>
+                                            <button type="button" className="btn btn-outline-dark" onClick={() => window.location.href="#/login"}> 
+                                                Allerede bruker?
                                             </button>
                                         </div>
                                     </div>

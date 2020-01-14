@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter, Route, Link, Redirect} from 'react-router-dom';
+import {HashRouter, Route, Redirect} from 'react-router-dom';
 import './css/index.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
-import ToTop from './components/ToTop/ToTop.js';
 import {auth, authenticate} from "./service/UserService.js";
 import LoginPage from './components/Pages/LoginPage/LoginPage.js';
 import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js';
@@ -21,37 +20,20 @@ import EditProfile from "./components/Pages/EditProfile/EditProfile";
 import AdminUserPage from './components/Pages/AdminUsersPage/AdminUsersPage';
 import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 
-const Public = () => <h3>Public</h3>
-const Protected = () => <h3>Protected</h3>
-
+// Component for restricting access.
 const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
     <Route {...rest} render={(props) => (
-        authenticate(),
-        console.log("Testing authorization"),
-        auth.authenticated === true
-        ? authorized.includes(auth.role) === true ? <Component {...props} /> : <Redirect to="overview" />
-        : <Redirect to="login" />
+        authenticate(), // Checks if the user is authenticated, then updates the users role and status for use in the next line
+        auth.authenticated === true // If user is authenticated, check if they are authorized to view page
+            ? authorized.includes(auth.role) === true 
+                ? <Component {...props} /> 
+                : <Redirect to="overview" /> 
+            : <Redirect to="login" /> // User is not authenticated, and needs to log in
     )}/>
 );
 
-/*const PrivateRoute = ({component: Component, ...rest}) => (
-    <Route {...rest} render={(props) => (
-        authenticate(),
-        auth.authenticated === true // This is the check for authentication. Later use tokens instead when implemented. Then we good.
-        ? <Component {...props}/>
-        : <Redirect to="/login" />
-    )}/>
-);
 
-const AdminRoute = ({component : Component, ...rest}) => (
-    <Route {...rest} render={(props) => (
-        authenticate(),
-            auth.role === '"admin"'  && auth.authenticated === true
-        ? <Component {...props} />
-        : <Redirect to={"/overview"}/>
-    )} />
-);*/
-
+// Object with list of clearance levels used for routing and restricting access.
 const restriction = {
     admin: "admin",
     regular: ["admin", "Sceneansvarlig", "Økonomiansvarlig", "Barsjef", "Bartender", "Handyman", "Fotograf", "Markedsfører", "SoMe-ansvarlig", "Ølbrygger", "Lydtekniker", "Lystekniker", "Scenerigger", "Artistbooker", "Artistkontakt", "Konseptutvikler", "Quizmaster", "Festplanlegger"] 
@@ -73,7 +55,7 @@ ReactDOM.render(
             <RestrictedRoute exact path="/overview/addEvent" component={AddEvent} authorized={restriction.regular} />
             <RestrictedRoute exact path="/admin" component={AdminUserPage} authorized={restriction.admin} />
             <RestrictedRoute exact path="/admin/users" component={AdminUserPage} authorized={restriction.admin} />
-            <RestrictedRoute exact path="/admin/users/:id/edit" component={AdminUserPage} authorized={restriction.admin} />
+            <RestrictedRoute exact path="/admin/users/:id/edit" component={EditUserPage} authorized={restriction.admin} />
         </div>
     </HashRouter>
     , (document.getElementById('root')));

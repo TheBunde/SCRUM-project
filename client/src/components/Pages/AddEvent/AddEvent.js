@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
+import {FileService} from "../../../service/FileService";
 
+import Calendar from 'react-calendar'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 
@@ -9,6 +11,7 @@ class AddEvent extends Component{
     constructor(props){
         super(props);
         this.state ={
+            date: new Date(),
             Category: 1,
             GratisTicketBox: false,
             GratisTicketAmount: null,
@@ -22,16 +25,13 @@ class AddEvent extends Component{
             GoldenCircleTicketAmount: null,
             Categories: [],
             Tickets: [],
-            DateYear: [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030],
-            DateMonth: [1,2,3,4,5,6,7,8,9,10,11,12],
-            DateDay: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
             DateHour:["00","01","02","03","04","05","06","07","08","09",10,11,12,13,14,15,16,17,18,19,20,21,22,23],
             DateMin:["00","01","02","03","04","05","06","07","08","09",10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59]
         };
         this.changeBox = this.changeBox.bind(this);
         this.changeAmount = this.changeAmount.bind(this);
         this.registerEvent = this.registerEvent.bind(this);
-        this.registerTickets = this.registerTickets.bind(this);
+        this.registerTicketsAndCategory = this.registerTicketsAndCategory.bind(this);
     }
 
     componentDidMount() {
@@ -56,6 +56,10 @@ class AddEvent extends Component{
         this.setState({[event.target.id]: event.target.value})
     }
 
+    changeDate = date =>{
+        this.setState({ date });
+    };
+
     render() {
         return (
             <div class="pageSetup">
@@ -70,48 +74,18 @@ class AddEvent extends Component{
                                required="required"
                         />
                     </div>
+
+                    <div id ="EventInputFields">
+                        <p id="EventInputLabels">Dato for arrangementet:</p>
+                        <Calendar
+                            onChange={this.changeDate}
+                            value = {this.state.date}
+                        />
+                    </div>
+
                     <div id = "EventInputFields">
-                        <p id = "EventInputLabels">Dato for arrangementet:</p>
-                        <div id ="EventDateInput">
-                            <select className="form-control"
-                                    id ="dateDayInput"
-                            >
-                                {this.state.DateDay.map(day =>
-                                    <option
-                                        key={day}
-                                        value ={day}
-                                        defaultValue={day}
-                                    >
-                                        {day}
-                                    </option>
-                                )}
-                            </select>
-                            <select className="form-control"
-                                    id ="dateMonthInput"
-                            >
-                                {this.state.DateMonth.map(month =>
-                                    <option
-                                        key={month}
-                                        value ={month}
-                                        defaultValue={month}
-                                    >
-                                        {month}
-                                    </option>
-                                )}
-                            </select>
-                            <select className="form-control"
-                                    id ="dateYearInput"
-                            >
-                                {this.state.DateYear.map(year =>
-                                    <option
-                                        key={year}
-                                        value ={year}
-                                        defaultValue={year}
-                                    >
-                                        {year}
-                                    </option>
-                                )}
-                            </select>
+                        <p id="EventInputLabels">Tidspunkt for arrangementet:</p>
+                        <div id="EventDateInput">
                             <select className="form-control"
                                     id ="dateHourInput"
                             >
@@ -139,6 +113,7 @@ class AddEvent extends Component{
                                 )}
                             </select>
                         </div>
+                    </div>
 
                     </div>
                     <div id="EventInputFields">
@@ -173,12 +148,30 @@ class AddEvent extends Component{
                         />
                     </div>
                     <div id="EventInputFields">
+                        <p id="EventInputLabels">Tech Riders:</p>
+                        <input type="file"
+                               className="form-control"
+                               id="fileInput"
+                               required={true}
+                        />
+                        <button type={"button"} className={"btn btn-outline-primary btn-lg"} onClick={() => this.uploadImage()}>Last opp</button>
+                    </div>
+                    <div id="EventInputFields">
                         <p id="EventInputLabels">Hospitality Riders:</p>
                         <input type="text"
                                className="form-control"
                                id="hospitality_ridersInput"
                                required={true}
                         />
+                    </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Hospitality Riders:</p>
+                        <input type="file"
+                               className="form-control"
+                               id="fileInput"
+                               required={true}
+                        />
+                        <button type={"button"} className={"btn btn-outline-primary btn-lg"} onClick={() => this.uploadImage()}>Last opp</button>
                     </div>
                     <div id = "EventInputFields">
                         <p id = "EventInputLabels">Nødvendig personell:</p>
@@ -188,6 +181,15 @@ class AddEvent extends Component{
                                required={true}
                         />
                     </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Nødvendig personell:</p>
+                        <input type="file"
+                               className="form-control"
+                               id="fileInput"
+                               required={true}
+                        />
+                        <button type={"button"} className={"btn btn-outline-primary btn-lg"} onClick={() => this.uploadImage()}>Last opp</button>
+                    </div>
                     <div id = "EventInputFields">
                         <p id = "EventInputLabels">Bilde:</p>
                         <input type="text"
@@ -196,6 +198,15 @@ class AddEvent extends Component{
                                required={true}
                         />
                     </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Bilde:</p>
+                        <input type="file"
+                               className="form-control"
+                               id="fileInput"
+                               required={true}
+                        />
+                        <button type={"button"} className={"btn btn-outline-primary btn-lg"} onClick={() => this.uploadImage()}>Last opp</button>
+                    </div>
                     <div id = "EventInputFields">
                         <p id = "EventInputLabels">Kontrakt:</p>
                         <input type="text"
@@ -203,6 +214,15 @@ class AddEvent extends Component{
                                id = "contractInput"
                                required={true}
                         />
+                    </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Kontrakt:</p>
+                        <input type="file"
+                               className="form-control"
+                               id="fileInput"
+                               required={true}
+                        />
+                        <button type={"button"} className={"btn btn-outline-primary btn-lg"} onClick={() => this.uploadImage()}>Last opp</button>
                     </div>
 
                     <div id ="EventInputFields">
@@ -221,7 +241,7 @@ class AddEvent extends Component{
                             )};
                         </select>
                     </div>
-                </div>
+
                 <p id = "EventInputTitle">Billettyper:</p>
                 <div id ="EventInputTicketContainer">
                     {this.state.Tickets.map(tickets =>
@@ -252,6 +272,8 @@ class AddEvent extends Component{
                     )}
                 </div>
 
+
+
                 <div id = "EventInputButton">
                     <button type="button" className="btn btn-outline-primary btn-lg" onClick={this.registerEvent}>
                         Registrer arrangement
@@ -265,7 +287,18 @@ class AddEvent extends Component{
 
     registerEvent(){
         var name = document.getElementById("nameInput").value;
-        var date = document.getElementById("dateYearInput").value + "-" + document.getElementById("dateMonthInput").value+ "-" + document.getElementById("dateDayInput").value;
+        let day = this.state.date.getDate();
+        let month = this.state.date.getMonth()+1;
+        let year = this.state.date.getFullYear();
+        let hour = document.getElementById("dateHourInput").value;
+        let min = document.getElementById("dateMinInput").value;
+        if(this.state.date.getDate() < 10){
+            day = "0" + day
+        }
+        if(this.state.date.getMonth()+1 < 10){
+            month = "0"+ month
+        }
+        var date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00" ;
         var description = document.getElementById("descriptionInput").value;
         var place = document.getElementById("placeInput").value;
         var artists = document.getElementById("artistInput").value;
@@ -278,11 +311,25 @@ class AddEvent extends Component{
 
         eventService
             .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
-            .then(data => this.registerTickets(data.insertId))
+            .then(data => this.registerTicketsAndCategory(data.insertId))
             .catch(Error => console.log(Error));
     }
 
-    registerTickets(EventId){
+    uploadImage() {
+        let fileService = new FileService();
+        let image = document.getElementById("fileInput");
+        console.log(image.files[0]);
+
+        fileService.uploadImage(image.files[0])
+            .then((res) => {
+                console.log(res);
+        })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+
+    registerTicketsAndCategory(EventId){
         this.state.Tickets.map(ticket =>{
             if(this.state[ticket.name + "TicketBox"]){
                 if(this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){

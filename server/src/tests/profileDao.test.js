@@ -1,23 +1,20 @@
 let mysql = require('mysql');
 
-const ProfileDao = require('../dao/profileDao');
+const UserDao = require("../dao/UserDao.js");
 const runsqlfile = require('./runsqlfile');
 
+// GitLab CI Pool
 let pool = mysql.createPool({
     connectionLimit: 1,
-    host: "mysql.stud.iie.ntnu.no",
-    user: "g_scrum_5",
-    password: "TYQHbYDq",
-    database: "g_scrum_5",
+    host: "mysql",
+    user: "root",
+    password: "secret",
+    database: "supertestdb",
     debug: false,
-    multipleStatements : true
+    multipleStatements: true
 });
 
-let profileDao = new ProfileDao(pool);
-
-
-
-
+let userDao = new UserDao(pool);
 
 
 
@@ -28,7 +25,7 @@ test('Changing contact information', done => {
         done();
     }
 
-    profileDao.updateProfile({ name: 'Grete', tlf: '09876543', email : 'new@mail.com', user_id: 3 }, callback);
+    userDao.updateProfile({ name: 'Grete', tlf: '09876543', email : 'new@mail.com', user_id: 3 }, callback);
 });
 
 

@@ -24,6 +24,10 @@ class ticket{
 
 class EventService{
 
+    uploadImage(file) {
+        return axios.post("http://localhost:8080/filesUpload", file);
+    }
+
     addEvents(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url){
         let newEvent = new event(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url);
         return axios.post("http://localhost:8080/event", newEvent).then(response => response.data);

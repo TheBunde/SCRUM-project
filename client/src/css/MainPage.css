@@ -8,14 +8,6 @@
     z-index: 2000;
 }
 
-#AboutTitle {
-    color: white;
-    font-family: Georgia;
-    font-size: 80px;
-    padding-bottom: 35px;
-
-}
-
 #AboutText {
     width: 40%;
     margin: auto;

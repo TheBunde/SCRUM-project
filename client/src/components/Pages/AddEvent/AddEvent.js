@@ -13,27 +13,26 @@ class AddEvent extends Component{
         super(props);
         this.state ={
             date: new Date(),
+            Name: "", Description: "", Place: "", Artists: "",
+            ContactName: "", ContactPhone: "", ContactEmail: "",
+            Tech: "", Hospitality: "", Personnel: "", Contract: "",
+            Picture: "",
             Category: 1,
-            GratisTicketBox: false,
-            GratisTicketAmount: null,
-            StandardTicketBox: false,
-            StandardTicketAmount: null,
-            VIPTicketBox: false,
-            VIPTicketAmount: null,
-            EarlyBirdTicketBox: false,
-            EarlyBirdTicketAmount: null,
-            GoldenCircleTicketBox: false,
-            GoldenCircleTicketAmount: null,
-            Categories: [],
-            Tickets: [],
+            GratisTicketBox: false, GratisTicketAmount: null,
+            StandardTicketBox: false, StandardTicketAmount: null,
+            VIPTicketBox: false, VIPTicketAmount: null,
+            EarlyBirdTicketBox: false, EarlyBirdTicketAmount: null,
+            GoldenCircleTicketBox: false, GoldenCircleTicketAmount: null,
+            Categories: [], Tickets: [],
             DateHour:["00","01","02","03","04","05","06","07","08","09",10,11,12,13,14,15,16,17,18,19,20,21,22,23],
             DateMin:["00","01","02","03","04","05","06","07","08","09",10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59]
         };
         this.changeBox = this.changeBox.bind(this);
         this.changeAmount = this.changeAmount.bind(this);
         this.registerEvent = this.registerEvent.bind(this);
-        this.registerByID = this.registerByID().bind(this);
+        this.registerByID = this.registerByID.bind(this);
         this.changeDate = this.changeDate.bind(this);
+        this.changeValue = this.changeValue.bind(this)
     }
 
     componentDidMount() {
@@ -49,6 +48,10 @@ class AddEvent extends Component{
 
     }
 
+    changeValue(event){
+        this.setState({[event.target.id]: event.target.value})
+    }
+
     changeBox(event){
         this.setState({[event.target.id]: event.target.checked});
         if(this.state[event.target.id]) this.setState({[event.target.name]: 0});
@@ -62,6 +65,14 @@ class AddEvent extends Component{
         this.setState({date: event})
     }
 
+    formValidation(){
+        let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg";
+        if(this.state.Picture === "") this.setState({Picture: altPicture});
+
+        return (this.state.Name === "" || this.state.Description === "" || this.state.Place === "" || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || this.state.Tech === "" || this.state.Hospitality === "" || this.state.Personnel === "");
+
+    }
+
     render() {
         return (
             <div class="pageSetup">
@@ -72,8 +83,9 @@ class AddEvent extends Component{
                         <p id = "EventInputLabels">Navn på arrangementet:</p>
                         <input type="text"
                                className = "form-control"
-                               id = "nameInput"
-                               required="required"
+                               id = "Name"
+                               value ={this.state.Name}
+                               onChange={this.changeValue}
                         />
                     </div>
 
@@ -123,55 +135,63 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
                         <input type="text"
                                className="form-control"
-                               id="descriptionInput"
-                               required={true}
+                               id="Description"
+                               value ={this.state.Description}
+                               onChange={this.changeValue}
                         />
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Sted for arrangementet:</p>
                         <input type="text"
                                className="form-control"
-                               id="placeInput"
-                               required={true}
+                               id="Place"
+                               value ={this.state.Place}
+                               onChange={this.changeValue}
                         />
                     </div>
                     <div id = "EventInputFields">
                         <p id = "EventInputLabels">Artister:</p>
                         <input type="text"
                                className = "form-control"
-                               id = "artistInput"
+                               id = "Artists"
+                               value ={this.state.Artists}
+                               onChange={this.changeValue}
                         />
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Kontaktinformasjon - navn:</p>
                         <input type="text"
                                className="form-control"
-                               id="contactInfoNameInput"
-                               required={true}
+                               id="ContactName"
+                               value ={this.state.ContactName}
+                               onChange={this.changeValue}
                         />
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Kontaktinformasjon - telefonnummer:</p>
                         <input type="text"
                                className="form-control"
-                               id="contactInfoPhoneInput"
-                               required={true}
+                               id="ContactPhone"
+                               value ={this.state.ContactPhone}
+                               onChange={this.changeValue}
                         />
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Kontaktinformasjon - email:</p>
                         <input type="text"
                                className="form-control"
-                               id="contactInfoEmailInput"
-                               required={true}
+                               id="ContactEmail"
+                               value ={this.state.ContactEmail}
+                               onChange={this.changeValue}
                         />
                     </div>
                     <div id = "EventInputFields">
                         <p id = "EventInputLabels">Tech Riders:</p>
                         <input type="text"
                                className = "form-control"
-                               id = "tech_ridersInput"
-                               required={true}
+                               id = "Tech"
+                               value ={this.state.Tech}
+                               onChange={this.changeValue}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -187,8 +207,9 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Hospitality Riders:</p>
                         <input type="text"
                                className="form-control"
-                               id="hospitality_ridersInput"
-                               required={true}
+                               id="Hospitality"
+                               value ={this.state.Hospitality}
+                               onChange={this.changeValue}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -204,8 +225,9 @@ class AddEvent extends Component{
                         <p id = "EventInputLabels">Nødvendig personell:</p>
                         <input type="text"
                                className = "form-control"
-                               id = "personnelInput"
-                               required={true}
+                               id = "Personnel"
+                               value ={this.state.Personnel}
+                               onChange={this.changeValue}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -221,8 +243,9 @@ class AddEvent extends Component{
                         <p id = "EventInputLabels">Bilde:</p>
                         <input type="text"
                                className = "form-control"
-                               id = "pictureInput"
-                               required={true}
+                               id = "Picture"
+                               value={this.state.Picture}
+                               onChange={this.changeValue}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -238,8 +261,9 @@ class AddEvent extends Component{
                         <p id = "EventInputLabels">Kontrakt:</p>
                         <input type="text"
                                className = "form-control"
-                               id = "contractInput"
-                               required={true}
+                               id = "Contract"
+                               value ={this.state.Contract}
+                               onChange={this.changeValue}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -255,8 +279,9 @@ class AddEvent extends Component{
                     <div id ="EventInputFields">
                         <p id = "EventInputLabels">Kategori for arrangementet:</p>
                         <select className ="form-control"
-                                id ="categoryInput"
-                                required={true}
+                                id ="Category"
+                                value ={this.state.Category}
+                                onChange={this.changeValue}
                         >
                             {this.state.Categories.map(category =>
                                 <option
@@ -299,7 +324,11 @@ class AddEvent extends Component{
                     )}
                 </div>
                 <div id = "EventInputButton">
-                    <button type="button" className="btn btn-outline-primary btn-lg" onClick={this.registerEvent}>
+                    <button type="button"
+                            className="btn btn-outline-primary btn-lg"
+                            onClick={this.registerEvent}
+                            disabled={this.formValidation()}
+                    >
                         Registrer arrangement
                     </button>
                 </div>
@@ -323,20 +352,10 @@ class AddEvent extends Component{
             month = "0"+ month
         }
 
-        var name = document.getElementById("nameInput").value;
-        var date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00" ;
-        var description = document.getElementById("descriptionInput").value;
-        var place = document.getElementById("placeInput").value;
-        var artists = document.getElementById("artistInput").value;
-        var tech_riders = document.getElementById("tech_ridersInput").value;
-        var hospitality_riders = document.getElementById("hospitality_ridersInput").value;
-        var personnel = document.getElementById("personnelInput").value;
-        var picture = document.getElementById("pictureInput").value;
-        var category = document.getElementById("categoryInput").value;
-        var contract = document.getElementById("contractInput").value;
+        let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00" ;
 
         eventService
-            .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
+            .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture)
             .then(data => this.registerByID(data.insertId))
             .catch(Error => console.log(Error));
     }
@@ -366,19 +385,12 @@ class AddEvent extends Component{
             }
         });
 
-        let category = document.getElementById("categoryInput").value;
-
         eventService
-            .addCategory(EventId, category)
+            .addCategory(EventId, this.state.Category)
             .catch(Error => console.log(Error));
 
-
-        let number = document.getElementById("ContactInfoNameInput").value;
-        let phone = document.getElementById("ContactInfoPhoneInput").value;
-        let email = document.getElementById("ContactInfoEmailInput").value;
-
         eventService
-            .addContactInfo(number, phone, email, EventId)
+            .addContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, EventId)
             .catch(Error => console.log(Error));
     }
 }

@@ -325,5 +325,12 @@ app.delete('/event/:id', (req, res) => {
     });
 });
 
+app.post("/contactInfo", (req, res) => {
+    eventDao.addContactInfo(req.body, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+})
+
 let server = app.listen(8080);
 

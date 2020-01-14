@@ -111,10 +111,17 @@ app.get("/user/:userID", (req, res) => {
         res.status(status);
         res.json(data);
     });
-})
+});
 
 app.get("/user/:userID", (req, res) => {
     adminDao.getUser(req.params.userID,(status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.get("/role/:roleID", (req, res) => {
+    adminDao.getRoleById(req.params.roleID, (status, data) => {
         res.status(status);
         res.json(data);
     })
@@ -309,6 +316,14 @@ app.put("/users/:userID/disapprove", (req, res) => {
         res.status(status);
         res.json(data);
     })
+});
+
+app.delete('/event/:id', (req, res) => {
+    console.log('/event/:id: fikk request fra klient');
+    eventDao.deleteEvent(parseInt(req.params.id), (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
 });
 
 let server = app.listen(8080);

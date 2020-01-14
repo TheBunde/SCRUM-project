@@ -3,6 +3,8 @@ import "../../../css/EditProfile.css"
 import { createHashHistory } from 'history';
 import {ProfileService} from '../../../service/ProfileService'
 import {User} from "../../../service/UserService";
+import {Redirect} from 'react-router-dom';
+import {auth, authenticate} from "../../../service/UserService";
 
 
 import Navbar from "../../Navbar/Navbar";
@@ -22,22 +24,24 @@ class EditProfile extends Component{
     }
 
     componentDidMount() {
-        let profileService = new ProfileService();
-        profileService.getUser(this.user_id)
-            .then(user =>
-                this.setState({
-                    user: user
-                })
-
-            )
-            .catch((error) => {
-                console.error(error);
-            });
-        console.log("SE ME " + this.state.user)
+        authenticate();
+        if (this.props.match.params.userID === auth.user_id) {
+            let profileService = new ProfileService();
+            profileService.getUser(this.user_id)
+                .then(user =>
+                    this.setState({
+                        user: user
+                    })
+                )
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
     };
 
     render(){
         return(
+            auth.user_id === this.props.match.params.userID ?
             <div>
                 <Navbar/>
                 <Back/>
@@ -129,6 +133,7 @@ class EditProfile extends Component{
 
                 </div>
             </div>
+                : <Redirect to={"/profile/" + auth.user_id} />
 
         )
     }

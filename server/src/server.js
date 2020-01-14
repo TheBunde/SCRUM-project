@@ -153,13 +153,14 @@ app.post("/validate", (req,res) => {
             let passwordHash = JSON.stringify(data[0].password_hash).slice(1,-1);
             let role = JSON.stringify(data[0].role);
             let approved = JSON.stringify(data[0].approved);
+            let id = JSON.stringify(data[0].user_id);
             bcrypt.compare(req.body.password, passwordHash, function(err, response) {
                 if (err) {
                     console.log("En error occured");
                     console.error(err);
                 }
                 if (response) {
-                    let token = jwt.sign({email: req.body.email, role : role, approved : approved}, privateKey, {
+                    let token = jwt.sign({email: req.body.email, role : role, approved : approved, user_id : id}, privateKey, {
                         expiresIn: 900
                     });
                     res.json({jwt: token});

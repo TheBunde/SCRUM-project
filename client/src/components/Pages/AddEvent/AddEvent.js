@@ -12,7 +12,7 @@ class AddEvent extends Component{
     constructor(props){
         super(props);
         this.state ={
-            date: null,
+            date: new Date(),
             Category: 1,
             GratisTicketBox: false,
             GratisTicketAmount: null,
@@ -140,6 +140,30 @@ class AddEvent extends Component{
                         <input type="text"
                                className = "form-control"
                                id = "artistInput"
+                        />
+                    </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Kontaktinformasjon - navn:</p>
+                        <input type="text"
+                               className="form-control"
+                               id="contactInfoNameInput"
+                               required={true}
+                        />
+                    </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Kontaktinformasjon - telefonnummer:</p>
+                        <input type="text"
+                               className="form-control"
+                               id="contactInfoTlfInput"
+                               required={true}
+                        />
+                    </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Kontaktinformasjon - email:</p>
+                        <input type="text"
+                               className="form-control"
+                               id="contactInfoEmail"
+                               required={true}
                         />
                     </div>
                     <div id = "EventInputFields">
@@ -274,9 +298,6 @@ class AddEvent extends Component{
                     </div>
                     )}
                 </div>
-
-
-
                 <div id = "EventInputButton">
                     <button type="button" className="btn btn-outline-primary btn-lg" onClick={this.registerEvent}>
                         Registrer arrangement
@@ -290,8 +311,7 @@ class AddEvent extends Component{
     }
 
     registerEvent(){
-        var name = document.getElementById("nameInput").value;
-        let day = this.state.date.getDay();
+        let day = this.state.date.getDate();
         let month = this.state.date.getMonth()+1;
         let year = this.state.date.getFullYear();
         let hour = document.getElementById("dateHourInput").value;
@@ -302,6 +322,8 @@ class AddEvent extends Component{
         if(this.state.date.getMonth()+1 < 10){
             month = "0"+ month
         }
+
+        var name = document.getElementById("nameInput").value;
         var date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00" ;
         var description = document.getElementById("descriptionInput").value;
         var place = document.getElementById("placeInput").value;

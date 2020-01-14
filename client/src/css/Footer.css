@@ -1,7 +1,7 @@
 #Footer{
     background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(68, 111, 184));
     z-index: 3;
-    width: 100vw;
+    width: 100%;
     padding: 20px 0 20px 0;
     text-align: center;
     bottom: 0px;
@@ -69,11 +69,19 @@
 
 
 
-@Media only screen and (max-width: 780px){
+@Media only screen and (max-width: 800px){
     #footerDropUp{
         padding-bottom: 5px;
     }
     .dropup-content {
         bottom: 27px;
+    }
+    #FooterTransparent{
+        z-index: 3;
+        width: 100vw;
+        padding: 20px 0 20px 0;
+        text-align: center;
+        margin-top: 50px;
+        position: relative;
     }
 }

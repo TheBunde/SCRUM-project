@@ -1,15 +1,14 @@
 
 .wrapper{
-    width: 100%;
+    width: 80%;
+    margin: auto;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 5px 5px 10px 0 rgb(0, 0, 0);
+    background-color: white;
+    opacity: 0.8;
 }
 
-
-
 #regTitle{
-
     text-align: center;
-    margin: 100px auto auto auto;
-    width: 50%;
 }
 
 #regDropdown{
@@ -17,16 +16,54 @@
 }
 
 #regBtn{
-    margin: 50px auto 200px auto;
+    margin: auto;
     display: block;
-    width: 33%;
 }
 
-.registerContainer form{
-    margin: 40px auto auto auto;
-    width: 50%;
+
+#RegisterPageFormGroup{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+#RegisterPageFormFieldsDiv{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+#RegisterPageFormFieldsDiv label{
+    text-align: right;
+}
+
+#RegisterPageFormGroup input{
+    width: 90%;
+    margin: auto auto auto 10px;
+}
+
+#RegisterPageFormGroup label{
+    margin: 20px;
+}
+
+#RegisterPageFormButtonDiv{
+    width: 30%;
+    margin: auto;
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
 }
 
 .registerContainer input{
     margin-bottom: 20px;
+}
+
+@Media only screen and (max-width: 800px){
+    .wrapper{
+        width: 94%;
+    }
+
+    #RegisterPageFormGroup{
+        grid-template-columns: 1fr;
+    }
+    #RegisterPageFormFieldsDiv{
+        grid-template-columns: 5fr 10fr;
+    }
 }

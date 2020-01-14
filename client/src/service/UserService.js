@@ -48,15 +48,15 @@ let authenticationHeader = function authenticationHeader() {
 export const auth = {
     authenticated: false,
     role: "",
+    user_id : "",
     authenticate(){
         let response = parseJwt(localStorage.getItem("token"));
         console.log(response);
         if(response !== null){
             this.authenticated = true;
             this.role = response.role.slice(1, response.role.length-1);
-            console.log(this.role);
+            this.user_id = response.user_id;
         } else{
-            console.log("bruh");
             this.authenticated = false;
             this.role = "";
         }

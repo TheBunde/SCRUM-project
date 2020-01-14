@@ -1,29 +1,42 @@
 #eventViewBackground{
     background-color: #212529;
-    min-height: 68vh;
+    min-height: 100vh;
 }
+
 #eventViewContainer{
     width: 80%;
-    min-height: 68vh;
+    min-height: 100vh;
     padding-top: 20px;
     text-align: center;
     background-color: white;
     margin: auto;
 }
+
 #eventViewInnerContainer{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
-            "infoBox mapBox";
+            "infoBox eventViewInfoTwo mapBox";
     text-align: left;
     padding: 20px 20px 0 20px;
     margin: auto;
-    width: 50%;
+    width: 100%;
 }
+
+#eventViewInfoBox{
+    text-align: center;
+}
+
+#eventViewInfoTwo{
+    text-align: left;
+    margin-left: 10%;
+    object-fit: contain;
+}
+
 #eventViewButtons{
     width: 50%;
     margin: auto;
-    padding: 20px 0 0 0;
+    padding: 40px 0 0 0;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
@@ -31,16 +44,19 @@
 #eventViewTitle h1{
     margin: auto;
 }
+
 .table th{
     padding: 0 0 0 0;
     margin: 0 0 0 0;
 }
+
 .mapouter {
     position:relative;
     text-align:right;
     height:350px;
     width:350px;
 }
+
 .gmap_canvas {
      overflow:hidden;
      background:none
@@ -48,33 +64,41 @@
      height:350px;
      width:350px;
 }
+
 .gmap_canvas iframe{
     height: 350px;
     width: 350px;
 }
+
 @media only screen and (max-width: 800px) {
     .gmap_canvas {
         height:250px;
         width:250px;
     }
+
     .gmap_canvas iframe{
         height: 250px;
         width: 250px;
     }
+
     .mapouter {
         height:250px;
         width:250px;
     }
+
     #eventViewInnerContainer{
          grid-template-columns: 1fr;
          grid-template-areas:
                  "infoBox"
+                 "eventViewInfoTwo"
                  "mapBox";
          width: 80%;
     }
+
     #eventViewContainer{
         padding-bottom: 20px;
     }
+
     #eventViewBackground{
         background-color: white;
     }

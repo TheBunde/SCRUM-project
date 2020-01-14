@@ -1,13 +1,26 @@
 import React, {Component} from 'react';
 import '../../css/Navbar.css';
-import $ from 'jquery'; 
+import $ from 'jquery';
+import {auth, authenticate} from "../../service/UserService";
+
 
 /*Changing ml-auto to mr-auto will change the placement of the navbar-collapse items to the left besides the logo/name to the left on the Navbar */
 
-class Navbar extends Component{
+class Navbar extends Component {
     signOut = () => {
         window.localStorage.removeItem("token");
         window.location.hash = "/login";
+    };
+
+    componentDidMount() {
+        let show = document.getElementById("adminUsersLink");
+        let style = window.getComputedStyle(show);
+        authenticate();
+        if (auth.role == "admin") {
+            show.style.display = "block";
+        } else {
+            show.style.display = "none";
+        }
     }
 
     render() {
@@ -15,26 +28,36 @@ class Navbar extends Component{
             <div>
                 <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
                     <a class="navbar-brand" href="#/overview"><h1>Harmoni</h1></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto"> 
-                        <li class="nav-item">
-                            <a class="nav-link" onClick={()=> window.location.href="#/overview"} >Oversikt</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Arrangementer
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="navbarDropdown">
-                                <a class="dropdown-item" onClick={()=> window.location.href="#/event"}>Alle arrangementer</a>
-                                <a class="dropdown-item" onClick={()=> window.location.href="#/overview/addEvent"}>Legg til arrangement</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" onClick={()=> this.signOut()}>Logg ut</a>
-                        </li>
+                        <ul class="navbar-nav ml-auto">
+                            <li className="nav-item" id={"adminUsersLink"}>
+                                <a className="nav-link" onClick={() => window.location.href = "#/admin/users"}>Brukere</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" onClick={() => window.location.href = "#/overview"}>Oversikt</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    Arrangementer
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="navbarDropdown">
+                                    <a class="dropdown-item" onClick={() => window.location.href = "#/event"}>Alle
+                                        arrangementer</a>
+                                    <a class="dropdown-item"
+                                       onClick={() => window.location.href = "#/overview/addEvent"}>Legg til
+                                        arrangement</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" onClick={() => this.signOut()}>Logg ut</a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -43,7 +66,7 @@ class Navbar extends Component{
     }
 }
 
-class NavbarMainPage extends Component{
+class NavbarMainPage extends Component {
     render() {
         return (
             <div>
@@ -57,9 +80,6 @@ class NavbarMainPage extends Component{
 
 export default Navbar;
 export {NavbarMainPage};
-
-
-
 
 
 /*

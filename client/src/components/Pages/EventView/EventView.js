@@ -107,12 +107,29 @@ class EventView extends Component{
                                 <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Back</button>
                             </div>
                             <div id="eventViewArchive">
-                                <button type="button" className="btn btn-outline-primary">Archive</button>
+                                <p>
+                                    <button
+                                        className="btn archive btn-outline-primary"
+                                        type="button"
+                                        data-toggle="collapse"
+                                        data-target="#collapseArchive"
+                                        aria-expanded="false"
+                                        aria-controls="collapseArchive"
+                                    >
+                                        Archive
+                                    </button>
+                                </p>
+                                <div className="collapse" id="collapseArchive">
+                                    <p> Are you sure you want to archive this event?</p>
+                                    <button className="btn delete btn-primary" type="button" data-toggle="collapse" onClick={() => this.archive(this.state.event_id)}>
+                                        Archive
+                                    </button>
+                                </div>
                             </div>
                             <div id="eventViewEdit">
                             <button type="button" className="btn btn-outline-primary">Edit</button>
                             </div>
-                            <div>
+                            <div id="eventViewDelete">
                                 <p>
                                     <button
                                         className="btn delete btn-outline-danger"
@@ -144,6 +161,14 @@ class EventView extends Component{
         console.log(id);
         eventService
             .deleteEvent(id)
+            .catch(e => console.error(e));
+        history.push("/overview")
+    }
+
+    archive(id){
+        console.log(id);
+        eventService
+            .updateFiled(id)
             .catch(e => console.error(e));
         history.push("/overview")
     }

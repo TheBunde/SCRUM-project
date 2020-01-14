@@ -28,7 +28,7 @@
 
 #RegisterPageFormFieldsDiv{
     display: grid;
-    grid-template-columns: 3fr 10fr;
+    grid-template-columns: 2fr 10fr;
 }
 #RegisterPageFormFieldsDiv label{
     text-align: right;
@@ -44,8 +44,11 @@
 }
 
 #RegisterPageFormButtonDiv{
-    text-align: center;
+    width: 30%;
+    margin: auto;
     padding-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
 }
 
 .registerContainer input{

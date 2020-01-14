@@ -247,6 +247,24 @@ app.get("/event/all", (req, res) => {
         res.json(data);
     });
 });
+
+app.get("/event/archived", (req, res) => {
+    console.log("/event fikk request fra klient");
+    eventDao.getAllArchived((status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
+app.put("/event/:eventID/archived", (req, res) => {
+    console.log('/event: fikk request fra klient');
+    eventDao.updateFiled(req.body, (status, data) => {
+        console.log(data);
+        res.status(status);
+        res.json(data);
+    });
+});
+
 app.get("/event/nonFiled", (req, res) => {
     console.log("/event fikk request fra klient");
     eventDao.getNonFiledEvents((status, data) => {

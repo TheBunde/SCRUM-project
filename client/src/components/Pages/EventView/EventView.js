@@ -85,7 +85,8 @@ class EventView extends Component{
                                 <p>{this.state.description}</p>
                                 <h3>Personnell</h3>
                                 <p>{this.state.personnel}</p>
-                                <h3></h3>
+                                <h3>Kategori</h3>
+                                <p>{this.state.category_id}</p>
                             </div>
                             <div id="mapBox">
                                 <div className="mapouter">

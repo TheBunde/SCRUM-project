@@ -317,5 +317,13 @@ app.put("/users/:userID/disapprove", (req, res) => {
     })
 });
 
+app.delete('/event/:id', (req, res) => {
+    console.log('/event/:id: fikk request fra klient');
+    eventDao.deleteEvent(parseInt(req.params.id), (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
 let server = app.listen(8080);
 

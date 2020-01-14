@@ -82,10 +82,15 @@ class EventPage extends Component {
         if(searchTitle !== ""){
             this.setState({shownEvents: this.state.allEvents.filter(e => e.name.toLowerCase().includes(searchTitle.toLowerCase()) || e.description.toLowerCase().includes(searchTitle.toLowerCase()))});
         } else {
-            this.componentDidMount()
+            this.resetSortAndFilterDropdowns();
+            this.componentDidMount();
         }
     }
 
+    resetSortAndFilterDropdowns() {
+        $("#eventPageShow .btn:first-child ").text("Vis");
+        $("#eventPageSort .btn:first-child ").text("Sorter etter");
+    }
 
     componentDidMount(){
         eventService.getAllEvents().then(events => this.setState({

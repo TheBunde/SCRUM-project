@@ -6,16 +6,16 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
 import ToTop from './components/ToTop/ToTop.js';
-import {auth, authenticate} from "./services/UserService.js";
+import {auth, authenticate} from "./service/UserService.js";
 import LoginPage from './components/Pages/LoginPage/LoginPage.js';
 import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js';
 import OverviewPage from './components/Pages/OverviewPage/OverviewPage.js';
-import MainPage from './components/Pages/MainPage/MainPage.js';
+import MainPage from './components/Pages/MainPage/MainPage';
 import EventPage from './components/Pages/EventPage/EventPage.js';
 import EventView from './components/Pages/EventView/EventView.js';
 import EditEvent from './components/Pages/EditEvent/EditEvent.js';
 import AddEvent from './components/Pages/AddEvent/AddEvent.js';
-import About from './components/About/About.js';
+import About from './components/Pages/About/About.js';
 import ShowProfile from "./components/Pages/ShowProfile/ShowProfile";
 import EditProfile from "./components/Pages/EditProfile/EditProfile";
 import AdminUserPage from './components/Pages/AdminUsersPage/AdminUsersPage';
@@ -24,7 +24,17 @@ import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 const Public = () => <h3>Public</h3>
 const Protected = () => <h3>Protected</h3>
 
-const PrivateRoute = ({component: Component, ...rest}) => (
+const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
+    <Route {...rest} render={(props) => (
+        authenticate(),
+        console.log("Testing authorization"),
+        auth.authenticated === true
+        ? authorized.includes(auth.role) === true ? <Component {...props} /> : <Redirect to="overview" />
+        : <Redirect to="login" />
+    )}/>
+);
+
+/*const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={(props) => (
         authenticate(),
         auth.authenticated === true // This is the check for authentication. Later use tokens instead when implemented. Then we good.
@@ -40,7 +50,12 @@ const AdminRoute = ({component : Component, ...rest}) => (
         ? <Component {...props} />
         : <Redirect to={"/overview"}/>
     )} />
-);
+);*/
+
+const restriction = {
+    admin: "admin",
+    regular: ["admin", "Sceneansvarlig", "Økonomiansvarlig", "Barsjef", "Bartender", "Handyman", "Fotograf", "Markedsfører", "SoMe-ansvarlig", "Ølbrygger", "Lydtekniker", "Lystekniker", "Scenerigger", "Artistbooker", "Artistkontakt", "Konseptutvikler", "Quizmaster", "Festplanlegger"] 
+} 
 
 ReactDOM.render(
     <HashRouter>
@@ -49,16 +64,16 @@ ReactDOM.render(
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/about" component={About} />
-            <Route exact path={"/admin/users"} component={AdminUserPage}/>
-            <Route exact path={"/admin/users/:id/edit"} component={EditUserPage}/>
-            <PrivateRoute exact path="/overview" component={OverviewPage} />
-            <PrivateRoute exact path="/profile/:userID" component={ShowProfile} />
-            <PrivateRoute exact path="/profile/:userID/edit" component={EditProfile} />
-            <PrivateRoute exact path="/event" component={EventPage} />
-            <PrivateRoute exact path="/event/:id" component={EventView} />
-            <PrivateRoute exact path="/event/:id/edit" component={EditEvent} />
-            <PrivateRoute exact path="/overview/addEvent" component={AddEvent} />
-            <AdminRoute exact path="/admin/" component={AdminUserPage} />
+            <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} />
+            <RestrictedRoute exact path="/profile/:userID" component={ShowProfile} authorized={restriction.regular} />
+            <RestrictedRoute exact path="/profile/:userID/edit" component={EditProfile} authorized={restriction.regular} />
+            <RestrictedRoute exact path="/event" component={EventPage} authorized={restriction.regular} />
+            <RestrictedRoute exact path="/event/:id" component={EventView} authorized={restriction.regular}/>
+            <RestrictedRoute exact path="/event/:id/edit" component={EditEvent} authorized={restriction.regular} />
+            <RestrictedRoute exact path="/overview/addEvent" component={AddEvent} authorized={restriction.regular} />
+            <RestrictedRoute exact path="/admin" component={AdminUserPage} authorized={restriction.admin} />
+            <RestrictedRoute exact path="/admin/users" component={AdminUserPage} authorized={restriction.admin} />
+            <RestrictedRoute exact path="/admin/users/:id/edit" component={AdminUserPage} authorized={restriction.admin} />
         </div>
     </HashRouter>
     , (document.getElementById('root')));

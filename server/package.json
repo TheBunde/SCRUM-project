@@ -4,6 +4,7 @@
   "dependencies": {
     "bcrypt": "^3.0.7",
     "body-parser": "^1.18.3",
+    "bufferutil": "^4.0.1",
     "crypto": "^1.0.1",
     "dotenv": "latest",
     "express": "^4.16.3",
@@ -12,7 +13,18 @@
     "node-gyp": "^6.1.0",
     "node-pre-gyp": "^0.14.0",
     "path": "^0.12.7",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "utf-8-validate": "^5.0.2"
+  },
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "html"
+    ],
+    "globalSetup": "./src/tests/setup.js",
+    "globalTeardown": "./src/tests/teardown.js"
   },
   "scripts": {
     "start": "nodemon --exec src/server.js",

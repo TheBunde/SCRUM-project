@@ -4,8 +4,8 @@
     width: 100vw;
     padding: 20px 0 20px 0;
     text-align: center;
-    position: absolute;
     bottom: 0px;
+    margin: auto;
 }
 
 #FooterContainer a{
@@ -50,14 +50,20 @@
     position: absolute;
     bottom: 0px;
 }
-#Footer a{
+#FooterTransparent a{
     color: white;
 }
-#Footer p{
+#FooterTransparent p{
     color: white;
 }
-#Footer h5{
+#FooterTransparent h5{
     color: rgb(180, 177, 178);
+}
+#FooterTransparent h5:hover{
+    color: rgb(43, 205, 242);
+}
+#FooterTransparentLink{
+    padding: 0 10px 0 10px;
 }
 
 

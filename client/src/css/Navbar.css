@@ -2,8 +2,7 @@
     /*position: fixed;*/
     background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(68, 111, 184));
     /*background-image: linear-gradient(to bottom right, red, yellow);*/
-    position: absolute;
-    top: 0px;
+    top: 0;
     width: 100%;
     z-index: 100;
 }

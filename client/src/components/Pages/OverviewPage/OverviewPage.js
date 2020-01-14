@@ -3,7 +3,8 @@ import "../../../css/Overview.css"
 import { createHashHistory } from 'history';
 
 import Navbar from '../../Navbar/Navbar'
-import ProfileService from "../../../service/ProfileService";
+import {ProfileService} from "../../../service/ProfileService";
+import Footer from '../../Footer/Footer'
 const history = createHashHistory();
 
 class OverviewPage extends Component{
@@ -33,7 +34,7 @@ class OverviewPage extends Component{
     render() {
 
         return (
-            <div>
+            <div class="pageSetup">
                 <Navbar/>
                 <div id="OverviewDiv">
                     <div id="OverviewTitle"><h1>Forside</h1></div>
@@ -47,8 +48,12 @@ class OverviewPage extends Component{
                         <div id="OverviewButtons">
                             <button type="button" className="btn btn-info btn-lg" onClick={() => this.seeProfile(this.state.user_id)}>Vis profil</button>
                         </div>
+                        <div id="OverviewButtonsLogOut">
+                            <button type="button" className="btn btn-dark btn-lg" onClick={this.logOut}>logg ut</button>
+                        </div>
                     </div>
                 </div>
+                <Footer />
             </div>
         );
     }
@@ -65,6 +70,10 @@ class OverviewPage extends Component{
         console.log("SE ME ");
 
         history.push("/profile/" + id)
+    }
+
+    logOut(){
+        history.push("/")
     }
 }
 

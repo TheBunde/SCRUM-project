@@ -56,11 +56,11 @@ class LoginForm extends Component{
                 <h1 id="login-title">Innlogging</h1>
                 <div class="form-group" id="email-input-container">
                     <label for="email-input">E-post</label>
-                    <input type="email" class="form-control" id="email-input" placeholder="Skriv inn e-post" name="email" onChange={this.updateInputValue} />
+                    <input type="email" class="form-control" id="email-input" placeholder="Skriv inn e-post" name="email" onChange={this.updateInputValue} onKeyPress={event => {if (event.key === 'Enter') {this.submit()}}} />
                 </div>
                 <div class="form-group" id="password-input-container">
                     <label for="password-input">Passord</label>
-                    <input type="password" class="form-control" id="password-input" placeholder="Skriv inn passord" name="pw" onChange={this.updateInputValue} />
+                    <input type="password" class="form-control" id="password-input" placeholder="Skriv inn passord" name="pw" onChange={this.updateInputValue} onKeyPress={event => {if (event.key === 'Enter') {this.submit()}}} />
                 </div>
                 <button type="button" class="btn btn-primary" id="login-button" onClick={this.submit}>Logg inn</button>
             </form>

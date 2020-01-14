@@ -85,7 +85,6 @@ class EditUserPage extends Component{
                                     <div className={"btnColumn"}>
                                         <button id={"deleteBtn"} onClick={() => {this.toggleModal("delete")}} type="submit" className="btn btn-danger">Slett</button>
                                     </div>
-
                                 </div>
 
                                 <div className="form-check">
@@ -116,8 +115,8 @@ class EditUserPage extends Component{
                     </Modal.Footer>
                 </Modal>
 
-               <button id={"EditUserSaveBtn"} disabled={this.state.roleChosen==="Ingen rolle valgt" || this.state.approved === ""} onClick={() => {this.saveChanges(); this.toggleModal("save")}} type="button" className="btn btn-primary">Lagre endringer</button>
-                
+               <button id={"EditUserSaveBtn"} onClick={() => {this.saveChanges(); this.toggleModal("save")}} type="button" className="btn btn-primary">Lagre endringer</button>
+
             </div>
             <Footer />
             </div>

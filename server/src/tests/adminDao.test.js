@@ -61,26 +61,44 @@ test("get Users from DB", done =>{
 
 test("test assigning roles", done =>{
 
-    function callback3(status, data) {
+    function callback2(status, data) {
+        console.log(
+            "Test getUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data[0].user_id).toBe(1);
+        expect(data[0].role_id).toBe(2);
+        done();
+    }
+
+    function callback(status, data){
+        adminDao.getUser(1, callback2);
+    }
+
+
+    adminDao.assignRole(1, 2, callback);
+});
+
+test("test approve roles", done =>{
+
+    function callback2(status, data) {
         console.log(
             "Test getUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data[0].user_id).toBe(1);
         expect(data[0].approved).toBe(1);
-        expect(data[0].role_id).toBe(2);
+
         done();
     }
 
-    function callback2(status, data){
-        adminDao.getUser(1, callback3);
-    }
-
     function callback(status, data){
-        adminDao.approveUser(1, callback2);
+        adminDao.getUser(1, callback2);
     }
 
-    let myjson = {roleID : 2};
-    adminDao.assignRole(1, 2, callback);
+
+    adminDao.approveUser(1, callback);
+
+
+
 });
 
 

@@ -73,7 +73,7 @@ ReactDOM.render(
             <RestrictedRoute exact path="/overview/addEvent" component={AddEvent} authorized={restriction.regular} />
             <RestrictedRoute exact path="/admin" component={AdminUserPage} authorized={restriction.admin} />
             <RestrictedRoute exact path="/admin/users" component={AdminUserPage} authorized={restriction.admin} />
-            <RestrictedRoute exact path="/admin/users/:id/edit" component={AdminUserPage} authorized={restriction.admin} />
+            <RestrictedRoute exact path="/admin/users/:id/edit" component={EditUserPage} authorized={restriction.admin} />
         </div>
     </HashRouter>
     , (document.getElementById('root')));

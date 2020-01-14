@@ -36,6 +36,7 @@ class EventService{
     }
 
     deleteEvent(eventID){
+        console.log("Inne i delete metode")
         return axios.delete("http://localhost:8080/event/" + eventID).then(response => response.data);
     }
 

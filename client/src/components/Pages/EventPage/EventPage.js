@@ -34,7 +34,7 @@ class EventPage extends Component {
         this.handleSearch = this.handleSearch.bind(this);
     }
 
-    formatDate(backendDate) {
+     formatDate(backendDate) {
         let tempDate = backendDate;
         let year = tempDate.slice(0, 4);
         let month = tempDate.slice(5, 7);

@@ -20,7 +20,7 @@ let adminDao = new AdminDao(pool);
 /*
     tests getUser: henter User med Id 1
 */
-test("get User from DB", done =>{
+test("get User with id 1", done =>{
     function callback(status, data) {
         console.log(
             "Test getUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -39,7 +39,7 @@ test("get User from DB", done =>{
     tests getUsers
 */
 
-test("get User from DB", done =>{
+test("get Users from DB", done =>{
     function callback(status, data) {
         console.log(
             "Test getUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)

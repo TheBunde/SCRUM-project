@@ -135,7 +135,7 @@ insert into Ticket_Category(name) values ('EarlyBird');
 insert into Event(name, description, date, place, artists, tech_rider, hospitality_rider, personnel, filed)
 values ('the Donn party', 'Donn holder repetisjonsforelesning i OS', '2020-02-03 20:30:00', 'Sukkerhuset', 'Donn Morrison', 'speakers 2x\n vocal solo mic 1x\n soundtrack with playback player 1x\n projector to show lectures\n all with linux', 'give him a beer or something to put an OS in, and compliment his lectures... just do it', 'an audience', 0);
 insert into Event(name, description, date, place, artists, tech_rider, hospitality_rider, personnel, filed)
-values ('Metallica metal', 'Metallica kommer til Sukkerhuset!', '2020-01-09 14:30:00', 'Sukkerhuset', 'Metallica' , 'speakers 6x\n vocal solo mic 1x\n more speakers', 'lots of cool looking drinks and beer', 'has their own', 0);
+values ('Metallica metal', 'Metallica kommer til Sukkerhuset!', '2020-01-09 14:30:00', 'Sukkerhuset', 'Metallica' , 'speakers 6x\n vocal solo mic 1x\n more speakers', 'lots of cool looking drinks and beer', 'has their own', 1);
 
 insert into Event_Category(event_id, category_id) values (1,1);
 insert into Event_Category(event_id, category_id) values (1,3);

@@ -23,7 +23,6 @@ let adminDao = new AdminDao(pool);
 test('Changing contact information', done => {
     function callback2(status, data) {
         console.log('Test callback: status=' + status + ', data=' + JSON.stringify(data));
-        expect(data.affectedRows).toBeGreaterThanOrEqual(1);
         expect(data[0].user_id).toBe(3);
         expect(data[0].name).toBe('Grete');
         expect(data[0].phone).toBe('09876543');

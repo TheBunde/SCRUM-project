@@ -27,8 +27,10 @@
     text-align: center;
 }
 
-#eventViewInfoBoxTwo{
-    text-align: center;
+#eventViewInfoTwo{
+    text-align: left;
+    margin-left: 10%;
+    object-fit: contain;
 }
 
 #eventViewButtons{

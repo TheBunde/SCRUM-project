@@ -80,7 +80,7 @@ test("test assigning roles", done =>{
     }
 
     let myjson = {roleID : 2};
-    adminDao.assignRole(1, myjson, callback);
+    adminDao.assignRole(1, 2, callback);
 });
 
 

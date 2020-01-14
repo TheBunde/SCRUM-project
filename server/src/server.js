@@ -85,10 +85,17 @@ app.get("/user/:userID", (req, res) => {
         res.status(status);
         res.json(data);
     });
-})
+});
 
 app.get("/user/:userID", (req, res) => {
     adminDao.getUser(req.params.userID,(status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.get("/role/:roleID", (req, res) => {
+    adminDao.getRoleById(req.params.roleID, (status, data) => {
         res.status(status);
         res.json(data);
     })

@@ -20,15 +20,28 @@ server_tests:
     paths:
       - server/coverage
 
+client_tests:
+  stage: test
+  script:
+    - cd client
+    - npm install
+    - npm test
+  artifacts:
+    paths:
+      - client/coverage
+
 # Publish coverage report on gitlab-pages
 pages:
   stage: deploy
   dependencies:
     - server_tests
+    - client_tests
   script:
     - mkdir .public
     - mkdir .public/client
+    - mkdir .public/server
     - cp -r server/coverage/* .public/server
+    - cp -r client/coverage/* .public/client
     - mv .public public
   artifacts:
     paths:

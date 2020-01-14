@@ -42,7 +42,7 @@ module.exports = class adminDao extends Dao{
     }
 
     addContactInfo(contactInfo, callback){
-        super.query("INSERT INTO Contact_Info(name, phone, email, event_id) VALUES (?, ?, ?, ?)", [contactInfo], callback)
+        super.query("INSERT INTO Contact_Info(name, phone, email, event_id) VALUES (?, ?, ?, ?)", [contactInfo.name, contactInfo.phone, contactInfo.email, contactInfo.eventID], callback)
     }
 };
 

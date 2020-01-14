@@ -40,7 +40,7 @@ class OverviewPage extends Component{
 
                 <div className="jumbotron jumbotron-fluid">
                     <div className="container">
-                        <h1 id={"jumbotronTitle"} className="display-4">Create Harmony.</h1>
+                        <h1 id={"jumbotronTitle"} className="display-4">Harmoni</h1>
 
 
                         <p className="lead"></p>
@@ -49,7 +49,7 @@ class OverviewPage extends Component{
 
                 <div className={"cardsContainer"}>
 
-                <div className="card">
+                <div className="card overview">
                     <div className="card-body">
                         <h5 className="card-title">Legg til arrangement</h5>
                         <p className="card-text">Legg til de eventene du måtte ønske.</p>
@@ -57,7 +57,7 @@ class OverviewPage extends Component{
                     </div>
                 </div>
 
-                <div className="card">
+                <div className="card overview">
                     <div className="card-body">
                         <h5 className="card-title">Se alle eventer</h5>
                         <p className="card-text">Få en oversikt over alle dine arrangementer.</p>
@@ -65,7 +65,7 @@ class OverviewPage extends Component{
                     </div>
                 </div>
 
-                <div className="card">
+                <div className="card overview">
                     <div className="card-body">
                         <h5 className="card-title">Vis profil</h5>
                         <p className="card-text">Vil du endre profilen din kan du gjøre det her.</p>
@@ -78,9 +78,6 @@ class OverviewPage extends Component{
             </div>
 
             <button id={"logoutBtn"} type="button" className="btn btn-dark">Logg ut</button>
-
-
-
 
                 <Footer />
             </div>

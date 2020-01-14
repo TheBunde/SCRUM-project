@@ -61,7 +61,7 @@ test("get Users from DB", done =>{
 
 test("test assigning roles", done =>{
 
-    function callback2(status, data) {
+    function callback3(status, data) {
         console.log(
             "Test getUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
@@ -71,8 +71,12 @@ test("test assigning roles", done =>{
         done();
     }
 
+    function callback2(status, data){
+        adminDao.getUser(1, callback3);
+    }
+
     function callback(status, data){
-        adminDao.getUser(1, callback2);
+        adminDao.approveUser(1, callback2);
     }
 
     let myjson = {roleID : 2};
@@ -81,10 +85,10 @@ test("test assigning roles", done =>{
 
 
 /*
-    tests assignRole: assignes role 2 to user_id 1
+    delete user
 */
 
-test("test assigning roles", done =>{
+test("delete user", done =>{
 
     function callback(status, data) {
         console.log(

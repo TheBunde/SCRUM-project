@@ -3,7 +3,7 @@ import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
 import {FileService} from "../../../service/FileService";
 
-import Calendar from 'react-calendar'
+import Calendar from 'react-calendar-mobile'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 
@@ -11,7 +11,7 @@ class AddEvent extends Component{
     constructor(props){
         super(props);
         this.state ={
-            date: new Date(),
+            date: null,
             Category: 1,
             GratisTicketBox: false,
             GratisTicketAmount: null,
@@ -32,6 +32,7 @@ class AddEvent extends Component{
         this.changeAmount = this.changeAmount.bind(this);
         this.registerEvent = this.registerEvent.bind(this);
         this.registerTicketsAndCategory = this.registerTicketsAndCategory.bind(this);
+        this.changeDate = this.changeDate.bind(this);
     }
 
     componentDidMount() {
@@ -56,9 +57,9 @@ class AddEvent extends Component{
         this.setState({[event.target.id]: event.target.value})
     }
 
-    changeDate = date =>{
-        this.setState({ date });
-    };
+    changeDate(event) {
+        this.setState({date: event})
+    }
 
     render() {
         return (
@@ -79,8 +80,8 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Dato for arrangementet:</p>
                         <div id="EventInputCalendar">
                             <Calendar
-                                onChange={this.changeDate}
-                                value = {this.state.date}
+                                onSelectDate = {this.changeDate}
+                                startOnMonday = {true}
                             />
                         </div>
                     </div>
@@ -289,7 +290,7 @@ class AddEvent extends Component{
 
     registerEvent(){
         var name = document.getElementById("nameInput").value;
-        let day = this.state.date.getDate();
+        let day = this.state.date.getDay();
         let month = this.state.date.getMonth()+1;
         let year = this.state.date.getFullYear();
         let hour = document.getElementById("dateHourInput").value;

@@ -255,7 +255,7 @@ app.get("/event/archived", (req, res) => {
     });
 });
 
-app.put("/event/archived", (req, res) => {
+app.put("/event/:eventID/archived", (req, res) => {
     console.log('/event: fikk request fra klient');
     eventDao.updateFiled(req.body, (status, data) => {
         console.log(data);

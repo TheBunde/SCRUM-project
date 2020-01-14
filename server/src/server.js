@@ -192,7 +192,7 @@ app.delete("/users/:userID/", (req, res) => {
 
 app.put("/profile/:userId/edit", (req, res) => {
     console.log('/profile/:userId/edit: fikk request fra klient');
-    profileDao.updateProfile(req.body, (status, data) => {
+    userDao.updateProfile(req.body, (status, data) => {
         console.log(data);
         res.status(status);
         res.json(data);

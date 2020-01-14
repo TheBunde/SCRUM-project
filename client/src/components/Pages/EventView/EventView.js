@@ -4,6 +4,9 @@ import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 import "../../../css/EventView.css"
 import {eventService} from '../../../service/EventService'
+import { createHashHistory } from 'history';
+
+const history = createHashHistory();
 
 class EventView extends Component{
 
@@ -109,8 +112,25 @@ class EventView extends Component{
                             <div id="eventViewEdit">
                             <button type="button" className="btn btn-outline-primary">Edit</button>
                             </div>
-                            <div id="eventViewDelete">
-                                <button type="button" className="btn btn-outline-danger">Delete</button>
+                            <div>
+                                <p>
+                                    <button
+                                        className="btn delete btn-outline-danger"
+                                        type="button"
+                                        data-toggle="collapse"
+                                        data-target="#collapseDelete"
+                                        aria-expanded="false"
+                                        aria-controls="collapseDelete"
+                                    >
+                                        Delete
+                                    </button>
+                                </p>
+                                <div className="collapse" id="collapseDelete">
+                                    <p> Are you sure you want to delete this event?</p>
+                                    <button className="btn delete btn-danger" type="button" data-toggle="collapse" onClick={() => this.delete(this.state.event_id)}>
+                                        I am sure
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -118,6 +138,14 @@ class EventView extends Component{
                 <Footer />
             </div>
         );
+    }
+
+    delete(id){
+        console.log(id);
+        eventService
+            .deleteEvent(id)
+            .catch(e => console.error(e));
+        history.push("/overview")
     }
 }
 

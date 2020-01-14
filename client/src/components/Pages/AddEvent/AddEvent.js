@@ -13,6 +13,7 @@ class AddEvent extends Component{
         super(props);
         this.state ={
             date: new Date(),
+            Picture: "",
             Category: 1,
             GratisTicketBox: false,
             GratisTicketAmount: null,
@@ -60,6 +61,10 @@ class AddEvent extends Component{
 
     changeDate(event) {
         this.setState({date: event})
+    }
+
+    formValidation(name, description, place, artists, contactName, contactPhone, contactEmail, tech, hospitality, personnel, picture){
+        let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg"
     }
 
     render() {

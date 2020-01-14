@@ -44,6 +44,36 @@ test("test: getAllEvents()", done =>{
     eventDao.getAllEvents(callback);
 });
 
+test("test: getAllArchived()", done =>{
+    function callback2(status, data) {
+        console.log(
+            "Test getAllArchived eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data[0].filed).toBe(1);
+        expect(data.length).toBe(1);
+        done();
+    }
+
+    function callback(){
+        eventDao.getAllArchived(callback2);
+    }
+
+    eventDao.updateFiled(3,callback);
+
+});
+
+test("test: updateFiled", done =>{
+    function callback(status, data) {
+        console.log(
+            "Test updateFiled eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data[0].filed).toBe(1);
+        done();
+    }
+
+    eventDao.updateFiled(3,callback);
+});
+
 
 test("test: addEvent()", done =>{
     function callback2(status, data) {
@@ -64,6 +94,8 @@ test("test: addEvent()", done =>{
 });
 
 
+
+
 test("test: getNonFiledEvents()", done =>{
 
     function callback(status, data){
@@ -78,8 +110,6 @@ test("test: getNonFiledEvents()", done =>{
 
     eventDao.getNonFiledEvents(callback);
 });
-
-
 
 test("test: getCategories()", done =>{
 

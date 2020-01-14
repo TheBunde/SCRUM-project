@@ -149,13 +149,16 @@ values ('the Donn party', 'Donn holder repetisjonsforelesning i OS', '2020-02-03
 insert into Event(name, description, date, place, artists, tech_rider, hospitality_rider, personnel, filed)
 values ('Metallica metal', 'Metallica kommer til Sukkerhuset!', '2020-01-09 14:30:00', 'Sukkerhuset', 'Metallica' , 'speakers 6x\n vocal solo mic 1x\n more speakers', 'lots of cool looking drinks and beer', 'has their own', 0);
 
+
 insert into Event_Category(event_id, category_id) values (1,1);
 insert into Event_Category(event_id, category_id) values (1,3);
 insert into Event_Category(event_id, category_id) VALUES (2,2);
 insert into Event_Category(event_id, category_id) values (2,3);
 
+
 insert into Contact_Info( name, phone, email, event_id) values ('Donn team', '1991', 'Donn@linux.OS', 1);
 insert into Contact_Info( name, phone, email, event_id) values ('Metallica', '2386724692', 'metallica@metal.band', 1);
+
 
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (1, 4, 0, 95);
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2, 1, 850, 200);

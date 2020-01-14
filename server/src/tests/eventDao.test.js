@@ -17,10 +17,10 @@ let pool = mysql.createPool({
 let eventDao = new EventDao(pool);
 
 
-test("get event from DB", done =>{
+test("test: getEventById()", done =>{
     function callback(status, data) {
         console.log(
-            "Test getUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
+            "Test getEvent eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data.length).toBe(1);
         expect(data[0].event_id).toBe(1);
@@ -28,27 +28,27 @@ test("get event from DB", done =>{
         done();
     }
 
-    eventDao.getEvent(1, callback);
+    eventDao.getEventByID(1, callback);
 });
 
-test("get events from DB", done =>{
+test("test: getAllEvents()", done =>{
     function callback(status, data) {
         console.log(
-            "Test getUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
+            "Test getAllEvents eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data.length).toBe(2);
         expect(data[0].event_id).toBe(1);
         done();
     }
 
-    eventDao.getEvents(callback);
+    eventDao.getAllEvents(callback);
 });
 
 
-test("add event to DB", done =>{
+test("test: addEvent()", done =>{
     function callback2(status, data) {
         console.log(
-            "Test getUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
+            "Test addEvent eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data[0].filed).toBe(0);
         expect(data[0].name).toBe("Just added");
@@ -56,7 +56,7 @@ test("add event to DB", done =>{
     }
     
     function callback(status, data){
-        eventDao.getEvent(3,callback2);
+        eventDao.getEventByID(3,callback2);
     }
     
     let event = {name : "Just added", date:  "2020-01-20 20:45:00",description:  "the DB test made this", place : "Sukkerhuset", artists : "Javascript, mysql, ci, nodeJs ", tech_rider:  "nintendo switch", hospitality_rider: "potato chips", personnel: "Team 5", img_url: "eagle.png"};
@@ -64,12 +64,28 @@ test("add event to DB", done =>{
 });
 
 
-
-test("get categories DB", done =>{
+test("test: getNonFiledEvents()", done =>{
 
     function callback(status, data){
         console.log(
-            "Test getUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
+            "Test getNonFiledEvents eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data.length).toBe(2);
+        expect(data[0].name).toBe("forelesning");
+        expect(data[1].filed).toBe(0);
+        done();
+    }
+
+    eventDao.getNonFiledEvents(callback);
+});
+
+
+
+test("test: getCategories()", done =>{
+
+    function callback(status, data){
+        console.log(
+            "Test getCategories eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data.length).toBe(3);
         expect(data[0].name).toBe("forelesning");
@@ -80,6 +96,49 @@ test("get categories DB", done =>{
 });
 
 
+test("test: addCategory()", done =>{
+
+    function callback(status, data){
+        console.log(
+            "Test addCategory(Event_Category) eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data.insertId).toBe(5);
+        expect(data.affectedRows).toBe(1);
+        done();
+    }
+
+    let category = {eventID : 1, categoryID: 5};
+    eventDao.addCategory(category, callback);
+});
+
+test("test: getTicket()", done =>{
+
+    function callback(status, data){
+        console.log(
+            "Test getTicket eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data.length).toBe(5);
+        expect(data[0].name).toBe("Standard");
+        done();
+    }
+
+    eventDao.getTicket(callback);
+});
 
 
+
+test("test: addTicket()", done =>{
+
+    function callback(status, data){
+        console.log(
+            "Test addTicket eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data.insertId).toBe(6);
+        expect(data.affectedRows).toBe(1);
+        done();
+    }
+
+    let event_ticket = {eventID: 1, ticketID: 3, amount: 20};
+    eventDao.addTicket(event_ticket, callback);
+});
 

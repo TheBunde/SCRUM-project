@@ -77,10 +77,12 @@ class AddEvent extends Component{
 
                     <div id ="EventInputFields">
                         <p id="EventInputLabels">Dato for arrangementet:</p>
-                        <Calendar
-                            onChange={this.changeDate}
-                            value = {this.state.date}
-                        />
+                        <div id="EventInputCalendar">
+                            <Calendar
+                                onChange={this.changeDate}
+                                value = {this.state.date}
+                            />
+                        </div>
                     </div>
 
                     <div id = "EventInputFields">
@@ -88,6 +90,7 @@ class AddEvent extends Component{
                         <div id="EventDateInput">
                             <select className="form-control"
                                     id ="dateHourInput"
+                                    defaultValue={20}
                             >
                                 {this.state.DateHour.map(year =>
                                     <option
@@ -113,8 +116,6 @@ class AddEvent extends Component{
                                 )}
                             </select>
                         </div>
-                    </div>
-
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
@@ -279,9 +280,10 @@ class AddEvent extends Component{
                         Registrer arrangement
                     </button>
                 </div>
-
                 <Footer />
+                </div>
             </div>
+
         );
     }
 

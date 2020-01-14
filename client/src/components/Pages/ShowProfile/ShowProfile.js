@@ -4,9 +4,9 @@ import { createHashHistory } from 'history';
 
 import {adminService} from '../../../service/AdminService'
 import {ProfileService} from "../../../service/ProfileService";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
-import { User} from "../EditProfile/EditProfile";
+import { User } from "../EditProfile/EditProfile";
 
 
 import Navbar from "../../Navbar/Navbar";

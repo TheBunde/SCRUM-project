@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 
 import Navbar from '../../Navbar/Navbar'
-import "./EditUserPage.css"
+import "../../../css/EditUserPage.css"
 import {adminService} from "../../../service/AdminService";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Footer from '../../Footer/Footer'
 
 class EditUserPage extends Component{
 
@@ -26,9 +27,9 @@ class EditUserPage extends Component{
 
     render() {
         return (
-            <div className={"EditUserPageWrapper"}>
+            <div class="pageSetup">
                 <Navbar />
-
+                <div className={"EditUserPageWrapper"}>
                 <div className={"row"}>
                     <div className={"column"}>
 
@@ -116,6 +117,9 @@ class EditUserPage extends Component{
                 </Modal>
 
                <button id={"EditUserSaveBtn"} disabled={this.state.roleChosen==="Ingen rolle valgt" || this.state.approved === ""} onClick={() => {this.saveChanges(); this.toggleModal("save")}} type="button" className="btn btn-primary">Lagre endringer</button>
+                
+            </div>
+            <Footer />
             </div>
         );
     }

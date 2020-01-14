@@ -1,9 +1,9 @@
 #eventPageContainer{
-    padding: 0 0 0 0;
+    padding: 10px 0 0 0;
     margin: auto;
     text-align: center;
     width: 90%;
-    min-height: 100vh;
+    min-height: 70vh;
 }
 
 #eventPageBar{

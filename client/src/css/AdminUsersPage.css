@@ -1,18 +1,10 @@
-.titleRow{
-    border: 2px solid green;
-    width: 95%;
-    display: flex;
-    align-content: center;
-    margin: auto;
-}
 
-.titleCol{
-    border: 2px solid black;
-    margin: auto;
+.AdminUsersPageWrapper{
+    margin-top: 300px;
     text-align: center;
 }
 
-.AdminUsersPageMain{
-    width: 100%;
-    border: 3px solid red;
+
+.card-header p{
+    font-weight: bold;
 }

@@ -23,6 +23,7 @@
     ],
     "globalSetup": "./src/tests/setup.js",
     "globalTeardown": "./src/tests/teardown.js"
+
   },
   "scripts": {
     "start": "nodemon --exec src/server.js",

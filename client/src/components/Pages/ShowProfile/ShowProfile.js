@@ -16,7 +16,6 @@ const history = createHashHistory();
 
 class ShowProfile extends Component{
 
-    hentet = this.props.match.params.userID;
     user_id = this.props.match.params.userID;
 
     constructor(props) {

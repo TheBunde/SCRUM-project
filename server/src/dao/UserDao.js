@@ -34,7 +34,18 @@ module.exports = class UserDao extends dao {
         super.query("SELECT * from User JOIN Role on User.role_id = Role.role_id where email = ? AND approved = 1", email, callback);
     }
 
+
     changePassword(json, callback) {
         super.query("")
+
+    }
+
+    updateProfile({ user_id, name, phone, email }, callback) {
+        var val = [name, phone, email, user_id];
+        super.query(
+            'UPDATE User SET name = ?, phone = ?, email = ? where user_id = ?',
+            val,
+            callback
+        );
     }
 };

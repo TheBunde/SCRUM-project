@@ -1,4 +1,3 @@
-
 let express = require("express");
 let mysql = require("mysql");
 let app = express();
@@ -17,7 +16,6 @@ const jwt = require('jsonwebtoken');
 
 app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
-const ProfileDao = require("../src/dao/profileDao");
 const EventDao = require("../src/dao/eventDao");
 
 let pool = mysql.createPool({
@@ -39,7 +37,6 @@ app.use(function(req, res, next) {
 
 const userDao = new UserDao(pool);
 let adminDao = new AdminDao(pool);
-let profileDao = new ProfileDao(pool);
 let eventDao = new EventDao(pool);
 
 //Here we need to have a app.use which will verify the token so that you can not use any of them without token!!
@@ -113,10 +110,17 @@ app.get("/user/:userID", (req, res) => {
         res.status(status);
         res.json(data);
     });
-})
+});
 
 app.get("/user/:userID", (req, res) => {
     adminDao.getUser(req.params.userID,(status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.get("/role/:roleID", (req, res) => {
+    adminDao.getRoleById(req.params.roleID, (status, data) => {
         res.status(status);
         res.json(data);
     })
@@ -220,7 +224,7 @@ app.delete("/users/:userID/", (req, res) => {
 
 app.put("/profile/:userId/edit", (req, res) => {
     console.log('/profile/:userId/edit: fikk request fra klient');
-    profileDao.updateProfile(req.body, (status, data) => {
+    userDao.updateProfile(req.body, (status, data) => {
         console.log(data);
         res.status(status);
         res.json(data);
@@ -312,6 +316,21 @@ app.put("/users/:userID/disapprove", (req, res) => {
         res.json(data);
     })
 });
+
+app.delete('/event/:id', (req, res) => {
+    console.log('/event/:id: fikk request fra klient');
+    eventDao.deleteEvent(parseInt(req.params.id), (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
+app.post("/contactInfo", (req, res) => {
+    eventDao.addContactInfo(req.body, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+})
 
 let server = app.listen(8080);
 

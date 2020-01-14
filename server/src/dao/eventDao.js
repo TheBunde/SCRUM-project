@@ -33,4 +33,19 @@ module.exports = class adminDao extends Dao{
     addCategory(category, callback){
         super.query("INSERT INTO Event_Category(event_id, category_id) VALUES (?, ?)", [category.eventID, category.categoryID], callback)
     }
+
+    deleteEvent(eventID, callback){
+        super.query("DELETE FROM Contact_Info WHERE event_id = ?", [eventID], callback2);
+        super.query("DELETE FROM Event_Category WHERE event_id = ?", [eventID], callback2);
+        super.query("DELETE FROM Event_Ticket WHERE event_id = ?", [eventID], callback2);
+        super.query("DELETE FROM Event WHERE event_id = ?", [eventID], callback)
+    }
+
+    addContactInfo(contactInfo, callback){
+        super.query("INSERT INTO Contact_Info(name, phone, email, event_id) VALUES (?, ?, ?, ?)", [contactInfo.name, contactInfo.phone, contactInfo.email, contactInfo.eventID], callback)
+    }
 };
+
+function callback2(){
+ console.log("Dummy function")
+}

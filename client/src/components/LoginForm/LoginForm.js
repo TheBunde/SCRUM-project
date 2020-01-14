@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import "../../css/LoginForm.css";
 import UserService from "../../service/UserService.js"
-import {User, auth, authenticate} from "../../service/UserService";
-import Footer from '../Footer/Footer.js';
+import {authenticate} from "../../service/UserService";
 import {NavbarMainPage} from '../Navbar/Navbar.js'
 
 let crypto = require('crypto');
@@ -46,7 +45,6 @@ class LoginForm extends Component{
         this.setState({
             [e.target.name]: e.target.value 
         });
-        console.log(this.state.pw);
     }
 
     render(){

@@ -1,4 +1,4 @@
-
+/*
 
 const Dao = require("./dao.js");
 
@@ -14,3 +14,5 @@ module.exports = class profileDao extends Dao{
         );
     }
 };
+
+ */

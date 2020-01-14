@@ -1,4 +1,4 @@
-#AboutDiv{
+#MainPageDiv{
     margin: auto;
     text-align: center;
     padding-top: 180px;
@@ -8,29 +8,37 @@
     z-index: 2000;
 }
 
-#AboutText {
+#MainPageTitle {
+    color: white;
+    font-family: Georgia;
+    font-size: 80px;
+    padding-bottom: 35px;
+
+}
+
+#MainPageText {
     width: 40%;
     margin: auto;
 }
 
-#AboutText {
+#MainPageText {
     color: rgb(218, 216, 216);
 }
 
-#AboutButtonDiv{
+#MainPageButtonDiv{
     padding: 35px 0 20px 0;
 }
 
-#AboutButtons{
+#MainPageButtons{
     padding: 10px 0 10px 0;
 }
 
-#AboutButtons button{
+#MainPageButtons button{
     width: 220px;
 }
 
 @Media only screen and (max-width: 840px){
-    #AboutDiv{
+    #MainPageDiv{
         margin: auto;
         text-align: center;
         padding-top: 100px;
@@ -38,13 +46,13 @@
         background-size: cover;
         min-height: 100vh;
     }
-    #AboutTitle {
+    #MainPageTitle {
         font-size: 40px;
         padding-bottom: 35px;
     }
 
 
-    #AboutText {
+    #MainPageText {
         width: 80%;
         margin: auto;
     }

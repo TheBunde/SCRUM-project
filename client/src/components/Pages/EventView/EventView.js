@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import Navbar from '../../Navbar/Navbar'
+import Footer from '../../Footer/Footer'
 import "../../../css/EventView.css"
 import {eventService} from '../../../service/EventService'
 
@@ -23,6 +24,17 @@ class EventView extends Component{
             img_url: "",
             description: ""
         }
+    }
+
+    formatDate(backendDate) {
+        let tempDate = backendDate;
+        let year = tempDate.slice(0, 4);
+        let month = tempDate.slice(5, 7);
+        let date = tempDate.slice(8, 10);
+        let hours = tempDate.slice(11, 13);
+        let minutes = tempDate.slice(14, 16);
+
+        return date + "-" + month + "-" + year + " " + hours + ":" + minutes;
     }
 
     componentDidMount(){
@@ -54,19 +66,26 @@ class EventView extends Component{
                             <h1>{this.state.name}</h1>
                         </div>
                         <div id="eventViewInnerContainer">
-                            <div id="infoBox">
+                            <div id="eventViewInfoBox">
                                 <div id="eventViewLocation">
                                     <h3>Lokasjon</h3>
                                     <p>{this.state.place}</p>
                                 </div>
                                 <div id="eventViewDate">
                                     <h3>Dato</h3>
-                                    <p>{this.state.date}</p>
+                                    <p>{this.formatDate(this.state.date)}</p>
                                 </div>
                                 <div id="eventViewArtists">
                                     <h3>Artister</h3>
                                 </div>
                                 
+                            </div>
+                            <div id="eventViewInfoTwo">
+                                <h3>Description</h3>
+                                <p>{this.state.description}</p>
+                                <h3>Personnell</h3>
+                                <p>{this.state.personnel}</p>
+                                <h3></h3>
                             </div>
                             <div id="mapBox">
                                 <div className="mapouter">
@@ -95,6 +114,7 @@ class EventView extends Component{
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
         );
     }

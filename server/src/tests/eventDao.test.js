@@ -36,7 +36,7 @@ test("test: getAllEvents()", done =>{
         console.log(
             "Test getAllEvents eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data.length).toBe(2);
+        expect(data.length).toBe(3);
         expect(data[0].event_id).toBe(1);
         done();
     }
@@ -50,7 +50,7 @@ test("test: getAllArchived()", done =>{
             "Test getAllArchived eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data[0].filed).toBe(1);
-        expect(data.length).toBe(1);
+        expect(data.length).toBeGreaterThanOrEqual(1);
         done();
     }
 
@@ -63,12 +63,16 @@ test("test: getAllArchived()", done =>{
 });
 
 test("test: updateFiled", done =>{
-    function callback(status, data) {
+    function callback2(status, data) {
         console.log(
             "Test updateFiled eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data[0].filed).toBe(1);
         done();
+    }
+
+    function callback(){
+        eventDao.getEventByID(3, callback2)
     }
 
     eventDao.updateFiled(3,callback);
@@ -86,7 +90,7 @@ test("test: addEvent()", done =>{
     }
     
     function callback(status, data){
-        eventDao.getEventByID(3,callback2);
+        eventDao.getEventByID(4,callback2);
     }
     
     let event = {name : "Just added", date:  "2020-01-20 20:45:00",description:  "the DB test made this", place : "Sukkerhuset", artists : "Javascript, mysql, ci, nodeJs ", tech_rider:  "nintendo switch", hospitality_rider: "potato chips", personnel: "Team 5", img_url: "eagle.png"};

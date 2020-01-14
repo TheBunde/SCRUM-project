@@ -32,7 +32,7 @@ class AddEvent extends Component{
         this.changeBox = this.changeBox.bind(this);
         this.changeAmount = this.changeAmount.bind(this);
         this.registerEvent = this.registerEvent.bind(this);
-        this.registerByID = this.registerByID().bind(this);
+        this.registerByID = this.registerByID.bind(this);
         this.changeDate = this.changeDate.bind(this);
     }
 

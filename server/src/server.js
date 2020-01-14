@@ -153,13 +153,14 @@ app.post("/validate", (req,res) => {
             let passwordHash = JSON.stringify(data[0].password_hash).slice(1,-1);
             let role = JSON.stringify(data[0].role);
             let approved = JSON.stringify(data[0].approved);
+            let id = JSON.stringify(data[0].user_id);
             bcrypt.compare(req.body.password, passwordHash, function(err, response) {
                 if (err) {
                     console.log("En error occured");
                     console.error(err);
                 }
                 if (response) {
-                    let token = jwt.sign({email: req.body.email, role : role, approved : approved}, privateKey, {
+                    let token = jwt.sign({email: req.body.email, role : role, approved : approved, user_id : id}, privateKey, {
                         expiresIn: 900
                     });
                     res.json({jwt: token});
@@ -245,6 +246,24 @@ app.get("/event/all", (req, res) => {
         res.json(data);
     });
 });
+
+app.get("/event/archived", (req, res) => {
+    console.log("/event fikk request fra klient");
+    eventDao.getAllArchived((status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
+app.put("/event/archived", (req, res) => {
+    console.log('/event: fikk request fra klient');
+    eventDao.updateFiled(req.body, (status, data) => {
+        console.log(data);
+        res.status(status);
+        res.json(data);
+    });
+});
+
 app.get("/event/nonFiled", (req, res) => {
     console.log("/event fikk request fra klient");
     eventDao.getNonFiledEvents((status, data) => {

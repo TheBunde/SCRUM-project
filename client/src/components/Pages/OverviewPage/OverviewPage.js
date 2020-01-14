@@ -3,7 +3,7 @@ import "../../../css/Overview.css"
 import { createHashHistory } from 'history';
 
 import Navbar from '../../Navbar/Navbar'
-import {profileService} from "../../../service/ProfileService";
+import profileService from "../../../service/ProfileService";
 import Footer from '../../Footer/Footer'
 const history = createHashHistory();
 

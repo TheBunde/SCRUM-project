@@ -47,17 +47,17 @@ class EditUserPage extends Component{
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1">Navn</label>
                                     <input value={this.state.name} className="form-control" type="text" placeholder="Readonly input here…"
-                                           readOnly/>
+                                           />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="exampleInputPassword1">E-post</label>
                                     <input value={this.state.email} className="form-control" type="text" placeholder="Readonly input here…"
-                                           readOnly/>
+                                           />
                                 </div>
                                 <div className="form-group">
                                     <label className="form-check-label" htmlFor="exampleCheck1">Telefon</label>
                                     <input value={this.state.phone} className="form-control" type="text" placeholder="Readonly input here…"
-                                           readOnly/>
+                                           />
                                 </div>
                                 <label className={"form-check-label"}>Rolle</label>
 

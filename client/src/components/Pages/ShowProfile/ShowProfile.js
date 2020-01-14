@@ -45,23 +45,28 @@ class ShowProfile extends Component{
 
 
         return(
-            <div>
+            <div className={"profilePageWrapper"}>
                 <Navbar/>
                 <Back/>
-                <div id="ShowProfileDiv">
+                <div id="profileContainer">
                     <h1>Min profil</h1>
-                    <div id="ShowProfileText">
 
-                        <div id="ShowProfileLine">
-                            <h4 id="h4">Brukernavn: </h4> <h5 id="h5">{this.state.user.name}</h5>
+                    <div className={"pbHolder"}/>
+
+                    <div className={"row"}>
+
+                        <div className={"col-sm-6"}>
+                            <h5>Brukernavn: </h5>
                         </div>
-                        <div id="ShowProfileLine">
-                            <h4 id="h4">tlf: </h4><h5 id="h5">{this.state.user.phone}</h5>
-                        </div>
-                        <div id="ShowProfileLine">
-                            <h4 id="h4">E-mail: </h4><h5 id="h5">{this.state.user.email}</h5>
-                        </div>
+
+                        <div className={"col-sm-6"}>
+
                     </div>
+
+
+
+                    </div>
+
 
 
                     <div id="ShowProfileButtonDiv">

@@ -40,7 +40,7 @@ class OverviewPage extends Component{
 
                 <div className="jumbotron jumbotron-fluid">
                     <div className="container">
-                        <h1 id={"jumbotronTitle"} className="display-4">Harmoni</h1>
+                        <h1 id={"jumbotronTitle"} className="display-4">Skap harmoni.</h1>
 
 
                         <p className="lead"></p>
@@ -72,8 +72,6 @@ class OverviewPage extends Component{
                         <button className="btn btn-outline-warning" onClick={() => this.seeProfile(this.state.user.user_id)} role="button">Vis profil</button>
                     </div>
                 </div>
-
-
 
             </div>
 

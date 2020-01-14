@@ -1,3 +1,4 @@
+
 let express = require("express");
 let mysql = require("mysql");
 let app = express();
@@ -325,13 +326,6 @@ app.delete('/event/:id', (req, res) => {
         res.json(data);
     });
 });
-
-app.post("/contactInfo", (req, res) => {
-    eventDao.addContactInfo(req.body, (status, data) =>{
-        res.status(status);
-        res.json(data);
-    })
-})
 
 let server = app.listen(8080);
 

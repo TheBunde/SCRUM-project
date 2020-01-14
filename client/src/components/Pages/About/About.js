@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 
+import Footer from '../../Footer/Footer'
 import Navbar from '../../Navbar/Navbar'
 import '../../../css/About.css'
+
+
+// About, will be called by the "om" link in the footer
 
 class About extends Component{
     
@@ -9,7 +13,7 @@ class About extends Component{
         return (
             <div class="pageSetup">
                 <Navbar />
-                <div>
+                <div id={'main'}>
                     <h5>Harmoni</h5>
                     <p>
                         Harmoni er en webaplikasjon som har til formål å forenkle informasjonsdeling for dem som arrangerer arrangementer. Systemet er koblet
@@ -17,6 +21,7 @@ class About extends Component{
                         Kos deg med oversikt og kommunikasjon.
                     </p>
                 </div>
+                <Footer/>
             </div>
         );
     }

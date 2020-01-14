@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
+import {FileService} from "../../../service/FileService";
 
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
@@ -173,12 +174,30 @@ class AddEvent extends Component{
                         />
                     </div>
                     <div id="EventInputFields">
+                        <p id="EventInputLabels">Tech Riders:</p>
+                        <input type="file"
+                               className="form-control"
+                               id="fileInput"
+                               required={true}
+                        />
+                        <button type={"button"} className={"btn btn-outline-primary btn-lg"} onClick={() => this.uploadImage()}>Last opp</button>
+                    </div>
+                    <div id="EventInputFields">
                         <p id="EventInputLabels">Hospitality Riders:</p>
                         <input type="text"
                                className="form-control"
                                id="hospitality_ridersInput"
                                required={true}
                         />
+                    </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Hospitality Riders:</p>
+                        <input type="file"
+                               className="form-control"
+                               id="fileInput"
+                               required={true}
+                        />
+                        <button type={"button"} className={"btn btn-outline-primary btn-lg"} onClick={() => this.uploadImage()}>Last opp</button>
                     </div>
                     <div id = "EventInputFields">
                         <p id = "EventInputLabels">Nødvendig personell:</p>
@@ -188,6 +207,15 @@ class AddEvent extends Component{
                                required={true}
                         />
                     </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Nødvendig personell:</p>
+                        <input type="file"
+                               className="form-control"
+                               id="fileInput"
+                               required={true}
+                        />
+                        <button type={"button"} className={"btn btn-outline-primary btn-lg"} onClick={() => this.uploadImage()}>Last opp</button>
+                    </div>
                     <div id = "EventInputFields">
                         <p id = "EventInputLabels">Bilde:</p>
                         <input type="text"
@@ -196,6 +224,15 @@ class AddEvent extends Component{
                                required={true}
                         />
                     </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Bilde:</p>
+                        <input type="file"
+                               className="form-control"
+                               id="fileInput"
+                               required={true}
+                        />
+                        <button type={"button"} className={"btn btn-outline-primary btn-lg"} onClick={() => this.uploadImage()}>Last opp</button>
+                    </div>
                     <div id = "EventInputFields">
                         <p id = "EventInputLabels">Kontrakt:</p>
                         <input type="text"
@@ -203,6 +240,15 @@ class AddEvent extends Component{
                                id = "contractInput"
                                required={true}
                         />
+                    </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Kontrakt:</p>
+                        <input type="file"
+                               className="form-control"
+                               id="fileInput"
+                               required={true}
+                        />
+                        <button type={"button"} className={"btn btn-outline-primary btn-lg"} onClick={() => this.uploadImage()}>Last opp</button>
                     </div>
 
                     <div id ="EventInputFields">
@@ -252,6 +298,8 @@ class AddEvent extends Component{
                     )}
                 </div>
 
+
+
                 <div id = "EventInputButton">
                     <button type="button" className="btn btn-outline-primary btn-lg" onClick={this.registerEvent}>
                         Registrer arrangement
@@ -280,6 +328,20 @@ class AddEvent extends Component{
             .addEvents(name, date, description, place, artists, tech_riders, hospitality_riders, personnel, picture)
             .then(data => this.registerTickets(data.insertId))
             .catch(Error => console.log(Error));
+    }
+
+    uploadImage() {
+        let fileService = new FileService();
+        let image = document.getElementById("fileInput");
+        console.log(image.files[0]);
+
+        fileService.uploadImage(image.files[0])
+            .then((res) => {
+                console.log(res);
+        })
+            .catch((err) => {
+                console.error(err);
+            })
     }
 
     registerTickets(EventId){

@@ -4,22 +4,28 @@ import { createHashHistory } from 'history';
 import "../../../img/concert.jpg"
 import Navbar from '../../Navbar/Navbar'
 import {ProfileService} from "../../../service/ProfileService";
-import Footer from '../../Footer/Footer'
+import Footer from '../../Footer/Footer';
+import {auth, authenticate} from "../../../service/UserService";
+
 const history = createHashHistory();
+
 
 class OverviewPage extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {user_id: 9}
-
+        this.state = {
+            user : {},
+            user_id: -1
+        }
     }
 
     componentDidMount() {
+        authenticate();
+        console.log(auth.user_id);
         let profileService = new ProfileService();
-        profileService.getUser(this.state.user_id)
+        profileService.getUser(auth.user_id)
             .then(user => {
-
                     this.setState({
                         user: user
                     })
@@ -69,7 +75,7 @@ class OverviewPage extends Component{
                     <div className="card-body">
                         <h5 className="card-title">Vis profil</h5>
                         <p className="card-text">Vil du endre profilen din kan du gjøre det her.</p>
-                        <a className="btn btn-outline-warning" href="#" role="button">Vis profil</a>
+                        <a className="btn btn-outline-warning" href={"/#/profile/" + auth.user_id} role="button">Vis profil</a>
                     </div>
                 </div>
 

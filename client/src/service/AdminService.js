@@ -4,8 +4,8 @@ let ipAdress = "localhost";
 
 class AdminService{
 
-    updateName(name, userID){
-        return axios.put("http://localhost:8080/users/" + userID + "/newName", {name: name}).then(response => response.data);
+    updateUser(name, email,phone, userID){
+        return axios.put("http://localhost:8080/users/" + userID + "/newName", {name: name, email: email, phone: phone}).then(response => response.data);
     }
 
     updatePhone(phone, userID){

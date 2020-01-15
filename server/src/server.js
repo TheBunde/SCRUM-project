@@ -114,7 +114,7 @@ app.get("/user/:userID", (req, res) => {
 });
 
 app.put("/users/:userID/newName", (req, res) => {
-    adminDao.updateUser(req.params.userID, req.body.name, (status, data) => {
+    adminDao.updateUser(req.params.userID, req.body.name, req.body.email, req.body.phone, (status, data) => {
         res.status(status);
         res.json(data);
     })

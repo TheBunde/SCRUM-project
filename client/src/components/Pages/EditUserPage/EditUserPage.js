@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import Footer from '../../Footer/Footer'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-
+import {UserService} from "../../../service/UserService"
 class EditUserPage extends Component {
 
 
@@ -176,10 +176,10 @@ class EditUserPage extends Component {
             console.error(error)
         }));
 
-        adminService.updateName(this.state.name, this.props.match.params.id).then(response => console.log(response)).catch(error => console.error(error))
-        adminService.updateEmail(this.state.email, this.props.match.params.id).then(response => console.log(response)).catch(error => console.error(error))
-        adminService.updatePhone(this.state.phone, this.props.match.params.id).then(response => console.log(response)).catch(error => console.error(error))
+        adminService.updateUser(this.state.name, this.state.email, this.state.phone, this.props.match.params.id).then(response => console.log(response)).catch(error => console.error(error))
+
         {
+
             if (this.state.approved) {
                 adminService.approveUser(this.props.match.params.id).then((response) => console.log(response)).catch((error) => {
                     console.error(error)

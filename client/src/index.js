@@ -37,7 +37,7 @@ const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
 const restriction = {
     admin: "admin",
     regular: ["admin", "Sceneansvarlig", "Økonomiansvarlig", "Barsjef", "Bartender", "Handyman", "Fotograf", "Markedsfører", "SoMe-ansvarlig", "Ølbrygger", "Lydtekniker", "Lystekniker", "Scenerigger", "Artistbooker", "Artistkontakt", "Konseptutvikler", "Quizmaster", "Festplanlegger"] 
-} 
+};
 
 ReactDOM.render(
     <HashRouter>

@@ -7,6 +7,7 @@ import {ProfileService} from "../../../service/ProfileService";
 import Footer from '../../Footer/Footer';
 import {auth, authenticate} from "../../../service/UserService";
 
+
 const history = createHashHistory();
 
 

@@ -15,7 +15,7 @@ import Footer from "../../Footer/Footer";
 
 const history = createHashHistory();
 
-class ShowProfile extends Component{
+class ShowProfile extends Component {
 
     user_id = this.props.match.params.userID;
 
@@ -23,7 +23,7 @@ class ShowProfile extends Component{
         super(props);
         this.state = {
             user: {},
-            authorized : ""
+            authorized: ""
         }
 
     }
@@ -33,11 +33,11 @@ class ShowProfile extends Component{
         //console.log("ID tried: " + this.props.match.params.userID);
         if (this.props.match.params.userID !== auth.user_id) {
             this.setState({
-                authorized : false
+                authorized: false
             })
         } else {
             this.setState({
-                authorized : true
+                authorized: true
             });
             let profileService = new ProfileService();
             profileService.getUser(this.user_id)
@@ -53,8 +53,9 @@ class ShowProfile extends Component{
     };
 
 
-    render(){
-        return(
+    render() {
+        return (
+
             auth.user_id === this.props.match.params.userID ?
                 <div>
                     <Navbar/>
@@ -81,18 +82,16 @@ class ShowProfile extends Component{
                             </div>
                         </div>
                     </div>
-                    <Footer/>
+
                 </div>
-            : <Redirect to={"/profile/" +auth.user_id } />
+            : <Redirect to={"/profile/" + auth.user_id } />
 
         )
     }
 
     editProfile(id){
-
         history.push("/profile/"+ id + "/edit")
     }
-
 }
 
 export default ShowProfile;

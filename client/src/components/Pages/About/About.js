@@ -21,12 +21,16 @@ class About extends Component{
                         Kos deg med oversikt og kommunikasjon.
                     </p>
                     <div id="links">
+                        <a id="logos" href="https://www.sukkerhuset.no/">
+                            <img alt="Sukkerhuset" src="https://uploads-ssl.webflow.com/5de46d09d41c9b2ee3cf98ab/5de46e3fd41c9b83f0cf9bd0_sukkerhuset-logo-refined-black.svg"
+                                 width="40" height="40"/>
+                        </a>
                         <a id="logos" href="https://www.facebook.com/Sukkerhuset/">
                             <img alt="Facebook logo" src="https://www.facebook.com/images/fb_icon_325x325.png"
                                  width="40" height="40"/>
                         </a>
                         <a id="logos" href="https://www.instagram.com/sukkerhuset/">
-                            <img alt="Facebook logo" src="http://vollgard.no/wp-content/uploads/2016/02/instagram-logo-vector-png-7-300x294.png"
+                            <img alt="Istagram logo" src="http://vollgard.no/wp-content/uploads/2016/02/instagram-logo-vector-png-7-300x294.png"
                                  width="40" height="40"/>
                         </a>
                     </div>

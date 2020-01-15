@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import "../../../css/EditProfile.css"
 import { createHashHistory } from 'history';
 import {ProfileService} from '../../../service/ProfileService'
-import {User} from "../../../service/UserService";
+import {User, UserService} from "../../../service/UserService";
 import {Redirect} from 'react-router-dom';
 import {auth, authenticate} from "../../../service/UserService";
 
@@ -38,6 +38,30 @@ class EditProfile extends Component{
                 });
         }
     };
+
+    checkFields = (e) => {
+        // If any of these fields are empty, the function returns false, and prompts the user to fill the remaining fields.
+        const name = document.getElementById("nameInput").value.trim();
+        const email = document.getElementById("emailInput").value.trim();
+        const phone = document.getElementById("tlfInput").value.trim();
+        const pw = this.state.user.password;
+        const role = this.state.user.roleid;
+        const approved = this.state.user.approved
+        console.log(name, email, phone, pw, role, approved);
+        
+        if(
+            name === null || name === "",
+            email === null || email === "",
+            phone === null || phone === "",
+            pw === null || pw === "",
+            role === null || role === "",
+            approved === null || approved === ""
+        ){
+            return false;
+        } else{
+            return true;
+        }
+    }
 
     render(){
         return(
@@ -104,6 +128,18 @@ class EditProfile extends Component{
                         <div className="collapse" id="collapsechangePassword">
 
                             <div className="col-sm-4">
+                                <h5>Gammelt passord: </h5>
+                                <input
+                                    id="oldPasswordInput"
+                                    className="form-control form-control-lg"
+                                    type="text"
+                                    placeholder="Gammelt passord"
+                                    aria-describedby="oldPasHelp"
+                                />
+                                <br/>
+                            </div>
+
+                            <div className="col-sm-4">
                                 <h5>Nytt passord: </h5>
                                 <input
                                     id="newPasswordInput"
@@ -116,16 +152,10 @@ class EditProfile extends Component{
                             </div>
 
                             <div className="col-sm-4">
-                                <h5>Gammelt passord: </h5>
-                                <input
-                                    id="oldPasswordInput"
-                                    className="form-control form-control-lg"
-                                    type="text"
-                                    placeholder="Gammelt passord"
-                                    aria-describedby="oldPasHelp"
-                                />
+                                <button type="button" className="btn btn-primary" onClick={this.changePW}>Endre passord</button>
                                 <br/>
                             </div>
+
                         </div>
                     </div>
 
@@ -138,10 +168,44 @@ class EditProfile extends Component{
         )
     }
 
+    changePW = (e) => {
+        console.log("aaaaaaaa");
+        let userService = new UserService();
+
+        const email = this.state.user.email;
+        const user_id = auth.user_id;
+        const oldPWInput = document.getElementById("oldPasswordInput").value;
+        const newPWInput = document.getElementById("newPasswordInput").value;
+
+        if( // If any of the fields are empty, prompt the user to fill them in before proceeding
+            oldPWInput === null || oldPWInput === "",
+            newPWInput === null || newPWInput === ""
+        ){
+            console.log("Du må fylle ut feltene!")
+            return false;
+        } else{
+            userService.updatePassword(email, oldPWInput, newPWInput, user_id);
+        }
+    }
 
     save = (e) => {
-
-        let newUser = new User(
+        console.log("Almost nice")
+        if(this.checkFields){ // Check if any input-fields are empty
+            let profileService = new ProfileService();
+            console.log("Very najs")
+            let user = new User(
+                auth.user_id,
+                document.getElementById("nameInput").value.trim(),
+                document.getElementById("emailInput").value.trim(),
+                document.getElementById("tlfInput").value.trim(),
+                this.state.user.password,
+                this.state.user.roleid,
+                this.state.user.approved,
+            );
+            console.log(user);
+            profileService.updateUser(user);
+        }
+        /*let newUser = new User(
             this.state.user.user_id,
             document.getElementById("nameInput").value,
             document.getElementById("emailInput").value,
@@ -149,8 +213,8 @@ class EditProfile extends Component{
             this.state.user.password,
             this.state.user.roleid,
             this.state.user.approved
-        );
-
+        );*/
+        /*
         let newName = document.getElementById("nameInput").value;
         let newTlf = document.getElementById("tlfInput").value;
         let newEmail = document.getElementById("emailInput").value;
@@ -183,8 +247,8 @@ class EditProfile extends Component{
                 Her ønsker vi å først sjekke om det gamle passordet stemmer med det som ligger i databasen
                 dersom det stemmer skal det nye passordet erstattes med det gamle. dersom passordet ikke stemmer skal check settes til false
                  */
-                check = false; //if the password doesn't pass the test;
-            }
+                //check = false; //if the password doesn't pass the test;
+            /*}
             if(check){
                 console.log("Alt ok");
                 profileService.updateUser(newUser).catch(e => console.error(e));
@@ -194,7 +258,7 @@ class EditProfile extends Component{
 
 
         console.log(newPassword);
-        console.log(oldPassword);
+        console.log(oldPassword);*/
 
 
     }

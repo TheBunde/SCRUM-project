@@ -113,6 +113,27 @@ app.get("/user/:userID", (req, res) => {
     });
 });
 
+app.put("/users/:userID/newName", (req, res) => {
+    adminDao.updateUser(req.params.userID, req.body.name, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.put("/users/:userID/newPhone", (req, res) => {
+    adminDao.updatePhone(req.params.userID, req.body.phone, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.put("/users/:userID/newEmail", (req, res) => {
+    adminDao.updateEmail(req.params.userID, req.body.email, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
 app.get("/user/:userID", (req, res) => {
     adminDao.getUser(req.params.userID,(status, data) => {
         res.status(status);
@@ -140,6 +161,34 @@ app.post("/user", (req, res) => {
     userDao.registerUser(req.body, (status, data) => {
         res.status(status);
         res.json(data);
+    });
+});
+
+app.put("/user/:userID/edit/password", (req, res) => {
+    // Check if user with pw entered exists, if so -> change their pw.
+    console.log("server: " + req.body.email);
+    userDao.getApprovedUser(req.body.email, (status, data) => {
+        if (data.length > 0) {
+            console.log("User exists");
+            
+            let passwordHash = JSON.stringify(data[0].password_hash).slice(1,-1);            
+            bcrypt.compare(req.body.password, passwordHash, function(err, response) {
+                if (err) {
+                    console.log("An error occured");
+                    console.error(err);
+                } if (response) { // If response is true <=> If the passwords are equal
+                    userDao.changePassword({user_id: parseInt(req.params.userID), password: req.body.newPassword}, (statusCode, result) => {
+                        res.status(statusCode);
+                        res.json(result);
+                        console.log("Password changed");
+                    });
+                } else { // Passwords are not equal -> The user should not have access to change this password
+                    res.json({error: "Not authorized"});
+                    res.status(401);
+                    console.log("Did not work");
+                }
+            });
+        }
     });
 });
 

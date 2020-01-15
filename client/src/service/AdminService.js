@@ -1,19 +1,20 @@
 import axios from 'axios';
-let ipAdress = "10.24.3.122";
+//let ipAdress = "10.24.3.122";
+let ipAdress = "localhost";
 
 
 class AdminService{
 
     updateName(name, userID){
-        return axios.put("http://localhost:8080/users/" + userID + "/newName", {name: name}).then(response => response.data);
+        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/newName", {name: name}).then(response => response.data);
     }
 
     updatePhone(phone, userID){
-        return axios.put("http://localhost:8080/users/" + userID + "/newPhone", {phone: phone}).then(response => response.data);
+        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/newPhone", {phone: phone}).then(response => response.data);
     }
 
     updateEmail(email, userID){
-        return axios.put("http://localhost:8080/users/" + userID + "/newEmail", {email: email}).then(response => response.data);
+        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/newEmail", {email: email}).then(response => response.data);
     }
 
     getRoles(){

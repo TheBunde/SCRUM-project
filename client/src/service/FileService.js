@@ -1,5 +1,6 @@
 import axios from "axios";
-let ipAdress = "10.24.3.122";
+//let ipAdress = "10.24.3.122";
+let ipAdress = "localhost";
 
 export class FileService {
     uploadImage(image) {

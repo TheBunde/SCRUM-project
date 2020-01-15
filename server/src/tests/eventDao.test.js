@@ -114,7 +114,7 @@ test("test: deleteEvent()", done =>{
 
     function callback(status, data){
         id1 = data.length;
-        eventDao.deleteEvent(5,dummy);
+        eventDao.deleteEvent(5,callback3);
         eventDao.getAllEvents(callback2);
     }
 

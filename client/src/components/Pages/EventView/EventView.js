@@ -22,6 +22,7 @@ class EventView extends Component{
             artists: "",
             tech_rider: "",
             hospitality_rider: "",
+            contract: "",
             personnel: "",
             category_id: "",
             filed: "",
@@ -62,6 +63,7 @@ class EventView extends Component{
             artists: events[0].artists,
             tech_rider: events[0].tech_rider,
             hospitality_rider: events[0].hospitality_rider,
+            contract: events[0].contract,
             personnel: events[0].personnel,
             category_id: events[0].category_id,
             filed: events[0].filed,
@@ -174,22 +176,22 @@ class EventView extends Component{
 
                                 <div>
                                     <h3>Personnell</h3>
-                                    <button id="eventViewInfoDownloadButtons" class="btn"><i className="fa fa-download"></i> Download</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.personnel)} target="_blank"><i className="fa fa-download"></i> Download</button>
                                 </div>
 
                                 <div>
                                     <h3>Teknisk rider</h3>
-                                    <button id="eventViewInfoDownloadButtons" class="btn"><i className="fa fa-download"></i> Download</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Download</button>
                                 </div>
 
                                 <div>
                                     <h3>Hospitality rider</h3>
-                                    <button id="eventViewInfoDownloadButtons" class="btn"><i className="fa fa-download"></i> Download</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"></i> Download</button>
                                 </div>
 
                                 <div>
                                     <h3>Kontrakt</h3>
-                                    <button id="eventViewInfoDownloadButtons" class="btn"><i className="fa fa-download"></i> Download</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Download</button>
                                 </div>
 
                             </div>

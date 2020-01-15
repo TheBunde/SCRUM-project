@@ -1,12 +1,13 @@
 import axios from 'axios';
 import {User} from "../service/UserService";
-let ipAdress = "10.24.3.122";
+//let ipAdress = "10.24.3.122";
+let ipAdress = "localhost";
 
 export class ProfileService{
 
     updateUser(user){
         console.log("It is fixed");
-        return axios.put('http://" + ipAdress + ":8080/profile/' + user.user_id + '/edit', user);
+        return axios.put("http://" + ipAdress + ":8080/profile/" + user.user_id + '/edit', user);
     }
 
     getUser(userID){

@@ -4,45 +4,80 @@
 }
 
 #eventViewContainer{
-    width: 80%;
-    min-height: 100vh;
-    padding-top: 20px;
+    min-height: 100%;
+    padding: 20px;
     text-align: center;
-    background-color: white;
+    background-color: rgb(61, 61, 75);
     margin: auto;
+
+}
+
+#eventViewTitle {
+    grid-area: eventViewTitle;
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 #eventViewInnerContainer{
+    border-radius: 5px;
+    background-color: white;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 4fr 1fr 10fr;
     grid-template-areas:
-            "infoBox eventViewInfoTwo mapBox";
+            "eventViewImageDiv eventViewImageDiv eventViewImageDiv"
+            "eventViewTitle eventViewTitle eventViewTitle"
+            "eventViewInfo eventViewInfo eventViewInfoBox";
     text-align: left;
     padding: 20px 20px 0 20px;
     margin: auto;
+    min-height: 100vh;
+}
+
+#eventViewInfo{
+    grid-area: eventViewInfo;
+    text-align: left;
+    margin-left: 10%;
+}
+
+#eventViewTitleHR{
+    width: 20%;
+    height: 2px;
+    background-color: rgb(11, 6, 68);
+}
+
+#eventViewImageDiv{
+    grid-area: eventViewImageDiv;
+}
+#eventViewImageDiv img{
+    max-height: 60%;
     width: 100%;
+    /*object-fit: contain;*/
+    object-fit: cover;
 }
 
 #eventViewInfoBox{
-    text-align: center;
+    grid-area: eventViewInfoBox;
+    margin: 0 20px 0 0;
 }
 
-#eventViewInfoTwo{
-    text-align: left;
-    margin-left: 10%;
-    object-fit: contain;
+#eventViewInfoBoxCard{
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 5px 5px 10px 0 rgb(0, 0, 0);
 }
 
 #eventViewButtons{
-    width: 50%;
+    width: 80%;
     margin: auto;
     padding: 40px 0 0 0;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+#eventViewButtons button{
+    margin: 20px;
+}
 
 #eventViewTitle h1{
-    margin: auto;
+    margin: 20px auto auto auto;
 }
 
 .table th{
@@ -70,6 +105,7 @@
     width: 350px;
 }
 
+/*
 @media only screen and (max-width: 800px) {
     .gmap_canvas {
         height:250px;
@@ -107,3 +143,6 @@
 @media (max-width: 1400px) {
 
 }
+
+
+*/

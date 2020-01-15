@@ -71,8 +71,8 @@ class EventPage extends Component {
         this.componentDidMount();
         this.setState({shownEvents: this.state.loadedEvents});
     }
-    eventFilterArchieved(){
-        this.getArchievedEvents();
+    eventFilterArchived(){
+        this.getArchivedEvents();
         this.setState({shownEvents: this.state.loadedEvents});
     }
     eventFilterShowAll() {
@@ -113,8 +113,8 @@ class EventPage extends Component {
             .catch(error => console.error(error.message));
     }
     
-    getArchievedEvents(){
-        eventService.getArchievedEvents().then(events => this.setState({
+    getArchivedEvents(){
+        eventService.getAllArchived().then(events => this.setState({
             shownEvents: events,
             loadedEvents: events}))
             .catch(error => console.error(error.message));
@@ -156,7 +156,7 @@ class EventPage extends Component {
                                         </button>
                                         <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
                                             <a className="dropdown-item" onClick={() => this.eventFilterAllActive()}>Alle aktive arrangementer</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterArchieved()}>Arkiverte arrangementer</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
                                             <a className="dropdown-item" onClick={() => this.eventFilterShowAll()}>Alle arrangementer</a>
                                         </div>
                                     </div>

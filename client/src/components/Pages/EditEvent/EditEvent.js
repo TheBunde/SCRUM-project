@@ -161,9 +161,8 @@ class EditEvent extends Component{
                         <p id="EventInputLabels">Tidspunkt for arrangementet:</p>
                         <div id="EventDateInput">
                             <select className="form-control"
-                                    id ="dateChosenHour"
+                                    id ="dateHourInput"
                                     value={this.state.dateChosenHour}
-                                    onChange={this.changeValue}
                             >
                                 {this.state.DateHour.map(hour =>
                                     <option
@@ -176,9 +175,8 @@ class EditEvent extends Component{
                                 )}
                             </select>
                             <select className="form-control"
-                                    id ="dateChosenMin"
+                                    id ="dateMinInput"
                                     value={this.state.dateChosenMin}
-                                    onChange={this.changeValue}
                             >
                                 {this.state.DateMin.map(min =>
                                     <option

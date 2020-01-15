@@ -65,7 +65,6 @@ class AddEvent extends Component{
         return (this.state.Name === "" || this.state.Description === "" || this.state.Place === "" || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" );
 
     }
-
     render() {
         return (
             <div class="pageSetup">
@@ -360,17 +359,15 @@ class AddEvent extends Component{
                 let day = this.state.date.getDate();
                 let month = this.state.date.getMonth() + 1;
                 let year = this.state.date.getFullYear();
-                let hour = document.getElementById("dateHourInput").value;
-                let min = document.getElementById("dateMinInput").value;
-                if (this.state.date.getDate() < 10) {
+                let hour = this.state.dateChosenHour;
+                let min = this.state.dateChosenMin;
+                if (day < 10) {
                     day = "0" + day
                 }
-                if (this.state.date.getMonth() + 1 < 10) {
+                if (month < 10) {
                     month = "0" + month
                 }
-
                 let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
-                console.log(this.state);
 
                 eventService
                     .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture)

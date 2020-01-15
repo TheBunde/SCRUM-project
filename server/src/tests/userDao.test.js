@@ -28,6 +28,21 @@ test("that we can register a user", done => {
     );
 });
 
+test("get user", done => {
+    function callback(status, data) {
+        console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
+        expect(data.length).toBe(1);
+        expect(data[0].user_id).toBe(4);
+        expect(data[0].name).toBe('test4');
+        expect(data[0].role_id).toBe(1);
+        expect(data[0].role).toBe('admin');
+        done();
+    }
+    userDao.getUser(
+        "test4@tester.no", callback
+    );
+});
+
 test("get the approved user", done => {
     function callback(status, data) {
         console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));

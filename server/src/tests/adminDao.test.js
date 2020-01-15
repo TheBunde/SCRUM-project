@@ -79,7 +79,7 @@ test("test approve roles", done =>{
         console.log(
             "Test approveUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data[0].user_id).toBe(1);
+        expect(data[0].user_id).toBe(2);
         expect(data[0].approved).toBe(1);
 
         done();
@@ -114,13 +114,16 @@ disapproveUser
  */
 test("disapprove user", done =>{
 
-    function callback(status, data) {
+    function callback2(status, data) {
         console.log(
             "Test disapprove callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data.affectedRows).toBe(1);
         expect(data[0].approved).toBe(0);
         done();
+    }
+
+    function callback(){
+        adminDao.getUser(1);
     }
 
     adminDao.disapproveUser(1, callback);
@@ -135,7 +138,7 @@ test("get Role", done =>{
         console.log(
             "Test getRole callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data.length).toBe(1);
+        expect(data[0].roleid).toBe(3);
         done();
     }
 

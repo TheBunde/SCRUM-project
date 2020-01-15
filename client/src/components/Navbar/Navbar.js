@@ -80,13 +80,27 @@ class Navbar extends Component {
                                 </div>
                             </li>
 
-                            <li className="nav-item">
-                                <a className="nav-link"
-                                   onClick={() => window.location.href = "#/profile/" + auth.user_id}>Min profil</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" onClick={() => this.signOut()}>Logg ut</a>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <img id="navProfile" alt="profilePic" src="https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                                         width="30" height="30"/>
+                                         {this.state.user.name}
+                                </a>
+                                <div className="dropdown-menu" aria-labelledby="navbarDropdown" id="navbarDropdown">
+                                    <a className="dropdown-item"
+                                       onClick={() => window.location.href = "#/profile/" + auth.user_id}>Min profil</a>
+                                    <a className="dropdown-item"
+                                    onClick={() => window.location.href = "#/profile/" + auth.user_id + "/edit"}>Rediger profil</a>
+                                    <div className="dropdown-divider"></div>
+                                    <a className="dropdown-item"
+                                       onClick={() => window.location.href = "#/about"}>Om</a>
+                                    <a className="dropdown-item" href="mailto:noreply.harmoni@gmail.com?Subject=Hello%20again">
+                                        Kontakt oss</a>
+                                    <div className="dropdown-divider"></div>
+                                    <a className="dropdown-item"
+                                       onClick={() => this.signOut()}>Logg ut</a>
+                                </div>
                             </li>
                         </ul>
                     </div>

@@ -6,8 +6,12 @@ module.exports = class adminDao extends Dao{
         super.query(" SELECT * FROM Event ORDER BY date DESC", [], callback);
     }
 
+    getAllArchived(callback){
+        super.query(" SELECT * FROM Event WHERE filed = 1 ORDER BY date DESC", [], callback);
+    }
+
     getNonFiledEvents(callback){
-        super.query(" SELECT * FROM Event WHERE filed = 0 ORDER BY date DESC limit 4", [], callback);
+        super.query(" SELECT * FROM Event WHERE filed = 0 ORDER BY date DESC", [], callback);
     }
 
     getEventByID(eventID, callback){
@@ -43,6 +47,19 @@ module.exports = class adminDao extends Dao{
 
     addContactInfo(contactInfo, callback){
         super.query("INSERT INTO Contact_Info(name, phone, email, event_id) VALUES (?, ?, ?, ?)", [contactInfo.name, contactInfo.phone, contactInfo.email, contactInfo.eventID], callback)
+    }
+
+    updateFiled(eventID, callback){
+        console.log("EVENT " + eventID[0]);
+        super.query("UPDATE Event SET filed = 1 WHERE event_id = ?", [eventID], callback)
+    }
+
+    getCategoryFromEvent(eventID, callback){
+        super.query("SELECT category_id FROM Event_Category WHERE event_id = ?", [eventID], callback)
+    }
+
+    getContactinfoForEvent(eventID, callback){
+        super.query("SELECT * FROM Contact_Info WHERE event_id = ?", [eventID], callback)
     }
 };
 

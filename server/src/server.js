@@ -1,3 +1,4 @@
+
 let express = require("express");
 let mysql = require("mysql");
 let app = express();
@@ -110,6 +111,27 @@ app.get("/user/:userID", (req, res) => {
         res.status(status);
         res.json(data);
     });
+});
+
+app.put("/users/:userID/newName", (req, res) => {
+    adminDao.updateUser(req.params.userID, req.body.name, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.put("/users/:userID/newPhone", (req, res) => {
+    adminDao.updatePhone(req.params.userID, req.body.phone, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.put("/users/:userID/newEmail", (req, res) => {
+    adminDao.updateEmail(req.params.userID, req.body.email, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
 });
 
 app.get("/user/:userID", (req, res) => {
@@ -246,6 +268,25 @@ app.get("/event/all", (req, res) => {
         res.json(data);
     });
 });
+
+app.get("/event/archived", (req, res) => {
+    console.log("/event fikk request fra klient");
+    eventDao.getAllArchived((status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
+
+app.put('/event/:eventID/archived', (req, res) => {
+    console.log('/annonse/:eventID/archived: fikk request fra klient');
+    console.log(req.params.eventID);
+    eventDao.updateFiled(req.params.eventID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
 app.get("/event/nonFiled", (req, res) => {
     console.log("/event fikk request fra klient");
     eventDao.getNonFiledEvents((status, data) => {
@@ -326,12 +367,19 @@ app.delete('/event/:id', (req, res) => {
     });
 });
 
-app.post("/contactInfo", (req, res) => {
-    eventDao.addContactInfo(req.body, (status, data) =>{
+app.get("/category/:id", (req, res) =>{
+    eventDao.getCategoryFromEvent(req.params.id, (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
+app.get("/contactinfo/:id", (req, res) => {
+    eventDao.getContactinfoForEvent(req.params.id, (status, data) =>{
         res.status(status);
         res.json(data);
     })
-})
+});
 
 let server = app.listen(8080);
 

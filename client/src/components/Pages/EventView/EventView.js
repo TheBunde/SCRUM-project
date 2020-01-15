@@ -5,6 +5,7 @@ import Footer from '../../Footer/Footer'
 import "../../../css/EventView.css"
 import {eventService} from '../../../service/EventService'
 import { createHashHistory } from 'history';
+import eventViewMap from '../../Map/eventViewMap/eventViewMap'
 
 const history = createHashHistory();
 
@@ -65,72 +66,81 @@ class EventView extends Component{
                 <Navbar />
                 <div id="eventViewBackground">
                     <div id="eventViewContainer">
-                        <div id="eventViewTitle">
-                            <h1>{this.state.name}</h1>
-                        </div>
                         <div id="eventViewInnerContainer">
+                            <div id="eventViewImageDiv">
+                                <img src={this.state.img_url} alt="Card image cap" />
+                            </div>
+                            <div id="eventViewTitle">
+                                <h1>{this.state.name}</h1>
+                                <hr id="eventViewTitleHR"/>
+                            </div>
                             <div id="eventViewInfoBox">
-                                <div id="eventViewLocation">
-                                    <h3>Lokasjon</h3>
-                                    <p>{this.state.place}</p>
-                                </div>
-                                <div id="eventViewDate">
-                                    <h3>Dato</h3>
-                                    <p>{this.formatDate(this.state.date)}</p>
-                                </div>
-                                <div id="eventViewArtists">
-                                    <h3>Artister</h3>
-                                </div>
-                                
-                            </div>
-                            <div id="eventViewInfoTwo">
-                                <h3>Description</h3>
-                                <p>{this.state.description}</p>
-                                <h3>Personnell</h3>
-                                <p>{this.state.personnel}</p>
-                                <h3>Kategori</h3>
-                                <p>{this.state.category_id}</p>
-                            </div>
-                            <div id="mapBox">
-                                <div className="mapouter">
-                                    <div className="gmap_canvas">
-                                        <iframe id="gmap_canvas"
-                                                src="https://maps.google.com/maps?q=Sukkerhuset&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                                                frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0"></iframe>
-                                        <a href="https://www.instazilla.net"></a>
+                                <div class="card" id="eventViewInfoBoxCard">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Sted: {this.state.place}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">Dato: {this.formatDate(this.state.date)}</h6>
+                                        
+                                        <div id="eventViewInfoBoxMap">
+                                            <eventViewMap />
+                                        </div>
+                                        
+                                        <div id="eventViewButtons">
+                                            <div id="eventViewBack">
+                                                <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Back</button>
+                                            </div>
+
+                                            <div id="eventViewArchive">
+                                                <button type="button" className="btn btn-outline-primary">Archive</button>
+                                            </div>
+
+                                            <div id="eventViewEdit">
+                                            <button type="button" className="btn btn-outline-primary">Edit</button>
+                                            </div>
+
+                                            <div>
+                                                <p>
+                                                    <button
+                                                        className="btn delete btn-outline-danger"
+                                                        type="button"
+                                                        data-toggle="collapse"
+                                                        data-target="#collapseDelete"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapseDelete"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </p>
+                                                <div className="collapse" id="collapseDelete">
+                                                    <p> Are you sure you want to delete this event?</p>
+                                                    <button className="btn delete btn-danger" type="button" data-toggle="collapse" onClick={() => this.delete(this.state.event_id)}>
+                                                        I am sure
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+
+
                                     </div>
                                 </div>
+                                
+                                
                             </div>
-                        </div>
-                        <div id="eventViewButtons">
-                            <div id="eventViewBack">
-                                <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Back</button>
-                            </div>
-                            <div id="eventViewArchive">
-                                <button type="button" className="btn btn-outline-primary">Archive</button>
-                            </div>
-                            <div id="eventViewEdit">
-                            <button type="button" className="btn btn-outline-primary">Edit</button>
-                            </div>
-                            <div>
-                                <p>
-                                    <button
-                                        className="btn delete btn-outline-danger"
-                                        type="button"
-                                        data-toggle="collapse"
-                                        data-target="#collapseDelete"
-                                        aria-expanded="false"
-                                        aria-controls="collapseDelete"
-                                    >
-                                        Delete
-                                    </button>
-                                </p>
-                                <div className="collapse" id="collapseDelete">
-                                    <p> Are you sure you want to delete this event?</p>
-                                    <button className="btn delete btn-danger" type="button" data-toggle="collapse" onClick={() => this.delete(this.state.event_id)}>
-                                        I am sure
-                                    </button>
-                                </div>
+                                
+                            <div id="eventViewInfo">
+                                <h3>Beskrivelse av arrangementet</h3>
+                                <p>{this.state.description}</p>
+                                
+                                <h3>Personnell</h3>
+                                <p>{this.state.personnel}</p>
+                                
+                                <h3>Kategori</h3>
+                                <p>{this.state.category_id}</p>
+                                
+                                <div id="eventViewArtists">
+                                            <h3>Artister</h3>
+
+                                        </div>
                             </div>
                         </div>
                     </div>
@@ -146,6 +156,13 @@ class EventView extends Component{
             .deleteEvent(id)
             .catch(e => console.error(e));
         history.push("/overview")
+    }
+
+    archive(id){
+        console.log(id);
+        eventService
+            .updateFiled(id)
+            .catch(e => console.error(e));
     }
 }
 

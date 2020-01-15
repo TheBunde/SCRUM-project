@@ -1,0 +1,17 @@
+#AboutMain{
+    min-height: 100vh;
+    text-align: center;
+    padding: 50px 150px 0 150px;
+}
+
+#aboutText{
+    padding-top: 25px;
+}
+
+#links{
+    padding-top: 50px;
+}
+
+#logos{
+    padding:0 10px 0 10px;
+}

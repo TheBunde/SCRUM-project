@@ -346,5 +346,19 @@ app.delete('/event/:id', (req, res) => {
     });
 });
 
+app.get("/category/:id", (req, res) =>{
+    eventDao.getCategoryFromEvent(req.params.id, (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
+app.get("/contactinfo/:id", (req, res) => {
+    eventDao.getContactinfoForEvent(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
 let server = app.listen(8080);
 

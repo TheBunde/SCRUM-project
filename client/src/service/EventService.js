@@ -73,6 +73,14 @@ class EventService{
         console.log(eventID + "!!!");
         return axios.put("http://" + ipAdress + ":8080/event/" + eventID + "/archived", eventID).then(response => response.data);
     }
+
+    getCategoryFromEvent(eventID){
+        return axios.get("http://localhost:8080/category/" + eventID).then(response => response.data[0]);
+    }
+
+    getContactinfoForEvent(eventID){
+        return axios.get("http://localhost:8080/contactinfo/" + eventID).then(response => response.data[0]);
+    }
 }
 
 export let eventService = new EventService();

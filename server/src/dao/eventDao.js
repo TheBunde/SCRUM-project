@@ -53,6 +53,14 @@ module.exports = class adminDao extends Dao{
         console.log("EVENT " + eventID[0]);
         super.query("UPDATE Event SET filed = 1 WHERE event_id = ?", [eventID], callback)
     }
+
+    getCategoryFromEvent(eventID, callback){
+        super.query("SELECT category_id FROM Event_Category WHERE event_id = ?", [eventID], callback)
+    }
+
+    getContactinfoForEvent(eventID, callback){
+        super.query("SELECT * FROM Contact_Info WHERE event_id = ?", [eventID], callback)
+    }
 };
 
 function callback2(){

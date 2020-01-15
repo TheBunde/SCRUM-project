@@ -102,7 +102,8 @@ test("test: deleteEvent()", done =>{
         console.log(
             "Test deleteEvent eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data[0].filed).toBeTruthy(Boolean(id1>data.length));
+        let mybool = Boolean(id1>data.length);
+        expect(data[0].filed).toBeTruthy(mybool);
         done();
     }
 

@@ -62,16 +62,12 @@ class ShowProfile extends Component {
                 <div id="profileContainer">
                     <h1>Min profil</h1>
 
-
-
-
                     <div id="ShowProfileButtonDiv">
                         <div id="ShowProfileBtn">
                             <button type="button" className="btn btn-info btn-lg"
                                     onClick={() => this.editProfile(this.user_id)}>Endre profil
                             </button>
                         </div>
-
                     </div>
                 </div>
                 <Redirect to={"/profile/" + auth.user_id}/>

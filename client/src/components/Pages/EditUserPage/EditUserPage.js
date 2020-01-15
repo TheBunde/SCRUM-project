@@ -86,7 +86,7 @@ class EditUserPage extends Component {
                                             </div>
                                         </div>
                                         <div className={"btnColumn"}>
-                                            <button id={"deleteBtn"} onClick={() => this.submitDeleteButton()} type={"submit"} className={"btn btn-danger"}>Slett</button>
+                                            <button id={"deleteBtn"} onClick={() => this.submitDeleteButton()} type={"button"} className={"btn btn-danger"}>Slett</button>
                                         </div>
                                     </div>
 
@@ -123,9 +123,7 @@ class EditUserPage extends Component {
     };
 
     deleteUser() {
-        adminService.deleteUser(this.props.match.params.id).then((response) => {
-            window.location.href = "/#/admin/users/"
-        }).catch((error) => console.error(error))
+        adminService.deleteUser(this.props.match.params.id).then((response) => console.log("d")).catch((error) => console.error(error))
     }
 
     handleCheckboxChange() {
@@ -163,7 +161,7 @@ class EditUserPage extends Component {
             buttons: [
                 {
                     label: 'Ja',
-                    onClick : () => this.deleteUser()
+
                 },
                 {
                     label: 'Nei'

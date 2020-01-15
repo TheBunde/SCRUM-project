@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {User} from "../service/UserService";
-let ipAdress = "localhost"
+let ipAdress = "10.24.3.122";
 
 export class ProfileService{
 

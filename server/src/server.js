@@ -1,13 +1,18 @@
-
 let express = require("express");
 let mysql = require("mysql");
 let app = express();
 let bodyParser = require("body-parser");
+let urlencodedParser = bodyParser.urlencoded({extended: false});
+let uuid = require("uuid");
 const UserDao = require("./dao/UserDao");
 const dotenv = require('dotenv');
-let secret =  require("./config.json");
+let secret = require("./config.json");
 dotenv.config();
 let multer = require("multer");
+const debug = require('debug')('myapp:server');
+let path = require("path");
+const serveIndex = require("serve-index");
+
 
 let bcrypt = require("bcrypt");
 let saltRounds = 10;
@@ -28,7 +33,7 @@ let pool = mysql.createPool({
     debug: false
 });
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
     res.header('Access-Control-Allow-Methods', 'GET,PUT,OPTIONS, POST,DELETE');
@@ -61,35 +66,62 @@ app.use("/api/", (req, res, next) => {
 
  */
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, '../../client/src/img/uploads');
+function makeid(length) {
+    let result           = '';
+    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        console.log(__dirname + '/../../..');
+        cb(null, path.join(__dirname, "../../public/uploads/"));
     },
-    filename: function (req, file, cb) {
-        cb(null , file.originalname);
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + uuid.v4() + path.extname(file.originalname));
     }
 });
 
-let upload = multer({ storage: storage });
+const upload = multer({storage: storage});
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+//app.use(express.static(path.join(__dirname;
+app.use('/ftp', express.static('../../public/uploads'), serveIndex('public', {'icons': true}));
 
-app.post("/upload", upload.single("file"), (req, res) => {
-    if(!req.file) {
+
+app.post('/upload', upload.single('file'), function (req, res) {
+    console.log(req.file);
+    debug(req.file);
+    console.log('storage location is ', req.hostname + '/' + req.file.path);
+    return res.send(req.file.filename);
+});
+
+
+app.post("/uploadFiles", upload.array("files", 5), (req, res) => {
+    if (!req.files) {
         console.log("No file received");
         return res.send({
             success: false
         });
     } else {
         console.log("File received");
-        console.log(req.file.path);
         return res.send({
-            filePath: req.file.path,
+            filePath: req.files,
             success: true
         })
     }
 });
 
+app.get('/image/:imagePath', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../public/uploads/' + req.params.imagePath));
+});
 
-app.post("/api/posts", verifyToken, (req,res) => {
+
+app.post("/api/posts", verifyToken, (req, res) => {
     console.log(req);
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
@@ -135,7 +167,7 @@ app.put("/users/:userID/newEmail", (req, res) => {
 });
 
 app.get("/user/:userID", (req, res) => {
-    adminDao.getUser(req.params.userID,(status, data) => {
+    adminDao.getUser(req.params.userID, (status, data) => {
         res.status(status);
         res.json(data);
     })
@@ -200,17 +232,22 @@ app.post("/validate", (req,res) => {
         if (data.length > 0) {
             console.log("User exists");
             //console.log(req.body.password);
-            let passwordHash = JSON.stringify(data[0].password_hash).slice(1,-1);
+            let passwordHash = JSON.stringify(data[0].password_hash).slice(1, -1);
             let role = JSON.stringify(data[0].role);
             let approved = JSON.stringify(data[0].approved);
             let id = JSON.stringify(data[0].user_id);
-            bcrypt.compare(req.body.password, passwordHash, function(err, response) {
+            bcrypt.compare(req.body.password, passwordHash, function (err, response) {
                 if (err) {
                     console.log("En error occured");
                     console.error(err);
                 }
                 if (response) {
-                    let token = jwt.sign({email: req.body.email, role : role, approved : approved, user_id : id}, privateKey, {
+                    let token = jwt.sign({
+                        email: req.body.email,
+                        role: role,
+                        approved: approved,
+                        user_id: id
+                    }, privateKey, {
                         expiresIn: 900
                     });
                     res.json({jwt: token});
@@ -221,7 +258,7 @@ app.post("/validate", (req,res) => {
                 }
 
             });
-            
+
         } else {
             console.log("User does not exists");
         }
@@ -234,7 +271,7 @@ app.post("/validate", (req,res) => {
 function verifyToken(req, res, next) {
     //get auth header value
     const bearerHeader = req.headers["authorization"];
-    if(typeof bearerHeader !== "undefined") {
+    if (typeof bearerHeader !== "undefined") {
         //split at the space
         const bearer = bearerHeader.split(' '); //Removes Bearer before token
         const bearerToken = bearer[1];
@@ -338,10 +375,10 @@ app.get("/categories", (req, res) => {
 });
 
 app.get("/tickets", (req, res) => {
-   eventDao.getTicket((status, data) => {
-       res.status(status);
-       res.json(data)
-   })
+    eventDao.getTicket((status, data) => {
+        res.status(status);
+        res.json(data)
+    })
 });
 
 
@@ -360,20 +397,20 @@ app.get("/roles", (req, res) => {
 });
 
 app.post("/tickets", (req, res) => {
-    eventDao.addTicket(req.body, (status, data) =>{
+    eventDao.addTicket(req.body, (status, data) => {
         res.status(status);
         res.json(data)
     })
 });
 
-app.post("/categories", (req, res) =>{
+app.post("/categories", (req, res) => {
     eventDao.addCategory(req.body, (status, data) => {
         res.status(status);
         res.json(data)
     })
 });
 
-app.put("/users/:userID/approve",(req, res) => {
+app.put("/users/:userID/approve", (req, res) => {
     adminDao.approveUser(req.params.userID, (status, data) => {
         res.status(status);
         res.json(data);

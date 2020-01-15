@@ -88,7 +88,6 @@ class EventView extends Component{
                     <div id="eventViewContainer">
                         <div id="eventViewInnerContainer">
                             <div id="eventViewImageDiv">
-                                <img src={this.state.img_url} alt="Card image cap" />
                             </div>
                             <div id="eventViewTitle">
                                 <h1>{this.state.name}</h1>

@@ -1,6 +1,6 @@
 import Axios from "axios";
 //Axios.interceptors.response.use(response => response.data);
-let ipAdress = "localhost"
+let ipAdress = "10.24.3.122";
 
 export class User {
     user_id;

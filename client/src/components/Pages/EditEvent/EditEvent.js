@@ -93,8 +93,9 @@ class EditEvent extends Component{
         let time = date[1].split(":");
         this.setState({dateChosenHour: time[0]});
         this.setState({dateChosenMin: time[1]});
-
         this.setState({date: new Date(date[0])});
+
+
         this.setState({Name: data[0].name});
         this.setState({Description: data[0].description});
         this.setState({Place: data[0].place});
@@ -103,6 +104,7 @@ class EditEvent extends Component{
         this.setState({Hospitality: data[0].hospitality_rider});
         this.setState({Personnel: data[0].personnel});
         this.setState({Picture: data[0].img_url});
+        this.setState({Contract: data[0].contract})
     }
 
     updateTicketInfo(data) {

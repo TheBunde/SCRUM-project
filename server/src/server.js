@@ -144,6 +144,7 @@ app.post("/user", (req, res) => {
 
 app.put("/user/:userID/edit/password", (req, res) => {
     // Check if user with pw entered exists, if so -> change their pw.
+    console.log("server: " + req.body.email);
     userDao.getApprovedUser(req.body.email, (status, data) => {
         if (data.length > 0) {
             console.log("User exists");

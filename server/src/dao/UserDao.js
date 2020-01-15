@@ -31,7 +31,8 @@ module.exports = class UserDao extends dao {
     }
 
     getApprovedUser(email, callback) {
-        super.query("SELECT * from User JOIN Role on User.role_id = Role.role_id where email = ? AND approved = 1", email, callback);
+        console.log(email);
+        super.query("SELECT * from User JOIN Role on User.role_id = Role.role_id where email = ? AND approved = 1", email, callback)
     }
 
 

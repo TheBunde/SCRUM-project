@@ -98,6 +98,11 @@ test("test: addEvent()", done =>{
 
 test("test: deleteEvent()", done =>{
 
+    function callback3(status, data) {
+        console.log(
+        "Test delete eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+    }
     function callback2(status, data) {
         console.log(
             "Test deleteEvent eventDao callback: status=" + status + ", data=" + JSON.stringify(data)

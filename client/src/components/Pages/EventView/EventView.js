@@ -125,7 +125,7 @@ class EventView extends Component{
                                             </div>
 
                                             <div id="eventViewArchive">
-                                                <button type="button" className="btn btn-outline-primary">Archive</button>
+                                                <button type="button" className="btn btn-outline-primary" onClick={() => this.archive(this.state.event_id)}>Archive</button>
                                             </div>
 
                                             <div id="eventViewArchive">

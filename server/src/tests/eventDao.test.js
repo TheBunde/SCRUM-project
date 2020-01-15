@@ -102,7 +102,7 @@ test("test: deleteEvent()", done =>{
         console.log(
             "Test deleteEvent eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data[0].filed).toBeTruthy(id1>data.length);
+        expect(data[0].filed).toBeTruthy((id1>data.length && true));
         done();
     }
 
@@ -175,7 +175,7 @@ test("test: getCategoryFromEvent()", done =>{
             "Test getCategoryFromEvent for event 1 eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data.length).toBe(2);
-        expect(data[0].event_id).toBe(1);
+        expect(data[0].event_id).toBe(2);
         done();
     }
 

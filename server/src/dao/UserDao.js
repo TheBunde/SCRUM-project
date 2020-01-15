@@ -36,8 +36,18 @@ module.exports = class UserDao extends dao {
 
 
     changePassword(json, callback) {
-        super.query("")
-
+        let val = [json.user_id];
+        bcrypt.hash(json.password, saltRounds).then(res => {
+            val.unshift(res); // Hashing and then inserting at the beginning of val for use in the query.
+            console.log(val);
+            super.query(
+                "UPDATE User SET password_hash = ? WHERE user_id = ?",
+                val,
+                callback
+            )
+        }).catch((err) => {
+            console.log("Error error nono nicht gut");
+        });
     }
 
     updateProfile({ user_id, name, phone, email }, callback) {

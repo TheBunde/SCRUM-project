@@ -76,7 +76,10 @@ export class UserService {
     getHash(email) {
         return Axios.get("http://localhost:8080/validate/" + email);
     }
-}
 
+    updatePassword(email, password, newPassword, user_id){
+            return Axios.put("http://localhost:8080/user/" + user_id + "/edit/password", email, password, newPassword);
+    }
+}
 
 export default UserService;

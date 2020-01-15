@@ -76,7 +76,12 @@ class EditEvent extends Component{
         eventService
             .getContactinfoForEvent(this.props.match.params.id)
             .then(data => this.updateContactInfo(data))
-            .catch(Error => console.log(Error))
+            .catch(Error => console.log(Error));
+
+        eventService
+            .getTicketFromEvent(this.props.match.params.id)
+            .then(data => this.updateTicketInfo(data))
+            .catch(Error => console.log(Error));
     }
 
     updateCategory(data){
@@ -101,6 +106,19 @@ class EditEvent extends Component{
     }
 
     updateTicketInfo(data) {
+        console.log(data);
+        data.map(ticket => {
+            eventService
+                .getTicketById(ticket.ticket_category_id)
+                .then(name => this.updateTicketAmount(name.name, ticket.number))
+                .catch(Error => console.log(Error))
+        })
+    }
+
+    updateTicketAmount(name, amount){
+        console.log(name + " " + amount)
+        this.setState({[name + "TicketBox"]: true});
+        this.setState({[name + "TicketAmount"]: amount})
     }
 
     updateContactInfo(data){
@@ -296,6 +314,7 @@ class EditEvent extends Component{
                                         <input type ="checkbox"
                                                id ={tickets.name + "TicketBox"}
                                                name ={tickets.name + "TicketAmount"}
+                                               checked={this.state[tickets.name +"TicketBox"]}
                                                onChange={this.changeBox}
                                         />
                                     </div>

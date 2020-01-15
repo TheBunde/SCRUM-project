@@ -12,6 +12,14 @@
 
 }
 
+#ShowProfilePic{
+    padding-top: 25px;
+}
+
+#ShowProfileProfile{
+    border-radius: 50%;
+}
+
 #ShowProfileText{
     padding: 50px 0 50px 0;
 }

@@ -63,7 +63,8 @@ class ShowProfile extends Component {
                     <div id="ShowProfileDiv">
                         <h1>Min profil</h1>
                         <div id="ShowProfilePic">
-
+                            <img id="ShowProfileProfile" alt="profilePic" src="https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                                 width="250" height="250"/>
                         </div>
                         <div id="ShowProfileText">
 

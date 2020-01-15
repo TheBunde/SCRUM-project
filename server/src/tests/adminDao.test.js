@@ -125,7 +125,7 @@ test("disapprove user", done =>{
     }
 
     function callback(){
-        adminDao.getUser(1);
+        adminDao.getUser(1, callback2);
     }
 
     adminDao.disapproveUser(1, callback);
@@ -140,7 +140,7 @@ test("get Role", done =>{
         console.log(
             "Test getRole callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data[0].roleid).toBe(3);
+        expect(data[0].role_id).toBe(3);
         done();
     }
 

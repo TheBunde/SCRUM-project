@@ -170,7 +170,6 @@ class EventView extends Component{
         eventService
             .updateFiled(id)
             .catch(e => console.error(e));
-        history.push("/overview")
     }
 }
 

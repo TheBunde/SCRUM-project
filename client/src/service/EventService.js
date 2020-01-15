@@ -69,7 +69,8 @@ class EventService{
     }
 
     updateFiled(eventID){
-        return axios.get("http://localhost:8080/event/" + eventID + "/archived").then(response => response.data);
+        console.log(eventID + "!!!");
+        return axios.put("http://localhost:8080/event/" + eventID + "/archived", eventID).then(response => response.data);
     }
 }
 

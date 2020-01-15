@@ -11,7 +11,7 @@ module.exports = class UserDao extends dao {
             .then((resp) => {
                 val.push(resp);
                 super.query(
-                    "INSERT into User (name, email, phone, password_hash) values (?, ?, ?,  ?)",
+                    "INSERT into User (name, email, phone, password_hash) values (?, ?, ?, ?)",
                     val,
                     callback
                 );

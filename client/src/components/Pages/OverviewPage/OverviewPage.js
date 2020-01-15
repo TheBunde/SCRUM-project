@@ -46,7 +46,7 @@ class OverviewPage extends Component{
 
                 <div className="jumbotron jumbotron-fluid">
                     <div className="container">
-                        <h1 id={"jumbotronTitle"} className="display-4">Harmoni</h1>
+                        <h1 id={"jumbotronTitle"} className="display-4">Skap harmoni.</h1>
 
 
                         <p className="lead"></p>
@@ -96,12 +96,8 @@ class OverviewPage extends Component{
                             </div>
                         </div>
                     </div>
-
-                </div>
-
-            <button id={"logoutBtn"} type="button" className="btn btn-dark" onClick={this.logOut}>Logg ut</button>
-
                 <Footer />
+            </div>
             </div>
         );
     }

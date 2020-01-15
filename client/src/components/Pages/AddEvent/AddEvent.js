@@ -216,20 +216,20 @@ class AddEvent extends Component{
                         />
                     </div>
                     <div id="EventInputFields">
-                        <p id="EventInputLabels">Bilde:</p>
-                        <input type="file"
-                               className="form-control"
-                               placeholder={this.state.Placeholder}
-                               id="imageInput"
-                               required={true}
-                        />
-                    </div>
-                    <div id="EventInputFields">
                         <p id="EventInputLabels">Kontrakt:</p>
                         <input type="file"
                                className="form-control"
                                placeholder={this.state.Placeholder}
                                id="contractInput"
+                               required={true}
+                        />
+                    </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Bilde:</p>
+                        <input type="file"
+                               className="form-control"
+                               placeholder={this.state.Placeholder}
+                               id="imageInput"
                                required={true}
                         />
                     </div>
@@ -331,7 +331,7 @@ class AddEvent extends Component{
      */
 
     registerEvent(){
-        if(this.formValidation()){
+        if(this.formValidation()) {
             console.log("Reg event");
             let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg";
             if (this.state.Picture === "") this.setState({Picture: altPicture});
@@ -384,17 +384,15 @@ class AddEvent extends Component{
                     let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
 
                     eventService
-                        .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture)
+                        .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
                         .then(data => this.registerByID(data.insertId))
                         .catch(Error => console.log(Error));
                 })
+        } else{
+                this.setState({Placeholder: "DU MÅ FYLLE INN DETTE FELTET"})
 
+            }
         }
-        else {
-
-            this.setState({Placeholder: "DU MÅ FYLLE INN DETTE FELTET"})
-        }
-    }
 
     uploadImage() {
         let fileService = new FileService();

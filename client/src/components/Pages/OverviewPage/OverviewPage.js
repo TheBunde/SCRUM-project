@@ -92,7 +92,7 @@ class OverviewPage extends Component{
                                 <p className="card-text">Vil du endre profilen din kan du gjøre det her.</p>
                             </div>
                             <div id="overviewPageCardBtn">
-                                <a className="btn btn-outline-warning" href={"/#/profile/" + auth.user_id} role="button">Vis profil</a>
+                                <button className="btn btn-outline-warning" onClick={() => this.seeProfile(auth.user_id)}  role="button">Vis profil</button>
                             </div>
                         </div>
                     </div>

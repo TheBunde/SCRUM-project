@@ -206,18 +206,18 @@ class AddEvent extends Component{
                         />
                     </div>
                     <div id="EventInputFields">
-                        <p id="EventInputLabels">Bilde:</p>
-                        <input type="file"
-                               className="form-control"
-                               id="imageInput"
-                               required={true}
-                        />
-                    </div>
-                    <div id="EventInputFields">
                         <p id="EventInputLabels">Kontrakt:</p>
                         <input type="file"
                                className="form-control"
                                id="contractInput"
+                               required={true}
+                        />
+                    </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Bilde:</p>
+                        <input type="file"
+                               className="form-control"
+                               id="imageInput"
                                required={true}
                         />
                     </div>
@@ -360,8 +360,8 @@ class AddEvent extends Component{
                 let day = this.state.date.getDate();
                 let month = this.state.date.getMonth() + 1;
                 let year = this.state.date.getFullYear();
-                let hour = document.getElementById("dateHourInput").value;
-                let min = document.getElementById("dateMinInput").value;
+                let hour = this.state.dateChosenHour;
+                let min = this.state.dateChosenMin;
                 if (this.state.date.getDate() < 10) {
                     day = "0" + day
                 }
@@ -373,7 +373,7 @@ class AddEvent extends Component{
                 console.log(this.state);
 
                 eventService
-                    .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture)
+                    .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
                     .then(data => this.registerByID(data.insertId))
                     .catch(Error => console.log(Error));
             })

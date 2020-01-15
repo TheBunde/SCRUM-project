@@ -83,6 +83,8 @@ class EventView extends Component{
             return place.trim(" ,");
         }
 
+        /*<img src={"http://localhost:8080/image/" + this.state.img_url} /> */
+
         return (
             <div>
                 <Navbar />
@@ -90,6 +92,7 @@ class EventView extends Component{
                     <div id="eventViewContainer">
                         <div id="eventViewInnerContainer">
                             <div id="eventViewImageDiv">
+                                <img src={"https://www.denverkarateonline.com/wp-content/uploads/2017/04/default-image.jpg"} />
                             </div>
                             <div id="eventViewTitle">
                                 <h1>{this.state.name}</h1>
@@ -98,12 +101,10 @@ class EventView extends Component{
                             <div id="eventViewInfoBox">
                                 <div class="card" id="eventViewInfoBoxCard">
                                     <div class="card-body" id="eventViewInfoBoxCardGridContainer">
-                                        <div id="eventViewInfoBoxCardGridTitle">
+                                        <div>
+                                            <h3>{this.state.category_name}</h3>
                                             <h5 class="card-title">Sted: {this.state.place}</h5>
                                             <h6 class="card-subtitle mb-2 text-muted">Dato: {this.formatDate(this.state.date)}</h6>
-                                        </div>
-                                        <div id="eventViewInfoBoxCardGridCategoryIcon">
-                                            <button type="button" className="btn btn-outline-dark" disabled="true">{this.state.category_name}</button>
                                         </div>
 
                                         <div id="eventViewInfoBoxMap">
@@ -117,19 +118,19 @@ class EventView extends Component{
                                         
                                         <div id="eventViewButtons">
                                             <div id="eventViewBack">
-                                                <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Back</button>
+                                                <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Tilbake</button>
                                             </div>
 
                                             <div id="eventViewEdit">
-                                                <button type="button" className="btn btn-outline-primary">Edit</button>
+                                                <button type="button" className="btn btn-outline-primary">Rediger</button>
                                             </div>
 
                                             <div id="eventViewArchive">
-                                                <button type="button" className="btn btn-outline-primary">Archive</button>
+                                                <button type="button" className="btn btn-outline-primary">Arkiver</button>
                                             </div>
 
                                             <div id="eventViewArchive">
-                                                <button type="button" className="btn btn-outline-danger" onClick={() => this.delete(this.state.event_id)}>Delete</button>
+                                                <button type="button" className="btn btn-outline-danger" onClick={() => this.delete(this.state.event_id)}>Slett</button>
                                             </div>
                                         </div>
                                     </div>
@@ -140,11 +141,6 @@ class EventView extends Component{
                                 <div>
                                     <h3>Beskrivelse</h3>
                                     <p>{this.state.description}</p>
-                                </div>
-
-                                <div>
-                                    <h3>Kategori</h3>
-                                    
                                 </div>
                                 
                                 <div id="eventViewArtists">

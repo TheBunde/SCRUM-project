@@ -140,11 +140,6 @@
     cursor: auto;
 }
 
-#eventViewInfoBoxCardGridContainer{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
 @media only screen and (max-width: 800px) {
     
     #eventViewContainer{

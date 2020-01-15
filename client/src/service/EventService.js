@@ -2,7 +2,7 @@ import axios from 'axios';
 let ipAdress = "localhost"
 
 export class event {
-    constructor(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url){
+    constructor(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
         this.name = name;
         this.date = date;
         this.place = place;
@@ -12,6 +12,7 @@ export class event {
         this.personnel = personnel;
         this.img_url = img_url;
         this.description = description;
+        this.contract = contract;
     }
 }
 
@@ -21,8 +22,8 @@ class EventService{
         return axios.post("http://" + ipAdress + ":8080/filesUpload", file);
     }
 
-    addEvents(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url){
-        let newEvent = new event(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url);
+    addEvents(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
+        let newEvent = {name: name, date: date, description: description, place: place, artists: artists, tech_rider: tech_rider, hospitality_rider: hospitality_rider, personnel: personnel, img_url: img_url, contract: contract};
         return axios.post("http://" + ipAdress + ":8080/event", newEvent).then(response => response.data);
     }
 
@@ -66,7 +67,7 @@ class EventService{
 
     addContactInfo(name, phone, email, eventID){
         let newContactInfo = {name: name, phone: phone, email: email, eventID: eventID};
-        return axios.post("http://" + ipAdress + ":8080/contactInfo", newContactInfo).then(response => response.data)
+        return axios.post("http://" + ipAdress + ":8080/contactinfo", newContactInfo).then(response => response.data)
     }
 
     updateFiled(eventID){

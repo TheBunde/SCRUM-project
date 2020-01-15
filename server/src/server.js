@@ -409,6 +409,13 @@ app.get("/contactinfo/:id", (req, res) => {
     })
 });
 
+app.post("/contactinfo", (req, res) =>{
+    eventDao.addContactInfo(req.body, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
 app.get("/tickets/:id", (req, res)=>{
     eventDao.getTicketById(req.params.id, (status, data) =>{
         res.status(status);

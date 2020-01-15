@@ -1,5 +1,6 @@
 import Axios from "axios";
 //Axios.interceptors.response.use(response => response.data);
+let ipAdress = "localhost"
 
 export class User {
     user_id;
@@ -66,15 +67,15 @@ export const auth = {
 export let authenticate = auth.authenticate.bind(auth);
 export class UserService {
     registerUser(user) {
-        return Axios.post("http://localhost:8080/user", user);
+        return Axios.post("http://" + ipAdress + ":8080/user", user);
     }
 
     validate(email, pw){
-        return Axios.post("http://localhost:8080/validate", {"email":  email, "password" : pw});
+        return Axios.post("http://" + ipAdress + ":8080/validate", {"email":  email, "password" : pw});
     }
 
     getHash(email) {
-        return Axios.get("http://localhost:8080/validate/" + email);
+        return Axios.get("http://" + ipAdress + ":8080/validate/" + email);
     }
 }
 

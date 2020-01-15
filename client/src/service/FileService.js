@@ -1,8 +1,9 @@
 import axios from "axios";
+let ipAdress = "localhost"
 
 export class FileService {
     uploadImage(image) {
-        const url = "http://localhost:8080/upload";
+        const url = "http://" + ipAdress + ":8080/upload";
         const formData = new FormData();
         formData.append("file", image);
         const config = {

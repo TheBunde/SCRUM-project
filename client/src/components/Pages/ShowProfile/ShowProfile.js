@@ -62,6 +62,9 @@ class ShowProfile extends Component {
                     <Back/>
                     <div id="ShowProfileDiv">
                         <h1>Min profil</h1>
+                        <div id="ShowProfilePic">
+
+                        </div>
                         <div id="ShowProfileText">
 
                             <div id="ShowProfileLine">
@@ -82,7 +85,7 @@ class ShowProfile extends Component {
                             </div>
                         </div>
                     </div>
-
+                    <Footer/>
                 </div>
             : <Redirect to={"/profile/" + auth.user_id } />
 

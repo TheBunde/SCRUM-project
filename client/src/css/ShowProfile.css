@@ -1,3 +1,34 @@
+
+
+#ShowProfileDiv{
+    text-align: center;
+    min-height: 100vh;
+}
+
+
+.showProfileLine{
+    border: 2px solid green;
+    min-height: 93vh;
+
+}
+
+#ShowProfileText{
+    padding: 50px 0 50px 0;
+}
+
+#ShowProfileBtn{
+    padding: 10px 0 10px 0;
+}
+
+#h4{
+    display: inline;
+}
+
+#h5{
+    display: inline;
+}
+
+/*
 #profilePageWrapper{
     width: 100%;
     height: 100%;
@@ -45,33 +76,7 @@
     padding-bottom: 30px;
     border-bottom: 2px solid lightgrey;
 }
-
-#ShowProfileDiv{
-    text-align: center;
-}
-
-
-.showProfileLine{
-    border: 2px solid green;
-    min-height: 100vh;
-
-}
-
-#ShowProfileText{
-    padding: 50px 0 50px 0;
-}
-
-#ShowProfileBtn{
-    padding: 10px 0 10px 0;
-}
-
-#h4{
-    display: inline;
-}
-
-#h5{
-    display: inline;
-}
+ */
 
 
 

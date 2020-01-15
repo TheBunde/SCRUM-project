@@ -5,6 +5,7 @@ import Navbar from '../../Navbar/Navbar'
 import '../../../css/About.css'
 
 
+
 // About, will be called by the "om" link in the footer
 
 class About extends Component{
@@ -21,6 +22,12 @@ class About extends Component{
                         Kos deg med oversikt og kommunikasjon.
                     </p>
                 </div>
+
+                <div id="aboutEventViewMap">
+                    <h1>Halla</h1>
+                    <eventViewMap />
+                </div>
+
                 <Footer/>
             </div>
         );

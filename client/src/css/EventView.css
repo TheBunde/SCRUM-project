@@ -22,8 +22,7 @@
     border-radius: 5px;
     background-color: white;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 4fr 1fr 10fr;
+    grid-template-columns: 1fr 0.7fr 1fr;
     grid-template-areas:
             "eventViewImageDiv eventViewImageDiv eventViewImageDiv"
             "eventViewTitle eventViewTitle eventViewTitle"
@@ -36,8 +35,11 @@
 
 #eventViewInfo{
     grid-area: eventViewInfo;
-    text-align: left;
-    margin-left: 10%;
+    width: 100%;
+    padding: 10px 10px 30px 20px;
+}
+#eventViewInfo div{
+    padding: 10px 0 10px 0;
 }
 
 #eventViewTitleHR{
@@ -58,24 +60,31 @@
 
 #eventViewInfoBox{
     grid-area: eventViewInfoBox;
-    margin: 0 20px 0 0;
 }
 
 #eventViewInfoBoxCard{
-    box-shadow: 0 0 0 0 rgb(0, 0, 0), 5px 5px 10px 0 rgb(0, 0, 0);
+    /*box-shadow: 0 0 0 0 rgb(0, 0, 0), 5px 5px 10px 0 rgb(0, 0, 0);*/
+    box-shadow: 0 0 0;
+}
+#eventViewInfoBoxMap{
+    padding-bottom: 20px;
 }
 
 #eventViewButtons{
-    width: 80%;
-    margin: auto;
-    padding: 40px 0 0 0;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-#eventViewButtons button{
-    margin: 20px;
+    margin: auto;
 }
 
+#eventViewButtons div{
+    margin: auto;
+}
+
+#eventViewButtons button{
+    width: 100px;
+    margin: 5px;
+}
 #eventViewTitle h1{
     margin: 20px auto auto auto;
 }
@@ -88,61 +97,122 @@
 .mapouter {
     position:relative;
     text-align:right;
-    height:350px;
-    width:350px;
+    height:100%;
+    width:100%;
 }
 
 .gmap_canvas {
-     overflow:hidden;
-     background:none
-     !important;
-     height:350px;
-     width:350px;
+    overflow:hidden;
+    background:none
+    !important;
+    height:100%;
+    width:100%;
+    min-height: 100px;
+    min-width: 100px;
+     
 }
 
 .gmap_canvas iframe{
-    height: 350px;
-    width: 350px;
+    height:100%;
+    width:100%;
+    min-height: 200px;
+    min-width: 100px;
 }
 
-/*
+#eventViewInfoTickets{
+    width: 80%;
+}
+
+#eventViewInfoDownloadButtons{
+    background-color: rgb(62, 107, 153);
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#eventViewInfoDownloadButtons:hover{
+    background-color: rgb(38, 63, 138);
+}
+
+#eventViewInfoBoxCardCategoryIcon button:hover{
+    cursor: auto;
+}
+
+#eventViewInfoBoxCardGridContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+                ""
+            ;
+}
+
+#eventViewInfoBoxCardGridTitle{
+    grid-area: titleAndDate;
+}
+
 @media only screen and (max-width: 800px) {
-    .gmap_canvas {
-        height:250px;
-        width:250px;
-    }
-
-    .gmap_canvas iframe{
-        height: 250px;
-        width: 250px;
-    }
-
-    .mapouter {
-        height:250px;
-        width:250px;
-    }
-
-    #eventViewInnerContainer{
-         grid-template-columns: 1fr;
-         grid-template-areas:
-                 "infoBox"
-                 "eventViewInfoTwo"
-                 "mapBox";
-         width: 80%;
-    }
-
+    
     #eventViewContainer{
-        padding-bottom: 20px;
+        min-height: 100%;
+        padding: 0px;
+        text-align: center;
+        background-color: rgb(61, 61, 75);
+        margin: auto;
+    }
+    
+    #eventViewImageDiv img{
+        width: 100%;
     }
 
-    #eventViewBackground{
+    #eventViewInfo{
+        padding: 20px;
+    }
+
+    #eventViewInfoBox{
+        width: 100%;
+    }
+    #eventViewButtons button{
+
+    }
+    #eventViewInfoBox{
+        width: 95%;
+        margin: auto;
+    }
+    #eventViewInfoBoxCard{
+        box-shadow: 0 0 0 ;
+    }
+}
+
+@Media only screen and (max-width: 480px){
+    #eventViewButtons{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin: auto;
+    }
+}
+
+@Media only screen and (max-width: 1080px){
+    #eventViewInnerContainer{
+        border-radius: 0px;
         background-color: white;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+                "eventViewImageDiv"
+                "eventViewTitle"
+                "eventViewInfoBox"
+                "eventViewInfo";
+        text-align: left;
+        padding: 0px;
+        min-height: 100vh;
+    }
+
+    #eventViewInfoBox{
+        width: 80%;
+        margin: auto;
+        margin-bottom: 10px;
     }
 }
-
-@media (max-width: 1400px) {
-
-}
-
-
-*/

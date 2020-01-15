@@ -12,7 +12,7 @@ class AddEvent extends Component{
     constructor(props){
         super(props);
         this.state ={
-            date: new Date(),
+            date: new Date(), dateChosenHour: 20, dateChosenMin: "00",
             Name: "", Description: "", Place: "", Artists: "",
             ContactName: "", ContactPhone: "", ContactEmail: "",
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
@@ -96,8 +96,9 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Tidspunkt for arrangementet:</p>
                         <div id="EventDateInput">
                             <select className="form-control"
-                                    id ="dateHourInput"
-                                    defaultValue={20}
+                                    id ="dateChosenHour"
+                                    value={this.state.dateChosenHour}
+                                    onChange={this.changeValue}
                             >
                                 {this.state.DateHour.map(year =>
                                     <option
@@ -110,7 +111,9 @@ class AddEvent extends Component{
                                 )}
                             </select>
                             <select className="form-control"
-                                    id ="dateMinInput"
+                                    id ="dateChosenMin"
+                                    value={this.state.dateChosenMin}
+                                    onChange={this.changeValue}
                             >
                                 {this.state.DateMin.map(year =>
                                     <option
@@ -406,12 +409,12 @@ class AddEvent extends Component{
             .addCategory(EventId, this.state.Category)
             .catch(Error => console.log(Error));
 
-        /*
+
         eventService
             .addContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, EventId)
             .catch(Error => console.log(Error));
 
-        */
+
     }
 }
 

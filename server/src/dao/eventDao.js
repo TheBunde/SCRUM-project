@@ -50,6 +50,7 @@ module.exports = class adminDao extends Dao{
     }
 
     updateFiled(eventID, callback){
+        console.log("EVENT " + eventID[0]);
         super.query("UPDATE Event SET filed = 1 WHERE event_id = ?", [eventID], callback)
     }
 

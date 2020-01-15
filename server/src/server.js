@@ -256,10 +256,11 @@ app.get("/event/archived", (req, res) => {
     });
 });
 
-app.put("/event/:eventID/archived", (req, res) => {
-    console.log('/event: fikk request fra klient');
-    eventDao.updateFiled(req.body, (status, data) => {
-        console.log(data);
+
+app.put('/event/:eventID/archived', (req, res) => {
+    console.log('/annonse/:eventID/archived: fikk request fra klient');
+    console.log(req.params.eventID);
+    eventDao.updateFiled(req.params.eventID, (status, data) => {
         res.status(status);
         res.json(data);
     });

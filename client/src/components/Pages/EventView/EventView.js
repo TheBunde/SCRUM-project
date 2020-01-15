@@ -5,6 +5,7 @@ import Footer from '../../Footer/Footer'
 import "../../../css/EventView.css"
 import {eventService} from '../../../service/EventService'
 import { createHashHistory } from 'history';
+import eventViewMap from '../../Map/eventViewMap/eventViewMap'
 
 const history = createHashHistory();
 
@@ -80,11 +81,9 @@ class EventView extends Component{
                                         <h6 class="card-subtitle mb-2 text-muted">Dato: {this.formatDate(this.state.date)}</h6>
                                         
                                         <div id="eventViewInfoBoxMap">
-                                        
+                                            <eventViewMap />
                                         </div>
                                         
-
-
                                         <div id="eventViewButtons">
                                             <div id="eventViewBack">
                                                 <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Back</button>
@@ -164,7 +163,6 @@ class EventView extends Component{
         eventService
             .updateFiled(id)
             .catch(e => console.error(e));
-        history.push("/overview")
     }
 }
 

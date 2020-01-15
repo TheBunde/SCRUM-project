@@ -67,7 +67,6 @@ class EventView extends Component{
                     <div id="eventViewContainer">
                         <div id="eventViewInnerContainer">
                             <div id="eventViewImageDiv">
-                                <img src={this.state.img_url} alt="Card image cap" />
                             </div>
                             <div id="eventViewTitle">
                                 <h1>{this.state.name}</h1>
@@ -133,7 +132,10 @@ class EventView extends Component{
                                 <p>{this.state.description}</p>
                                 
                                 <h3>Personnell</h3>
-                                <p>{this.state.personnel}</p>
+
+                                <h3>Tech rider</h3>
+                                <h3>Hospitality rider</h3>
+
                                 
                                 <h3>Kategori</h3>
                                 <p>{this.state.category_id}</p>

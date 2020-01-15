@@ -1,6 +1,5 @@
 import axios from 'axios';
-let ipAdress = "localhost"
-
+let ipAdress = "10.24.3.122";
 export class event {
     constructor(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url){
         this.name = name;

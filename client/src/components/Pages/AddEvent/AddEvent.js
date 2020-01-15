@@ -12,7 +12,7 @@ class AddEvent extends Component{
     constructor(props){
         super(props);
         this.state ={
-            date: new Date(),
+            date: new Date(), dateChosenHour: 20, dateChosenMin: "00",
             Name: "", Description: "", Place: "", Artists: "",
             ContactName: "", ContactPhone: "", ContactEmail: "",
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
@@ -95,8 +95,9 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Tidspunkt for arrangementet:</p>
                         <div id="EventDateInput">
                             <select className="form-control"
-                                    id ="dateHourInput"
-                                    defaultValue={20}
+                                    id ="dateChosenHour"
+                                    value={this.state.dateChosenHour}
+                                    onChange={this.changeValue}
                             >
                                 {this.state.DateHour.map(year =>
                                     <option
@@ -109,7 +110,9 @@ class AddEvent extends Component{
                                 )}
                             </select>
                             <select className="form-control"
-                                    id ="dateMinInput"
+                                    id ="dateChosenMin"
+                                    value={this.state.dateChosenMin}
+                                    onChange={this.changeValue}
                             >
                                 {this.state.DateMin.map(year =>
                                     <option
@@ -338,12 +341,12 @@ class AddEvent extends Component{
         let day = this.state.date.getDate();
         let month = this.state.date.getMonth()+1;
         let year = this.state.date.getFullYear();
-        let hour = document.getElementById("dateHourInput").value;
-        let min = document.getElementById("dateMinInput").value;
-        if(this.state.date.getDate() < 10){
+        let hour = this.state.dateChosenHour;
+        let min = this.state.dateChosenMin;
+        if(day < 10){
             day = "0" + day
         }
-        if(this.state.date.getMonth()+1 < 10){
+        if(month < 10){
             month = "0"+ month
         }
 

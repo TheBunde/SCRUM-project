@@ -13,6 +13,7 @@ class AddEvent extends Component{
         super(props);
         this.state ={
             date: new Date(), dateChosenHour: 20, dateChosenMin: "00",
+            Placeholder: "",
             Name: "", Description: "", Place: "", Artists: "",
             ContactName: "", ContactPhone: "", ContactEmail: "",
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
@@ -62,7 +63,7 @@ class AddEvent extends Component{
 
     formValidation(){
 
-        return (this.state.Name === "" || this.state.Description === "" || this.state.Place === "" || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" );
+        return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === "" || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" );
 
     }
     render() {
@@ -75,6 +76,7 @@ class AddEvent extends Component{
                         <p id = "EventInputLabels">Navn på arrangementet:</p>
                         <input type="text"
                                className = "form-control"
+                               placeholder={this.state.Placeholder}
                                id = "Name"
                                value ={this.state.Name}
                                onChange={this.changeValue}
@@ -130,6 +132,7 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
                         <input type="text"
                                className="form-control"
+                               placeholder={this.state.Placeholder}
                                id="Description"
                                value ={this.state.Description}
                                onChange={this.changeValue}
@@ -139,6 +142,7 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Sted for arrangementet:</p>
                         <input type="text"
                                className="form-control"
+                               placeholder={this.state.Placeholder}
                                id="Place"
                                value ={this.state.Place}
                                onChange={this.changeValue}
@@ -148,6 +152,7 @@ class AddEvent extends Component{
                         <p id = "EventInputLabels">Artister:</p>
                         <input type="text"
                                className = "form-control"
+                               placeholder={this.state.Placeholder}
                                id = "Artists"
                                value ={this.state.Artists}
                                onChange={this.changeValue}
@@ -157,6 +162,7 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Kontaktinformasjon - navn:</p>
                         <input type="text"
                                className="form-control"
+                               placeholder={this.state.Placeholder}
                                id="ContactName"
                                value ={this.state.ContactName}
                                onChange={this.changeValue}
@@ -166,6 +172,7 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Kontaktinformasjon - telefonnummer:</p>
                         <input type="text"
                                className="form-control"
+                               placeholder={this.state.Placeholder}
                                id="ContactPhone"
                                value ={this.state.ContactPhone}
                                onChange={this.changeValue}
@@ -175,6 +182,7 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Kontaktinformasjon - email:</p>
                         <input type="text"
                                className="form-control"
+                               placeholder={this.state.Placeholder}
                                id="ContactEmail"
                                value ={this.state.ContactEmail}
                                onChange={this.changeValue}
@@ -184,6 +192,7 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Tech Riders:</p>
                         <input type="file"
                                className="form-control"
+                               placeholder={this.state.Placeholder}
                                id="rider1Input"
                                required={true}
                         />
@@ -192,6 +201,7 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Hospitality Riders:</p>
                         <input type="file"
                                className="form-control"
+                               placeholder={this.state.Placeholder}
                                id="rider2Input"
                                required={true}
                         />
@@ -200,15 +210,8 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Nødvendig personell:</p>
                         <input type="file"
                                className="form-control"
+                               placeholder={this.state.Placeholder}
                                id="personellInput"
-                               required={true}
-                        />
-                    </div>
-                    <div id="EventInputFields">
-                        <p id="EventInputLabels">Bilde:</p>
-                        <input type="file"
-                               className="form-control"
-                               id="imageInput"
                                required={true}
                         />
                     </div>
@@ -216,7 +219,17 @@ class AddEvent extends Component{
                         <p id="EventInputLabels">Kontrakt:</p>
                         <input type="file"
                                className="form-control"
+                               placeholder={this.state.Placeholder}
                                id="contractInput"
+                               required={true}
+                        />
+                    </div>
+                    <div id="EventInputFields">
+                        <p id="EventInputLabels">Bilde:</p>
+                        <input type="file"
+                               className="form-control"
+                               placeholder={this.state.Placeholder}
+                               id="imageInput"
                                required={true}
                         />
                     </div>
@@ -224,6 +237,7 @@ class AddEvent extends Component{
                     <div id ="EventInputFields">
                         <p id = "EventInputLabels">Kategori for arrangementet:</p>
                         <select className ="form-control"
+                                placeholder={this.state.Placeholder}
                                 id ="Category"
                                 value ={this.state.Category}
                                 onChange={this.changeValue}
@@ -272,7 +286,6 @@ class AddEvent extends Component{
                     <button type="button"
                             className="btn btn-outline-primary btn-lg"
                             onClick={this.registerEvent}
-                            disabled={this.formValidation()}
                     >
                         Registrer arrangement
                     </button>
@@ -318,64 +331,68 @@ class AddEvent extends Component{
      */
 
     registerEvent(){
-        console.log("Reg event");
-        let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg";
-        if(this.state.Picture === "") this.setState({Picture: altPicture});
+        if(this.formValidation()) {
+            console.log("Reg event");
+            let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg";
+            if (this.state.Picture === "") this.setState({Picture: altPicture});
 
-        let fileService = new FileService();
-        let fileContract = document.getElementById("contractInput");
-        let filePersonell = document.getElementById("personellInput");
-        let fileRider1 = document.getElementById("rider1Input");
-        let fileRider2 = document.getElementById("rider2Input");
-        let image = document.getElementById("imageInput");
+            let fileService = new FileService();
+            let fileContract = document.getElementById("contractInput");
+            let filePersonell = document.getElementById("personellInput");
+            let fileRider1 = document.getElementById("rider1Input");
+            let fileRider2 = document.getElementById("rider2Input");
+            let image = document.getElementById("imageInput");
 
 
-        let filesUpload = [];
+            let filesUpload = [];
 
-        filesUpload.push(fileContract.files[0]);
-        filesUpload.push(filePersonell.files[0]);
-        filesUpload.push(fileRider1.files[0]);
-        filesUpload.push(fileRider2.files[0]);
-        filesUpload.push(image.files[0]);
+            filesUpload.push(fileContract.files[0]);
+            filesUpload.push(filePersonell.files[0]);
+            filesUpload.push(fileRider1.files[0]);
+            filesUpload.push(fileRider2.files[0]);
+            filesUpload.push(image.files[0]);
 
-        console.log(filesUpload);
+            console.log(filesUpload);
 
-        fileService.uploadFiles(filesUpload)
-            .then((res) => {
-                console.log(res.data.filePath);
-                this.setState({
-                    Tech: res.data.filePath[2].filename,
-                    Hospitality: res.data.filePath[3].filename,
-                    Personnel: res.data.filePath[1].filename,
-                    Contract: res.data.filePath[0].filename,
-                    Picture : res.data.filePath[4].filename
-                });
-                console.log(this.state);
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-            .then(() => { //Added because the setState above did not run before the request to the database was made -Max
-                let day = this.state.date.getDate();
-                let month = this.state.date.getMonth() + 1;
-                let year = this.state.date.getFullYear();
-                let hour = this.state.dateChosenHour;
-                let min = this.state.dateChosenMin;
-                if (day < 10) {
-                    day = "0" + day
-                }
-                if (month < 10) {
-                    month = "0" + month
-                }
-                let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
+            fileService.uploadFiles(filesUpload)
+                .then((res) => {
+                    console.log(res.data.filePath);
+                    this.setState({
+                        Tech: res.data.filePath[2].filename,
+                        Hospitality: res.data.filePath[3].filename,
+                        Personnel: res.data.filePath[1].filename,
+                        Contract: res.data.filePath[0].filename,
+                        Picture: res.data.filePath[4].filename
+                    });
+                    console.log(this.state);
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+                .then(() => { //Added because the setState above did not run before the request to the database was made -Max
+                    let day = this.state.date.getDate();
+                    let month = this.state.date.getMonth() + 1;
+                    let year = this.state.date.getFullYear();
+                    let hour = this.state.dateChosenHour;
+                    let min = this.state.dateChosenMin;
+                    if (day < 10) {
+                        day = "0" + day
+                    }
+                    if (month < 10) {
+                        month = "0" + month
+                    }
+                    let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
 
-                eventService
-                    .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture)
-                    .then(data => this.registerByID(data.insertId))
-                    .catch(Error => console.log(Error));
-            })
+                    eventService
+                        .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
+                        .then(data => this.registerByID(data.insertId))
+                        .catch(Error => console.log(Error));
+                })
+        } else{
+                this.setState({Placeholder: "DU MÅ FYLLE INN DETTE FELTET"})
 
-    }
+            }
+        }
 
     uploadImage() {
         let fileService = new FileService();
@@ -410,7 +427,6 @@ class AddEvent extends Component{
         eventService
             .addContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, EventId)
             .catch(Error => console.log(Error));
-
 
     }
 }

@@ -31,6 +31,7 @@ class EditEvent extends Component{
         this.updateCategory = this.updateCategory.bind(this);
         this.updateTicketInfo = this.updateTicketInfo.bind(this);
         this.updateContactInfo = this.updateContactInfo.bind(this);
+        this.registerEvent = this.registerEvent.bind(this);
     }
 
     changeValue(event){
@@ -349,6 +350,10 @@ class EditEvent extends Component{
                 </div>
             </div>
         );
+    }
+
+    registerEvent(){
+
     }
 }
 

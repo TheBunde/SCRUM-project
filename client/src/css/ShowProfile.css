@@ -46,6 +46,10 @@
     border-bottom: 2px solid lightgrey;
 }
 
+#ShowProfileDiv{
+    text-align: center;
+}
+
 
 .showProfileLine{
     border: 2px solid green;

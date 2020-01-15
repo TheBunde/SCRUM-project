@@ -113,7 +113,6 @@ app.get("/user/:userID", (req, res) => {
     });
 });
 
-<<<<<<< HEAD
 app.put("/users/:userID/newName", (req, res) => {
     adminDao.updateUser(req.params.userID, req.body.name, req.body.email, req.body.phone, (status, data) => {
         res.status(status);
@@ -135,8 +134,6 @@ app.put("/users/:userID/newEmail", (req, res) => {
     })
 });
 
-=======
->>>>>>> 08c0ffe3d93f9c4fe3775fc8ab32f570e36894f3
 app.get("/user/:userID", (req, res) => {
     adminDao.getUser(req.params.userID,(status, data) => {
         res.status(status);

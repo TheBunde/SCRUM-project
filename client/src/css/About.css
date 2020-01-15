@@ -9,9 +9,14 @@
 }
 
 #links{
-    padding-top: 50px;
+    padding:150px 50px 50px 50px ;
 }
 
-#logos{
-    padding:0 10px 0 10px;
+#link{
+    display: inline;
+    padding: 0 10px 0 10px;
+}
+
+#aboutEventViewMap{
+    padding: 0 100px 0 100px;
 }

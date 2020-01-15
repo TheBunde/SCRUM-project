@@ -2,11 +2,21 @@ import React, {Component} from 'react';
 import '../../css/Navbar.css';
 import $ from 'jquery';
 import {auth, authenticate} from "../../service/UserService";
+import {ProfileService} from "../../service/ProfileService";
 
 
 /*Changing ml-auto to mr-auto will change the placement of the navbar-collapse items to the left besides the logo/name to the left on the Navbar */
 
 class Navbar extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            user : {},
+            user_id: -1
+        }
+    }
+
     signOut = () => {
         window.localStorage.removeItem("token");
         window.location.hash = "/login";
@@ -21,6 +31,17 @@ class Navbar extends Component {
         } else {
             show.style.display = "none";
         }
+        let profileService = new ProfileService();
+        profileService.getUser(auth.user_id)
+            .then(user => {
+                    this.setState({
+                        user: user
+                    })
+                }
+            )
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     render() {
@@ -35,13 +56,16 @@ class Navbar extends Component {
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
-                            <li className="nav-item" id={"adminUsersLink"}>
-                                <a className="nav-link" onClick={() => window.location.href = "#/admin/users"}>Brukere</a>
+
+                            <li className="nav-item">
+                                <a className="nav-link"
+                                   onClick={() => window.location.href = "#/overview"}>Hovedside</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" onClick={() => window.location.href = "#/overview"}>Oversikt</a>
+                            <li className="nav-item" id={"adminUsersLink"}>
+                                <a className="nav-link" onClick={() => window.location.href = "#/admin/users"}>Rediger brukere</a>
                             </li>
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">
@@ -55,6 +79,12 @@ class Navbar extends Component {
                                         arrangement</a>
                                 </div>
                             </li>
+
+                            <li className="nav-item">
+                                <a className="nav-link"
+                                   onClick={() => window.location.href = "#/profile/" + auth.user_id}>Min profil</a>
+                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" onClick={() => this.signOut()}>Logg ut</a>
                             </li>

@@ -28,6 +28,18 @@ test("that we can register a user", done => {
     );
 });
 
+test("get hash", done => {
+    function callback(status, data) {
+        console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
+        expect(data.length).toBe(1);
+        expect(data[0].password_hash).toBe('3856f5086eb7138f2e4e3d42d8569ce4f4b66a83cbce3192da65ee129e8c01d2832057b4bd8f124a2a47d376de0c1808cabc2e467275cc9f7b8a059d618c04bd');
+        done();
+    }
+    userDao.getUser(
+        "test4@tester.no", callback
+    );
+});
+
 test("get user", done => {
     function callback(status, data) {
         console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));

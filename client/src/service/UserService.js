@@ -1,6 +1,7 @@
 import Axios from "axios";
 //Axios.interceptors.response.use(response => response.data);
-let ipAdress = "localhost"
+//let ipAdress = "10.24.3.122";
+let ipAdress = "localhost";
 
 export class User {
     user_id;
@@ -80,7 +81,7 @@ export class UserService {
 
     updatePassword(email, password, newPassword, user_id){
         console.log("User service: " + email);
-        return Axios.put("http://localhost:8080/user/" + user_id + "/edit/password", 
+        return Axios.put("http://" + ipAdress + ":8080/user/" + user_id + "/edit/password", 
         {
             "email": email,
             "password": password,

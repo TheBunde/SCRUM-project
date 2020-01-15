@@ -10,7 +10,7 @@ class EditEvent extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            date: new Date(), dateChosenHour: 20, dateChosenMin: 0,
+            date: new Date(), dateChosenHour: null, dateChosenMin: null,
             Name: "", Description: "", Place: "", Artists: "",
             ContactName: "", ContactPhone: "", ContactEmail: "",
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
@@ -31,6 +31,7 @@ class EditEvent extends Component{
         this.updateCategory = this.updateCategory.bind(this);
         this.updateTicketInfo = this.updateTicketInfo.bind(this);
         this.updateContactInfo = this.updateContactInfo.bind(this);
+        this.registerEvent = this.registerEvent.bind(this);
     }
 
     changeValue(event){
@@ -91,8 +92,13 @@ class EditEvent extends Component{
     updateEventInfo(data){
         let date = data[0].date.split("T");
         let time = date[1].split(":");
-        this.setState({dateChosenHour: time[0]});
-        this.setState({dateChosenMin: time[1]});
+        let hour = Number(time[0])+1;
+        if(hour<10) hour = "0"+hour;
+        let min = Number(time[1]);
+        if(min<10) min = "0"+min;
+
+        this.setState({dateChosenHour: hour});
+        this.setState({dateChosenMin: min});
 
         this.setState({date: new Date(date[0])});
         this.setState({Name: data[0].name});
@@ -103,10 +109,10 @@ class EditEvent extends Component{
         this.setState({Hospitality: data[0].hospitality_rider});
         this.setState({Personnel: data[0].personnel});
         this.setState({Picture: data[0].img_url});
+        this.setState({Contract: data[0].contract})
     }
 
     updateTicketInfo(data) {
-        console.log(data);
         data.map(ticket => {
             eventService
                 .getTicketById(ticket.ticket_category_id)
@@ -116,7 +122,6 @@ class EditEvent extends Component{
     }
 
     updateTicketAmount(name, amount){
-        console.log(name + " " + amount)
         this.setState({[name + "TicketBox"]: true});
         this.setState({[name + "TicketAmount"]: amount})
     }
@@ -158,29 +163,29 @@ class EditEvent extends Component{
                         <div id="EventDateInput">
                             <select className="form-control"
                                     id ="dateHourInput"
-                                    defaultValue={this.state.dateChosenHour}
+                                    value={this.state.dateChosenHour}
                             >
-                                {this.state.DateHour.map(year =>
+                                {this.state.DateHour.map(hour =>
                                     <option
-                                        key={year}
-                                        value ={year}
-                                        defaultValue={year}
+                                        key={hour}
+                                        value ={hour}
+                                        defaultValue={hour}
                                     >
-                                        {year}
+                                        {hour}
                                     </option>
                                 )}
                             </select>
                             <select className="form-control"
                                     id ="dateMinInput"
-                                    defaultValue={this.state.dateChosenMin}
+                                    value={this.state.dateChosenMin}
                             >
-                                {this.state.DateMin.map(year =>
+                                {this.state.DateMin.map(min =>
                                     <option
-                                        key={year}
-                                        value ={year}
-                                        defaultValue={year}
+                                        key={min}
+                                        value ={min}
+                                        defaultValue={min}
                                     >
-                                        {year}
+                                        {min}
                                     </option>
                                 )}
                             </select>
@@ -345,6 +350,10 @@ class EditEvent extends Component{
                 </div>
             </div>
         );
+    }
+
+    registerEvent(){
+
     }
 }
 

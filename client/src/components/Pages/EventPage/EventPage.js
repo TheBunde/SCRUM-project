@@ -150,7 +150,7 @@ class EventPage extends Component {
                             <div id="eventPageBar">
                                 <div id="eventPageShow">
                                     <div className="dropdown">
-                                        <button className="btn btn-outline dropdown-toggle" type="button" id="dropdownMenuButton"
+                                        <button className="btn border-dark dropdown-toggle" type="button" id="dropdownMenuButton"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Vis
                                         </button>
@@ -163,7 +163,7 @@ class EventPage extends Component {
                                 </div>
                                 <div id="eventPageSort">
                                     <div className="dropdown">
-                                        <button className="btn btn-outline dropdown-toggle" type="button" id="dropdownMenuButton"
+                                        <button className="btn border-dark dropdown-toggle " type="button" id="dropdownMenuButton"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Sorter etter
                                         </button>
@@ -175,9 +175,10 @@ class EventPage extends Component {
                                     </div>
                                 </div>
                                 <div id="eventPageSearchBar">
-                                    <input className="form-control" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}></input>
+                                    <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}></input>
                                 </div>
                             </div>
+                            <div className="dropdown-divider border-dark"></div>
                             <div id="eventPageEventTable">
                                 {this.state.shownEvents.slice(0, this.state.length).map(event => (
                                     <div>

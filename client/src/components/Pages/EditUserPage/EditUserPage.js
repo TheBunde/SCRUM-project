@@ -32,7 +32,8 @@ class EditUserPage extends Component {
                     <div className={"row"}>
                         <div className={"column"}>
                             <div className={"pbContainer"}>
-                                <p>Profilbilde</p>
+                                <img id="EditUserAdminProfile" alt="profilePic" src="https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                                     width="300" height="300"/>
                             </div>
                         </div>
 

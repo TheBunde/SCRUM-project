@@ -350,7 +350,7 @@ class AddEvent extends Component{
         let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00" ;
 
         eventService
-            .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture)
+            .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
             .then(data => this.registerByID(data.insertId))
             .catch(Error => console.log(Error));
     }

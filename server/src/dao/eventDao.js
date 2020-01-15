@@ -19,7 +19,7 @@ module.exports = class adminDao extends Dao{
     }
 
     addEvent(event, callback){
-        super.query("INSERT INTO Event(name, description, date, place, img_url, artists, tech_rider, hospitality_rider, personnel) VALUES (?,?,?,?,?,?,?,?,?)", [event.name, event.description, event.date, event.place, event.img_url, event.artists, event.tech_rider, event.hospitality_rider, event.personnel], callback)
+        super.query("INSERT INTO Event(name, description, date, place, img_url, artists, tech_rider, hospitality_rider, personnel, contract) VALUES (?,?,?,?,?,?,?,?,?,?)", [event.name, event.description, event.date, event.place, event.img_url, event.artists, event.tech_rider, event.hospitality_rider, event.personnel, event.contract], callback)
     }
 
     getCategories(callback){
@@ -52,6 +52,22 @@ module.exports = class adminDao extends Dao{
     updateFiled(eventID, callback){
         console.log("EVENT " + eventID[0]);
         super.query("UPDATE Event SET filed = 1 WHERE event_id = ?", [eventID], callback)
+    }
+
+    getCategoryFromEvent(eventID, callback){
+        super.query("SELECT category_id FROM Event_Category WHERE event_id = ?", [eventID], callback)
+    }
+
+    getContactinfoForEvent(eventID, callback){
+        super.query("SELECT * FROM Contact_Info WHERE event_id = ?", [eventID], callback)
+    }
+
+    getTicketById(ticketID, callback){
+        super.query("SELECT name FROM Ticket_Category WHERE ticket_category_id = ?", [ticketID], callback)
+    }
+
+    getTicketFromEvent(eventID, callback){
+        super.query("SELECT * FROM Event_Ticket WHERE event_id = ?", [eventID], callback)
     }
 };
 

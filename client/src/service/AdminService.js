@@ -1,5 +1,5 @@
 import axios from 'axios';
-let ipAdress = "10.24.3.122";
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 
 class AdminService{

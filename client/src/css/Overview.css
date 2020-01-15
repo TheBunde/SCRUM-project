@@ -43,7 +43,6 @@
 #OverviewDiv{
     margin: auto;
     text-align: center;
-    padding-top: 50px;
 
     min-height: 93vh;
 }
@@ -51,6 +50,10 @@
 #OverviewTitle {
     padding-bottom: 35px;
 
+}
+
+#overviewPageCardBtn{
+    margin-top: 25px;
 }
 
 #OverviewButtonDiv{

@@ -113,6 +113,27 @@ app.get("/user/:userID", (req, res) => {
     });
 });
 
+app.put("/users/:userID/newName", (req, res) => {
+    adminDao.updateUser(req.params.userID, req.body.name, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.put("/users/:userID/newPhone", (req, res) => {
+    adminDao.updatePhone(req.params.userID, req.body.phone, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.put("/users/:userID/newEmail", (req, res) => {
+    adminDao.updateEmail(req.params.userID, req.body.email, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
 app.get("/user/:userID", (req, res) => {
     adminDao.getUser(req.params.userID,(status, data) => {
         res.status(status);

@@ -14,7 +14,7 @@ import {authenticate, auth} from "../../../service/UserService";
 
 const history = createHashHistory();
 
-class ShowProfile extends Component{
+class ShowProfile extends Component {
 
     user_id = this.props.match.params.userID;
 
@@ -22,7 +22,7 @@ class ShowProfile extends Component{
         super(props);
         this.state = {
             user: {},
-            authorized : ""
+            authorized: ""
         }
 
     }
@@ -32,11 +32,11 @@ class ShowProfile extends Component{
         //console.log("ID tried: " + this.props.match.params.userID);
         if (this.props.match.params.userID !== auth.user_id) {
             this.setState({
-                authorized : false
+                authorized: false
             })
         } else {
             this.setState({
-                authorized : true
+                authorized: true
             });
             let profileService = new ProfileService();
             profileService.getUser(this.user_id)
@@ -52,8 +52,8 @@ class ShowProfile extends Component{
     };
 
 
-    render(){
-        return(
+    render() {
+        return (
 
             <div className={"profilePageWrapper"}>
                 <Navbar/>
@@ -71,56 +71,23 @@ class ShowProfile extends Component{
 
                         <div className={"col-sm-6"}>
 
+                        </div>
                     </div>
-
-
-
-                    </div>
-
 
 
                     <div id="ShowProfileButtonDiv">
                         <div id="ShowProfileBtn">
-                            <button type="button" className="btn btn-info btn-lg" onClick={() => this.editProfile(this.user_id)}>Endre profil</button>
-
-                <div>
-                    <Navbar/>
-                    <Back/>
-                    <div id="ShowProfileDiv">
-                        <h1>Min profil</h1>
-                        <div id="ShowProfileText">
-
-                            <div id="ShowProfileLine">
-                                <h4 id="h4">Brukernavn: </h4> <h5 id="h5">{this.state.user.name}</h5>
-                            </div>
-                            <div id="ShowProfileLine">
-                                <h4 id="h4">tlf: </h4><h5 id="h5">{this.state.user.phone}</h5>
-                            </div>
-                            <div id="ShowProfileLine">
-                                <h4 id="h4">E-mail: </h4><h5 id="h5">{this.state.user.email}</h5>
-                            </div>
+                            <button type="button" className="btn btn-info btn-lg"
+                                    onClick={() => this.editProfile(this.user_id)}>Endre profil
+                            </button>
                         </div>
 
-
-                        <div id="ShowProfileButtonDiv">
-                            <div id="ShowProfileBtn">
-                                <button type="button" className="btn btn-info btn-lg" onClick={() => this.editProfile(this.user_id)}>Endre profil</button>
-                            </div>
-
-                        </div>
                     </div>
-
                 </div>
-            : <Redirect to={"/profile/" +auth.user_id } />
-
-        )
+                <Redirect to={"/profile/" + auth.user_id}/>
+            </div>
+        );
     }
-
-    editProfile(id){
-
-        history.push("/profile/"+ id + "/edit")
-    }
-
 }
 
 export default ShowProfile;

@@ -16,59 +16,58 @@ class EditUserPage extends Component {
         name: "",
         email: "",
         phone: "",
+        tempRole: "",
         roles: [],
         roleID: "",
-        roleChosen: "Ingen rolle valgt",
+        roleChosen: "",
         approved: "",
-        synligModal: "",
-        modalTitle: "",
-        modalFeedback: "",
     };
 
 
     render() {
         return (
-            <div class="pageSetup">
+            <div className="pageSetup">
                 <Navbar/>
                 <div className={"EditUserPageWrapper"}>
                     <div className={"row"}>
                         <div className={"column"}>
-
                             <div className={"pbContainer"}>
                                 <p>Profilbilde</p>
                             </div>
                         </div>
 
 
-
                         <div className={"column"}>
-
                             <div className={"infoContainer"}>
-
                                 <form>
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">Navn</label>
-                                        <input value={this.state.name} className="form-control" type="text"
+                                        <input name = "name" value={this.state.name} className="form-control" type="text"
                                                placeholder="Readonly input here…"
-                                               readOnly/>
+                                               onChange={this.handleTextChange.bind(this)}
+
+                                        />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="exampleInputPassword1">E-post</label>
-                                        <input value={this.state.email} className="form-control" type="text"
+                                        <input name = "email" value={this.state.email} className="form-control" type="text"
                                                placeholder="Readonly input here…"
-                                               readOnly/>
+                                               onChange={this.handleTextChange.bind(this)}
+
+                                        />
                                     </div>
                                     <div className="form-group">
                                         <label className="form-check-label" htmlFor="exampleCheck1">Telefon</label>
-                                        <input value={this.state.phone} className="form-control" type="text"
+                                        <input name = "phone" value={this.state.phone} className="form-control" type="text"
                                                placeholder="Readonly input here…"
-                                               readOnly/>
+                                               onChange={this.handleTextChange.bind(this)}
+
+                                        />
                                     </div>
                                     <label className={"form-check-label"}>Rolle</label>
 
 
                                     <div className={"btnRow"}>
-
                                         <div className={"dropdownColumn"}>
 
                                             <div className="dropdown" id={"roleDropdown"}>
@@ -105,25 +104,7 @@ class EditUserPage extends Component {
 
                     </div>
 
-
-                    <Modal show={this.state.synligModal} name={"passwordModal"} onHide={() => {
-                        this.toggleModal("")
-                    }}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>{this.state.modalTitle}</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>{this.state.modalFeedback}</Modal.Body>
-                        <Modal.Footer>
-                            <a className={"btn btn-primary"} onClick={() => {
-                                if (this.state.modalTitle === "Advarsel") {
-                                    this.deleteUser()
-                                }
-                            }}>
-                                Ok
-                            </a>
-                        </Modal.Footer>
-                    </Modal>
-                    <button id={"EditUserSaveBtn"} type={"button"} className={"btn btn-primary"} onClick={() => this.submitSaveChanges()}>Lagre endringer</button>
+                    <button id={"EditUserSaveBtn"} type={"button"} className={"btn btn-primary"} onClick={() => {this.submitSaveChanges()}}>Lagre endringer</button>
 
                 </div>
                 <Footer/>
@@ -131,35 +112,20 @@ class EditUserPage extends Component {
         );
     }
 
-    toggleModal(feedback) {
+    handleTextChange = event => {
+        event.preventDefault();
+        const name = event.target.name;
+        const value = event.target.value;
 
-        {
-            if (feedback === "delete") {
-                this.setState({
-                    synligModal: !this.state.synligModal,
-                    modalFeedback: "Er du sikker på at du vil slette denne brukeren?",
-                    modalTitle: "Advarsel",
-                });
-            } else if (feedback === "save") {
-                this.setState({
-                    synligModal: !this.state.synligModal,
-                    modalFeedback: "Endringene er lagret!",
-                    modalTitle: "Suksess"
-                });
-            } else {
-                this.setState({
-                    synligModal: !this.state.synligModal
-                })
-            }
-        }
-    }
+        this.setState({
+            [name]: value
+        });
+    };
 
     deleteUser() {
         adminService.deleteUser(this.props.match.params.id).then((response) => {
             window.location.href = "/#/admin/users/"
-        })
-            .then(() => window.location.hash="/admin/users")
-            .catch((error) => console.error(error))
+        }).catch((error) => console.error(error))
     }
 
     handleCheckboxChange() {
@@ -212,6 +178,9 @@ class EditUserPage extends Component {
             console.error(error)
         }));
 
+        adminService.updateName(this.state.name, this.props.match.params.id).then(response => console.log(response)).catch(error => console.error(error))
+        adminService.updateEmail(this.state.email, this.props.match.params.id).then(response => console.log(response)).catch(error => console.error(error))
+        adminService.updatePhone(this.state.phone, this.props.match.params.id).then(response => console.log(response)).catch(error => console.error(error))
         {
             if (this.state.approved) {
                 adminService.approveUser(this.props.match.params.id).then((response) => console.log(response)).catch((error) => {
@@ -233,9 +202,12 @@ class EditUserPage extends Component {
                         name: user[0].name,
                         email: user[0].email,
                         phone: user[0].phone,
-                        approved: user[0].approved
-                    })
+                        approved: user[0].approved,
+                        tempRole: user[0].role_id
+                    });
+                adminService.getRoleByID(this.state.tempRole).then(role => {this.setState({roleChosen: role[0].role})}).catch(error => console.error(error))
                 }
+
             )
             .catch((error) => {
                 console.error(error);
@@ -245,7 +217,6 @@ class EditUserPage extends Component {
             rolesReceived.map(role => {
                 roles.push(role.role)
             });
-            console.log(roles);
             this.setState({
                 roles: roles
             })

@@ -2,6 +2,18 @@ const Dao = require("./dao.js");
 
 module.exports = class adminDao extends Dao{
 
+    updateUser(userID, name, callback){
+        super.query("UPDATE User SET name=? WHERE user_id=?", [name, userID], callback);
+    }
+
+    updatePhone(userID, phone, callback){
+        super.query("UPDATE User SET phone=? WHERE user_id=?", [phone, userID], callback);
+    }
+
+    updateEmail(userID, email, callback){
+        super.query("UPDATE User SET email=? WHERE user_id=?", [email, userID], callback);
+    }
+
     getRole(role, callback){
         super.query("SELECT role_id FROM Role WHERE role=?", [role], callback);
     }

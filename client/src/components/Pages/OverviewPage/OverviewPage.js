@@ -81,7 +81,6 @@ class OverviewPage extends Component{
 
             </div>
 
-            <button id={"logoutBtn"} type="button" className="btn btn-dark" onClick={this.logOut}>Logg ut</button>
 
                 <Footer />
             </div>

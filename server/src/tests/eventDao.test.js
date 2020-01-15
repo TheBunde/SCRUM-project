@@ -78,7 +78,6 @@ test("test: updateFiled", done =>{
     eventDao.updateFiled(3,callback);
 });
 
-
 test("test: addEvent()", done =>{
     function callback2(status, data) {
         console.log(
@@ -97,8 +96,35 @@ test("test: addEvent()", done =>{
     eventDao.addEvent(event, callback);
 });
 
+test("test: deleteEvent()", done =>{
 
+    function callback2(status, data) {
+        console.log(
+            "Test deleteEvent eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data[0].filed).toBeTruthy(id1>data.length);
+        done();
+    }
 
+    function callback(status, data){
+        id1 = data.length;
+        eventDao.deleteEvent(5,dummy);
+        eventDao.getAllEvents(callback2);
+    }
+
+    function dummy(status, data){
+
+    }
+
+    let id1 = 0;
+    let event = {name : "to be deleted", date:  "2020-01-20 20:45:00",description:  "the DB test made this to be deleted", place : "Sukkerhuset", artists : "Javascript, mysql, ci, nodeJs ", tech_rider:  "nintendo switch", hospitality_rider: "potato chips", personnel: "Team 5", img_url: "eagle.png"};
+    eventDao.addEvent(event, dummy);
+    let contactInfo = {name: "hei sveis", phone: "00000000", email: "hwudijwdhwojndw@sohfsoidhjs.nckjw", eventID: 5};
+    eventDao.addContactInfo(contactInfo, dummy);
+    let ticket = {eventID: 5, ticketID: 3, amount: 20}
+    eventDao.addTicket(ticket, dummy);
+    eventDao.getAllEvents(callback())
+});
 
 test("test: getNonFiledEvents()", done =>{
 
@@ -129,7 +155,6 @@ test("test: getCategories()", done =>{
     eventDao.getCategories(callback);
 });
 
-
 test("test: addCategory()", done =>{
 
     function callback(status, data){
@@ -142,6 +167,20 @@ test("test: addCategory()", done =>{
 
     let category = {eventID : 1, categoryID: 2};
     eventDao.addCategory(category, callback);
+});
+
+test("test: getCategoryFromEvent()", done =>{
+    function callback(status, data) {
+        console.log(
+            "Test getCategoryFromEvent for event 1 eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data.length).toBe(2);
+        expect(data[0].event_id).toBe(1);
+        done();
+    }
+
+    eventDao.getCategoryFromEvent(1, callback);
+
 });
 
 test("test: getTicket()", done =>{
@@ -158,8 +197,6 @@ test("test: getTicket()", done =>{
     eventDao.getTicket(callback);
 });
 
-
-
 test("test: addTicket()", done =>{
 
     function callback(status, data){
@@ -172,5 +209,18 @@ test("test: addTicket()", done =>{
 
     let event_ticket = {eventID: 1, ticketID: 3, amount: 20};
     eventDao.addTicket(event_ticket, callback);
+});
+
+test("test: addContactInfo()", done =>{
+    function callback(status, data){
+        console.log(
+            "Test addTicket eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data.affectedRows).toBe(1);
+        done();
+    }
+
+    let contactInfo = {name: "hei sveis", phone: "00000000", email: "hwudijwdhwojndw@sohfsoidhjs.nckjw", eventID: 1};
+    eventDao.addContactInfo(contactInfo, callback);
 });
 

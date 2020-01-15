@@ -28,6 +28,10 @@ class ShowProfile extends Component {
 
     }
 
+    editProfile(id){
+        history.push("/profile/"+ id + "/edit")
+    }
+
     componentDidMount() {
         authenticate();
         //console.log("ID tried: " + this.props.match.params.userID);
@@ -61,9 +65,6 @@ class ShowProfile extends Component {
                 <Back/>
                 <div id="profileContainer">
                     <h1>Min profil</h1>
-
-
-
 
                     <div id="ShowProfileButtonDiv">
                         <div id="ShowProfileBtn">

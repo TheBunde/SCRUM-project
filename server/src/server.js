@@ -164,6 +164,34 @@ app.post("/user", (req, res) => {
     });
 });
 
+app.put("/user/:userID/edit/password", (req, res) => {
+    // Check if user with pw entered exists, if so -> change their pw.
+    console.log("server: " + req.body.email);
+    userDao.getApprovedUser(req.body.email, (status, data) => {
+        if (data.length > 0) {
+            console.log("User exists");
+            
+            let passwordHash = JSON.stringify(data[0].password_hash).slice(1,-1);            
+            bcrypt.compare(req.body.password, passwordHash, function(err, response) {
+                if (err) {
+                    console.log("An error occured");
+                    console.error(err);
+                } if (response) { // If response is true <=> If the passwords are equal
+                    userDao.changePassword({user_id: parseInt(req.params.userID), password: req.body.newPassword}, (statusCode, result) => {
+                        res.status(statusCode);
+                        res.json(result);
+                        console.log("Password changed");
+                    });
+                } else { // Passwords are not equal -> The user should not have access to change this password
+                    res.json({error: "Not authorized"});
+                    res.status(401);
+                    console.log("Did not work");
+                }
+            });
+        }
+    });
+});
+
 app.post("/validate", (req,res) => {
     //Check password and email up against a databsae call
     //If okay create a token, and send that token back

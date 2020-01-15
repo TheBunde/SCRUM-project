@@ -5,6 +5,7 @@ import {ProfileService} from '../../../service/ProfileService'
 import {User, UserService} from "../../../service/UserService";
 import {Redirect} from 'react-router-dom';
 import {auth, authenticate} from "../../../service/UserService";
+import {toast} from 'react-toastify';
 
 
 import Navbar from "../../Navbar/Navbar";
@@ -22,6 +23,12 @@ class EditProfile extends Component{
         this.state = {user : {}}
 
     }
+
+    notifySuccess = () => {
+        toast("Registrering av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
+    };
+
+    notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
     componentDidMount() {
         authenticate();
@@ -48,15 +55,19 @@ class EditProfile extends Component{
         const role = this.state.user.roleid;
         const approved = this.state.user.approved
         console.log(name, email, phone, pw, role, approved);
+
+        console.log(name === "");
         
         if(
-            name === null || name === "",
-            email === null || email === "",
-            phone === null || phone === "",
-            pw === null || pw === "",
-            role === null || role === "",
+            name === null || name === "" ||
+            email === null || email === "" ||
+            phone === null || phone === "" ||
+            pw === null || pw === "" ||
+            role === null || role === "" ||
             approved === null || approved === ""
         ){
+            console.log("WTF");
+            this.notifyFailure();
             return false;
         } else{
             return true;
@@ -74,7 +85,7 @@ class EditProfile extends Component{
 
                     <div id="EditProfileInput">
                         <div className="col-sm-4">
-                            <h5>Brukernavn: </h5>
+                            <h5>Navn: </h5>
                             <input
                                 id="nameInput"
                                 className="form-control form-control-lg"
@@ -86,7 +97,7 @@ class EditProfile extends Component{
                         </div>
 
                         <div className="col-sm-4">
-                            <h5>tlf: </h5>
+                            <h5>Telefon: </h5>
                             <input
                                 id="tlfInput"
                                 className="form-control form-control-lg"
@@ -132,7 +143,7 @@ class EditProfile extends Component{
                                 <input
                                     id="oldPasswordInput"
                                     className="form-control form-control-lg"
-                                    type="text"
+                                    type="password"
                                     placeholder="Gammelt passord"
                                     aria-describedby="oldPasHelp"
                                 />
@@ -144,7 +155,7 @@ class EditProfile extends Component{
                                 <input
                                     id="newPasswordInput"
                                     className="form-control form-control-lg"
-                                    type="text"
+                                    type="password"
                                     placeholder="Nytt passord"
                                     aria-describedby="newPasHelp"
                                 />
@@ -190,9 +201,9 @@ class EditProfile extends Component{
 
     save = (e) => {
         console.log("Almost nice")
-        if(this.checkFields){ // Check if any input-fields are empty
+        if(this.checkFields()){ // Check if any input-fields are empty
             let profileService = new ProfileService();
-            console.log("Very najs")
+            console.log("Very najs");
             let user = new User(
                 auth.user_id,
                 document.getElementById("nameInput").value.trim(),

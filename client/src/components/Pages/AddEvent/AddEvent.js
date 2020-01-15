@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
 import {FileService} from "../../../service/FileService";
-
+import {toast} from 'react-toastify';
 
 import Calendar from 'react-calendar-mobile'
 import Navbar from '../../Navbar/Navbar'
@@ -47,6 +47,15 @@ class AddEvent extends Component{
             .catch(Error => console.log(Error));
 
     }
+
+    notifySuccess = () => {
+        toast("Registrering av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
+    };
+
+    notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+
+
 
     changeValue(event){
         this.setState({[event.target.id]: event.target.value})
@@ -387,10 +396,12 @@ class AddEvent extends Component{
                         .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
                         .then(data => this.registerByID(data.insertId))
                         .catch(Error => console.log(Error));
+                    this.notifySuccess();
+                    window.location.hash = "/event/";
                 })
         } else{
-                this.setState({Placeholder: "DU MÅ FYLLE INN DETTE FELTET"})
-
+                this.setState({Placeholder: "Dette feltet må fylles inn"})
+                this.notifyFailure();
             }
         }
 
@@ -427,6 +438,7 @@ class AddEvent extends Component{
         eventService
             .addContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, EventId)
             .catch(Error => console.log(Error));
+
 
     }
 }

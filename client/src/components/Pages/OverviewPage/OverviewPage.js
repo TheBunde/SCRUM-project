@@ -53,33 +53,50 @@ class OverviewPage extends Component{
                     </div>
                 </div>
 
-                <div className={"cardsContainer"}>
+                <div id="overviewPageCardContainer" className={"cardsContainer"}>
 
-                <div className="card overview">
-                    <div className="card-body">
-                        <h5 className="card-title">Legg til arrangement</h5>
-                        <p className="card-text">Legg til de eventene du måtte ønske.</p>
-                        <button className="btn btn-outline-primary" onClick={this.addEvent} role="button">Legg til arrangement</button>
+                    <div id="overviewPageCardContent" className="card overview">
+                        <div className="card-body">
+                            <div id="overviewPageCardTitle">
+                                <h5 className="card-title">Legg til arrangement</h5>
+                            </div>
+                            <div id="overviewPageCardText">
+                                <p className="card-text">Legg til de eventene du måtte ønske.</p>
+                            </div>
+                            <div id="overviewPageCardBtn">
+                                <button className="btn btn-outline-primary" onClick={this.addEvent} role="button">Legg til arrangement</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div className="card overview">
-                    <div className="card-body">
-                        <h5 className="card-title">Se alle eventer</h5>
-                        <p className="card-text">Få en oversikt over alle dine arrangementer.</p>
-                        <button className="btn btn-outline-success" onClick={this.seeEvents} role="button">Se alle arrangement</button>
+                    <div id="overviewPageCardContent" className="card overview">
+                        <div className="card-body">
+                            <div id="overviewPageCardTitle">
+                                <h5 className="card-title">Se alle eventer</h5>
+                            </div>
+                            <div id="overviewPageCardText">
+                                <p className="card-text">Få en oversikt over alle dine arrangementer.</p>
+                            </div>
+                            <div id="overviewPageCardBtn">
+                                <button className="btn btn-outline-success" onClick={this.seeEvents} role="button">Se alle arrangement</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div className="card overview">
-                    <div className="card-body">
-                        <h5 className="card-title">Vis profil</h5>
-                        <p className="card-text">Vil du endre profilen din kan du gjøre det her.</p>
-                        <a className="btn btn-outline-warning" href={"/#/profile/" + auth.user_id} role="button">Vis profil</a>
+                    <div id="overviewPageCardContent" className="card overview">
+                        <div className="card-body">
+                            <div id="overviewPageCardTitle">
+                                <h5 className="card-title">Vis profil</h5>
+                            </div>
+                            <div id="overviewPageCardText">
+                                <p className="card-text">Vil du endre profilen din kan du gjøre det her.</p>
+                            </div>
+                            <div id="overviewPageCardBtn">
+                                <a className="btn btn-outline-warning" href={"/#/profile/" + auth.user_id} role="button">Vis profil</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-            </div>
 
 
                 <Footer />

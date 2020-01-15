@@ -277,10 +277,11 @@ app.get("/event/archived", (req, res) => {
     });
 });
 
-app.put("/event/:eventID/archived", (req, res) => {
-    console.log('/event: fikk request fra klient');
-    eventDao.updateFiled(req.body, (status, data) => {
-        console.log(data);
+
+app.put('/event/:eventID/archived', (req, res) => {
+    console.log('/annonse/:eventID/archived: fikk request fra klient');
+    console.log(req.params.eventID);
+    eventDao.updateFiled(req.params.eventID, (status, data) => {
         res.status(status);
         res.json(data);
     });
@@ -364,6 +365,20 @@ app.delete('/event/:id', (req, res) => {
         res.status(status);
         res.json(data);
     });
+});
+
+app.get("/category/:id", (req, res) =>{
+    eventDao.getCategoryFromEvent(req.params.id, (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
+app.get("/contactinfo/:id", (req, res) => {
+    eventDao.getContactinfoForEvent(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
 });
 
 let server = app.listen(8080);

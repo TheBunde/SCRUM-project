@@ -6,6 +6,7 @@
 #profileContainer{
     text-align: center;
     padding-top: 50px;
+<<<<<<< HEAD
     width: 60%;
     margin: auto;
     display: block;
@@ -50,6 +51,9 @@
 
 .showProfileLine{
     border: 2px solid green;
+=======
+    min-height: 100vh;
+>>>>>>> 7b7211b1044c9ed8587b3d5989b7368dc742dc2f
 }
 
 #ShowProfileText{
@@ -59,6 +63,9 @@
 #ShowProfileBtn{
     padding: 10px 0 10px 0;
 }
+
+
+
 
 
 

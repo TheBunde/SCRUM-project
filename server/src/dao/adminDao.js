@@ -2,6 +2,7 @@ const Dao = require("./dao.js");
 
 module.exports = class adminDao extends Dao{
 
+
     updateUser(userID, name, callback){
         super.query("UPDATE User SET name=? WHERE user_id=?", [name, userID], callback);
     }
@@ -38,15 +39,16 @@ module.exports = class adminDao extends Dao{
         super.query("UPDATE User SET role_id=? WHERE user_id=?", [parseInt(roleId), parseInt(userID)], callback);
     }
 
-    deleteUser(userID, callback){
-        super.query("DELETE FROM User WHERE user_id=?", [userID], callback);
-    }
-
     approveUser(userID, callback){
         super.query("UPDATE User SET approved=1 WHERE user_id=?", [userID], callback);
+    }
+
+    deleteUser(userID, callback){
+        super.query("DELETE FROM User WHERE user_id=?", [userID], callback);
     }
 
     disapproveUser(userID, callback){
         super.query("UPDATE User SET approved=0 WHERE user_id=?", [userID], callback);
     }
+
 };

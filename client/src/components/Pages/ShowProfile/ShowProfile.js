@@ -11,6 +11,7 @@ import { User} from "../EditProfile/EditProfile";
 import Navbar from "../../Navbar/Navbar";
 import Back from "../../Back/Back";
 import {authenticate, auth} from "../../../service/UserService";
+import Footer from "../../Footer/Footer";
 
 const history = createHashHistory();
 
@@ -61,18 +62,7 @@ class ShowProfile extends Component {
                 <div id="profileContainer">
                     <h1>Min profil</h1>
 
-                    <div className={"pbHolder"}/>
 
-                    <div className={"row"}>
-
-                        <div className={"col-sm-6"}>
-                            <h5>Brukernavn: </h5>
-                        </div>
-
-                        <div className={"col-sm-6"}>
-
-                        </div>
-                    </div>
 
 
                     <div id="ShowProfileButtonDiv">

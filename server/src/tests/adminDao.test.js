@@ -140,7 +140,7 @@ test("get Role", done =>{
         console.log(
             "Test getRole callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data[0].role_id).toBe(3);
+        expect(data[0]).toBe(3);
         done();
     }
 

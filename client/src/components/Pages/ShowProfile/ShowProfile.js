@@ -56,27 +56,41 @@ class ShowProfile extends Component {
     render() {
         return (
 
-            <div className={"profilePageWrapper"}>
-                <Navbar/>
-                <Back/>
-                <div id="profileContainer">
-                    <h1>Min profil</h1>
+            auth.user_id === this.props.match.params.userID ?
+                <div>
+                    <Navbar/>
+                    <Back/>
+                    <div id="ShowProfileDiv">
+                        <h1>Min profil</h1>
+                        <div id="ShowProfileText">
 
-
-
-
-                    <div id="ShowProfileButtonDiv">
-                        <div id="ShowProfileBtn">
-                            <button type="button" className="btn btn-info btn-lg"
-                                    onClick={() => this.editProfile(this.user_id)}>Endre profil
-                            </button>
+                            <div id="ShowProfileLine">
+                                <h4 id="h4">Brukernavn: </h4> <h5 id="h5">{this.state.user.name}</h5>
+                            </div>
+                            <div id="ShowProfileLine">
+                                <h4 id="h4">tlf: </h4><h5 id="h5">{this.state.user.phone}</h5>
+                            </div>
+                            <div id="ShowProfileLine">
+                                <h4 id="h4">E-mail: </h4><h5 id="h5">{this.state.user.email}</h5>
+                            </div>
                         </div>
 
+
+                        <div id="ShowProfileButtonDiv">
+                            <div id="ShowProfileBtn">
+                                <button type="button" className="btn btn-info btn-lg" onClick={() => this.editProfile(this.user_id)}>Endre profil</button>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
-                <Redirect to={"/profile/" + auth.user_id}/>
-            </div>
-        );
+            : <Redirect to={"/profile/" + auth.user_id } />
+
+        )
+    }
+
+    editProfile(id){
+        history.push("/profile/"+ id + "/edit")
     }
 }
 

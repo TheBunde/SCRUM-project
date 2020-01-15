@@ -8,8 +8,8 @@ export class User {
     email;
     phone;
     password;
-    approved;
     roleid;
+    approved;
 
     constructor(user_id, name, email, phone, password,roleId, approved) {
         this.user_id = user_id;
@@ -77,7 +77,16 @@ export class UserService {
     getHash(email) {
         return Axios.get("http://" + ipAdress + ":8080/validate/" + email);
     }
-}
 
+    updatePassword(email, password, newPassword, user_id){
+        console.log("User service: " + email);
+        return Axios.put("http://localhost:8080/user/" + user_id + "/edit/password", 
+        {
+            "email": email,
+            "password": password,
+            "newPassword": newPassword
+        });
+    }
+}
 
 export default UserService;

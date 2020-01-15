@@ -185,15 +185,16 @@ class EventPage extends Component {
                                         <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={this.formatDate(event.date)} place={event.place}/>
                                     </div>
                                 ))}
-                                <div id="eventPageFetchMoreEventsButton">
-                                    {this.state.shownEvents.length > this.state.length &&
-                                    <div>
-                                        <button type="button" className="btn btn-light"
-                                                onClick={() => this.setState({length: this.state.length + 6})}>Last inn flere arrangementer
-                                        </button>
-                                    </div>
-                                    }
+
+                            </div>
+                            <div id="eventPageFetchMoreEventsButton">
+                                {this.state.shownEvents.length > this.state.length &&
+                                <div>
+                                    <button type="button" className="btn btn-light"
+                                            onClick={() => this.setState({length: this.state.length + 6})}>Last inn flere arrangementer
+                                    </button>
                                 </div>
+                                }
                             </div>
                         </div>
                     </div>

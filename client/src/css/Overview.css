@@ -71,3 +71,33 @@
 #OverviewButtonsLogOut button{
     width: 100px;
 }
+
+@media only screen and (max-width: 800px){
+    #overviewPageCardContainer{
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas: "overviewPageCardTitle"
+                             "overviewPageCardText"
+                             "overviewPageCardBtn";
+        margin: auto;
+    }
+
+    #overviewPageCardContent{
+        margin-bottom: 25px;
+    }
+
+    #overviewPageCardText{
+        padding-bottom: 3px;
+    }
+
+    #overviewPageCardContent .card-body{
+        text-align: center;
+        padding: 10px 0 10px 0;
+        margin: 0 auto 0 auto;
+        width: 90%;
+    }
+
+    #logoutBtn{
+        margin: 20px auto 30px auto;
+    }
+}

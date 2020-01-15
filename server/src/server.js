@@ -409,5 +409,19 @@ app.get("/contactinfo/:id", (req, res) => {
     })
 });
 
+app.get("/tickets/:id", (req, res)=>{
+    eventDao.getTicketById(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.get("/event/tickets/:id", (req, res) =>{
+    eventDao.getTicketFromEvent(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
 let server = app.listen(8080);
 

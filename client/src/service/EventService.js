@@ -75,7 +75,11 @@ class EventService{
     }
 
     getCategoryFromEvent(eventID){
-        return axios.get("http://localhost:8080/category:" + eventID).then(response => response.data[0]);
+        return axios.get("http://localhost:8080/category/" + eventID).then(response => response.data[0]);
+    }
+
+    getContactinfoForEvent(eventID){
+        return axios.get("http://localhost:8080/contactinfo/" + eventID).then(response => response.data[0]);
     }
 }
 

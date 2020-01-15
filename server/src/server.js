@@ -353,5 +353,12 @@ app.get("/category/:id", (req, res) =>{
     });
 });
 
+app.get("/contactinfo/:id", (req, res) => {
+    eventDao.getContactinfoForEvent(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
 let server = app.listen(8080);
 

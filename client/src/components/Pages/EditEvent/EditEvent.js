@@ -68,10 +68,14 @@ class EditEvent extends Component{
             .then(categories => this.setState({Categories: categories}))
             .catch(Error => console.log(Error));
 
+        eventService
+            .getContactinfoForEvent(this.props.match.params.id)
+            .then(data => this.updateContactInfo(data))
+            .catch(Error => console.log(Error))
     }
 
     updateCategory(data){
-        this.setState({Category: data[0]})
+        this.setState({Category: data.category_id})
     }
 
     updateEventInfo(data){
@@ -89,8 +93,11 @@ class EditEvent extends Component{
     }
 
     updateContactInfo(data){
+        console.log(data);
+        this.setState({ContactName: data.name});
+        this.setState({ContactPhone: data.phone});
+        this.setState({ContactEmail: data.email});
     }
-
 
     render() {
         return (

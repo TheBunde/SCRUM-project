@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-
+import FontAwesome from 'react-fontawesome'
+import 'font-awesome/css/font-awesome.min.css'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 import "../../../css/EventView.css"
 import {eventService} from '../../../service/EventService'
 import { createHashHistory } from 'history';
-import eventViewMap from '../../Map/eventViewMap/eventViewMap'
+
 
 const history = createHashHistory();
 
@@ -26,7 +27,18 @@ class EventView extends Component{
             filed: "",
             pending: "",
             img_url: "",
-            description: ""
+            description: "",
+            event_tickets: [
+                {
+                name: "Standard",
+                price: 800,
+                number: 50
+                },
+                {
+                name: "Gratis",
+                price: 0,
+                number: 500
+                }]
         }
     }
 
@@ -55,12 +67,20 @@ class EventView extends Component{
             filed: events[0].filed,
             pending: events[0].pending,
             img_url: events[0].img_url,
-            description: events[0].description}))
+            description: events[0].description,
+            category_name: events[0].category_name}))
             .catch(error => console.error(error.message));
     }
+
+    
         
 
     render() {
+
+        function mapLocation(place) {
+            return place.trim(" ,");
+        }
+
         return (
             <div>
                 <Navbar />
@@ -68,7 +88,6 @@ class EventView extends Component{
                     <div id="eventViewContainer">
                         <div id="eventViewInnerContainer">
                             <div id="eventViewImageDiv">
-                                <img src={this.state.img_url} alt="Card image cap" />
                             </div>
                             <div id="eventViewTitle">
                                 <h1>{this.state.name}</h1>
@@ -76,12 +95,22 @@ class EventView extends Component{
                             </div>
                             <div id="eventViewInfoBox">
                                 <div class="card" id="eventViewInfoBoxCard">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Sted: {this.state.place}</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">Dato: {this.formatDate(this.state.date)}</h6>
-                                        
+                                    <div class="card-body" id="eventViewInfoBoxCardGridContainer">
+                                        <div id="eventViewInfoBoxCardGridTitle">
+                                            <h5 class="card-title">Sted: {this.state.place}</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">Dato: {this.formatDate(this.state.date)}</h6>
+                                        </div>
+                                        <div id="eventViewInfoBoxCardGridCategoryIcon">
+                                            <button type="button" className="btn btn-outline-dark" disabled="true">{this.state.category_name}</button>
+                                        </div>
+
                                         <div id="eventViewInfoBoxMap">
-                                            <eventViewMap />
+                                            <div class="mapouter">
+                                                <div class="gmap_canvas">
+                                                    <iframe width="250" height="250" id="gmap_canvas" src={"https://maps.google.com/maps?q=" + mapLocation(this.state.place) + "%2C%20Trondheim&t=&z=15&ie=UTF8&iwloc=&output=embed"} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                                    <a href="https://www.embedgooglemap.net/blog/nordvpn-coupon-code/"></a>
+                                                </div>
+                                            </div>
                                         </div>
                                         
                                         <div id="eventViewButtons">
@@ -89,58 +118,80 @@ class EventView extends Component{
                                                 <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Back</button>
                                             </div>
 
+                                            <div id="eventViewEdit">
+                                                <button type="button" className="btn btn-outline-primary">Edit</button>
+                                            </div>
+
                                             <div id="eventViewArchive">
                                                 <button type="button" className="btn btn-outline-primary">Archive</button>
                                             </div>
 
-                                            <div id="eventViewEdit">
-                                            <button type="button" className="btn btn-outline-primary">Edit</button>
-                                            </div>
-
-                                            <div>
-                                                <p>
-                                                    <button
-                                                        className="btn delete btn-outline-danger"
-                                                        type="button"
-                                                        data-toggle="collapse"
-                                                        data-target="#collapseDelete"
-                                                        aria-expanded="false"
-                                                        aria-controls="collapseDelete"
-                                                    >
-                                                        Delete
-                                                    </button>
-                                                </p>
-                                                <div className="collapse" id="collapseDelete">
-                                                    <p> Are you sure you want to delete this event?</p>
-                                                    <button className="btn delete btn-danger" type="button" data-toggle="collapse" onClick={() => this.delete(this.state.event_id)}>
-                                                        I am sure
-                                                    </button>
-                                                </div>
+                                            <div id="eventViewArchive">
+                                                <button type="button" className="btn btn-outline-danger" onClick={() => this.delete(this.state.event_id)}>Delete</button>
                                             </div>
                                         </div>
-                                        
-
-
                                     </div>
                                 </div>
-                                
-                                
                             </div>
                                 
                             <div id="eventViewInfo">
-                                <h3>Beskrivelse av arrangementet</h3>
-                                <p>{this.state.description}</p>
-                                
-                                <h3>Personnell</h3>
-                                <p>{this.state.personnel}</p>
-                                
-                                <h3>Kategori</h3>
-                                <p>{this.state.category_id}</p>
+                                <div>
+                                    <h3>Beskrivelse</h3>
+                                    <p>{this.state.description}</p>
+                                </div>
+
+                                <div>
+                                    <h3>Kategori</h3>
+                                    
+                                </div>
                                 
                                 <div id="eventViewArtists">
-                                            <h3>Artister</h3>
+                                    <h3>Artister</h3>
+                                    <p>{this.state.artists}</p>
+                                </div>
 
-                                        </div>
+                                <div id="eventViewInfoTickets">
+                                    <h3>Billettyper</h3>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Pris</th>
+                                                <th scope="col">Antall</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {this.state.event_tickets.map(ticket => 
+                                            <tr>
+                                                <th scope="row" width="60">{ticket.name}</th>
+                                                <td width="30">{ticket.price}</td>
+                                                <td width="30">{ticket.number}</td>
+                                            </tr>)
+                                        }
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div>
+                                    <h3>Personnell</h3>
+                                    <button id="eventViewInfoDownloadButtons" class="btn"><i className="fa fa-download"></i> Download</button>
+                                </div>
+
+                                <div>
+                                    <h3>Teknisk rider</h3>
+                                    <button id="eventViewInfoDownloadButtons" class="btn"><i className="fa fa-download"></i> Download</button>
+                                </div>
+
+                                <div>
+                                    <h3>Hospitality rider</h3>
+                                    <button id="eventViewInfoDownloadButtons" class="btn"><i className="fa fa-download"></i> Download</button>
+                                </div>
+
+                                <div>
+                                    <h3>Kontrakt</h3>
+                                    <button id="eventViewInfoDownloadButtons" class="btn"><i className="fa fa-download"></i> Download</button>
+                                </div>
+
                             </div>
                         </div>
                     </div>

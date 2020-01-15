@@ -9,9 +9,10 @@
 }
 
 #links{
-    padding-top: 50px;
+    padding:50px 50px 0 50px ;
 }
 
-#logos{
-    padding:0 10px 0 10px;
+#link{
+    display: inline;
+    padding: 0 10px 0 10px;
 }

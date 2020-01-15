@@ -22,19 +22,26 @@ class About extends Component{
                         Kos deg med oversikt og kommunikasjon.
                     </p>
                     <div id="links">
-                        <a id="logos" href="https://www.sukkerhuset.no/">
-                            <img alt="Sukkerhuset" src="http://pixelartmaker.com/art/73dca4582922b97.png"
-                                 width="80" height="80"/>
-                        </a>
-                        <a id="logos" href="https://www.facebook.com/Sukkerhuset/">
-                            <img alt="Facebook logo" src="https://www.facebook.com/images/fb_icon_325x325.png"
-                                 width="40" height="40"/>
-                        </a>
-                        <a id="logos" href="https://www.instagram.com/sukkerhuset/">
-                            <img alt="Istagram logo" src="http://vollgard.no/wp-content/uploads/2016/02/instagram-logo-vector-png-7-300x294.png"
-                                 width="40" height="40"/>
-                        </a>
+                        <div id="link">
+                            <a id="logos" href="https://www.sukkerhuset.no/">
+                                <img alt="Sukkerhuset" src="https://uploads-ssl.webflow.com/5de46d09d41c9b2ee3cf98ab/5de78539524e509d2af37698_favicon-new.png"
+                                     width="30" height="30"/>
+                            </a>
+                        </div>
+                        <div id="link">
+                            <a id="logos" href="https://www.facebook.com/Sukkerhuset/">
+                                <img alt="Facebook logo" src="https://www.facebook.com/images/fb_icon_325x325.png"
+                                     width="30" height="30"/>
+                            </a>
+                        </div>
+                        <div id="link">
+                            <a id="logos" href="https://www.instagram.com/sukkerhuset/">
+                                <img alt="Istagram logo" src="http://vollgard.no/wp-content/uploads/2016/02/instagram-logo-vector-png-7-300x294.png"
+                                     width="30" height="30"/>
+                            </a>
+                        </div>
                     </div>
+
                 </div>
 
                 <div id="aboutEventViewMap">

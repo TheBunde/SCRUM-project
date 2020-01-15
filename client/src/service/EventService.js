@@ -71,6 +71,10 @@ class EventService{
     updateFiled(eventID){
         return axios.get("http://localhost:8080/event/" + eventID + "/archived").then(response => response.data);
     }
+
+    getCategoryFromEvent(eventID){
+        return axios.get("http://localhost:8080/category:" + eventID).then(response => response.data[0]);
+    }
 }
 
 export let eventService = new EventService();

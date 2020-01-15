@@ -143,13 +143,6 @@
 #eventViewInfoBoxCardGridContainer{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: 
-                ""
-            ;
-}
-
-#eventViewInfoBoxCardGridTitle{
-    grid-area: titleAndDate;
 }
 
 @media only screen and (max-width: 800px) {

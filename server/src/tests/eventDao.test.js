@@ -171,7 +171,7 @@ test("test: getCategoryFromEvent()", done =>{
         console.log(
             "Test getCategoryFromEvent for event 1 eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data.length).toBe(2);
+        expect(data.length).toBe(1);
         done();
     }
 

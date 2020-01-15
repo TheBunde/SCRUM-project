@@ -1,5 +1,7 @@
 import axios from 'axios';
-let ipAdress = "10.24.3.122";
+//let ipAdress = "10.24.3.122";
+let ipAdress = "localhost";
+
 export class event {
     constructor(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
         this.name = name;
@@ -75,19 +77,19 @@ class EventService{
     }
 
     getCategoryFromEvent(eventID){
-        return axios.get("http://localhost:8080/category/" + eventID).then(response => response.data[0]);
+        return axios.get("http://" + ipAdress + ":8080/category/" + eventID).then(response => response.data[0]);
     }
 
     getContactinfoForEvent(eventID){
-        return axios.get("http://localhost:8080/contactinfo/" + eventID).then(response => response.data[0]);
+        return axios.get("http://" + ipAdress + ":8080/contactinfo/" + eventID).then(response => response.data[0]);
     }
 
     getTicketById(ticketID){
-        return axios.get("http://localhost:8080/tickets/" + ticketID).then(response => response.data[0]);
+        return axios.get("http://" + ipAdress + ":8080/tickets/" + ticketID).then(response => response.data[0]);
     }
 
     getTicketFromEvent(eventID){
-        return axios.get("http://localhost:8080/event/tickets/" + eventID).then(response => response.data);
+        return axios.get("http://" + ipAdress + ":8080/event/tickets/" + eventID).then(response => response.data);
     }
 }
 

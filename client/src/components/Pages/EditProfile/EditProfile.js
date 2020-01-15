@@ -10,6 +10,7 @@ import {toast} from 'react-toastify';
 
 import Navbar from "../../Navbar/Navbar";
 import Back from "../../Back/Back";
+import Footer from "../../Footer/Footer";
 
 const history = createHashHistory();
 
@@ -173,6 +174,7 @@ class EditProfile extends Component{
                     <button type="button" className="btn btn-dark btn-lg" onClick={this.save}>Lagre endringer</button>
 
                 </div>
+                <Footer/>
             </div>
                 : <Redirect to={"/profile/" + auth.user_id} />
 

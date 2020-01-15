@@ -140,12 +140,12 @@ test("get Role", done =>{
         console.log(
             "Test getRole callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        console.log(data[0]);
-        expect(data[0]).toBe(3);
+        console.log("SE ME" + data[0].role_id);
+        expect(data[0].role_id).toBe(1);
         done();
     }
 
-    adminDao.getRole(3, callback);
+    adminDao.getRole("admin", callback);
 });
 
 /*

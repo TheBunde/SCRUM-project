@@ -1,5 +1,5 @@
 import axios from "axios";
-let ipAdress = "localhost"
+let ipAdress = "localhost";
 
 export class FileService {
     uploadImage(image) {
@@ -13,4 +13,6 @@ export class FileService {
         };
         return axios.post(url, formData, config);
     }
+
+
 }

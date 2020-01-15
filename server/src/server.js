@@ -3,11 +3,19 @@ let express = require("express");
 let mysql = require("mysql");
 let app = express();
 let bodyParser = require("body-parser");
+let urlencodedParser = bodyParser.urlencoded({ extended: false });
+
 const UserDao = require("./dao/UserDao");
 const dotenv = require('dotenv');
 let secret =  require("./config.json");
 dotenv.config();
 let multer = require("multer");
+const debug = require('debug')('myapp:server');
+let path = require("path");
+const serveIndex = require("serve-index");
+
+
+
 
 let bcrypt = require("bcrypt");
 let saltRounds = 10;
@@ -61,32 +69,34 @@ app.use("/api/", (req, res, next) => {
 
  */
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, '../../client/src/img/uploads');
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        console.log(__dirname + '/../../..');
+        cb(null, path.join(__dirname, "../../public/uploads/"));
     },
-    filename: function (req, file, cb) {
-        cb(null , file.originalname);
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
     }
 });
 
-let upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+//app.use(express.static(path.join(__dirname;
+app.use('/ftp', express.static('/public'), serveIndex('public', {'icons': true}));
 
-app.post("/upload", upload.single("file"), (req, res) => {
-    if(!req.file) {
-        console.log("No file received");
-        return res.send({
-            success: false
-        });
-    } else {
-        console.log("File received");
-        console.log(req.file.path);
-        return res.send({
-            filePath: req.file.path,
-            success: true
-        })
-    }
+
+app.post('/upload', upload.single('file'), function(req,res) {
+    console.log(req.file);
+    debug(req.file);
+    console.log('storage location is ', req.hostname +'/' + req.file.path);
+    return res.send(req.file.filename);
 });
+
+app.get('/image/:imagePath', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../public/uploads/' + req.params.imagePath));
+});
+
 
 
 app.post("/api/posts", verifyToken, (req,res) => {

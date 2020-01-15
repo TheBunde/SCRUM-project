@@ -47,6 +47,7 @@ class EditProfile extends Component{
         const pw = this.state.user.password;
         const role = this.state.user.roleid;
         const approved = this.state.user.approved
+        console.log(name, email, phone, pw, role, approved);
         
         if(
             name === null || name === "",
@@ -151,7 +152,7 @@ class EditProfile extends Component{
                             </div>
 
                             <div className="col-sm-4">
-                                <button type="button" className="btn btn-primary" onCLick={this.changePW}>Endre passord</button>
+                                <button type="button" className="btn btn-primary" onClick={this.changePW}>Endre passord</button>
                                 <br/>
                             </div>
 
@@ -168,6 +169,7 @@ class EditProfile extends Component{
     }
 
     changePW = (e) => {
+        console.log("aaaaaaaa");
         let userService = new UserService();
 
         const email = this.state.user.email;
@@ -175,21 +177,30 @@ class EditProfile extends Component{
         const oldPWInput = document.getElementById("oldPasswordInput").value;
         const newPWInput = document.getElementById("newPasswordInput").value;
 
-        userService.updatePassword(email, oldPWInput, newPWInput, user_id);
+        if( // If any of the fields are empty, prompt the user to fill them in before proceeding
+            oldPWInput === null || oldPWInput === "",
+            newPWInput === null || newPWInput === ""
+        ){
+            console.log("Du må fylle ut feltene!")
+            return false;
+        } else{
+            userService.updatePassword(email, oldPWInput, newPWInput, user_id);
+        }
     }
 
     save = (e) => {
-        
-        if(this.checkFields === true){
-            let profileService = new profileService();
-
+        console.log("Almost nice")
+        if(this.checkFields){ // Check if any input-fields are empty
+            let profileService = new ProfileService();
+            console.log("Very najs")
             let user = new User(
+                auth.user_id,
                 document.getElementById("nameInput").value.trim(),
                 document.getElementById("emailInput").value.trim(),
                 document.getElementById("tlfInput").value.trim(),
                 this.state.user.password,
                 this.state.user.roleid,
-                this.state.user.approved
+                this.state.user.approved,
             );
             console.log(user);
             profileService.updateUser(user);

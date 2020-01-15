@@ -7,8 +7,8 @@ export class User {
     email;
     phone;
     password;
-    approved;
     roleid;
+    approved;
 
     constructor(user_id, name, email, phone, password,roleId, approved) {
         this.user_id = user_id;
@@ -78,7 +78,13 @@ export class UserService {
     }
 
     updatePassword(email, password, newPassword, user_id){
-            return Axios.put("http://localhost:8080/user/" + user_id + "/edit/password", email, password, newPassword);
+        console.log("User service: " + email);
+        return Axios.put("http://localhost:8080/user/" + user_id + "/edit/password", 
+        {
+            "email": email,
+            "password": password,
+            "newPassword": newPassword
+        });
     }
 }
 

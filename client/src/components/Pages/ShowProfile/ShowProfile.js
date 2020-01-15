@@ -82,13 +82,12 @@ class ShowProfile extends Component{
                     </div>
 
                 </div>
-            : <Redirect to={"/profile/" +auth.user_id } />
+            : <Redirect to={"/profile/" + auth.user_id } />
 
         )
     }
 
     editProfile(id){
-
         history.push("/profile/"+ id + "/edit")
     }
 

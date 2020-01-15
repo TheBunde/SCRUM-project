@@ -28,4 +28,15 @@ test("that we can register a user", done => {
     );
 });
 
+test("get the approved user", done => {
+    function callback(status, data) {
+        console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
+        expect(data.affectedRows).toBe(1);
+        done();
+    }
+    userDao.getApprovedUser(
+        "test1@tester.no", callback
+    );
+});
+
 

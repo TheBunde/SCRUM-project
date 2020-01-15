@@ -22,8 +22,8 @@ class About extends Component{
                     </p>
                     <div id="links">
                         <a id="logos" href="https://www.sukkerhuset.no/">
-                            <img alt="Sukkerhuset" src="https://uploads-ssl.webflow.com/5de46d09d41c9b2ee3cf98ab/5de46e3fd41c9b83f0cf9bd0_sukkerhuset-logo-refined-black.svg"
-                                 width="40" height="40"/>
+                            <img alt="Sukkerhuset" src="http://pixelartmaker.com/art/73dca4582922b97.png"
+                                 width="80" height="80"/>
                         </a>
                         <a id="logos" href="https://www.facebook.com/Sukkerhuset/">
                             <img alt="Facebook logo" src="https://www.facebook.com/images/fb_icon_325x325.png"

@@ -10,7 +10,7 @@ class EditEvent extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            date: new Date(),
+            date: new Date(), dateChosenHour: 20, dateChosenMin: 0,
             Name: "", Description: "", Place: "", Artists: "",
             ContactName: "", ContactPhone: "", ContactEmail: "",
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
@@ -59,6 +59,11 @@ class EditEvent extends Component{
             .catch(Error => console.log(Error));
 
         eventService
+            .getTicket()
+            .then(data => this.setState({Tickets: data}))
+            .catch(Error => console.log(Error));
+
+        eventService
             .getCategoryFromEvent(this.props.match.params.id)
             .then(data => this.updateCategory(data))
             .catch(Error => console.log(Error));
@@ -79,6 +84,12 @@ class EditEvent extends Component{
     }
 
     updateEventInfo(data){
+        let date = data[0].date.split("T");
+        let time = date[1].split(":");
+        this.setState({dateChosenHour: time[0]});
+        this.setState({dateChosenMin: time[1]});
+
+        this.setState({date: new Date(date[0])});
         this.setState({Name: data[0].name});
         this.setState({Description: data[0].description});
         this.setState({Place: data[0].place});
@@ -93,7 +104,6 @@ class EditEvent extends Component{
     }
 
     updateContactInfo(data){
-        console.log(data);
         this.setState({ContactName: data.name});
         this.setState({ContactPhone: data.phone});
         this.setState({ContactEmail: data.email});
@@ -104,7 +114,7 @@ class EditEvent extends Component{
             <div>
                 <Navbar/>
                 <div id="EventInputContainer">
-                    <h2 id ="EventInputHeader">Registrering av nytt arrangement</h2>
+                    <h2 id ="EventInputHeader">Redigere arrangement</h2>
                     <div id = "EventInputFields">
                         <p id = "EventInputLabels">Navn på arrangementet:</p>
                         <input type="text"
@@ -130,7 +140,7 @@ class EditEvent extends Component{
                         <div id="EventDateInput">
                             <select className="form-control"
                                     id ="dateHourInput"
-                                    defaultValue={20}
+                                    defaultValue={this.state.dateChosenHour}
                             >
                                 {this.state.DateHour.map(year =>
                                     <option
@@ -144,6 +154,7 @@ class EditEvent extends Component{
                             </select>
                             <select className="form-control"
                                     id ="dateMinInput"
+                                    defaultValue={this.state.dateChosenMin}
                             >
                                 {this.state.DateMin.map(year =>
                                     <option
@@ -273,8 +284,46 @@ class EditEvent extends Component{
                             )};
                         </select>
                     </div>
+                    <p id = "EventInputTitle">Billettyper:</p>
+                    <div id ="EventInputTicketContainer">
+                        {this.state.Tickets.map(tickets =>
+                            <div id = "EventInputTicketBoxes">
+                                <div id="EventInputCheckboxes">
+                                    <div id ="EventTicketInnerLabel">
+                                        <label id="EventTicketLabels">{tickets.name + " billetter"}</label>
+                                    </div>
+                                    <div id ="EventTicketInnerCheckbox">
+                                        <input type ="checkbox"
+                                               id ={tickets.name + "TicketBox"}
+                                               name ={tickets.name + "TicketAmount"}
+                                               onChange={this.changeBox}
+                                        />
+                                    </div>
+                                </div>
+                                <div id ="EventTicketAmount">
+                                    <input type = "number"
+                                           id={tickets.name +"TicketAmount"}
+                                           className ="form-control"
+                                           placeholder={"Antall " + tickets.name + " billetter"}
+                                           value = {this.state[tickets.name + "TicketAmount"]}
+                                           disabled = {!this.state[tickets.name + "TicketBox"]}
+                                           onChange={this.changeValue}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                    <div id = "EventInputButton">
+                        <button type="button"
+                                className="btn btn-outline-primary btn-lg"
+                                onClick={this.registerEvent}
+                                disabled={this.formValidation()}
+                        >
+                            Registrer arrangement
+                        </button>
+                    </div>
+                    <Footer/>
                 </div>
-                <Footer />
             </div>
         );
     }

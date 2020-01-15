@@ -43,7 +43,6 @@ class OverviewPage extends Component{
             <div class="pageSetup">
                 <Navbar/>
 
-
                 <div className="jumbotron jumbotron-fluid">
                     <div className="container">
                         <h1 id={"jumbotronTitle"} className="display-4">Skap harmoni.</h1>
@@ -52,6 +51,7 @@ class OverviewPage extends Component{
                         <p className="lead"></p>
                     </div>
                 </div>
+                <div id="OverviewDiv">
 
                 <div id="overviewPageCardContainer" className={"cardsContainer"}>
 
@@ -96,8 +96,8 @@ class OverviewPage extends Component{
                             </div>
                         </div>
                     </div>
-
-            </div>
+                </div>
+                </div>
                 <Footer />
             </div>
         );

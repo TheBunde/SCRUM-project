@@ -1,7 +1,6 @@
-/*
+
 let mysql = require("mysql");
-*/
-/*
+
 const UserDao = require("../dao/UserDao.js");
 const runsqlfile = require("./runsqlfile");
 

@@ -367,5 +367,12 @@ app.delete('/event/:id', (req, res) => {
     });
 });
 
+app.put("/event/:id/edit", (req, res) =>{
+    eventDao.updateEvent(req.params.id, req.body, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
 let server = app.listen(8080);
 

@@ -29,7 +29,7 @@ class EventPage extends Component {
         this.state = {
             loadedEvents: [],
             shownEvents: [],
-            length: 2
+            length: 4
         }
         this.handleSearch = this.handleSearch.bind(this);
     }

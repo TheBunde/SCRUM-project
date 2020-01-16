@@ -99,7 +99,6 @@ class EditEvent extends Component{
 
         this.setState({dateChosenHour: hour});
         this.setState({dateChosenMin: min});
-
         this.setState({date: new Date(date[0])});
         this.setState({Name: data[0].name});
         this.setState({Description: data[0].description});
@@ -353,7 +352,29 @@ class EditEvent extends Component{
     }
 
     registerEvent(){
+        if(this.formValidation()){
+            let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg";
+            if (this.state.Picture === "") this.setState({Picture: altPicture});
 
+            let day = this.state.date.getDate();
+            let month = this.state.date.getMonth() + 1;
+            let year = this.state.date.getFullYear();
+            let hour = this.state.dateChosenHour;
+            let min = this.state.dateChosenMin;
+            if (day < 10) {
+                day = "0" + day
+            }
+            if (month < 10) {
+                month = "0" + month
+            }
+            let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
+
+            eventService
+                .updateEvent(this.props.match.params.id, this.state.Name, date, this.state.description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
+                .catch(Error => console.log(Error));
+
+
+        }
     }
 }
 

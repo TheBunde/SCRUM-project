@@ -69,6 +69,22 @@ module.exports = class adminDao extends Dao{
     getTicketFromEvent(eventID, callback){
         super.query("SELECT * FROM Event_Ticket WHERE event_id = ?", [eventID], callback)
     }
+
+    updateEvent(eventID, eventInfo, callback){
+        super.query("UPDATE Event SET name = ?, description = ?, date = ?, place = ?, img_url = ?, artists = ?, tech_rider = ?, hospitality_rider = ?, contract = ?, personnel = ? WHERE event_id = ?", [eventInfo.name, eventInfo.description, eventInfo.date, eventInfo.place, eventInfo.img_url, eventInfo.artists, eventInfo.tech_rider, eventInfo.hospitality_rider, eventInfo.contract, eventInfo.personnel, eventID], callback)
+    }
+
+    updateEventCategory(eventId, categoryId, callback){
+        super.query("UPDATE Event_Category SET category_id = ? WHERE event_id = ?", [categoryId, eventId], callback)
+    }
+
+    updateContactInfo(eventID, contactInfo, callback){
+        super.query("UPDATE Contact_Info SET name = ?, phone = ?, email = ? WHERE event_id = ?", [contactInfo.name, contactInfo.phone, contactInfo.email, eventID], callback)
+    }
+
+    updateEventTicket(eventID, ticketInfo, callback){
+        super.query("UPDATE Event_Ticket SET ticket_category_id = ?, number = ? WHERE event_id = ?", [ticketInfo.ticketID, ticketInfo.amount, eventID], callback)
+    }
 };
 
 function callback2(){

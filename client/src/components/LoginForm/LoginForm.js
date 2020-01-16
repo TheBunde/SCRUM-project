@@ -3,6 +3,7 @@ import "../../css/LoginForm.css";
 import UserService from "../../service/UserService.js"
 import {authenticate} from "../../service/UserService";
 import {NavbarMainPage} from '../Navbar/Navbar.js'
+import {toast} from "react-toastify";
 
 let crypto = require('crypto');
 
@@ -20,6 +21,9 @@ class LoginForm extends Component{
         this.keyPressed = this.keyPressed.bind(this);
     }
 
+    notifyFailure = () => toast("E-post/passord var feil eller så er bruker ikke godkjent", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+
 
     // Submitting the values in state to a validate function to check if email/pw are valid.
     // If so, send the user to the home page/overview page.
@@ -30,12 +34,15 @@ class LoginForm extends Component{
             .then((response) => {
                 console.log("Gikk");
                 console.log("jwt:" + response.data.jwt);
+
                 let token = response.data.jwt;
                 window.localStorage.setItem("token", token);
                 window.location.hash = "/overview";
             })
             .then(authenticate)
             .catch((err) => {
+                this.clearPassword();
+                this.notifyFailure();
                 console.error(err);
             })
 
@@ -46,6 +53,10 @@ class LoginForm extends Component{
         this.setState({
             [e.target.name]: e.target.value 
         });
+    }
+
+    clearPassword = () => {
+        document.getElementById("password-input").value = "";
     }
 
     keyPressed(event){

@@ -29,7 +29,7 @@ class EventPage extends Component {
         this.state = {
             loadedEvents: [],
             shownEvents: [],
-            length: 2
+            length: 4
         }
         this.handleSearch = this.handleSearch.bind(this);
     }
@@ -216,7 +216,10 @@ class EventCard extends Component {
                 <a onClick={() => window.location.href = "#/event/" + this.props.event_id}>
                     <div class="card eventPageEventCard">
                             <img class="card-img-top eventPageEventCardImg" src={"http://localhost:8080/image/" + this.props.img_url} alt="Card image cap" />
+
                             <div class="card-body">
+
+                            <div id="eventPageCardBody" class="card-body">
                                 <h5 class="card-title">{this.props.name}</h5>
                                 <div id="eventPageCardLocation">
                                     {this.props.place}
@@ -224,6 +227,7 @@ class EventCard extends Component {
                                 <div id="eventPageCardDate">
                                     {this.props.date}
                                 </div>
+                            </div>
                             </div>
                     </div>
                 </a>
@@ -234,7 +238,7 @@ class EventCard extends Component {
 
 export default EventPage;
 
-
+/*
 //this.props.date.slice(0, 16).replace("T", " ")
 
 //<div id="eventPageFetchMoreEventsButton">
@@ -246,3 +250,4 @@ export default EventPage;
 //    </div>
 //    }
 //</div>
+*/

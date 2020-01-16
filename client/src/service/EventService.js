@@ -91,6 +91,25 @@ class EventService{
     getTicketFromEvent(eventID){
         return axios.get("http://" + ipAdress + ":8080/event/tickets/" + eventID).then(response => response.data);
     }
+
+    updateEvent(eventID, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
+        let eventInfo = {name: name, date: date, description: description, place: place, artists: artists, tech_rider: tech_rider, hospitality_rider: hospitality_rider, personnel: personnel, img_url: img_url, contract: contract};
+        return axios.put("http://" + ipAdress + ":8080/event/" + eventID + "/edit", eventInfo).then(response => response.data)
+    }
+
+    updateContactInfo(name, phone, email, eventID){
+        let contactInfo = {name: name, phone: phone, email: email};
+        return axios.put("http://" + ipAdress + ":8080/contactInfo/" + eventID, contactInfo).then(response => response.data)
+    }
+
+    updateEventCategory(eventID, categoryID){
+        return axios.put("http://" + ipAdress + ":8080/category/" + eventID, categoryID).then(response => response.data)
+    }
+
+    updateEventTicket(ticketID, eventID, amount){
+        let ticketInfo = {ticketID: ticketID, amount: amount};
+        return axios.put("http://" + ipAdress + ":8080/tickets/" + eventID, ticketInfo).then(response => response.data)
+    }
 }
 
 export let eventService = new EventService();

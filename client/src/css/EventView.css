@@ -1,65 +1,14 @@
-#eventViewBackground{
-    background-color: #212529;
-    min-height: 100vh;
-}
-
-#eventViewContainer{
-    min-height: 100%;
-    padding: 20px;
-    text-align: center;
-    background-color: rgb(61, 61, 75);
-    margin: auto;
-
-}
 
 #eventViewTitle {
-    grid-area: eventViewTitle;
     text-align: center;
     padding-bottom: 20px;
-}
-
-#eventViewInnerContainer{
-    border-radius: 5px;
-    background-color: white;
-    display: grid;
-    grid-template-columns: 1fr 0.7fr 1fr;
-    grid-template-areas:
-            "eventViewImageDiv eventViewImageDiv eventViewImageDiv"
-            "eventViewTitle eventViewTitle eventViewTitle"
-            "eventViewInfo eventViewInfo eventViewInfoBox";
-    text-align: left;
-    padding: 20px 20px 0 20px;
-    margin: auto;
-    min-height: 100vh;
-}
-
-#eventViewInfo{
-    grid-area: eventViewInfo;
-    width: 100%;
-    padding: 10px 10px 30px 20px;
-}
-#eventViewInfo div{
-    padding: 10px 0 10px 0;
+    color: rgb(39, 64, 74);
 }
 
 #eventViewTitleHR{
     width: 20%;
     height: 2px;
-    background-color: rgb(11, 6, 68);
-}
-
-#eventViewImageDiv{
-    grid-area: eventViewImageDiv;
-}
-#eventViewImageDiv img{
-    max-height: 60%;
-    width: 100%;
-    /*object-fit: contain;*/
-    object-fit: cover;
-}
-
-#eventViewInfoBox{
-    grid-area: eventViewInfoBox;
+    background-color: rgb(39, 64, 74);
 }
 
 #eventViewInfoBoxCard{
@@ -86,12 +35,7 @@
     margin: 5px;
 }
 #eventViewTitle h1{
-    margin: 20px auto auto auto;
-}
-
-.table th{
-    padding: 0 0 0 0;
-    margin: 0 0 0 0;
+    margin: auto auto auto;
 }
 
 .mapouter {
@@ -115,7 +59,7 @@
 .gmap_canvas iframe{
     height:100%;
     width:100%;
-    min-height: 200px;
+    min-height: 300px;
     min-width: 100px;
 }
 
@@ -126,7 +70,7 @@
 #eventViewInfoDownloadButtons{
     background-color: rgb(62, 107, 153);
     border: none;
-    color: white;
+    color: rgb(255, 255, 255);
     padding: 6px 10px;
     cursor: pointer;
     font-size: 20px;
@@ -136,71 +80,122 @@
     background-color: rgb(38, 63, 138);
 }
 
-#eventViewInfoBoxCardCategoryIcon button:hover{
-    cursor: auto;
+
+/* ---------------------------------------- */
+
+
+
+#eventViewBackground{
+    min-height: 100%;
+    padding: 20px;
+    text-align: left;
+    background-color: rgb(255, 255, 255);
+
+    display: grid;
+    grid-template-areas: 
+            "title title title"
+            "eventViewImage eventViewImage eventViewInfoBox"
+            "eventViewDescription eventViewDescription eventViewTicketsAndFiles";
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
-@media only screen and (max-width: 800px) {
-    
-    #eventViewContainer{
-        min-height: 100%;
-        padding: 0px;
-        text-align: center;
-        background-color: rgb(61, 61, 75);
-        margin: auto;
-    }
-    
-    #eventViewImageDiv img{
-        width: 100%;
-    }
-
-    #eventViewInfo{
-        padding: 20px;
-    }
-
-    #eventViewInfoBox{
-        width: 100%;
-    }
-    #eventViewButtons button{
-
-    }
-    #eventViewInfoBox{
-        width: 95%;
-        margin: auto;
-    }
-    #eventViewInfoBoxCard{
-        box-shadow: 0 0 0 ;
-    }
+#eventViewImageContainer{
+    grid-area: eventViewImage;
+}
+#eventViewImage{
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    margin: 0px 15px 0 15px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 98%;
+    text-align: center;
+}
+#eventViewImage img{
+    height: 85%;
+    width: 95%;
+    max-height: 500px;
+    max-width: 1000px;
+    /*object-fit: contain;*/
+    object-fit: cover;  
+    margin: auto;  
 }
 
-@Media only screen and (max-width: 480px){
-    #eventViewButtons{
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        margin: auto;
-    }
+#eventViewInfoBoxContainer{
+    grid-area: eventViewInfoBox;
+    margin: 0px 0 0 15px; 
+    max-width: 98%;
+}
+#eventViewInfoBox{
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 98%;
+    border-radius: 5px;
+    background-color: white;
 }
 
-@Media only screen and (max-width: 1080px){
-    #eventViewInnerContainer{
-        border-radius: 0px;
-        background-color: white;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-areas:
-                "eventViewImageDiv"
-                "eventViewTitle"
-                "eventViewInfoBox"
-                "eventViewInfo";
-        text-align: left;
-        padding: 0px;
-        min-height: 100vh;
-    }
+#eventViewDescriptionContainer{
+    grid-area: eventViewDescription;
+}
+#eventViewDescription{
+    background-color: white;
+    width: 100%;
+    margin: 15px;
+    padding: 40px;
+    max-width: 98%;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    border-radius: 5px;
+    min-height: 470px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+#eventViewDescriptionBox{
+    width: 70%;
+    margin: auto;
+}
+#eventViewDescriptionBoxTitle{
+    text-align: center;
+    padding-bottom: 20px;
+}
 
-    #eventViewInfoBox{
-        width: 80%;
-        margin: auto;
-        margin-bottom: 10px;
-    }
+#eventViewFilesContainer{
+}
+#eventViewFiles{
+    background-color: white;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 98%;
+    margin: 15px;
+    border-radius: 5px;
+    min-height: 100px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+#eventViewInfoTicketsContainer{
+}
+#eventViewInfoTickets{
+    padding: 20px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 98%;
+    margin: 15px;
+    border-radius: 5px;
+    min-height: 100px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+#titleEvent{
+    grid-area: title;
+}
+
+#eventViewInfoTicketsAndFilesContainer{
+    grid-area: eventViewTicketsAndFiles;
+    padding-right: 15px;
 }

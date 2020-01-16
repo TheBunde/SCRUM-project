@@ -1,9 +1,44 @@
 #eventPageContainer{
-    padding: 10px 0 0 0;
+    padding: 0 0 0 0;
     margin: auto;
     text-align: center;
-    width: 90%;
+    width: 100%;
     min-height: 90vh;
+    position: relative;
+    background-color: whitesmoke;
+}
+
+#eventPageBanner{
+    color: white;
+    height: 500px;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url("http://cdn.cnn.com/cnnnext/dam/assets/160418163107-nos-alive-music-festival-super-169.jpg");
+    background-size: cover;
+    background-position-y: 500px;
+
+}
+
+#eventPageTitle {
+    margin-top: 150px;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    opacity: 50%;
+    display: inline-block;
+    padding: 30px;
+
+}
+#eventPageTitle h1{
+    color: white;
+    letter-spacing: 7px;
+}
+.eventPageInformation{
+    width: 80%;
+    margin: auto;
+    border: 1px solid lightgrey;
+    background-color: white;
+    z-index: 9;
+    position: relative;
+    top: -50px;
+    box-shadow: 2px 0 9px -1px rgba(0,0,0,0.35);
 }
 
 #eventPageBar{
@@ -23,18 +58,19 @@
 
 
 #eventPageEventTable{
-    width: 80%;
+    width: 90%;
     margin: auto auto 50px auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
 .eventPageEventCard{
     display: grid;
     grid-template-columns: 1fr 2fr;
     margin: 20px;
     height: 200px;
-    width: 430px;
+    width: 440px;
 }
 .eventPageEventCard:hover{
     background-color: rgb(250, 250, 250);

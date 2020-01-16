@@ -6,6 +6,8 @@ import Footer from '../../Footer/Footer'
 import "../../../css/EventView.css"
 import {eventService} from '../../../service/EventService'
 import { createHashHistory } from 'history';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 
 const history = createHashHistory();
@@ -83,7 +85,7 @@ class EventView extends Component{
             return place.trim(" ,");
         }
 
-        /*<img src={"http://localhost:8080/image/" + this.state.img_url} /> */
+
 
         return (
             <div>
@@ -129,8 +131,8 @@ class EventView extends Component{
                                                 <button type="button" className="btn btn-outline-primary" onClick={() => this.archive(this.state.event_id)}>Arkiver</button>
                                             </div>
 
-                                            <div id="eventViewArchive">
-                                                <button type="button" className="btn btn-outline-danger" onClick={() => this.delete(this.state.event_id)}>Slett</button>
+                                            <div className={"btnColumn"}>
+                                                <button id={"deleteBtn"} onClick={() => this.submitEventDeleteButton(this.state.event_id)} type={"button"} className={"btn btn-danger"}>Slett</button>
                                             </div>
                                         </div>
                                     </div>
@@ -197,6 +199,22 @@ class EventView extends Component{
                 <Footer />
             </div>
         );
+    }
+
+    submitEventDeleteButton(id) {
+        confirmAlert({
+            title: 'Bekreftelse av sletting',
+            message: 'Er du sikker på at du vil slette arrangementet?',
+            buttons: [
+                {
+                    label: 'Ja',
+                    onClick : () => this.delete(id)
+                },
+                {
+                    label: 'Nei'
+                }
+            ]
+        });
     }
 
     delete(id){

@@ -55,13 +55,16 @@ class ShowProfile extends Component {
 
     render() {
         return (
-
-            auth.user_id === this.props.match.params.userID ?
+                auth.user_id === this.props.match.params.userID ?
                 <div>
                     <Navbar/>
                     <Back/>
                     <div id="ShowProfileDiv">
                         <h1>Min profil</h1>
+                        <div id="ShowProfilePic">
+                            <img id="ShowProfileProfile" alt="profilePic" src="https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                                 width="250" height="250"/>
+                        </div>
                         <div id="ShowProfileText">
 
                             <div id="ShowProfileLine">
@@ -83,9 +86,9 @@ class ShowProfile extends Component {
                         </div>
                     </div>
 
+                    <Footer/>
                 </div>
             : <Redirect to={"/profile/" + auth.user_id } />
-
         )
     }
 

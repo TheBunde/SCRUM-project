@@ -151,9 +151,7 @@ values ('Metallica metal', 'Metallica kommer til Sukkerhuset!', '2020-01-09 14:3
 
 
 insert into Event_Category(event_id, category_id) values (1,1);
-insert into Event_Category(event_id, category_id) values (1,3);
 insert into Event_Category(event_id, category_id) VALUES (2,2);
-insert into Event_Category(event_id, category_id) values (2,3);
 
 
 insert into Contact_Info( name, phone, email, event_id) values ('Donn team', '1991', 'Donn@linux.OS', 1);

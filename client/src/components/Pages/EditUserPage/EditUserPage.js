@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import Footer from '../../Footer/Footer'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-
+import {UserService} from "../../../service/UserService"
 class EditUserPage extends Component {
 
 
@@ -32,7 +32,8 @@ class EditUserPage extends Component {
                     <div className={"row"}>
                         <div className={"column"}>
                             <div className={"pbContainer"}>
-                                <p>Profilbilde</p>
+                                <img id="EditUserAdminProfile" alt="profilePic" src="https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                                     width="300" height="300"/>
                             </div>
                         </div>
 
@@ -86,7 +87,7 @@ class EditUserPage extends Component {
                                             </div>
                                         </div>
                                         <div className={"btnColumn"}>
-                                            <button id={"deleteBtn"} onClick={() => this.submitDeleteButton()} type={"submit"} className={"btn btn-danger"}>Slett</button>
+                                            <button id={"deleteBtn"} onClick={() => this.submitDeleteButton()} type={"button"} className={"btn btn-danger"}>Slett</button>
                                         </div>
                                     </div>
 
@@ -123,9 +124,7 @@ class EditUserPage extends Component {
     };
 
     deleteUser() {
-        adminService.deleteUser(this.props.match.params.id).then((response) => {
-            window.location.href = "/#/admin/users/"
-        }).catch((error) => console.error(error))
+        adminService.deleteUser(this.props.match.params.id).then((response) => console.log("d")).catch((error) => console.error(error))
     }
 
     handleCheckboxChange() {
@@ -163,7 +162,7 @@ class EditUserPage extends Component {
             buttons: [
                 {
                     label: 'Ja',
-                    onClick : () => this.deleteUser()
+
                 },
                 {
                     label: 'Nei'
@@ -178,10 +177,10 @@ class EditUserPage extends Component {
             console.error(error)
         }));
 
-        adminService.updateName(this.state.name, this.props.match.params.id).then(response => console.log(response)).catch(error => console.error(error))
-        adminService.updateEmail(this.state.email, this.props.match.params.id).then(response => console.log(response)).catch(error => console.error(error))
-        adminService.updatePhone(this.state.phone, this.props.match.params.id).then(response => console.log(response)).catch(error => console.error(error))
+        adminService.updateUser(this.state.name, this.state.email, this.state.phone, this.props.match.params.id).then(response => console.log(response)).catch(error => console.error(error))
+
         {
+
             if (this.state.approved) {
                 adminService.approveUser(this.props.match.params.id).then((response) => console.log(response)).catch((error) => {
                     console.error(error)

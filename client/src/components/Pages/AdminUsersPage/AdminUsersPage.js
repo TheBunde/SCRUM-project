@@ -48,7 +48,7 @@ class AdminUsersPage extends Component {
                                 <p>Godkjent</p>
                             </div>
                             <div className="col-sm-2">
-                                <p>Rediger/Slett</p>
+                                <p>Rediger</p>
                             </div>
                         </div>
                     </div>

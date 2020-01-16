@@ -19,6 +19,9 @@ import ShowProfile from "./components/Pages/ShowProfile/ShowProfile";
 import EditProfile from "./components/Pages/EditProfile/EditProfile";
 import AdminUserPage from './components/Pages/AdminUsersPage/AdminUsersPage';
 import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // Component for restricting access.
 const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
@@ -37,10 +40,11 @@ const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
 const restriction = {
     admin: "admin",
     regular: ["admin", "Sceneansvarlig", "Økonomiansvarlig", "Barsjef", "Bartender", "Handyman", "Fotograf", "Markedsfører", "SoMe-ansvarlig", "Ølbrygger", "Lydtekniker", "Lystekniker", "Scenerigger", "Artistbooker", "Artistkontakt", "Konseptutvikler", "Quizmaster", "Festplanlegger"] 
-} 
+};
 
 ReactDOM.render(
     <HashRouter>
+        <ToastContainer />
         <div>
             <Route exact path="/" component={MainPage} />
             <Route exact path="/login" component={LoginPage} />

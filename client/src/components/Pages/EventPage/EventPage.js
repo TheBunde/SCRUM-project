@@ -150,7 +150,7 @@ class EventPage extends Component {
                             <div id="eventPageBar">
                                 <div id="eventPageShow">
                                     <div className="dropdown">
-                                        <button className="btn btn-outline dropdown-toggle" type="button" id="dropdownMenuButton"
+                                        <button className="btn border-dark dropdown-toggle" type="button" id="dropdownMenuButton"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Vis
                                         </button>
@@ -163,7 +163,7 @@ class EventPage extends Component {
                                 </div>
                                 <div id="eventPageSort">
                                     <div className="dropdown">
-                                        <button className="btn btn-outline dropdown-toggle" type="button" id="dropdownMenuButton"
+                                        <button className="btn border-dark dropdown-toggle " type="button" id="dropdownMenuButton"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Sorter etter
                                         </button>
@@ -175,24 +175,26 @@ class EventPage extends Component {
                                     </div>
                                 </div>
                                 <div id="eventPageSearchBar">
-                                    <input className="form-control" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}></input>
+                                    <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}></input>
                                 </div>
                             </div>
+                            <div className="dropdown-divider border-dark"></div>
                             <div id="eventPageEventTable">
                                 {this.state.shownEvents.slice(0, this.state.length).map(event => (
                                     <div>
                                         <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={this.formatDate(event.date)} place={event.place}/>
                                     </div>
                                 ))}
-                                <div id="eventPageFetchMoreEventsButton">
-                                    {this.state.shownEvents.length > this.state.length &&
-                                    <div>
-                                        <button type="button" className="btn btn-light"
-                                                onClick={() => this.setState({length: this.state.length + 6})}>Last inn flere arrangementer
-                                        </button>
-                                    </div>
-                                    }
+
+                            </div>
+                            <div id="eventPageFetchMoreEventsButton">
+                                {this.state.shownEvents.length > this.state.length &&
+                                <div>
+                                    <button type="button" className="btn btn-light"
+                                            onClick={() => this.setState({length: this.state.length + 6})}>Last inn flere arrangementer
+                                    </button>
                                 </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -210,7 +212,7 @@ class EventCard extends Component {
                 <a onClick={() => window.location.href = "#/event/" + this.props.event_id}>
                     <div class="card eventPageEventCard">
                             <img class="card-img-top eventPageEventCardImg" src={this.props.img_url} alt="Card image cap" />
-                            <div class="card-body">
+                            <div id="eventPageCardBody" class="card-body">
                                 <h5 class="card-title">{this.props.name}</h5>
                                 <p class="card-text">{this.props.description}</p>
                                 <div id="eventPageCardLocation">

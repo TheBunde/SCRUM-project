@@ -3,7 +3,7 @@ import FontAwesome from 'react-fontawesome'
 import 'font-awesome/css/font-awesome.min.css'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
-import "../../../css/EventView.css"
+import '../../../css/EventView.css'
 import {eventService} from '../../../service/EventService'
 import { createHashHistory } from 'history';
 
@@ -11,7 +11,6 @@ import { createHashHistory } from 'history';
 const history = createHashHistory();
 
 class EventView extends Component{
-
     constructor(props){
         super(props);
         this.state= {
@@ -73,8 +72,6 @@ class EventView extends Component{
             category_name: events[0].category_name}))
             .catch(error => console.error(error.message));
     }
-
-    
         
 
     render() {
@@ -83,116 +80,133 @@ class EventView extends Component{
             return place.trim(" ,");
         }
 
-        /*<img src={"http://localhost:8080/image/" + this.state.img_url} /> */
+        /* */
+        /**<img src={"https://www.denverkarateonline.com/wp-content/uploads/2017/04/default-image.jpg"} /> */
 
         return (
             <div>
                 <Navbar />
                 <div id="eventViewBackground">
-                    <div id="eventViewContainer">
-                        <div id="eventViewInnerContainer">
-                            <div id="eventViewImageDiv">
-                                <img src={"https://www.denverkarateonline.com/wp-content/uploads/2017/04/default-image.jpg"} />
-                            </div>
-                            <div id="eventViewTitle">
-                                <h1>{this.state.name}</h1>
-                                <hr id="eventViewTitleHR"/>
-                            </div>
-                            <div id="eventViewInfoBox">
-                                <div class="card" id="eventViewInfoBoxCard">
-                                    <div class="card-body" id="eventViewInfoBoxCardGridContainer">
-                                        <div>
-                                            <h3>{this.state.category_name}</h3>
-                                            <h5 class="card-title">Sted: {this.state.place}</h5>
-                                            <h6 class="card-subtitle mb-2 text-muted">Dato: {this.formatDate(this.state.date)}</h6>
+
+                    <div id="titleEvent">
+                        <div id="eventViewTitle">
+                            <h1>{this.state.name}</h1>
+                            <hr id="eventViewTitleHR"/>
+                        </div>
+                    </div>
+
+                    <div id="eventViewImageContainer">
+                        <div id="eventViewImage">
+                            <img src={"http://localhost:8080/image/" + this.state.img_url} />
+                        </div>
+                    </div>
+                    
+                    <div id="eventViewInfoBoxContainer">
+                        <div id="eventViewInfoBox">
+                            <div class="card" id="eventViewInfoBoxCard">
+                                <div class="card-body" id="eventViewInfoBoxCardGridContainer">
+                                    <div>
+                                        <h3>{this.state.category_name}</h3>
+                                        <h5 class="card-title">Sted: {this.state.place}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">Dato: {this.formatDate(this.state.date)}</h6>
+                                    </div>
+
+                                    <div id="eventViewInfoBoxMap">
+                                        <div class="mapouter">
+                                            <div class="gmap_canvas">
+                                                <iframe width="250" height="250" id="gmap_canvas" src={"https://maps.google.com/maps?q=" + mapLocation(this.state.place) + "%2C%20Trondheim&t=&z=15&ie=UTF8&iwloc=&output=embed"} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                                <a href="https://www.embedgooglemap.net/blog/nordvpn-coupon-code/"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="eventViewButtons">
+                                        <div id="eventViewBack">
+                                            <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Tilbake</button>
                                         </div>
 
-                                        <div id="eventViewInfoBoxMap">
-                                            <div class="mapouter">
-                                                <div class="gmap_canvas">
-                                                    <iframe width="250" height="250" id="gmap_canvas" src={"https://maps.google.com/maps?q=" + mapLocation(this.state.place) + "%2C%20Trondheim&t=&z=15&ie=UTF8&iwloc=&output=embed"} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-                                                    <a href="https://www.embedgooglemap.net/blog/nordvpn-coupon-code/"></a>
-                                                </div>
-                                            </div>
+                                        <div id="eventViewEdit">
+                                            <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event/" + this.state.event_id + "/edit"}>Rediger</button>
                                         </div>
-                                        
-                                        <div id="eventViewButtons">
-                                            <div id="eventViewBack">
-                                                <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Tilbake</button>
-                                            </div>
 
-                                            <div id="eventViewEdit">
-                                                <button type="button" className="btn btn-outline-primary">Rediger</button>
-                                            </div>
+                                        <div id="eventViewArchive">
+                                            <button type="button" className="btn btn-outline-primary" onClick={() => this.archive(this.state.event_id)}>Arkiver</button>
+                                        </div>
 
-                                            <div id="eventViewArchive">
-                                                <button type="button" className="btn btn-outline-primary" onClick={() => this.archive(this.state.event_id)}>Arkiver</button>
-                                            </div>
-
-                                            <div id="eventViewArchive">
-                                                <button type="button" className="btn btn-outline-danger" onClick={() => this.delete(this.state.event_id)}>Slett</button>
-                                            </div>
+                                        <div id="eventViewArchive">
+                                            <button type="button" className="btn btn-outline-danger" onClick={() => this.delete(this.state.event_id)}>Slett</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                                
-                            <div id="eventViewInfo">
+                        </div>
+                    </div>
+                    
+                    <div id="eventViewDescriptionContainer">
+                        <div id="eventViewDescription">
+                            <div id="eventViewDescriptionBox">
                                 <div>
-                                    <h3>Beskrivelse</h3>
-                                    <p>{this.state.description}</p>
+                                    <div id="eventViewDescriptionBoxTitle">
+                                        <h1>Beskrivelse av arrangementet</h1>
+                                    </div>
+                                    
+                                    <h6>{this.state.description}</h6>
                                 </div>
-                                
-                                <div id="eventViewArtists">
-                                    <h3>Artister</h3>
-                                    <p>{this.state.artists}</p>
-                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                                <div id="eventViewInfoTickets">
-                                    <h3>Billettyper</h3>
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Type</th>
-                                                <th scope="col">Pris</th>
-                                                <th scope="col">Antall</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {this.state.event_tickets.map(ticket => 
-                                            <tr>
-                                                <th scope="row" width="60">{ticket.name}</th>
-                                                <td width="30">{ticket.price}</td>
-                                                <td width="30">{ticket.number}</td>
-                                            </tr>)
-                                        }
-                                        </tbody>
-                                    </table>
-                                </div>
-
+                    <div id="eventViewInfoTicketsAndFilesContainer">
+                        <div id="eventViewInfoTicketsContainer">
+                            <div id="eventViewInfoTickets">
+                            <h3>Billettyper</h3>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Pris</th>
+                                        <th scope="col">Antall</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {this.state.event_tickets.map(ticket => 
+                                    <tr>
+                                        <th scope="row" width="60">{ticket.name}</th>
+                                        <td width="30">{ticket.price}</td>
+                                        <td width="30">{ticket.number}</td>
+                                    </tr>)
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="eventViewFilesContainer">
+                            <div id="eventViewFiles">
                                 <div>
-                                    <h3>Personnell</h3>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.personnel)} target="_blank"><i className="fa fa-download"></i> Download</button>
+                                    <h3>Personell</h3>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.personnel)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
                                     <h3>Teknisk rider</h3>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Download</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
                                     <h3>Hospitality rider</h3>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"></i> Download</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"> Last ned</i></button>
                                 </div>
 
                                 <div>
                                     <h3>Kontrakt</h3>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Download</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
+
+                    </div>
+
+                    
                 </div>
                 <Footer />
             </div>

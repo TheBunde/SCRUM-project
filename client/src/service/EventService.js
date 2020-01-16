@@ -63,7 +63,7 @@ class EventService{
 
     addCategory(eventID, categoryID){
         let newCategory = {eventID: eventID, categoryID: categoryID};
-        return axios.post("http://" + ipAdress + ":8080/categories", newCategory).then(response => response.data)
+        return axios.put("http://" + ipAdress + ":8080/categories", newCategory).then(response => response.data)
     }
 
     addContactInfo(name, phone, email, eventID){

@@ -423,7 +423,7 @@ app.post("/tickets", (req, res) => {
     })
 });
 
-app.post("/categories", (req, res) => {
+app.put("/categories", (req, res) => {
     eventDao.addCategory(req.body, (status, data) => {
         res.status(status);
         res.json(data)

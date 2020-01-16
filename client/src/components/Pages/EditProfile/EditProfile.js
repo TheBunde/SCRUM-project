@@ -50,11 +50,11 @@ class EditProfile extends Component{
         console.log(name, email, phone, pw, role, approved);
         
         if(
-            name === null || name === "",
-            email === null || email === "",
-            phone === null || phone === "",
-            pw === null || pw === "",
-            role === null || role === "",
+            name === null || name === "" ,
+            email === null || email === "" ,
+            phone === null || phone === "" ,
+            pw === null || pw === "" ,
+            role === null || role === "" ,
             approved === null || approved === ""
         ){
             return false;

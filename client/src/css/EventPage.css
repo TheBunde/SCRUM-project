@@ -53,8 +53,8 @@
     postion: relative;
     margin: auto;
 }
-.card-body{
-
+#eventPageCardBody{
+    overflow: auto;
 }
 
 #eventPageFetchMoreEventsButton{

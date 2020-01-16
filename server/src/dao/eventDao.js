@@ -71,7 +71,7 @@ module.exports = class adminDao extends Dao{
     }
 
     updateEvent(eventID, eventInfo, callback){
-        super.query("UPDATE Event SET name = ?, description = ?, date = ?, place = ?, img_url = ?, artists = ?, tech_rider = ?, contract = ?, personnel = ? WHERE event_id = ?", [eventInfo.name, eventInfo.description, eventInfo.date, eventInfo.place, eventInfo.img_url, eventInfo.artists, eventInfo.tech_rider, eventInfo.constructor, eventInfo.personnel, eventID], callback)
+        super.query("UPDATE Event SET name = ?, description = ?, date = ?, place = ?, img_url = ?, artists = ?, tech_rider = ?, hospitality_rider = ?, contract = ?, personnel = ? WHERE event_id = ?", [eventInfo.name, eventInfo.description, eventInfo.date, eventInfo.place, eventInfo.img_url, eventInfo.artists, eventInfo.tech_rider, eventInfo.hospitality_rider, eventInfo.contract, eventInfo.personnel, eventID], callback)
     }
 };
 

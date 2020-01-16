@@ -94,7 +94,7 @@ class EventView extends Component{
                     <div id="eventViewContainer">
                         <div id="eventViewInnerContainer">
                             <div id="eventViewImageDiv">
-                                <img src={"https://www.denverkarateonline.com/wp-content/uploads/2017/04/default-image.jpg"} />
+                                <img src={"http://localhost:8080/image/" + this.state.img_url} />
                             </div>
                             <div id="eventViewTitle">
                                 <h1>{this.state.name}</h1>

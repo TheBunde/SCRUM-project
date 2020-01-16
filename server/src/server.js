@@ -195,7 +195,8 @@ app.post("/validate", (req,res) => {
             });
 
         } else {
-            console.log("User does not exists");
+            res.status(401);
+            res.json({error: "User noes not exists"})
         }
 
     })

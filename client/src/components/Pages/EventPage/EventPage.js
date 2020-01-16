@@ -144,9 +144,12 @@ class EventPage extends Component {
                 <div>
                     <div id="eventPageBackground">
                         <div id="eventPageContainer">
-                            <div id="eventPageTitle">
-                                <h1>Arrangementer</h1>
+                            <div id="eventPageBanner">
+                                <div id={"eventPageTitle"}>
+                                    <h1>ARRANGEMENTER</h1>
+                                </div>
                             </div>
+                            <div className={"eventPageInformation"}>
                             <div id="eventPageBar">
                                 <div id="eventPageShow">
                                     <div className="dropdown">
@@ -197,6 +200,7 @@ class EventPage extends Component {
                                 }
                             </div>
                         </div>
+                        </div>
                     </div>
                 </div>
                 <Footer />
@@ -212,15 +216,18 @@ class EventCard extends Component {
                 <a onClick={() => window.location.href = "#/event/" + this.props.event_id}>
                     <div class="card eventPageEventCard">
                             <img class="card-img-top eventPageEventCardImg" src={"http://localhost:8080/image/" + this.props.img_url} alt="Card image cap" />
+
+                            <div class="card-body">
+
                             <div id="eventPageCardBody" class="card-body">
                                 <h5 class="card-title">{this.props.name}</h5>
-                                <p class="card-text">{this.props.description}</p>
                                 <div id="eventPageCardLocation">
                                     {this.props.place}
                                 </div>
                                 <div id="eventPageCardDate">
                                     {this.props.date}
                                 </div>
+                            </div>
                             </div>
                     </div>
                 </a>
@@ -231,7 +238,7 @@ class EventCard extends Component {
 
 export default EventPage;
 
-
+/*
 //this.props.date.slice(0, 16).replace("T", " ")
 
 //<div id="eventPageFetchMoreEventsButton">
@@ -243,3 +250,4 @@ export default EventPage;
 //    </div>
 //    }
 //</div>
+*/

@@ -138,6 +138,8 @@ class EventView extends Component{
                                         <div id="eventViewDelete">
                                             <button id={"deleteBtn"} onClick={() => this.submitEventDeleteButton(this.state.event_id)} type={"button"} className={"btn btn-danger"}>Slett</button>
                                         </div>
+
+                                        
                                     
                                     </div>
                                 </div>

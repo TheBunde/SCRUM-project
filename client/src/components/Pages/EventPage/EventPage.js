@@ -212,7 +212,7 @@ class EventCard extends Component {
                 <a onClick={() => window.location.href = "#/event/" + this.props.event_id}>
                     <div class="card eventPageEventCard">
                             <img class="card-img-top eventPageEventCardImg" src={this.props.img_url} alt="Card image cap" />
-                            <div class="card-body">
+                            <div id="eventPageCardBody" class="card-body">
                                 <h5 class="card-title">{this.props.name}</h5>
                                 <p class="card-text">{this.props.description}</p>
                                 <div id="eventPageCardLocation">

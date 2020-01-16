@@ -1,0 +1,77 @@
+#include <stdio.h>
+
+
+int main() {
+
+	int cases, l, n;
+
+	int best = 0;
+	
+	int worst = 0;
+
+	
+
+	scanf("%d", &cases);
+
+	
+	
+	for(int i = 0; i < cases; ++i){
+
+	    scanf("%d%d", &l,&n);
+
+	    int pos[n];
+
+
+	    for(int j = 0; j < n; ++j){
+
+	        int num = 0;
+
+	        scanf("%d", &num);
+
+	        if(j != 0 && num < pos[j-1]){ //Sorting array while taking input
+
+	            for(int k = j-1; k>=0; --k){
+
+	                if(num < pos[k]){
+
+	                    pos[k+1] = pos[k];
+
+	                    pos[k] = num;
+
+	                } else{
+
+	                    break;
+
+	                }
+
+	            }
+
+	        } else{
+
+	            pos[j] = num;
+
+	        }
+
+
+	        if(num > l/2){
+
+	            if(l-num > best){
+
+	                best = l-num;
+
+	            }
+
+	        } else if(num > best){
+
+	            best = num;
+
+	        }
+
+	    }
+
+	    //printf("%d\n", best);
+	}
+
+	return 0;
+
+}

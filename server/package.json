@@ -30,7 +30,7 @@
     "globalTeardown": "./src/tests/teardown.js"
   },
   "scripts": {
-    "start": "nodemon --exec src/server.js",
+    "start": "nodemon ./src/server.js",
     "test": "jest"
   },
   "devDependencies": {

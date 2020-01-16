@@ -132,15 +132,13 @@ class EventView extends Component{
                                         </div>
 
                                         <div id="eventViewArchive">
-                                            <button type="button" className="btn btn-outline-primary" onClick={() => this.archive(this.state.event_id)}>Arkiver</button>
+                                            <button id={"deleteBtn"} onClick={() => this.submitEventArchiveButton(this.state.event_id)} type={"button"} className={"btn btn-outline-primary"}>Arkiver</button>
                                         </div>
-                                        
-                                        <div>
-                                            <div className={"btnColumn"} id="eventViewDelete">
-                                                <button id={"deleteBtn"} onClick={() => this.submitEventDeleteButton(this.state.event_id)} type={"button"} className={"btn btn-danger"}>Slett</button>
-                                            </div>
+                                            
+                                        <div id="eventViewDelete">
+                                            <button id={"deleteBtn"} onClick={() => this.submitEventDeleteButton(this.state.event_id)} type={"button"} className={"btn btn-danger"}>Slett</button>
                                         </div>
-                                        
+                                    
                                     </div>
                                 </div>
                             </div>
@@ -234,12 +232,28 @@ class EventView extends Component{
         });
     }
 
+    submitEventArchiveButton(id) {
+        confirmAlert({
+            title: 'Bekreftelse av arkivering',
+            message: 'Er du sikker på at du vil arkivere arrangementet?',
+            buttons: [
+                {
+                    label: 'Ja',
+                    onClick : () => this.archive(id),
+                },
+                {
+                    label: 'Nei'
+                }
+            ]
+        });
+    }
+
     delete(id){
         console.log(id);
         eventService
             .deleteEvent(id)
             .catch(e => console.error(e));
-        history.push("/overview")
+        history.push("/event")
     }
 
     archive(id){
@@ -247,6 +261,7 @@ class EventView extends Component{
         eventService
             .updateFiled(id)
             .catch(e => console.error(e));
+        history.push("/event")
     }
 }
 

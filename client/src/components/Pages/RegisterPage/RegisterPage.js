@@ -7,20 +7,32 @@ import Button from "react-bootstrap/Button";
 import {NavbarMainPage} from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 import {FooterTransparent} from '../../Footer/Footer'
+import {confirmAlert} from "react-confirm-alert";
+
 
 class RegisterPage extends Component{
-
-    state = {
-        name: "",
-        email: "",
-        phone: "",
-        role: "ingenRolle",
-        password: "",
-        repeatedPassword: "",
-        synligModal: false,
-        modalFeedback: "",
-        modalTitle: "",
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            name: "",
+            email: "",
+            phone: "",
+            role: "ingenRolle",
+            password: "",
+            repeatedPassword: "",
+            synligModal: false,
+            modalFeedback: "",
+            modalTitle: "",
+        };
+        this.keyPressed = this.keyPressed.bind(this);
+        this.regUser = this.regUser.bind(this);
+    }
+    
+    keyPressed(event) {
+        if (event.key === "Enter" && (this.state.name !== "" && this.state.email !== "" && this.state.phone !== "" && this.state.password !== "" && this.state.repeatedPassword !== "")) {
+            this.regUser();
+        }
+    }
     
     render() {
         return (
@@ -31,7 +43,7 @@ class RegisterPage extends Component{
                     <div className={"registerContainer"}>
                         <div class="card RegisterPageCard">
                             <div class="card-body">
-                                <h1 id={"regTitle"}>Registrer ny bruker</h1>
+                                <h1 id={"regTitle"}>Registrer</h1>
                                 <form>
                                     <div className="form-group" id="RegisterPageFormGroup">
                                         <div id="RegisterPageFormFieldsDiv">
@@ -61,7 +73,7 @@ class RegisterPage extends Component{
                                             <label htmlFor="exampleInputPassword1">Gjenta passord:</label>
                                             <input type="password" name={"repeatedPassword"} className="form-control" id="passwordInput"
                                                 onChange={this.handleTextChange.bind(this)}
-                                                placeholder="Gjenta passord..."/>
+                                                placeholder="Gjenta passord..." onKeyPress={this.keyPressed}/> 
                                         </div>
                                         <div id="RegisterPageFormButtonDiv">
                                             <button type="button"
@@ -70,21 +82,13 @@ class RegisterPage extends Component{
                                                     onClick={this.regUser.bind(this)} disabled={this.state.name === "" || this.state.email === ""
                                             || this.state.phone === "" || this.state.password === "" || this.state.repeatedPassword === ""}>Registrer
                                             </button>
+                                            <button type="button" className="btn btn-outline-dark" onClick={() => window.location.href="#/login"}> 
+                                                Allerede bruker?
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
 
-                                <Modal show={this.state.synligModal} name={"passwordModal"} onHide={() => {this.toggleModal("")}}>
-                                    <Modal.Header closeButton>
-                                        <Modal.Title>{this.state.modalTitle}</Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>{this.state.modalFeedback}</Modal.Body>
-                                    <Modal.Footer>
-                                        <Button variant="primary" onClick={() => {this.toggleModal("")}}>
-                                            Ok!
-                                        </Button>
-                                    </Modal.Footer>
-                                </Modal>
                             </div>
                         </div>
                     </div>
@@ -123,40 +127,102 @@ class RegisterPage extends Component{
     };
 
 
+    showFeedback(feedback){
+        if(feedback === "phoneAndPasswords"){
+            confirmAlert({
+                title: 'Feil',
+                message: 'Telefonnummeret må være på 8 siffer og passordene må matche.',
+                buttons: [
+                    {
+                        label: 'Ok',
+                    },
+                ]
+            });
+        }
+        else if(feedback === "phone"){
+            confirmAlert({
+                title: 'Feil',
+                message: 'Telefonnummeret må være på 8 siffer.',
+                buttons: [
+                    {
+                        label: 'Ok',
+                    },
+                ]
+            });
+        }else if(feedback === "passwords"){
+            confirmAlert({
+                title: 'Feil',
+                message: 'Passordene må matche.',
+                buttons: [
+                    {
+                        label: 'Ok',
+                    },
+                ]
+            });
+        }else if(feedback === "successfullRegistration"){
+            confirmAlert({
+                title: 'Suksess!',
+                message: 'Bruker registrert!',
+                buttons: [
+                    {
+                        label: 'Ok',
+                    },
+                ]
+            });
+        }else if(feedback === "samePhone"){
+            confirmAlert({
+                title: 'Feil',
+                message: 'Telefonnummeret er allerede i bruk.',
+                buttons: [
+                    {
+                        label: 'Ok',
+                    },
+                ]
+            });
+        }else if(feedback === "sameEmail"){
+            confirmAlert({
+                title: 'Feil!',
+                message: 'Eposten er allerede i bruk!',
+                buttons: [
+                    {
+                        label: 'Ok',
+                    },
+                ]
+            });
+        }
+
+    }
+
     regUser = () => {
 
-        let feedback = "";
         {if(!(this.state.phone.match(/^\d{8}$/)) && this.state.password !== this.state.repeatedPassword){
-            feedback = "Nummeret må være 8 sifre og passordene må være like.";
-            this.toggleModal(feedback);
+            this.showFeedback("phoneAndPasswords")
 
         }else if(!(this.state.phone.match(/^\d{8}$/))){
-            feedback = "Nummeret må være 8 sifre";
-
-            this.toggleModal(feedback);
+            this.showFeedback("phone");
 
         }else if(this.state.password !== this.state.repeatedPassword){
 
-            feedback = "Passordene må stemme";
-            this.toggleModal(feedback);
+            this.showFeedback("passwords");
 
         }else{
             let userService = new UserService();
             let user = new User(null, this.state.name, this.state.email, this.state.phone, this.state.password, null, null);
             userService.registerUser(user)
                 .then(() => {
-                    this.toggleModal("Bruker registrert!");
+                    console.log("kommer hit ja")
+                    this.showFeedback("successfullRegistration");
                     window.location.hash = "/login";
                 })
                 .catch((error) => {
                     console.error(error.response.data);
                     if (error.response.data.sqlMessage.indexOf("email") > -1) {
                         console.log("e-post");
-                        this.toggleModal("E-posten er allerede i bruk");
+                        this.showFeedback("sameEmail");
                     }
                     if (error.response.data.sqlMessage.indexOf("phone") > -1) {
                         console.log("telefon");
-                        this.toggleModal("Telefonnummeret er allerede i bruk");
+                        this.showFeedback("samePhone");
                     }
                 })
             }

@@ -1,3 +1,4 @@
+
 let express = require("express");
 let mysql = require("mysql");
 let app = express();
@@ -112,6 +113,27 @@ app.get("/user/:userID", (req, res) => {
     });
 });
 
+app.put("/users/:userID/newName", (req, res) => {
+    adminDao.updateUser(req.params.userID, req.body.name, req.body.email, req.body.phone, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.put("/users/:userID/newPhone", (req, res) => {
+    adminDao.updatePhone(req.params.userID, req.body.phone, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.put("/users/:userID/newEmail", (req, res) => {
+    adminDao.updateEmail(req.params.userID, req.body.email, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
 app.get("/user/:userID", (req, res) => {
     adminDao.getUser(req.params.userID,(status, data) => {
         res.status(status);
@@ -139,34 +161,6 @@ app.post("/user", (req, res) => {
     userDao.registerUser(req.body, (status, data) => {
         res.status(status);
         res.json(data);
-    });
-});
-
-app.put("/user/:userID/edit/password", (req, res) => {
-    // Check if user with pw entered exists, if so -> change their pw.
-    console.log("server: " + req.body.email);
-    userDao.getApprovedUser(req.body.email, (status, data) => {
-        if (data.length > 0) {
-            console.log("User exists");
-            
-            let passwordHash = JSON.stringify(data[0].password_hash).slice(1,-1);            
-            bcrypt.compare(req.body.password, passwordHash, function(err, response) {
-                if (err) {
-                    console.log("An error occured");
-                    console.error(err);
-                } if (response) { // If response is true <=> If the passwords are equal
-                    userDao.changePassword({user_id: parseInt(req.params.userID), password: req.body.newPassword}, (statusCode, result) => {
-                        res.status(statusCode);
-                        res.json(result);
-                        console.log("Password changed");
-                    });
-                } else { // Passwords are not equal -> The user should not have access to change this password
-                    res.json({error: "Not authorized"});
-                    res.status(401);
-                    console.log("Did not work");
-                }
-            });
-        }
     });
 });
 
@@ -199,7 +193,7 @@ app.post("/validate", (req,res) => {
                 }
 
             });
-            
+
         } else {
             console.log("User does not exists");
         }
@@ -274,6 +268,25 @@ app.get("/event/all", (req, res) => {
         res.json(data);
     });
 });
+
+app.get("/event/archived", (req, res) => {
+    console.log("/event fikk request fra klient");
+    eventDao.getAllArchived((status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
+
+app.put('/event/:eventID/archived', (req, res) => {
+    console.log('/annonse/:eventID/archived: fikk request fra klient');
+    console.log(req.params.eventID);
+    eventDao.updateFiled(req.params.eventID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
 app.get("/event/nonFiled", (req, res) => {
     console.log("/event fikk request fra klient");
     eventDao.getNonFiledEvents((status, data) => {
@@ -353,13 +366,6 @@ app.delete('/event/:id', (req, res) => {
         res.json(data);
     });
 });
-
-app.post("/contactInfo", (req, res) => {
-    eventDao.addContactInfo(req.body, (status, data) =>{
-        res.status(status);
-        res.json(data);
-    })
-})
 
 let server = app.listen(8080);
 

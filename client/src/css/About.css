@@ -1,0 +1,22 @@
+#AboutMain{
+    min-height: 100vh;
+    text-align: center;
+    padding: 50px 150px 0 150px;
+}
+
+#aboutText{
+    padding-top: 25px;
+}
+
+#links{
+    padding:150px 50px 50px 50px ;
+}
+
+#link{
+    display: inline;
+    padding: 0 10px 0 10px;
+}
+
+#aboutEventViewMap{
+    padding: 0 100px 0 100px;
+}

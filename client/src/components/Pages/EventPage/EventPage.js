@@ -27,7 +27,7 @@ class EventPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            allEvents: [],
+            loadedEvents: [],
             shownEvents: [],
             length: 2
         }
@@ -67,15 +67,17 @@ class EventPage extends Component {
         return year + "-" + month + "-" + date + " " + hours + ":" + minutes;
     }
 
-    eventFilterAll(){
-        this.setState({shownEvents: this.state.allEvents})
+    eventFilterAllActive(){
+        this.componentDidMount();
+        this.setState({shownEvents: this.state.loadedEvents});
     }
-    eventFilterFuture(){
-        console.log(this.getCurrentDate())
-        this.setState({shownEvents: this.state.allEvents.filter(e => e.date >= this.getCurrentDate())})
+    eventFilterArchived(){
+        this.getArchivedEvents();
+        this.setState({shownEvents: this.state.loadedEvents});
     }
-    eventFilterPast() {
-        this.setState({shownEvents: this.state.allEvents.filter(e => e.date < this.getCurrentDate())})
+    eventFilterShowAll() {
+        this.getAllEvents()
+        this.setState({shownEvents: this.state.loadedEvents})
     }
 
     sortByName(){
@@ -92,7 +94,7 @@ class EventPage extends Component {
         const searchTitleElement = document.getElementById("searchBar");
         let searchTitle = searchTitleElement.value;
         if(searchTitle !== ""){
-            this.setState({shownEvents: this.state.allEvents.filter(e => e.name.toLowerCase().includes(searchTitle.toLowerCase()) || e.description.toLowerCase().includes(searchTitle.toLowerCase()))});
+            this.setState({shownEvents: this.state.loadedEvents.filter(e => e.name.toLowerCase().includes(searchTitle.toLowerCase()) || e.description.toLowerCase().includes(searchTitle.toLowerCase()))});
         } else {
             this.resetSortAndFilterDropdowns();
             this.componentDidMount();
@@ -104,10 +106,24 @@ class EventPage extends Component {
         $("#eventPageSort .btn:first-child ").text("Sorter etter");
     }
 
-    componentDidMount(){
+    getAllEvents(){
         eventService.getAllEvents().then(events => this.setState({
             shownEvents: events,
-            allEvents: events}))
+            loadedEvents: events}))
+            .catch(error => console.error(error.message));
+    }
+    
+    getArchivedEvents(){
+        eventService.getAllArchived().then(events => this.setState({
+            shownEvents: events,
+            loadedEvents: events}))
+            .catch(error => console.error(error.message));
+    }
+
+    componentDidMount(){
+        eventService.getNonFiledEvents().then(events => this.setState({
+            shownEvents: events,
+            loadedEvents: events}))
             .catch(error => console.error(error.message));
     }
 
@@ -134,20 +150,20 @@ class EventPage extends Component {
                             <div id="eventPageBar">
                                 <div id="eventPageShow">
                                     <div className="dropdown">
-                                        <button className="btn btn-outline dropdown-toggle" type="button" id="dropdownMenuButton"
+                                        <button className="btn border-dark dropdown-toggle" type="button" id="dropdownMenuButton"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Vis
                                         </button>
                                         <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" onClick={() => this.eventFilterAll()}>Alle arrangementer</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterFuture()}>Kommende arrangementer</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterPast()}>Utførte arrangementer</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterAllActive()}>Alle aktive arrangementer</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterShowAll()}>Alle arrangementer</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div id="eventPageSort">
                                     <div className="dropdown">
-                                        <button className="btn btn-outline dropdown-toggle" type="button" id="dropdownMenuButton"
+                                        <button className="btn border-dark dropdown-toggle " type="button" id="dropdownMenuButton"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Sorter etter
                                         </button>
@@ -159,24 +175,26 @@ class EventPage extends Component {
                                     </div>
                                 </div>
                                 <div id="eventPageSearchBar">
-                                    <input className="form-control" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}></input>
+                                    <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}></input>
                                 </div>
                             </div>
+                            <div className="dropdown-divider border-dark"></div>
                             <div id="eventPageEventTable">
                                 {this.state.shownEvents.slice(0, this.state.length).map(event => (
                                     <div>
                                         <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={this.formatDate(event.date)} place={event.place}/>
                                     </div>
                                 ))}
-                                <div id="eventPageFetchMoreEventsButton">
-                                    {this.state.shownEvents.length > this.state.length &&
-                                    <div>
-                                        <button type="button" className="btn btn-light"
-                                                onClick={() => this.setState({length: this.state.length + 6})}>Last inn flere arrangementer
-                                        </button>
-                                    </div>
-                                    }
+
+                            </div>
+                            <div id="eventPageFetchMoreEventsButton">
+                                {this.state.shownEvents.length > this.state.length &&
+                                <div>
+                                    <button type="button" className="btn btn-light"
+                                            onClick={() => this.setState({length: this.state.length + 6})}>Last inn flere arrangementer
+                                    </button>
                                 </div>
+                                }
                             </div>
                         </div>
                     </div>

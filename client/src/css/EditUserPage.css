@@ -4,9 +4,6 @@
 }
 
 .pbContainer{
-    width: 300px;
-    height: 300px;
-    border: 2px solid green;
     float: right;
     margin: 80px 100px auto auto;
 }

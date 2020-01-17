@@ -533,5 +533,18 @@ app.get("/event/tickets/:id", (req, res) =>{
     })
 });
 
+app.put("/event/contactinfo/:id", (req, res) =>{
+    eventDao.updateContactInfo(req.params.id, req.body, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.delete("/event/tickets/:id", (req, res) =>{
+    eventDao.deleteTicketsForEvent(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
 
 let server = app.listen(8080);

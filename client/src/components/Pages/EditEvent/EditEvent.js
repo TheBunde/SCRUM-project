@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
 
+import {toast} from 'react-toastify';
 import Calendar from 'react-calendar-mobile'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
@@ -28,7 +29,6 @@ class EditEvent extends Component{
         this.changeDate = this.changeDate.bind(this);
         this.changeValue = this.changeValue.bind(this);
         this.updateEventInfo = this.updateEventInfo.bind(this);
-        this.updateCategory = this.updateCategory.bind(this);
         this.updateTicketInfo = this.updateTicketInfo.bind(this);
         this.updateContactInfo = this.updateContactInfo.bind(this);
         this.registerEvent = this.registerEvent.bind(this);
@@ -48,9 +48,18 @@ class EditEvent extends Component{
     }
 
     formValidation(){
-        return (this.state.Name === "" || this.state.Description === "" || this.state.Place === ""
-            || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === ""
-            || this.state.ContactPhone === "" || this.state.Tech === "" || this.state.Hospitality === "" || this.state.Personnel === "");
+        return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === ""
+            || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
+    }
+
+    ticketCheck(){
+        let status = false;
+        this.state.Tickets.map(ticket =>{
+            if(this.state[ticket.name + "TicketBox"] = true && (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0)){
+                status = true;
+            }
+        });
+        return status;
     }
 
     componentDidMount() {
@@ -62,11 +71,6 @@ class EditEvent extends Component{
         eventService
             .getTicket()
             .then(data => this.setState({Tickets: data}))
-            .catch(Error => console.log(Error));
-
-        eventService
-            .getCategoryFromEvent(this.props.match.params.id)
-            .then(data => this.updateCategory(data))
             .catch(Error => console.log(Error));
 
         eventService
@@ -85,9 +89,11 @@ class EditEvent extends Component{
             .catch(Error => console.log(Error));
     }
 
-    updateCategory(data){
-        this.setState({Category: data.category_id})
-    }
+    notifySuccess = () => {
+        toast("Registrering av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
+    };
+
+    notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
     updateEventInfo(data){
         let date = data[0].date.split("T");
@@ -104,6 +110,7 @@ class EditEvent extends Component{
         this.setState({Description: data[0].description});
         this.setState({Place: data[0].place});
         this.setState({Artists: data[0].artists});
+        this.setState({Category: data[0].category_id});
         this.setState({Tech: data[0].tech_rider});
         this.setState({Hospitality: data[0].hospitality_rider});
         this.setState({Personnel: data[0].personnel});
@@ -340,7 +347,6 @@ class EditEvent extends Component{
                         <button type="button"
                                 className="btn btn-outline-primary btn-lg"
                                 onClick={this.registerEvent}
-                                disabled={this.formValidation()}
                         >
                             Registrer arrangement
                         </button>
@@ -370,10 +376,34 @@ class EditEvent extends Component{
             let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
 
             eventService
-                .updateEvent(this.props.match.params.id, this.state.Name, date, this.state.description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
+                .updateEvent(this.props.match.params.id, this.state.Name, date, this.state.Description, this.state.Place, this.state.Category, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
+                .then(() => this.updateById(this.props.match.params.id))
                 .catch(Error => console.log(Error));
 
+            this.notifySuccess();
         }
+        else{
+            this.notifyFailure();
+        }
+    }
+    updateById(eventID){
+        eventService
+            .deleteTicketsForEvent(eventID)
+            .catch(Error => console.log(Error));
+
+        this.state.Tickets.map(ticket =>{
+            if(this.state[ticket.name + "TicketBox"]){
+                if(this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
+                    eventService
+                        .addTicket(ticket.ticket_category_id, eventID, this.state[ticket.name + "TicketAmount"])
+                        .catch(Error => console.log(Error))
+                }
+            }
+        });
+
+        eventService
+            .updateContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, eventID)
+            .catch(Error => console.log(Error))
     }
 }
 

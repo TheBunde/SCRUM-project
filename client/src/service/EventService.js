@@ -101,12 +101,11 @@ class EventService{
 
     updateContactInfo(name, phone, email, eventID){
         let contactInfo = {name: name, phone: phone, email: email};
-        return axios.put("http://" + ipAdress + ":8080/contactInfo/" + eventID, contactInfo).then(response => response.data)
+        return axios.put("http://" + ipAdress + ":8080/event/contactinfo/" + eventID, contactInfo).then(response => response.data)
     }
 
-    updateEventTicket(ticketID, eventID, amount){
-        let ticketInfo = {ticketID: ticketID, amount: amount};
-        return axios.put("http://" + ipAdress + ":8080/tickets/" + eventID, ticketInfo).then(response => response.data)
+    deleteTicketsForEvent(eventID){
+        return axios.delete("http://" + ipAdress + ":8080/event/tickets/" + eventID).then(response => response.data)
     }
 }
 

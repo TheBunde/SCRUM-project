@@ -429,7 +429,7 @@ class AddEvent extends Component{
                 }
             }
         });
-
+        //may be redundant...
         eventService
             .addCategory(EventId, this.state.Category)
             .catch(Error => console.log(Error));

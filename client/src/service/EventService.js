@@ -1,6 +1,7 @@
 import axios from 'axios';
 //let ipAdress = "10.24.3.122";
-let ipAdress = "localhost";
+//let ipAdress = "localhost";
+let ipAdress = "10.22.2.85";
 
 export class event {
     constructor(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
@@ -63,7 +64,7 @@ class EventService{
 
     addCategory(eventID, categoryID){
         let newCategory = {eventID: eventID, categoryID: categoryID};
-        return axios.post("http://" + ipAdress + ":8080/categories", newCategory).then(response => response.data)
+        return axios.put("http://" + ipAdress + ":8080/categories", newCategory).then(response => response.data)
     }
 
     addContactInfo(name, phone, email, eventID){

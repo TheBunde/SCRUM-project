@@ -144,11 +144,20 @@ app.post('/upload', upload.single('file'), function (req, res) {
         });
     } else {
         console.log("File received");
-        console.log(req.file);
-        return res.send({
-            filePath: req.file,
-            success: true
-        });
+        console.log(req.file.mimetype);
+        console.log(req.file.mimetype.split("/")[0]);
+        if (req.file.mimetype.split("/")[0] !== "image") { //Not an image
+            return res.send({
+                success: false,
+                error: "Only images are allowed"
+            })
+        } else {
+            return res.send({
+                filePath: req.file,
+                success: true
+            });
+        }
+
     }
 });
 
@@ -160,11 +169,26 @@ app.post("/uploadFiles", upload.array("files", 5), (req, res) => {
             success: false
         });
     } else {
+        console.log(req.files);
         console.log("File received");
-        return res.send({
-            filePath: req.files,
-            success: true
-        })
+        //Check for application type, must be either a plain text, word-doc or pdf
+        //If at least one of the elements are not plain text and not word-doc and not pdf the files will not be uploaded
+        if (!req.files.some(element => element.mimetype !== "text/plain" && element.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && element.mimetype !== "application/pdf")) {
+            return res.send({
+                filePath: req.files,
+                success: true
+            })
+        } else {
+            return res.send({
+                success: false,
+                error: "You have uploaded some files which are not allowed"
+            })
+        }
+
+
+
+
+
     }
 });
 

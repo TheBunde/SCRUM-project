@@ -226,7 +226,6 @@ class RegisterPage extends Component {
                 let userService = new UserService();
                 let fileService = new FileService();
                 let profilePicture = document.getElementById("imageUpload").files[0];
-                console.log(profilePicture);
                 fileService.uploadImage(profilePicture)
                     .then((res) => {
                         console.log("filename: " + res.data.filePath.filename);

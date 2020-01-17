@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import '../../css/Navbar.css';
 import $ from 'jquery';
-import {auth, authenticate} from "../../service/UserService";
-import {ProfileService} from "../../service/ProfileService";
-
+import {auth, authenticate, UserService, authConfig} from "../../service/UserService";
 
 /*Changing ml-auto to mr-auto will change the placement of the navbar-collapse items to the left besides the logo/name to the left on the Navbar */
 
@@ -12,8 +10,7 @@ class Navbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user : {},
-            user_id: -1
+            user: {name: "hahah"}
         }
     }
 
@@ -26,19 +23,36 @@ class Navbar extends Component {
         let show = document.getElementById("adminUsersLink");
         let style = window.getComputedStyle(show);
         authenticate();
+        console.log(auth)
         if (auth.role == "admin") {
             show.style.display = "block";
         } else {
             show.style.display = "none";
         }
-        let profileService = new ProfileService();
-        profileService.getUser(auth.user_id)
+        let userService = new UserService();
+        userService.getUser(auth.user_id)
             .then(user => {
                     this.setState({
                         user: user
                     })
                 }
-            )
+            ).then(console.log(this.state))
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    componentWillMount(){
+        authenticate();
+        console.log(auth)
+        let userService = new UserService();
+        userService.getUser(auth.user_id)
+            .then(user => {
+                    this.setState({
+                        user: user
+                    })
+                }
+            ).then(console.log(this.state))
             .catch((error) => {
                 console.error(error);
             });

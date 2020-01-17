@@ -3,7 +3,7 @@ import "../../../css/Overview.css"
 import { createHashHistory } from 'history';
 import "../../../img/concert.jpg"
 import Navbar from '../../Navbar/Navbar'
-import {ProfileService} from "../../../service/ProfileService";
+import {UserService} from "../../../service/UserService";
 import Footer from '../../Footer/Footer';
 import {auth, authenticate} from "../../../service/UserService";
 
@@ -24,8 +24,8 @@ class OverviewPage extends Component{
     componentDidMount() {
         authenticate();
         console.log(auth.user_id);
-        let profileService = new ProfileService();
-        profileService.getUser(auth.user_id)
+        let userService = new UserService();
+        userService.getUser(auth.user_id)
             .then(user => {
                     this.setState({
                         user: user

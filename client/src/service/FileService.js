@@ -1,4 +1,6 @@
 import axios from "axios";
+import {authConfig} from "./UserService.js"
+
 //let ipAdress = "10.24.3.122";
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 //let ipAdress = "10.22.2.85";
@@ -10,7 +12,8 @@ export class FileService {
         formData.append("file", image);
         const config = {
             headers: {
-                'Content-Type': "multipart/form-data"
+                'Content-Type': "multipart/form-data",
+                "authorization": localStorage.getItem("token")
             }
         };
         return axios.post(url, formData, config);
@@ -24,7 +27,8 @@ export class FileService {
         });
         const config = {
             headers : {
-                'Content-Type' : "multipart/form-data"
+                'Content-Type' : "multipart/form-data",
+                "authorization": localStorage.getItem("token")
             }
         };
         return axios.post(url, formData, config);

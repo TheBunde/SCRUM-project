@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import "../../../css/EditProfile.css"
 import { createHashHistory } from 'history';
-import {ProfileService} from '../../../service/ProfileService'
 import {User, UserService} from "../../../service/UserService";
 import {Redirect} from 'react-router-dom';
 import {auth, authenticate} from "../../../service/UserService";
@@ -34,8 +33,8 @@ class EditProfile extends Component{
     componentDidMount() {
         authenticate();
         if (this.props.match.params.userID === auth.user_id) {
-            let profileService = new ProfileService();
-            profileService.getUser(this.user_id)
+            let userService = new UserService();
+            userService.getUser(this.user_id)
                 .then(user =>
                     this.setState({
                         user: user
@@ -206,7 +205,7 @@ class EditProfile extends Component{
     save = (e) => {
         console.log("Almost nice")
         if(this.checkFields()){ // Check if any input-fields are empty
-            let profileService = new ProfileService();
+            let userService = new UserService();
             console.log("Very najs");
             let user = new User(
                 auth.user_id,
@@ -218,7 +217,7 @@ class EditProfile extends Component{
                 this.state.user.approved,
             );
             console.log(user);
-            profileService.updateUser(user);
+            userService.updateUser(user);
         }
         /*let newUser = new User(
             this.state.user.user_id,

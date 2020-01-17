@@ -3,14 +3,13 @@ import "../../../css/ShowProfile.css"
 import { createHashHistory } from 'history';
 
 import {adminService} from '../../../service/AdminService'
-import {ProfileService} from "../../../service/ProfileService";
 import {Redirect} from 'react-router-dom';
 import { User} from "../EditProfile/EditProfile";
 
 
 import Navbar from "../../Navbar/Navbar";
 import Back from "../../Back/Back";
-import {authenticate, auth} from "../../../service/UserService";
+import {authenticate, auth, UserService} from "../../../service/UserService";
 import Footer from "../../Footer/Footer";
 
 const history = createHashHistory();
@@ -39,12 +38,14 @@ class ShowProfile extends Component {
             this.setState({
                 authorized: true
             });
-            let profileService = new ProfileService();
-            profileService.getUser(this.user_id)
-                .then(user =>
+            let userService = new UserService();
+            userService.getUser(this.user_id)
+                .then(user => {
+                console.log(user)
                     this.setState({
                         user: user
                     })
+                }
                 )
                 .catch((error) => {
                     console.error(error);

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {authConfig} from "./UserService.js"
 //let ipAdress = "10.24.3.122";
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 //let ipAdress = "10.22.2.85";
@@ -31,25 +32,31 @@ class EventService{
     }
 
     getAllEvents(){
-        return axios.get("http://" + ipAdress + ":8080/event/all").then(response => response.data);
+        console.log("Heyo bro")
+        return axios.get("http://" + ipAdress + ":8080/event/all", authConfig).then(response => response.data);
     }
 
     getAllArchived(){
-        return axios.get("http://" + ipAdress + ":8080/event/archived").then(response => response.data);
+        console.log("bruh")
+        return axios.get("http://" + ipAdress + ":8080/event/archived", authConfig).then(response => response.data);
     }
 
     getAllActive(){
-        return axios.get("http://" + ipAdress + ":8080/event/active").then(response => response.data);
+        console.log("jærræ")
+        return axios.get("http://" + ipAdress + ":8080/event/active", authConfig).then(response => response.data);
     }
 
     getNonFiledEvents(){
-        return axios.get("http://" + ipAdress + ":8080/event/nonfiled").then(response => response.data);
+        console.log("Yes man")
+        return axios.get("http://" + ipAdress + ":8080/event/nonfiled", authConfig).then(response => response.data);
     }
     getEventById(eventID){
-        return axios.get("http://" + ipAdress + ":8080/event/" + eventID).then(response => response.data);
+        console.log("Kanskje d ja")
+        return axios.get("http://" + ipAdress + ":8080/event/" + eventID, authConfig).then(response => response.data);
     }
 
     deleteEvent(eventID){
+        console.log("Kult man. Delete masse")
         console.log("Inne i delete metode")
         return axios.delete("http://" + ipAdress + ":8080/event/" + eventID).then(response => response.data);
     }

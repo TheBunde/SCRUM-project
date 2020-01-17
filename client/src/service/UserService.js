@@ -1,7 +1,7 @@
 import Axios from "axios";
 //Axios.interceptors.response.use(response => response.data);
 //let ipAdress = "10.24.3.122";
-let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
+let ipAdress = "localhost";
 //let ipAdress = "10.22.2.85";
 
 export class User {
@@ -41,10 +41,11 @@ let parseJwt =  (token) => {
 };
 
 let authenticationHeader = function authenticationHeader() {
+    console.log("yeeeee");
     let token = window.localStorage.getItem("token");
 
     if (token) {
-        return {Authorization : "Bearer " + token}
+        return {"authorization": "Bearer " + token}
     } else return {}
 };
 
@@ -66,29 +67,58 @@ export const auth = {
     }
 };
 
+export let authConfig = authenticationHeader;
+
+
 export let authenticate = auth.authenticate.bind(auth);
 export class UserService {
+
     registerUser(user) {
         return Axios.post("http://" + ipAdress + ":8080/user", user);
     }
 
     validate(email, pw){
+        console.log("oui")
         return Axios.post("http://" + ipAdress + ":8080/validate", {"email":  email, "password" : pw});
     }
 
     getHash(email) {
+        console.log("Very cool")
         return Axios.get("http://" + ipAdress + ":8080/validate/" + email);
     }
 
     updatePassword(email, password, newPassword, user_id){
         console.log("User service: " + email);
-        return Axios.put("http://" + ipAdress + ":8080/user/" + user_id + "/edit/password",
-            {
-                "email": email,
-                "password": password,
-                "newPassword": newPassword
-            }
-        );
+        let obj = authConfig;
+        obj["email"] = email;
+        obj["password"] = password;
+        obj["newPassword"] = newPassword;
+
+        return Axios.put("http://" + ipAdress + ":8080/user/" + user_id + "/edit/password", obj);
+    }
+
+    updateUser(user){
+        console.log("It is fixed");
+        let obj = authConfig;
+        obj["user"] = user;
+        return Axios.put("http://" + ipAdress + ":8080/profile/" + user.user_id + '/edit', obj);
+    }
+
+    getUser(userID){
+        console.log("hoi sjef")
+        return Axios.get("http://" + ipAdress + ":8080/user/" + userID, {headers: {authorization: "Bearer " + window.localStorage.getItem("token")}}).then(response => {
+            let a = response.data[0];
+            console.log(a);
+            return new User(
+                a.user_id,
+                a.name,
+                a.email,
+                a.phone,
+                a.password,
+                a.roleid,
+                a.approved,
+            );
+        }).catch(error => console.log(error));
     }
 }
 

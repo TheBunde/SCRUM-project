@@ -28,6 +28,7 @@ class EventView extends Component{
             category_id: "",
             filed: "",
             pending: "",
+            canceled:"",
             img_url: "",
             description: "",
             event_tickets: []
@@ -78,6 +79,8 @@ class EventView extends Component{
         }
 
         let color = this.getColor(this.state.canceled, this.state.pending, this.state.filed, this.state.date);
+        console.log(this.state.canceled);
+        console.log(color);
 
         return (
             <div>
@@ -102,7 +105,7 @@ class EventView extends Component{
                                 <button className="dropdown-item" type="button">Rediger arrangment</button>
                                 <button className="dropdown-item" type="button" onClick={() => this.submitEventArchiveButton(this.state.event_id)}>Arkiver arrangement</button>
                                 <div className="dropdown-divider"></div>
-                                <button className="dropdown-item" type="button">Avlys arrangment</button>
+                                <button className="dropdown-item" type="button" onClick={() => this.submitEventCancelButton(this.state.event_id)}>Avlys arrangment</button>
                                 <div className="dropdown-divider"></div>
                                 <button className="dropdown-item" type="button" onClick={() => this.submitEventDeleteButton(this.state.event_id)}>Slett arrangment</button>
                             </div>
@@ -282,6 +285,22 @@ class EventView extends Component{
         });
     }
 
+    submitEventCancelButton(id) {
+        confirmAlert({
+            title: 'Bekreftelse av avlysing',
+            message: 'Er du sikker på at du vil avlyse arrangementet?',
+            buttons: [
+                {
+                    label: 'Ja',
+                    onClick : () => this.cancel(id),
+                },
+                {
+                    label: 'Nei'
+                }
+            ]
+        });
+    }
+
     delete(id){
         console.log(id);
         eventService
@@ -302,6 +321,14 @@ class EventView extends Component{
         console.log(id);
         eventService
             .updatePending(id)
+            .catch(e => console.error(e));
+        history.push("/event")
+    }
+
+    cancel(id){
+        console.log(id);
+        eventService
+            .updateCancel(id)
             .catch(e => console.error(e));
         history.push("/event")
     }

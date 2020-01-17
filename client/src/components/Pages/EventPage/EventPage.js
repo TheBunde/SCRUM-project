@@ -34,7 +34,7 @@ class EventPage extends Component {
         this.handleSearch = this.handleSearch.bind(this);
     }
 
-     formatDate(backendDate) {
+    formatDate(backendDate) {
         let tempDate = backendDate;
         let year = tempDate.slice(0, 4);
         let month = tempDate.slice(5, 7);
@@ -64,26 +64,31 @@ class EventPage extends Component {
         if(minutes<10){
             minutes = "0" + minutes;
         }
-        return year + "-" + month + "-" + date + " " + hours + ":" + minutes;
+        return year + "-" + month + "-" + date + "T" + hours + ":" + minutes + ":00:000Z";
     }
 
     eventFilterAllActive(){
-        this.componentDidMount();
+        this.fetchNonFiled()
         this.setState({shownEvents: this.state.loadedEvents});
+    }
+    eventFilterPending(){
+        this.fetchNonFiled()
+        this.setState({shownEvents: this.state.loadedEvents.filter(e=> (e.date > this.getCurrentDate()) && e.pending === 1)});
     }
     eventFilterArchived(){
         this.getArchivedEvents();
         this.setState({shownEvents: this.state.loadedEvents});
     }
-    eventFilterShowAll() {
-        this.getAllEvents()
-        this.setState({shownEvents: this.state.loadedEvents})
+    eventFilterApproved() {
+        this.fetchNonFiled()
+        this.setState({shownEvents: this.state.loadedEvents.filter(e => (e.date > this.getCurrentDate()) && e.pending === 0)})
     }
 
     sortByName(){
         this.setState(this.state.shownEvents.sort((a, b) => a.name.localeCompare(b.name)))
     }
     sortByDate() {
+        console.log(this.state.shownEvents[0].date)
         this.setState(this.state.shownEvents.sort((a, b) => b.date.localeCompare(a.date)))
     }
     sortByCategory() {
@@ -120,6 +125,12 @@ class EventPage extends Component {
             .catch(error => console.error(error.message));
     }
 
+    fetchNonFiled(){
+        eventService.getNonFiledEvents().then(events => this.setState({
+            loadedEvents: events}))
+            .catch(error => console.error(error.message));
+    }
+
     componentDidMount(){
         eventService.getNonFiledEvents().then(events => this.setState({
             shownEvents: events,
@@ -129,6 +140,7 @@ class EventPage extends Component {
 
     render() {
 
+        console.log(this.state.shownEvents)
         $(function(){
             $("#eventPageShow a").click(function(){
             $("#eventPageShow .btn:first-child ").text($(this).text());
@@ -155,9 +167,10 @@ class EventPage extends Component {
                                             Vis
                                         </button>
                                         <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" onClick={() => this.eventFilterAllActive()}>Alle aktive arrangementer</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterAllActive()}>Alle arrangementer som ikke er arkivert</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterPending()}>Under planlegging</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterApproved()}>Ferdig planlagte arrangementer</a>
                                             <a className="dropdown-item" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterShowAll()}>Alle arrangementer</a>
                                         </div>
                                     </div>
                                 </div>

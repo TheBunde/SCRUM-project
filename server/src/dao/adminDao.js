@@ -44,6 +44,8 @@ module.exports = class adminDao extends Dao{
     }
 
     deleteUser(userID, callback){
+
+        super.query("DELETE FROM Comment WHERE user_id = ?", [userID], callback2);
         super.query("DELETE FROM User WHERE user_id=?", [userID], callback);
     }
 
@@ -52,3 +54,7 @@ module.exports = class adminDao extends Dao{
     }
 
 };
+
+function callback2(){
+    console.log("Dummy function")
+}

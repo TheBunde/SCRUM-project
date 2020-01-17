@@ -121,6 +121,7 @@ class EventPage extends Component {
     }
 
     componentDidMount(){
+        window.scrollTo(0,0);
         eventService.getNonFiledEvents().then(events => this.setState({
             shownEvents: events,
             loadedEvents: events}))

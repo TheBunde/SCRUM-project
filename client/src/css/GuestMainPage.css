@@ -1,0 +1,9 @@
+#GuestMainPageContainer{
+    text-align: center;
+    vertical-align: center;
+    margin: auto;
+}
+
+#GuestMainPageContainer button{
+    margin: 300px 20px 0 20px;
+}

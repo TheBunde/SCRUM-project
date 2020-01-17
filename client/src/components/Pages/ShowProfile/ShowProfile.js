@@ -29,7 +29,6 @@ class ShowProfile extends Component {
 
     componentDidMount() {
         authenticate();
-        //console.log("ID tried: " + this.props.match.params.userID);
         if (this.props.match.params.userID !== auth.user_id) {
             this.setState({
                 authorized: false

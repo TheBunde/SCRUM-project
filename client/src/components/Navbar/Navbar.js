@@ -30,26 +30,12 @@ class Navbar extends Component {
             show.style.display = "none";
         }
         let userService = new UserService();
-        userService.getUser(auth.user_id)
-            .then(user => {
+        
+        userService.getUser(auth.userID)
+            .then(user1 => {
+                    console.log(user1)
                     this.setState({
-                        user: user
-                    })
-                }
-            ).then(console.log(this.state))
-            .catch((error) => {
-                console.error(error);
-            });
-    }
-
-    componentWillMount(){
-        authenticate();
-        console.log(auth)
-        let userService = new UserService();
-        userService.getUser(auth.user_id)
-            .then(user => {
-                    this.setState({
-                        user: user
+                        user: user1
                     })
                 }
             ).then(console.log(this.state))
@@ -99,7 +85,7 @@ class Navbar extends Component {
                                    aria-haspopup="true" aria-expanded="false">
                                     <img id="navProfile" alt="profilePic" src="https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
                                          width="30" height="30"/>
-                                         {this.state.user.name}
+                                        {this.state.user.name}
                                 </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown" id="navbarDropdown">
                                     <a className="dropdown-item"

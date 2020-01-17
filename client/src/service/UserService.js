@@ -45,7 +45,7 @@ let authenticationHeader = function authenticationHeader() {
     let token = window.localStorage.getItem("token");
 
     if (token) {
-        return {"authorization": "Bearer " + token}
+        return {"Authorization": "Bearer " + token}
     } else return {}
 };
 
@@ -106,7 +106,7 @@ export class UserService {
 
     getUser(userID){
         console.log("hoi sjef")
-        return Axios.get("http://" + ipAdress + ":8080/user/" + userID, {headers: {authorization: "Bearer " + window.localStorage.getItem("token")}}).then(response => {
+        return Axios.get("http://" + ipAdress + ":8080/user/" + userID, {headers: {authorization: "Bearer: " + window.localStorage.getItem("token")}}).then(response => {
             let a = response.data[0];
             console.log(a);
             return new User(

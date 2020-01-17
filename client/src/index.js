@@ -19,6 +19,8 @@ import ShowProfile from "./components/Pages/ShowProfile/ShowProfile";
 import EditProfile from "./components/Pages/EditProfile/EditProfile";
 import AdminUserPage from './components/Pages/AdminUsersPage/AdminUsersPage';
 import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
+import guestEventView from './components/Pages/Guest/GuestEventView/GuestEventView';
+import guestMainPage from './components/Pages/Guest/GuestMainPage/GuestMainPage';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -31,7 +33,7 @@ const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
             ? authorized.includes(auth.role) === true 
                 ? <Component {...props} /> 
                 : <Redirect to="overview" /> 
-            : <Redirect to="login" /> // User is not authenticated, and needs to log in
+            : <Redirect to="" /> // User is not authenticated, and needs to log in
     )}/>
 );
 
@@ -39,14 +41,16 @@ const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
 // Object with list of clearance levels used for routing and restricting access.
 const restriction = {
     admin: "admin",
-    regular: ["admin", "Sceneansvarlig", "Økonomiansvarlig", "Barsjef", "Bartender", "Handyman", "Fotograf", "Markedsfører", "SoMe-ansvarlig", "Ølbrygger", "Lydtekniker", "Lystekniker", "Scenerigger", "Artistbooker", "Artistkontakt", "Konseptutvikler", "Quizmaster", "Festplanlegger"] 
+    regular: ["admin", "Sceneansvarlig", "Økonomiansvarlig", "Barsjef", "Bartender", "Handyman", "Fotograf", "Markedsfører", "SoMe-ansvarlig", "Ølbrygger", "Lydtekniker", "Lystekniker", "Scenerigger", "Artistbooker", "Artistkontakt", "Konseptutvikler", "Quizmaster", "Festplanlegger"]
 };
 
 ReactDOM.render(
     <HashRouter>
         <ToastContainer />
         <div>
-            <Route exact path="/" component={MainPage} />
+            <Route exact path="/" component={guestMainPage} />
+            <Route exact path="/event/public/:id" component={guestEventView} />
+            <Route exact path="/portal" component={MainPage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/about" component={About} />

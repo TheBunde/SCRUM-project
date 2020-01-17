@@ -1,7 +1,7 @@
 import axios from 'axios';
 //let ipAdress = "10.24.3.122";
-//let ipAdress = "localhost";
-let ipAdress = "10.22.2.85";
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
+//let ipAdress = "10.22.2.85";
 
 export class event {
     constructor(name, date, description, place, category_id, artists, tech_rider, hospitality_rider, personnel, img_url, contract){

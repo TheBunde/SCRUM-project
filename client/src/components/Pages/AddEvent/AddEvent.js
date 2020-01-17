@@ -211,7 +211,7 @@ class AddEvent extends Component{
                                className="form-control"
                                placeholder={this.state.Placeholder}
                                id="rider1Input"
-                               required={true}
+                               required={true} accept={"application/msword, text/plain, application/pdf"}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -220,7 +220,7 @@ class AddEvent extends Component{
                                className="form-control"
                                placeholder={this.state.Placeholder}
                                id="rider2Input"
-                               required={true}
+                               required={true} accept={"application/msword, text/plain, application/pdf"}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -229,7 +229,7 @@ class AddEvent extends Component{
                                className="form-control"
                                placeholder={this.state.Placeholder}
                                id="personellInput"
-                               required={true}
+                               required={true} accept={"application/msword, text/plain, application/pdf"}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -238,7 +238,7 @@ class AddEvent extends Component{
                                className="form-control"
                                placeholder={this.state.Placeholder}
                                id="contractInput"
-                               required={true}
+                               required={true} accept={"application/msword, text/plain, application/pdf, image/*"}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -247,7 +247,7 @@ class AddEvent extends Component{
                                className="form-control"
                                placeholder={this.state.Placeholder}
                                id="imageInput"
-                               required={true}
+                               required={true} accept={"image/*"}
                         />
                     </div>
 

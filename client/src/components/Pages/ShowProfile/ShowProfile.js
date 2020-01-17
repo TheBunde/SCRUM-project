@@ -58,7 +58,6 @@ class ShowProfile extends Component {
                 auth.user_id === this.props.match.params.userID ?
                 <div>
                     <Navbar/>
-                    <Back/>
                     <div id="ShowProfileDiv">
                         <h1>Min profil</h1>
                         <div id="ShowProfileDivide" className="dropdown-divider border-dark"></div>
@@ -69,13 +68,13 @@ class ShowProfile extends Component {
                         <div id="ShowProfileText">
 
                             <div id="ShowProfileLine">
-                                <h4 id="h4">Brukernavn: </h4> <h5 id="h5">{this.state.user.name}</h5>
+                                <h4 id="h4">Navn: </h4> <h5 id="h5">{this.state.user.name}</h5>
                             </div>
                             <div id="ShowProfileLine">
-                                <h4 id="h4">tlf: </h4><h5 id="h5">{this.state.user.phone}</h5>
+                                <h4 id="h4">Telefon: </h4><h5 id="h5">{this.state.user.phone}</h5>
                             </div>
                             <div id="ShowProfileLine">
-                                <h4 id="h4">E-mail: </h4><h5 id="h5">{this.state.user.email}</h5>
+                                <h4 id="h4">E-post: </h4><h5 id="h5">{this.state.user.email}</h5>
                             </div>
                         </div>
 

@@ -5,7 +5,6 @@ let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 export class ProfileService{
 
     updateUser(user){
-        console.log("It is fixed");
         return axios.put("http://" + ipAdress + ":8080/profile/" + user.user_id + '/edit', user);
     }
 

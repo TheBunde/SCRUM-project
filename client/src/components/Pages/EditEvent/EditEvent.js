@@ -55,7 +55,7 @@ class EditEvent extends Component{
     ticketCheck(){
         let status = false;
         this.state.Tickets.map(ticket =>{
-            if(this.state[ticket.name + "TicketBox"] = true && (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0)){
+            if(this.state[ticket.name + "TicketBox"] == true && (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0)){
                 status = true;
             }
         });
@@ -115,7 +115,8 @@ class EditEvent extends Component{
         this.setState({Hospitality: data[0].hospitality_rider});
         this.setState({Personnel: data[0].personnel});
         this.setState({Picture: data[0].img_url});
-        this.setState({Contract: data[0].contract})
+        this.setState({Contract: data[0].contract});
+
     }
 
     updateTicketInfo(data) {
@@ -160,6 +161,8 @@ class EditEvent extends Component{
                             <Calendar
                                 onSelectDate = {this.changeDate}
                                 startOnMonday = {true}
+                                selectedDate = {this.state.date}
+                                startDateAt ={this.state.date}
                             />
                         </div>
                     </div>
@@ -168,8 +171,9 @@ class EditEvent extends Component{
                         <p id="EventInputLabels">Tidspunkt for arrangementet:</p>
                         <div id="EventDateInput">
                             <select className="form-control"
-                                    id ="dateHourInput"
+                                    id ="dateChosenHour"
                                     value={this.state.dateChosenHour}
+                                    onChange={this.changeValue}
                             >
                                 {this.state.DateHour.map(hour =>
                                     <option
@@ -182,8 +186,9 @@ class EditEvent extends Component{
                                 )}
                             </select>
                             <select className="form-control"
-                                    id ="dateMinInput"
+                                    id ="dateChosenMin"
                                     value={this.state.dateChosenMin}
+                                    onChange={this.changeValue}
                             >
                                 {this.state.DateMin.map(min =>
                                     <option
@@ -377,6 +382,10 @@ class EditEvent extends Component{
 
             eventService
                 .updateEvent(this.props.match.params.id, this.state.Name, date, this.state.Description, this.state.Place, this.state.Category, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
+                .catch(Error => console.log(Error));
+
+            eventService
+                .deleteTicketsForEvent(this.props.match.params.id)
                 .then(() => this.updateById(this.props.match.params.id))
                 .catch(Error => console.log(Error));
 
@@ -387,9 +396,6 @@ class EditEvent extends Component{
         }
     }
     updateById(eventID){
-        eventService
-            .deleteTicketsForEvent(eventID)
-            .catch(Error => console.log(Error));
 
         this.state.Tickets.map(ticket =>{
             if(this.state[ticket.name + "TicketBox"]){

@@ -131,7 +131,7 @@ class EditProfile extends Component{
                             <input
                                 id="fileInput"
                                 className="form-control form-control-lg"
-                                type="file"
+                                type="file" accept={"image/*"}
                             />
                             <br/>
                         </div>

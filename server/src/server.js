@@ -362,6 +362,14 @@ app.get("/event/archived", (req, res) => {
     });
 });
 
+app.get("/event/active", (req, res) => {
+    console.log("/event fikk request fra klient");
+    eventDao.getAllActive((status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
 
 app.put('/event/:eventID/archived', (req, res) => {
     console.log('/annonse/:eventID/archived: fikk request fra klient');

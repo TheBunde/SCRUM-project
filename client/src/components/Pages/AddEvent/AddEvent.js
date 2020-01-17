@@ -393,14 +393,14 @@ class AddEvent extends Component{
                     let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
 
                     eventService
-                        .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
+                        .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Category, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
                         .then(data => this.registerByID(data.insertId))
                         .catch(Error => console.log(Error));
                     this.notifySuccess();
                     window.location.hash = "/event/";
                 })
         } else{
-                this.setState({Placeholder: "Dette feltet må fylles inn"})
+                this.setState({Placeholder: "Dette feltet må fylles inn"});
                 this.notifyFailure();
             }
         }
@@ -429,12 +429,6 @@ class AddEvent extends Component{
                 }
             }
         });
-
-        eventService
-            .addCategory(EventId, this.state.Category)
-            .catch(Error => console.log(Error));
-
-
         eventService
             .addContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, EventId)
             .catch(Error => console.log(Error));

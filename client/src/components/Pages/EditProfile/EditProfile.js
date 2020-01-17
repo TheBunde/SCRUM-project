@@ -47,6 +47,7 @@ class EditProfile extends Component{
         }
     };
 
+
     checkFields = (e) => {
         // If any of these fields are empty, the function returns false, and prompts the user to fill the remaining fields.
         const name = document.getElementById("nameInput").value.trim();
@@ -60,12 +61,13 @@ class EditProfile extends Component{
         console.log(name === "");
         
         if(
-            name === null || name === "" ||
+            (name === null || name === "" ||
             email === null || email === "" ||
             phone === null || phone === "" ||
             pw === null || pw === "" ||
             role === null || role === "" ||
-            approved === null || approved === ""
+            approved === null || approved === "") || 
+            (phone.length < 8 || phone.length > 8)
         ){
             console.log("WTF");
             this.notifyFailure();

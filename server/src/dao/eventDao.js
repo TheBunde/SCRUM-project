@@ -39,6 +39,7 @@ module.exports = class adminDao extends Dao{
     }
 
     deleteEvent(eventID, callback){
+        super.query("DELETE FROM Comment WHERE event_id = ?", [eventID], callback2);
         super.query("DELETE FROM Contact_Info WHERE event_id = ?", [eventID], callback2);
         super.query("DELETE FROM Event_Ticket WHERE event_id = ?", [eventID], callback2);
         super.query("DELETE FROM Event WHERE event_id = ?", [eventID], callback)

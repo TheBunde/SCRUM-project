@@ -196,6 +196,9 @@ app.post("/user/reset_password", (req, res) => {
     //Hash that password
     //Change the password that that new hash
     //Send the email
+    console.log("EMAIL:::");
+    console.log(req.body);
+    console.log(req.body.email);
     userDao.getUser(req.body.email, (status, data) => {
         if (data.length > 0) {
             let newPass = makeid(8);

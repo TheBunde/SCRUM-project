@@ -94,8 +94,8 @@
     display: grid;
     grid-template-areas: 
             "title title"
-            "eventViewImage eventViewInfoBox"
-            "eventViewDescription eventViewTicketsAndFiles";
+            "eventViewImage eventViewInfoContainer"
+            "eventViewDescription eventViewInfoContainer";
     grid-template-columns: 2fr 1fr;
 }
 
@@ -106,7 +106,7 @@
     background-color: white;
     width: 100%;
     height: 100%;
-    margin: 0px 15px 0 15px;
+    margin: 0px 15px 15px 15px;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
@@ -121,18 +121,6 @@
     /*object-fit: contain;*/
     object-fit: cover;  
     margin: auto;  
-}
-
-#eventViewInfoBoxContainer{
-    grid-area: eventViewInfoBox;
-    margin: 0px 0 0 15px; 
-    max-width: 98%;
-}
-#eventViewInfoBox{
-    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
-    max-width: 98%;
-    border-radius: 5px;
-    background-color: white;
 }
 
 #eventViewDescriptionContainer{
@@ -159,6 +147,19 @@
     padding-bottom: 20px;
 }
 
+#eventViewInfoBoxContainer{
+    grid-area: eventViewInfoContainer;
+    margin: 0px 0 0 15px; 
+    max-width: 98%;
+}
+#eventViewInfoBox{
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 98%;
+    border-radius: 5px;
+    background-color: white;
+    margin: 0 0 15px 0; 
+}
+
 #eventViewFilesContainer{
 }
 #eventViewFiles{
@@ -169,11 +170,11 @@
     padding: 20px;
     box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
     max-width: 98%;
-    margin: 15px;
     border-radius: 5px;
     min-height: 100px;
     max-height: 500px;
     overflow-y: auto;
+    margin: 0 0 15px 0; 
 }
 
 #eventViewInfoTicketsContainer{
@@ -184,11 +185,11 @@
     background-color: white;
     box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
     max-width: 98%;
-    margin: 15px;
     border-radius: 5px;
     min-height: 100px;
     max-height: 500px;
     overflow-y: auto;
+    margin: 0 0 15px 0; 
 }
 
 #titleEvent{

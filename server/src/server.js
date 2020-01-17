@@ -488,4 +488,12 @@ app.get("/event/tickets/:id", (req, res) =>{
     })
 });
 
+app.get("/event/tickets/:id", (req, res) =>{
+    eventDao.getTicketFromEvent(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
+
 let server = app.listen(8080);

@@ -269,8 +269,12 @@ app.get("/users/", (req, res) => {
 
 app.post("/user", (req, res) => {
     console.log("post /user");
-    mail.sendMail(req.body);
+    
     userDao.registerUser(req.body, (status, data) => {
+        console.log("http status code: "+status);
+        if(status === 200){
+            mail.sendMail(req.body);
+        }
         res.status(status);
         res.json(data);
     });
@@ -537,5 +541,18 @@ app.get("/event/tickets/:id", (req, res) =>{
     })
 });
 
+app.put("/event/contactinfo/:id", (req, res) =>{
+    eventDao.updateContactInfo(req.params.id, req.body, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.delete("/event/tickets/:id", (req, res) =>{
+    eventDao.deleteTicketsForEvent(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
 
 let server = app.listen(8080);

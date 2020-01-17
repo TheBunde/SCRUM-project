@@ -1,4 +1,4 @@
-drop table if exists Event_Category;
+drop table if exists Comment;
 drop table if exists Contact_Info;
 drop table if exists Event_Ticket;
 drop table if exists Event;
@@ -15,6 +15,7 @@ create table Event
   description text not null,
   date datetime not null,
   place varchar(40) not null,
+  category_id int not null,
   img_url text,
   artists varchar(100) not null,
   tech_rider longtext not null,
@@ -23,8 +24,8 @@ create table Event
   personnel text,
   filed tinyint not null default 0,
   pending tinyint not null default 1,
-  constraint event_pk primary key (event_id),
-  fulltext (name, description, place, artists)
+  canceled tinyint not null default 0,
+  constraint event_pk primary key (event_id)
 );
 
 create table Ticket_Category
@@ -58,19 +59,12 @@ create table User
   name varchar(100) not null,
   email varchar(320) not null unique,
   phone varchar(12) not null unique,
- -- salt varchar(128) not null,
+  profile_photo longtext,
   password_hash varchar(128) not null,
   role_id int,
   approved tinyint not null default 0,
   constraint user_pk primary key (user_id)
 )engine=InnoDB;
-
-create table Event_Category
-(
-  event_id int not null,
-  category_id int not null,
-  constraint event_category_pk primary key (event_id, category_id)
-);
 
 create table Category
 (
@@ -78,6 +72,16 @@ create table Category
   name varchar(45) not null,
   constraint category_pk primary key (category_id)
 );
+
+create table Comment
+(
+  event_id int not null,
+  user_id int not null,
+  comment text not null,
+  date datetime not null,
+  constraint comment_pk primary key (event_id, user_id)
+);
+
 
 create table Contact_Info
 (
@@ -89,8 +93,12 @@ create table Contact_Info
   constraint contact_info_pk primary key (contact_info_id)
 );
 
-alter table Event_Category
-  add foreign key (category_id) references Category(category_id),
+
+alter table Event
+  add foreign key (category_id) references Category(category_id);
+
+alter table Comment
+  add foreign key (user_id) references User(user_id),
   add foreign key (event_id) references Event(event_id);
 
 alter table Event_Ticket
@@ -143,15 +151,9 @@ insert into Ticket_Category(name) values ('GoldenCircle');
 insert into Ticket_Category(name) values ('EarlyBird');
 
 
-insert into Event(name, description, date, place, artists, tech_rider, hospitality_rider, personnel, filed)
-values ('the Donn party', 'Donn holder repetisjonsforelesning i OS', '2020-02-03 20:30:00', 'Sukkerhuset', 'Donn Morrison', 'speakers 2x\n vocal solo mic 1x\n soundtrack with playback player 1x\n projector to show lectures\n all with linux', 'give him a beer or something to put an OS in, and compliment his lectures... just do it', 'an audience', 0);
-insert into Event(name, description, date, place, artists, tech_rider, hospitality_rider, personnel, filed)
-values ('Metallica metal', 'Metallica kommer til Sukkerhuset!', '2020-01-09 14:30:00', 'Sukkerhuset', 'Metallica' , 'speakers 6x\n vocal solo mic 1x\n more speakers', 'lots of cool looking drinks and beer', 'has their own', 0);
-
-
-insert into Event_Category(event_id, category_id) values (1,1);
-insert into Event_Category(event_id, category_id) VALUES (2,2);
-
+insert into Event(name, description, date, place, category_id, artists, tech_rider, hospitality_rider, personnel, filed, pending, canceled)
+values ('the Donn party', 'Donn holder repetisjonsforelesning i OS', '2020-02-03 20:30:00', 'Sukkerhuset', 1, 'Donn Morrison', 'speakers 2x\n vocal solo mic 1x\n soundtrack with playback player 1x\n projector to show lectures\n all with linux', 'give him a beer or something to put an OS in, and compliment his lectures... just do it', 'an audience', 0, 0,0),
+('Metallica metal', 'Metallica kommer til Sukkerhuset!', '2020-01-09 14:30:00', 'Sukkerhuset', 2, 'Metallica' , 'speakers 6x\n vocal solo mic 1x\n more speakers', 'lots of cool looking drinks and beer', 'has their own', 0, 0, 0);
 
 insert into Contact_Info( name, phone, email, event_id) values ('Donn team', '1991', 'Donn@linux.OS', 1);
 insert into Contact_Info( name, phone, email, event_id) values ('Metallica', '2386724692', 'metallica@metal.band', 1);
@@ -160,3 +162,7 @@ insert into Contact_Info( name, phone, email, event_id) values ('Metallica', '23
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (1, 4, 0, 95);
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2, 1, 850, 200);
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2, 3, 1000, 2);
+
+
+insert into Comment(event_id, user_id, comment, date) values (1,1,'this is a test comment', now());
+insert into Comment(event_id, user_id, comment, date) values (1,2,'this is also a test comment', now());

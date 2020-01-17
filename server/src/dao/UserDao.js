@@ -53,12 +53,21 @@ module.exports = class UserDao extends dao {
     }
 
     updateProfile(user, callback) {
-        var val = [user.name, user.phone, user.email, user.user_id];
-        console.log(val);
-        super.query(
-            'UPDATE User SET name = ?, phone = ?, email = ? where user_id = ?',
-            val,
-            callback
-        );
+        if (user.profile_photo === "") {
+            let val = [user.name, user.phone, user.email, user.user_id];
+            super.query(
+                'UPDATE User SET name = ?, phone = ?, email = ? where user_id = ?',
+                val,
+                callback
+            );
+        } else {
+            let val = [user.name, user.phone, user.email, user.profile_photo, user.user_id];
+            super.query(
+                "UPDATE User set name = ?, phone = ?, email = ?, profile_photo = ? where user_id = ?",
+                val,
+                callback
+            )
+        }
+
     }
 };

@@ -196,6 +196,9 @@ app.post("/user/reset_password", (req, res) => {
     //Hash that password
     //Change the password that that new hash
     //Send the email
+    console.log("EMAIL:::");
+    console.log(req.body);
+    console.log(req.body.email);
     userDao.getUser(req.body.email, (status, data) => {
         if (data.length > 0) {
             let newPass = makeid(8);
@@ -266,8 +269,12 @@ app.get("/users/", (req, res) => {
 
 app.post("/user", (req, res) => {
     console.log("post /user");
-    mail.sendMail(req.body);
+    
     userDao.registerUser(req.body, (status, data) => {
+        console.log("http status code: "+status);
+        if(status === 200){
+            mail.sendMail(req.body);
+        }
         res.status(status);
         res.json(data);
     });
@@ -543,5 +550,18 @@ app.get("/event/tickets/:id", (req, res) =>{
     })
 });
 
+app.put("/event/contactinfo/:id", (req, res) =>{
+    eventDao.updateContactInfo(req.params.id, req.body, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.delete("/event/tickets/:id", (req, res) =>{
+    eventDao.deleteTicketsForEvent(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
 
 let server = app.listen(8080);

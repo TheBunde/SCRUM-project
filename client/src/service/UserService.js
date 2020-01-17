@@ -1,8 +1,6 @@
 import Axios from "axios";
 //Axios.interceptors.response.use(response => response.data);
-//let ipAdress = "10.24.3.122";
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
-//let ipAdress = "10.22.2.85";
 
 export class User {
     user_id;
@@ -89,6 +87,14 @@ export class UserService {
                 "newPassword": newPassword
             }
         );
+    }
+
+    forgotPassword(email) {
+        return Axios.post("http://" + ipAdress + ":8080/user/reset_password",
+            {
+                "email" : email
+            }
+            )
     }
 }
 

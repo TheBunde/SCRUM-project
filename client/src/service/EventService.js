@@ -1,8 +1,5 @@
 import axios from 'axios';
-//let ipAdress = "10.24.3.122";
-//let ipAdress = "localhost";
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
-//let ipAdress = "10.22.2.85";
 
 export class event {
     constructor(name, date, description, place, category_id, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
@@ -106,12 +103,11 @@ class EventService{
 
     updateContactInfo(name, phone, email, eventID){
         let contactInfo = {name: name, phone: phone, email: email};
-        return axios.put("http://" + ipAdress + ":8080/contactInfo/" + eventID, contactInfo).then(response => response.data)
+        return axios.put("http://" + ipAdress + ":8080/event/contactinfo/" + eventID, contactInfo).then(response => response.data)
     }
 
-    updateEventTicket(ticketID, eventID, amount){
-        let ticketInfo = {ticketID: ticketID, amount: amount};
-        return axios.put("http://" + ipAdress + ":8080/tickets/" + eventID, ticketInfo).then(response => response.data)
+    deleteTicketsForEvent(eventID){
+        return axios.delete("http://" + ipAdress + ":8080/event/tickets/" + eventID).then(response => response.data)
     }
 }
 

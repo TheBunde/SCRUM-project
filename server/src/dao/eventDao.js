@@ -83,8 +83,8 @@ module.exports = class adminDao extends Dao{
         super.query("UPDATE Contact_Info SET name = ?, phone = ?, email = ? WHERE event_id = ?", [contactInfo.name, contactInfo.phone, contactInfo.email, eventID], callback)
     }
 
-    updateEventTicket(eventID, ticketInfo, callback){
-        super.query("UPDATE Event_Ticket SET ticket_category_id = ?, number = ? WHERE event_id = ?", [ticketInfo.ticketID, ticketInfo.amount, eventID], callback)
+    deleteTicketsForEvent(eventID, callback){
+        super.query("DELETE FROM Event_Ticket WHERE event_id = ?", [eventID], callback)
     }
 
 };

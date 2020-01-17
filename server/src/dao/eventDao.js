@@ -23,7 +23,7 @@ module.exports = class adminDao extends Dao{
     }
 
     addEvent(event, callback){
-        super.query("INSERT INTO Event(name, description, date, place, category_id, img_url, artists, tech_rider, hospitality_rider, personnel, contract) VALUES (?,?,?,?,?,?,?,?,?,?)", [event.name, event.description, event.date, event.place, event.categoryID, event.img_url, event.artists, event.tech_rider, event.hospitality_rider, event.personnel, event.contract], callback)
+        super.query("INSERT INTO Event(name, description, date, place, category_id, img_url, artists, tech_rider, hospitality_rider, personnel, contract) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [event.name, event.description, event.date, event.place, event.categoryID, event.img_url, event.artists, event.tech_rider, event.hospitality_rider, event.personnel, event.contract], callback)
     }
 
     getCategories(callback){
@@ -71,7 +71,7 @@ module.exports = class adminDao extends Dao{
     }
 
     updateEvent(eventID, eventInfo, callback){
-        super.query("UPDATE Event SET name = ?, description = ?, date = ?, place = ?, category_id = ?, img_url = ?, artists = ?, tech_rider = ?, hospitality_rider = ?, contract = ?, personnel = ? WHERE event_id = ?", [eventInfo.name, eventInfo.description, eventInfo.date, eventInfo.place, eventInfo.category_id, eventInfo.img_url, eventInfo.artists, eventInfo.tech_rider, eventInfo.hospitality_rider, eventInfo.contract, eventInfo.personnel, eventID], callback)
+        super.query("UPDATE Event SET name = ?, description = ?, date = ?, place = ?, category_id = ?, img_url = ?, artists = ?, tech_rider = ?, hospitality_rider = ?, contract = ?, personnel = ? WHERE event_id = ?", [eventInfo.name, eventInfo.description, eventInfo.date, eventInfo.place, eventInfo.categoryID, eventInfo.img_url, eventInfo.artists, eventInfo.tech_rider, eventInfo.hospitality_rider, eventInfo.contract, eventInfo.personnel, eventID], callback)
     }
 
 

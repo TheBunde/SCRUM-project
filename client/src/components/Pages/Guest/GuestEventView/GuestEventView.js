@@ -95,7 +95,7 @@ class GuestEventView extends Component{
 
                     <div id="eventViewImageContainer">
                         <div id="eventViewImage">
-                            <img src={"http://localhost:8080/image/" + this.state.img_url} />
+                            <img src={"http://localhost:8080/image/" + this.state.img_url} alt={this.props.name}/>
                         </div>
                     </div>
                     

@@ -49,25 +49,25 @@ class RegisterPage extends Component{
                                         <div id="RegisterPageFormFieldsDiv">
                                             <label htmlFor="exampleInputEmail1">Navn: </label>
                                             <input type="name" name={"name"} className="form-control" id="firstNameInput"
-                                                onChange={this.handleTextChange.bind(this)} aria-describedby="emailHelp" placeholder="Navn..."/>
+                                                onChange={this.handleTextChange.bind(this)} aria-describedby="emailHelp" placeholder="Navn..." onKeyPress={this.keyPressed}/>
                                         </div>
                                         <div id="RegisterPageFormFieldsDiv">
                                             <label htmlFor="exampleInputEmail1">Email: </label>
                                             <input type="email" name={"email"} className="form-control" id="emailInput"
                                                 onChange={this.handleTextChange.bind(this)}
-                                                aria-describedby="emailHelp" placeholder="Email..."/>
+                                                aria-describedby="emailHelp" placeholder="Email..." onKeyPress={this.keyPressed}/>
                                         </div>
                                         <div id="RegisterPageFormFieldsDiv">
                                         <label htmlFor="exampleInputEmail1">Telefon:</label>
                                         <input type="tel" pattern={"[0-9]{8}"} name={"phone"} className="form-control" id="exampleInputEmail1"
                                             onChange={this.handleTextChange.bind(this)}
-                                            aria-describedby="emailHelp" placeholder="Telefon..."/>
+                                            aria-describedby="emailHelp" placeholder="Telefon..." onKeyPress={this.keyPressed}/>
                                         </div>
                                         <div id="RegisterPageFormFieldsDiv">
                                             <label htmlFor="exampleInputPassword1">Passord:</label>
                                             <input type="password" name="password" className="form-control" id="passwordInput"
                                                 onChange={this.handleTextChange.bind(this)}
-                                                placeholder="Passord..."/>
+                                                placeholder="Passord..." onKeyPress={this.keyPressed}/>
                                         </div>
                                         <div id="RegisterPageFormFieldsDiv">
                                             <label htmlFor="exampleInputPassword1">Gjenta passord:</label>

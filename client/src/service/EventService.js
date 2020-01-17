@@ -1,7 +1,5 @@
 import axios from 'axios';
-//let ipAdress = "10.24.3.122";
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
-//let ipAdress = "10.22.2.85";
 
 export class event {
     constructor(name, date, description, place, category_id, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
@@ -50,7 +48,7 @@ class EventService{
     }
 
     deleteEvent(eventID){
-        console.log("Inne i delete metode")
+        console.log("Inne i delete metode");
         return axios.delete("http://" + ipAdress + ":8080/event/" + eventID).then(response => response.data);
     }
 

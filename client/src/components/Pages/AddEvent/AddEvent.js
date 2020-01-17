@@ -429,7 +429,6 @@ class AddEvent extends Component{
                 }
             }
         });
-        //may be redundant...
         eventService
             .addContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, EventId)
             .catch(Error => console.log(Error));

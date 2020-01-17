@@ -93,10 +93,10 @@
 
     display: grid;
     grid-template-areas: 
-            "title title title"
-            "eventViewImage eventViewImage eventViewInfoBox"
-            "eventViewDescription eventViewDescription eventViewTicketsAndFiles";
-    grid-template-columns: 1fr 1fr 1fr;
+            "title title"
+            "eventViewImage eventViewInfoBox"
+            "eventViewDescription eventViewTicketsAndFiles";
+    grid-template-columns: 2fr 1fr;
 }
 
 #eventViewImageContainer{

@@ -64,6 +64,9 @@
 }
 
 #navProfile{
-    padding: 2px;
+    padding: 4px;
+    vertical-align: center;
     border-radius: 50%;
+    margin-top: -5px;
+    margin-right: 2px;
 }

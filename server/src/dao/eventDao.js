@@ -88,7 +88,7 @@ module.exports = class adminDao extends Dao{
     }
 
     getComments(eventID, callback){
-        super.query("select name, comment, date from Comment left join User on User.user_id = Comment.user_id where event_id = ?",[eventID],callback)
+        super.query("select name, comment, date from Comment left join User on User.user_id = Comment.user_id where event_id = ? order by date asc",[eventID],callback)
     }
 
     addComment(comment, callback){

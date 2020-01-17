@@ -199,7 +199,7 @@ class EventPage extends Component {
                             <div id="eventPageEventTable">
                                 {this.state.shownEvents.slice(0, this.state.length).map(event => (
                                     <div>
-                                        <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={this.formatDate(event.date)} place={event.place}/>
+                                        <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={this.formatDate(event.date)} compareDate={event.date} place={event.place} pending={event.pending} filed={event.filed}/>
                                     </div>
                                 ))}
 
@@ -224,7 +224,22 @@ class EventPage extends Component {
 }
 
 class EventCard extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            status: {}
+        }
+
+    }
+
+    componentDidMount() {
+        let status = this.getStatus(this.props.pending, this.props.filed,  this.props.compareDate);
+        this.setState(this.state = {status});
+    }
+
     render(){
+        let color = this.getColor(this.props.pending, this.props.filed, this.props.compareDate);
         return (
             <div id="eventPageEventCardLink">
                 <a onClick={() => window.location.href = "#/event/" + this.props.event_id}>
@@ -235,6 +250,9 @@ class EventCard extends Component {
 
                             <div id="eventPageCardBody" class="card-body">
                                 <h5 class="card-title">{this.props.name}</h5>
+                                <div id="eventPageStatus">
+                                    <a className={"btn btn-sm btn-"+color}>Status: {this.getStatus(this.props.pending, this.props.filed,  this.props.compareDate)}</a>
+                                </div>
                                 <div id="eventPageCardLocation">
                                     {this.props.place}
                                 </div>
@@ -247,6 +265,66 @@ class EventCard extends Component {
                 </a>
             </div>
         )
+    }
+
+    getStatus(pending, filed, date){
+        let status;
+        if(pending === 1 && filed === 0){
+            status = "Til godkjenning";
+        }
+        else if(filed === 1 && pending === 0){
+            status = "Arkivert";
+        }
+        else if(filed === 1 && pending === 1){
+            status = "Databasefeil";
+        }
+        else if(pending === 0 && filed === 0 &&  date > this.getCurrentDate()){
+            status = "Kommende";
+        }else{
+            status = "Utførte";
+        }
+        return status;
+    }
+
+    getColor(pending, filed, date){
+        let color;
+        if(pending === 1 && filed === 0){
+            color = "danger";
+        }
+        else if(filed === 1 && pending === 0){
+            color = "dark";
+        }
+        else if(pending === 0 && filed === 0 &&  date > this.getCurrentDate()){
+            color = "success";
+        }
+        else if(pending === 1 && filed === 1){
+            color = "warning";
+        }else{
+            color = "info";
+        }
+        return color;
+    }
+
+    getCurrentDate() {
+        let newDate = new Date();
+        let date = newDate.getDate();
+        if(date<10){
+            date = "0" + date;
+        }
+        let month = newDate.getMonth()+1;
+        if(month<10){
+            month = "0" + month;
+        }
+        let year = newDate.getFullYear();
+        let hours = newDate.getHours();
+        if(hours<10){
+            hours = "0" + hours;
+        }
+        let minutes = newDate.getMinutes();
+        if(minutes<10){
+            minutes = "0" + minutes;
+        }
+        return year + "-" + month + "-" + date + "T" + hours + ":" + minutes + ":00:000Z";
     }
 }
 

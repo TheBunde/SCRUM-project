@@ -1,5 +1,4 @@
-drop table if exists Pending_User;
-drop table if exists Event_Category;
+drop table if exists Comment;
 drop table if exists Contact_Info;
 drop table if exists Event_Ticket;
 drop table if exists Event;

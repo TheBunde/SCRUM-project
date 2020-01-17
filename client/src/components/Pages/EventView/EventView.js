@@ -30,17 +30,7 @@ class EventView extends Component{
             pending: "",
             img_url: "",
             description: "",
-            event_tickets: [
-                {
-                name: "Standard",
-                price: 800,
-                number: 50
-                },
-                {
-                name: "Gratis",
-                price: 0,
-                number: 500
-                }]
+            event_tickets: []
         }
     }
 
@@ -74,6 +64,7 @@ class EventView extends Component{
             description: events[0].description,
             category_name: events[0].category_name}))
             .catch(error => console.error(error.message));
+        eventService.getTicketFromEvent(this.props.match.params.id).then(tickets => this.setState({event_tickets: tickets}))
     }
         
 
@@ -137,6 +128,10 @@ class EventView extends Component{
                                             
                                         <div id="eventViewDelete">
                                             <button type="button" onClick={() => this.submitEventDeleteButton(this.state.event_id)} className="btn btn-outline-danger">Slett</button>
+                                        </div>
+
+                                        <div id="eventViewDelete">
+                                            <button type="button" onClick={() => this.pend(this.state.event_id)} className="btn btn-outline-danger">pending</button>
                                         </div>
                                     
                                     </div>
@@ -261,6 +256,16 @@ class EventView extends Component{
             .catch(e => console.error(e));
         history.push("/event")
     }
+
+    pend(id){
+        console.log(id);
+        eventService
+            .updatePending(id)
+            .catch(e => console.error(e));
+        history.push("/event")
+    }
+
+
 }
 
 export default EventView;

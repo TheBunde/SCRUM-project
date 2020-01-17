@@ -63,7 +63,7 @@ class ShowProfile extends Component {
                         <h1>Min profil</h1>
                         <div id="ShowProfileDivide" className="dropdown-divider border-dark"></div>
                         <div id="ShowProfilePic">
-                            <img id="ShowProfileProfile" alt="profilePic" src="https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                            <img id="ShowProfileProfile" alt="profilePic" src={this.state.user.profile_photo === null || this.state.user.profile_photo === "" ? "https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" : "http://localhost:8080/image/" + this.state.user.profile_photo}
                                  width="250" height="250"/>
                         </div>
                         <div id="ShowProfileText">

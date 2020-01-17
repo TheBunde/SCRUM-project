@@ -82,8 +82,7 @@ class EventView extends Component{
             return place.trim(" ,");
         }
 
-        /* */
-        /**<img src={"https://www.denverkarateonline.com/wp-content/uploads/2017/04/default-image.jpg"} /> */
+
 
         return (
             <div>

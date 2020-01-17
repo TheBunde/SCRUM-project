@@ -19,7 +19,7 @@ class LoginPage extends Component{
             
             <div class="pageSetup">
                 <div id="LoginFormDiv">
-                    <div id="MainPageTitle"><a id="LoginPageTitle" href="">HARMONI</a></div>
+                    <div id="MainPageTitle"><a id="LoginPageTitle" href="#/portal">HARMONI</a></div>
                         <LoginForm />
                     <div>
                         <FooterTransparent />

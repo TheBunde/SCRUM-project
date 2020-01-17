@@ -40,7 +40,7 @@ class RegisterPage extends Component {
         return (
             <div class="pageSetup">
                 <div id="LoginFormDiv">
-                    <div id="MainPageTitle"><a id="LoginPageTitle" href="">HARMONI</a></div>
+                    <div id="MainPageTitle"><a id="LoginPageTitle" href="#/portal">HARMONI</a></div>
                     <div className={"wrapper"}>
                         <div className={"registerContainer"}>
                             <div class="card RegisterPageCard">
@@ -57,11 +57,11 @@ class RegisterPage extends Component {
                                                        onKeyPress={this.keyPressed}/>
                                             </div>
                                             <div id="RegisterPageFormFieldsDiv">
-                                                <label htmlFor="exampleInputEmail1">Email: </label>
+                                                <label htmlFor="exampleInputEmail1">E-post: </label>
                                                 <input type="email" name={"email"} className="form-control"
                                                        id="emailInput"
                                                        onChange={this.handleTextChange.bind(this)}
-                                                       aria-describedby="emailHelp" placeholder="Email..."
+                                                       aria-describedby="emailHelp" placeholder="E-post..."
                                                        onKeyPress={this.keyPressed}/>
                                             </div>
                                             <div id="RegisterPageFormFieldsDiv">

@@ -30,6 +30,10 @@ class EditProfile extends Component{
         toast("Redigering av bruker vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
     };
 
+    notifySuccessPw = () => {
+        toast("Redigering av e-post vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
+    };
+
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
 
@@ -211,7 +215,14 @@ class EditProfile extends Component{
             console.log("Du må fylle ut feltene!")
             return false;
         } else{
-            userService.updatePassword(email, oldPWInput, newPWInput, user_id);
+            userService.updatePassword(email, oldPWInput, newPWInput, user_id)
+                .then(() => {
+                    this.notifySuccessPw();
+                    window.location.hash="/profile/" + auth.user_id;
+                })
+                .catch((err) => {
+                    this.notifyFailure();
+                })
         }
     }
 

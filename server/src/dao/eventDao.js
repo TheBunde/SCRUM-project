@@ -54,6 +54,10 @@ module.exports = class adminDao extends Dao{
         super.query("UPDATE Event SET filed = 1 WHERE event_id = ?", [eventID], callback)
     }
 
+    updatePending(eventID){
+        super.query("UPDATE Event SET pending = 0 WHERE event_id = ?", [eventID], callback)
+    }
+
     getCategoryFromEvent(eventID, callback){
         super.query("SELECT category_id FROM Event WHERE event_id = ?", [eventID], callback)
     }
@@ -85,6 +89,7 @@ module.exports = class adminDao extends Dao{
     updateEventTicket(eventID, ticketInfo, callback){
         super.query("UPDATE Event_Ticket SET ticket_category_id = ?, number = ? WHERE event_id = ?", [ticketInfo.ticketID, ticketInfo.amount, eventID], callback)
     }
+
 };
 
 function callback2(){

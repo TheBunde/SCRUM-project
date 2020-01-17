@@ -372,6 +372,15 @@ app.put('/event/:eventID/archived', (req, res) => {
     });
 });
 
+app.put('/event/:eventID/pending', (req, res) => {
+    console.log('/annonse/:eventID/pending: fikk request fra klient');
+    console.log(req.params.eventID);
+    eventDao.updatePending(req.params.eventID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
 app.get("/event/nonFiled", (req, res) => {
     console.log("/event fikk request fra klient");
     eventDao.getNonFiledEvents((status, data) => {

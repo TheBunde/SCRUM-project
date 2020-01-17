@@ -4,10 +4,11 @@ import axios from 'axios';
 let ipAdress = "10.22.2.85";
 
 export class event {
-    constructor(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
+    constructor(name, date, description, place, category_id, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
         this.name = name;
         this.date = date;
         this.place = place;
+        this.category_id = category_id;
         this.artists = artists;
         this.tech_rider = tech_rider;
         this.hospitality_rider = hospitality_rider;
@@ -24,8 +25,8 @@ class EventService{
         return axios.post("http://" + ipAdress + ":8080/filesUpload", file);
     }
 
-    addEvents(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
-        let newEvent = {name: name, date: date, description: description, place: place, artists: artists, tech_rider: tech_rider, hospitality_rider: hospitality_rider, personnel: personnel, img_url: img_url, contract: contract};
+    addEvents(name, date, description, place, categoryID, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
+        let newEvent = {name: name, date: date, description: description, place: place, categoryID: categoryID, artists: artists, tech_rider: tech_rider, hospitality_rider: hospitality_rider, personnel: personnel, img_url: img_url, contract: contract};
         return axios.post("http://" + ipAdress + ":8080/event", newEvent).then(response => response.data);
     }
 
@@ -62,11 +63,6 @@ class EventService{
         return axios.post("http://" + ipAdress + ":8080/tickets", newTicket).then(response => response.data)
     }
 
-    addCategory(eventID, categoryID){
-        let newCategory = {eventID: eventID, categoryID: categoryID};
-        return axios.put("http://" + ipAdress + ":8080/categories", newCategory).then(response => response.data)
-    }
-
     addContactInfo(name, phone, email, eventID){
         let newContactInfo = {name: name, phone: phone, email: email, eventID: eventID};
         return axios.post("http://" + ipAdress + ":8080/contactinfo", newContactInfo).then(response => response.data)
@@ -93,18 +89,14 @@ class EventService{
         return axios.get("http://" + ipAdress + ":8080/event/tickets/" + eventID).then(response => response.data);
     }
 
-    updateEvent(eventID, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
-        let eventInfo = {name: name, date: date, description: description, place: place, artists: artists, tech_rider: tech_rider, hospitality_rider: hospitality_rider, personnel: personnel, img_url: img_url, contract: contract};
+    updateEvent(eventID, name, date, description, place, categoryID, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
+        let eventInfo = {name: name, date: date, description: description, place: place, categoryID: categoryID, artists: artists, tech_rider: tech_rider, hospitality_rider: hospitality_rider, personnel: personnel, img_url: img_url, contract: contract};
         return axios.put("http://" + ipAdress + ":8080/event/" + eventID + "/edit", eventInfo).then(response => response.data)
     }
 
     updateContactInfo(name, phone, email, eventID){
         let contactInfo = {name: name, phone: phone, email: email};
         return axios.put("http://" + ipAdress + ":8080/contactInfo/" + eventID, contactInfo).then(response => response.data)
-    }
-
-    updateEventCategory(eventID, categoryID){
-        return axios.put("http://" + ipAdress + ":8080/category/" + eventID, categoryID).then(response => response.data)
     }
 
     updateEventTicket(ticketID, eventID, amount){

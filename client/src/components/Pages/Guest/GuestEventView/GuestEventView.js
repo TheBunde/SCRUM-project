@@ -175,4 +175,3 @@ class GuestEventView extends Component{
 export default GuestEventView;
 
 
-

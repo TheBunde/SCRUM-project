@@ -28,22 +28,23 @@ class ForgotPassword extends Component {
                                         <h1 id={"regTitle"}>Glemt passord</h1>
                                         <form>
                                             <div className="form-group" id="RegisterPageFormGroup">
-                                                <div id="RegisterPageFormFieldsDiv">
+                                                <div id="RegisterPageFormFieldsDivForgot">
                                                     <label htmlFor="exampleInputEmail1">E-post: </label>
                                                     <input type="name" name={"email"} className="form-control"
                                                            id="emailInput"
                                                            onChange={this.handleTextChange.bind(this)}
                                                            aria-describedby="emailHelp" placeholder="E-post..."/>
                                                 </div>
-                                                <div id="RegisterPageFormFieldsDiv">
-                                                    <label htmlFor="exampleInputEmail1">Gjenta E-post: </label>
+                                                <div id="RegisterPageFormFieldsDivForgot">
+                                                    <label htmlFor="exampleInputEmail1">Gjenta e-post: </label>
                                                     <input type="name" name={"emailRep"} className="form-control"
                                                            id="repEmailInput"
                                                            onChange={this.handleTextChange.bind(this)}
-                                                           aria-describedby="emailHelp" placeholder="E-post..."/>
+                                                           aria-describedby="emailHelp" placeholder="E-post..." required="true"/>
                                                 </div>
-                                                <div id="RegisterPageFormButtonDiv">
-                                                    <button type={"button"} className={"btn btn-outline-dark"} onClick={() => this.submit()}>Bekreft glem passord</button>
+                                                <div id="RegisterPageFormButtonDivForgot">
+                                                    <button type={"button"} className={"btn btn-outline-dark"} onClick={() => this.submit()}>Resett passord</button>
+                                                    <button type={"button"} className={"btn btn-outline-dark"} onClick={() => window.location.href="#/login"}>Logg inn</button>
                                                 </div>
                                             </div>
                                         </form>

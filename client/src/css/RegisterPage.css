@@ -31,6 +31,10 @@
     display: grid;
     grid-template-columns: 2fr 10fr;
 }
+#RegisterPageFormFieldsDivForgot{
+    display: grid;
+    grid-template-columns: 3fr 12fr;
+}
 #RegisterPageFormFieldsDiv label{
     text-align: right;
 }
@@ -45,11 +49,17 @@
 }
 
 #RegisterPageFormButtonDiv{
-    width: 30%;
+    width: 50%;
     margin: auto;
     padding-top: 10px;
     display: grid;
     grid-template-columns: 1fr 1.5fr;
+}
+#RegisterPageFormButtonDivForgot{
+    padding-top: 10px;
+}
+#RegisterPageFormButtonDivForgot button{
+    margin: 10px;
 }
 
 .registerContainer input{

@@ -11,7 +11,7 @@ class EditEvent extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            date: new Date("2020-01-01"), dateChosenHour: null, dateChosenMin: null,
+            date: new Date(), dateChosenHour: null, dateChosenMin: null,
             Name: "", Description: "", Place: "", Artists: "",
             ContactName: "", ContactPhone: "", ContactEmail: "",
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
@@ -55,7 +55,7 @@ class EditEvent extends Component{
     ticketCheck(){
         let status = false;
         this.state.Tickets.map(ticket =>{
-            if(this.state[ticket.name + "TicketBox"] = true && (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0)){
+            if(this.state[ticket.name + "TicketBox"] == true && (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0)){
                 status = true;
             }
         });
@@ -115,7 +115,8 @@ class EditEvent extends Component{
         this.setState({Hospitality: data[0].hospitality_rider});
         this.setState({Personnel: data[0].personnel});
         this.setState({Picture: data[0].img_url});
-        this.setState({Contract: data[0].contract})
+        this.setState({Contract: data[0].contract});
+
     }
 
     updateTicketInfo(data) {
@@ -160,8 +161,8 @@ class EditEvent extends Component{
                             <Calendar
                                 onSelectDate = {this.changeDate}
                                 startOnMonday = {true}
-                                selectDate = {this.state.date}
-                                startAtDate = {this.state.date}
+                                selectedDate = {this.state.date}
+                                startDateAt ={this.state.date}
                             />
                         </div>
                     </div>

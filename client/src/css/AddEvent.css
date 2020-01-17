@@ -1,9 +1,16 @@
 
-
 #EventInputFields{
     width: 50%;
     text-align: left;
     margin: auto;
+}
+
+#EventInputFiles{
+    width: 50%;
+    text-align: left;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
 }
 
 #EventInputCalendar{

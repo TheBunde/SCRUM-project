@@ -256,51 +256,102 @@ class EditEvent extends Component{
                                onChange={this.changeValue}
                         />
                     </div>
-                    <div id = "EventInputFields">
-                        <p id = "EventInputLabels">Tech Riders:</p>
-                        <input type="text"
-                               className = "form-control"
-                               id = "Tech"
-                               value ={this.state.Tech}
-                               onChange={this.changeValue}
-                        />
+                    <div id = "EventInputFiles">
+                        <div >
+                            <p id = "EventInputLabels">Nåværende Tech Riders:</p>
+                            <button id="eventViewInfoDownloadButtons" className="btn"
+                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Tech)}
+                                    target="_blank"><i className="fa fa-download"></i> Last ned
+                            </button>
+
+                        </div>
+                        <div>
+                            <p id="EventInputLabels">Nye Tech Riders:</p>
+                            <input type="file"
+                                   className="form-control"
+                                   placeholder={this.state.Placeholder}
+                                   id="rider1Input"
+                                   required={true}
+                            />
+                        </div>
                     </div>
-                    <div id="EventInputFields">
-                        <p id="EventInputLabels">Hospitality Riders:</p>
-                        <input type="text"
-                               className="form-control"
-                               id="Hospitality"
-                               value ={this.state.Hospitality}
-                               onChange={this.changeValue}
-                        />
+
+                    <div id="EventInputFiles">
+                        <div >
+                            <p id = "EventInputLabels">Nåværende Hospitality Riders:</p>
+                            <button id="eventViewInfoDownloadButtons" className="btn"
+                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Hospitality)}
+                                    target="_blank"><i className="fa fa-download"></i> Last ned
+                            </button>
+                        </div>
+                        <div>
+                            <p id="EventInputLabels">Nye Hospitality Riders:</p>
+                            <input type="file"
+                                   className="form-control"
+                                   placeholder={this.state.Placeholder}
+                                   id="rider2Input"
+                                   required={true}
+                            />
+                        </div>
                     </div>
-                    <div id = "EventInputFields">
-                        <p id = "EventInputLabels">Nødvendig personell:</p>
-                        <input type="text"
-                               className = "form-control"
-                               id = "Personnel"
-                               value ={this.state.Personnel}
-                               onChange={this.changeValue}
-                        />
+
+                    <div id="EventInputFiles">
+                        <div >
+                            <p id = "EventInputLabels">Nåværende Personnel:</p>
+                            <button id="eventViewInfoDownloadButtons" className="btn"
+                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Personnel)}
+                                    target="_blank"><i className="fa fa-download"></i> Last ned
+                            </button>
+                        </div>
+                        <div>
+                            <p id="EventInputLabels">Nytt Personnel:</p>
+                            <input type="file"
+                                   className="form-control"
+                                   placeholder={this.state.Placeholder}
+                                   id="personnelInput"
+                                   required={true}
+                            />
+                        </div>
                     </div>
-                    <div id = "EventInputFields">
-                        <p id = "EventInputLabels">Bilde:</p>
-                        <input type="text"
-                               className = "form-control"
-                               id = "Picture"
-                               value={this.state.Picture}
-                               onChange={this.changeValue}
-                        />
+
+                    <div id="EventInputFiles">
+                        <div >
+                            <p id = "EventInputLabels">Nåværende bilde:</p>
+                            <button id="eventViewInfoDownloadButtons" className="btn"
+                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Picture)}
+                                    target="_blank"><i className="fa fa-download"></i> Last ned
+                            </button>
+                        </div>
+                        <div>
+                            <p id="EventInputLabels">Nytt bilde:</p>
+                            <input type="file"
+                                   className="form-control"
+                                   placeholder={this.state.Placeholder}
+                                   id="personnelInput"
+                                   required={true}
+                            />
+                        </div>
                     </div>
-                    <div id = "EventInputFields">
-                        <p id = "EventInputLabels">Kontrakt:</p>
-                        <input type="text"
-                               className = "form-control"
-                               id = "Contract"
-                               value ={this.state.Contract}
-                               onChange={this.changeValue}
-                        />
+
+                    <div id="EventInputFiles">
+                        <div >
+                            <p id = "EventInputLabels">Nåværende kontrakt:</p>
+                            <button id="eventViewInfoDownloadButtons" className="btn"
+                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Contract)}
+                                    target="_blank"><i className="fa fa-download"></i> Last ned
+                            </button>
+                        </div>
+                        <div>
+                            <p id="EventInputLabels">Ny kontrakt:</p>
+                            <input type="file"
+                                   className="form-control"
+                                   placeholder={this.state.Placeholder}
+                                   id="personnelInput"
+                                   required={true}
+                            />
+                        </div>
                     </div>
+
                     <div id ="EventInputFields">
                         <p id = "EventInputLabels">Kategori for arrangementet:</p>
                         <select className ="form-control"
@@ -353,7 +404,7 @@ class EditEvent extends Component{
                                 className="btn btn-outline-primary btn-lg"
                                 onClick={this.registerEvent}
                         >
-                            Registrer arrangement
+                            Lagre endringer
                         </button>
                     </div>
                     <Footer/>
@@ -396,7 +447,6 @@ class EditEvent extends Component{
         }
     }
     updateById(eventID){
-
         this.state.Tickets.map(ticket =>{
             if(this.state[ticket.name + "TicketBox"]){
                 if(this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){

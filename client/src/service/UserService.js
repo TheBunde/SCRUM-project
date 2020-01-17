@@ -82,12 +82,13 @@ export class UserService {
 
     updatePassword(email, password, newPassword, user_id){
         console.log("User service: " + email);
-        return Axios.put("http://" + ipAdress + ":8080/user/" + user_id + "/edit/password", 
-        {
-            "email": email,
-            "password": password,
-            "newPassword": newPassword
-        });
+        return Axios.put("http://" + ipAdress + ":8080/user/" + user_id + "/edit/password",
+            {
+                "email": email,
+                "password": password,
+                "newPassword": newPassword
+            }
+        );
     }
 }
 

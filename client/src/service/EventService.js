@@ -104,6 +104,15 @@ class EventService{
     deleteTicketsForEvent(eventID){
         return axios.delete("http://" + ipAdress + ":8080/event/tickets/" + eventID).then(response => response.data)
     }
+
+    addComment(eventID, userID, commentText){
+        let comment = {eventID: eventID, userID: userID, commentText: commentText};
+        return axios.post("http://" + ipAdress + ":8080/event/comments", comment).then(response => response.data)
+    }
+
+    getComments(eventID){
+        return axios.get("http://" + ipAdress + ":8080/event/comments/" + eventID).then(response => response.data)
+    }
 }
 
 export let eventService = new EventService();

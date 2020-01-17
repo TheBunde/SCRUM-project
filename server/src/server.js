@@ -137,10 +137,19 @@ app.use('/ftp', express.static('../../public/uploads'), serveIndex('public', {'i
 
 
 app.post('/upload', upload.single('file'), function (req, res) {
-    console.log(req.file);
-    debug(req.file);
-    console.log('storage location is ', req.hostname + '/' + req.file.path);
-    return res.send(req.file.filename);
+    if (!req.file) {
+        console.log("No file received");
+        return res.send({
+            success: false
+        });
+    } else {
+        console.log("File received");
+        console.log(req.file);
+        return res.send({
+            filePath: req.file,
+            success: true
+        });
+    }
 });
 
 
@@ -191,14 +200,6 @@ app.get("/user/:userID", (req, res) => {
 I'm not sure if this is the best restful soliution, but hey ho
  */
 app.post("/user/reset_password", (req, res) => {
-    //Firstly get the email, then get the userID.
-    //Then randomize a new passord
-    //Hash that password
-    //Change the password that that new hash
-    //Send the email
-    console.log("EMAIL:::");
-    console.log(req.body);
-    console.log(req.body.email);
     userDao.getUser(req.body.email, (status, data) => {
         if (data.length > 0) {
             let newPass = makeid(8);
@@ -214,7 +215,7 @@ app.post("/user/reset_password", (req, res) => {
             res.json({error: "User does not exist"})
         }
     })
-})
+});
 
 app.put("/user/:userID/edit/password", (req, res) => {
     // Check if user with pw entered exists, if so -> change their pw.
@@ -269,7 +270,8 @@ app.get("/users/", (req, res) => {
 
 app.post("/user", (req, res) => {
     console.log("post /user");
-    
+    console.log(req.body);
+
     userDao.registerUser(req.body, (status, data) => {
         console.log("http status code: "+status);
         if(status === 200){
@@ -278,6 +280,8 @@ app.post("/user", (req, res) => {
         res.status(status);
         res.json(data);
     });
+
+
 });
 
 app.post("/validate", (req, res) => {
@@ -520,7 +524,7 @@ app.post("/contactinfo", (req, res) => {
         res.status(status);
         res.json(json);
     })
-})
+});
 
 app.get("/contactinfo/:id", (req, res) => {
     eventDao.getContactinfoForEvent(req.params.id, (status, data) =>{
@@ -559,6 +563,20 @@ app.put("/event/contactinfo/:id", (req, res) =>{
 
 app.delete("/event/tickets/:id", (req, res) =>{
     eventDao.deleteTicketsForEvent(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.post("/event/comments", (req, res) =>{
+    eventDao.addComment(req.body, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.get("/event/comments/:id", (req, res) =>{
+    eventDao.getComments(req.params.id, (status, data) =>{
         res.status(status);
         res.json(data);
     })

@@ -87,6 +87,13 @@ module.exports = class adminDao extends Dao{
         super.query("DELETE FROM Event_Ticket WHERE event_id = ?", [eventID], callback)
     }
 
+    getComments(eventID, callback){
+        super.query("select name, comment, date from Comment left join User on User.user_id = Comment.user_id where event_id = ?",[eventID],callback)
+    }
+
+    addComment(comment, callback){
+        super.query("insert into Comment (event_id, user_id, comment, date) values (?,?,?, now())", [comment.eventID, comment.userID, comment.commentText], callback);
+    }
 };
 
 function callback2(){

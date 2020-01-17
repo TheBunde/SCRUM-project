@@ -25,14 +25,19 @@ app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
 const EventDao = require("../src/dao/eventDao");
 
+
 let pool = mysql.createPool({
     connectionLimit: 5,
-    host: "mysql.stud.iie.ntnu.no",
-    user: "g_scrum_5",
-    password: "TYQHbYDq",
-    database: "g_scrum_5",
+    host: process.env.DB_URL,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB,
     debug: false
 });
+
+
+
+
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");

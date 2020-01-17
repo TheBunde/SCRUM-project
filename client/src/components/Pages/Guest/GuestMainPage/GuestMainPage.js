@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import "../../../../css/GuestMainPage.css"
-
+import "../GuestEventCard/GuestEventCard";
+import GuestEventCard from "../GuestEventCard/GuestEventCard";
+import {eventService} from "../../../../service/EventService";
 
 class GuestMainPage extends Component {
+    state = {
+        events: [],
+    };
+
     componentDidMount(){
         window.scrollTo(0,0);
+        eventService.getAllEvents().then(events => {this.setState({events: events})}).catch(error => {console.error(error)})
     }
 
     render() {  

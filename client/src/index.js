@@ -21,6 +21,7 @@ import AdminUserPage from './components/Pages/AdminUsersPage/AdminUsersPage';
 import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 import guestEventView from './components/Pages/Guest/GuestEventView/GuestEventView';
 import guestMainPage from './components/Pages/Guest/GuestMainPage/GuestMainPage';
+import ForgotPassword from "./components/Pages/ForgotPassword/ForgotPassword";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -53,6 +54,7 @@ ReactDOM.render(
             <Route exact path="/portal" component={MainPage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
+            <Route exacth path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/about" component={About} />
             <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} />
             <RestrictedRoute exact path="/profile/:userID" component={ShowProfile} authorized={restriction.regular} />

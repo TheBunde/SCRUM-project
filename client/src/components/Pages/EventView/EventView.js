@@ -30,17 +30,7 @@ class EventView extends Component{
             pending: "",
             img_url: "",
             description: "",
-            event_tickets: [
-                {
-                name: "Standard",
-                price: 800,
-                number: 50
-                },
-                {
-                name: "Gratis",
-                price: 0,
-                number: 500
-                }]
+            event_tickets: []
         }
     }
 
@@ -74,6 +64,7 @@ class EventView extends Component{
             description: events[0].description,
             category_name: events[0].category_name}))
             .catch(error => console.error(error.message));
+        eventService.getTicketFromEvent(this.props.match.params.id).then(tickets => this.setState({event_tickets: tickets}))
     }
         
 

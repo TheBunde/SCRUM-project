@@ -1,40 +1,40 @@
 
-#eventViewTitle {
+#guestEventViewTitle {
     text-align: center;
     padding-bottom: 20px;
     color: rgb(39, 64, 74);
 }
 
-#eventViewTitleHR{
+#guestEventViewTitleHR{
     width: 20%;
     height: 2px;
     background-color: rgb(39, 64, 74);
 }
 
-#eventViewInfoBoxCard{
+#guestEventViewInfoBoxCard{
     /*box-shadow: 0 0 0 0 rgb(0, 0, 0), 5px 5px 10px 0 rgb(0, 0, 0);*/
     box-shadow: 0 0 0;
 }
-#eventViewInfoBoxMap{
+#guestEventViewInfoBoxMap{
     padding-bottom: 20px;
 }
 
-#eventViewButtons{
+#guestEventViewButtons{
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: auto;
 }
 
-#eventViewButtons div{
+#guestEventViewButtons div{
     margin: auto;
 }
 
-#eventViewButtons button{
+#guestEventViewButtons button{
     width: 100px;
     margin: 5px;
 }
-#eventViewTitle h1{
+#guestEventViewTitle h1{
     margin: auto auto auto;
 }
 
@@ -63,11 +63,11 @@
     min-width: 100px;
 }
 
-#eventViewInfoTickets{
+#guestEventViewInfoTickets{
     width: 80%;
 }
 
-#eventViewInfoDownloadButtons{
+#guestEventViewInfoDownloadButtons{
     background-color: rgb(62, 107, 153);
     border: none;
     color: rgb(255, 255, 255);
@@ -76,7 +76,7 @@
     font-size: 20px;
 }
 
-#eventViewInfoDownloadButtons:hover{
+#guestEventViewInfoDownloadButtons:hover{
     background-color: rgb(38, 63, 138);
 }
 
@@ -85,7 +85,7 @@
 
 
 
-#eventViewBackground{
+#guestEventViewBackground{
     min-height: 100%;
     padding: 20px;
     text-align: left;
@@ -94,15 +94,15 @@
     display: grid;
     grid-template-areas: 
             "title title"
-            "eventViewImage eventViewInfoContainer"
-            "eventViewDescription eventViewInfoContainer";
+            "guestEventViewImage guestEventViewInfoContainer"
+            "guestEventViewDescription guestEventViewInfoContainer";
     grid-template-columns: 2fr 1fr;
 }
 
-#eventViewImageContainer{
-    grid-area: eventViewImage;
+#guestEventViewImageContainer{
+    grid-area: guestEventViewImage;
 }
-#eventViewImage{
+#guestEventViewImage{
     background-color: white;
     width: 100%;
     height: 100%;
@@ -113,7 +113,7 @@
     max-width: 98%;
     text-align: center;
 }
-#eventViewImage img{
+#guestEventViewImage img{
     height: 85%;
     width: 95%;
     max-height: 500px;
@@ -123,10 +123,10 @@
     margin: auto;  
 }
 
-#eventViewDescriptionContainer{
-    grid-area: eventViewDescription;
+#guestEventViewDescriptionContainer{
+    grid-area: guestEventViewDescription;
 }
-#eventViewDescription{
+#guestEventViewDescription{
     background-color: white;
     width: 100%;
     margin: 15px;
@@ -139,21 +139,21 @@
     height: 98%;
     overflow-y: auto;
 }
-#eventViewDescriptionBox{
+#guestEventViewDescriptionBox{
     width: 70%;
     margin: auto;
 }
-#eventViewDescriptionBoxTitle{
+#guestEventViewDescriptionBoxTitle{
     text-align: center;
     padding-bottom: 20px;
 }
 
-#eventViewInfoBoxContainer{
-    grid-area: eventViewInfoContainer;
+#guestEventViewInfoBoxContainer{
+    grid-area: guestEventViewInfoContainer;
     margin: 0px 0 0 15px; 
     max-width: 98%;
 }
-#eventViewInfoBox{
+#guestEventViewInfoBox{
     box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
     max-width: 98%;
     border-radius: 5px;
@@ -161,9 +161,9 @@
     margin: 0 0 15px 0; 
 }
 
-#eventViewFilesContainer{
+#guestEventViewFilesContainer{
 }
-#eventViewFiles{
+#guestEventViewFiles{
     background-color: white;
     width: 100%;
     display: grid;
@@ -177,13 +177,13 @@
     overflow-y: auto;
     margin: 0 0 15px 0; 
 }
-#eventViewFiles div{
+#guestEventViewFiles div{
     margin: 10px;
 }
 
-#eventViewInfoTicketsContainer{
+#guestEventViewInfoTicketsContainer{
 }
-#eventViewInfoTickets{
+#guestEventViewInfoTickets{
     padding: 20px;
     width: 100%;
     background-color: white;
@@ -196,11 +196,7 @@
     margin: 0 0 15px 0; 
 }
 
-#titleEvent{
-    grid-area: title;
-}
-
-#eventViewInfoTicketsAndFilesContainer{
-    grid-area: eventViewTicketsAndFiles;
+#guestEventViewInfoTicketsAndFilesContainer{
+    grid-area: guestEventViewTicketsAndFiles;
     padding-right: 15px;
 }

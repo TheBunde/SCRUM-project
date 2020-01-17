@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import FontAwesome from 'react-fontawesome'
 import 'font-awesome/css/font-awesome.min.css'
-import Navbar from '../../../Navbar/Navbar'
+import NavbarMainPage from '../../../Navbar/NavbarMainPage'
 import Footer from '../../../Footer/Footer'
 import '../../../../css/GuestEventView.css'
 import {eventService} from '../../../../service/EventService'
@@ -78,7 +78,7 @@ class EventView extends Component{
 
         return (
             <div>
-                <Navbar />
+                <NavbarMainPage />
                 <div id="guestEventViewBackground">
 
                     <div id="titleEvent">
@@ -151,7 +151,7 @@ class EventView extends Component{
                                         <h1>Beskrivelse av arrangementet</h1>
                                     </div>
                                     
-                                    <h6>{this.state.description}</h6>
+                                    <h5>{this.state.description}</h5>
                                 </div>
                             </div>
                         </div>

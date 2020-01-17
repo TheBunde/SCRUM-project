@@ -266,8 +266,12 @@ app.get("/users/", (req, res) => {
 
 app.post("/user", (req, res) => {
     console.log("post /user");
-    mail.sendMail(req.body);
+    
     userDao.registerUser(req.body, (status, data) => {
+        console.log("http status code: "+status);
+        if(status === 200){
+            mail.sendMail(req.body);
+        }
         res.status(status);
         res.json(data);
     });

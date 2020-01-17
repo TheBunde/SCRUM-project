@@ -204,6 +204,7 @@ app.post("/user/reset_password", (req, res) => {
             userDao.changePassword({user_id : data[0].user_id, password: newPass}, (statusCode, result) => {
                 res.status(statusCode);
                 res.json(result);
+                mail.sendResetPasswordMail(data[0], newPass);
             });
 
         } else {

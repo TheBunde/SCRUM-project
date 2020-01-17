@@ -19,7 +19,7 @@ module.exports = class adminDao extends Dao{
     }
 
     addEvent(event, callback){
-        super.query("INSERT INTO Event(name, description, date, place, category_id, img_url, artists, tech_rider, hospitality_rider, personnel, contract) VALUES (?,?,?,?,?,?,?,?,?,?)", [event.name, event.description, event.date, event.place, event.categoryID, event.img_url, event.artists, event.tech_rider, event.hospitality_rider, event.personnel, event.contract], callback)
+        super.query("INSERT INTO Event(name, description, date, place, category_id, img_url, artists, tech_rider, hospitality_rider, personnel, contract) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [event.name, event.description, event.date, event.place, event.categoryID, event.img_url, event.artists, event.tech_rider, event.hospitality_rider, event.personnel, event.contract], callback)
     }
 
     getCategories(callback){

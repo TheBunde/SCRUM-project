@@ -373,7 +373,6 @@ class EditEvent extends Component{
                 .updateEvent(this.props.match.params.id, this.state.Name, date, this.state.description, this.state.Place, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
                 .catch(Error => console.log(Error));
 
-
         }
     }
 }

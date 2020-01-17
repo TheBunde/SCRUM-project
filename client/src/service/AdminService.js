@@ -4,6 +4,18 @@ let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 class AdminService{
 
+    updateName(name, userID){
+        return axios.put("http://localhost:8080/users/" + userID + "/newName", {name: name}).then(response => response.data);
+    }
+
+    updatePhone(phone, userID){
+        return axios.put("http://localhost:8080/users/" + userID + "/newPhone", {phone: phone}).then(response => response.data);
+    }
+
+    updateEmail(email, userID){
+        return axios.put("http://localhost:8080/users/" + userID + "/newEmail", {email: email}).then(response => response.data);
+    }
+
     getRoles(){
         return axios.get("http://" + ipAdress + ":8080/roles").then(response => response.data);
     }

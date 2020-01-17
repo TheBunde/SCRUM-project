@@ -36,12 +36,16 @@ class ViewUser extends Component {
                         <input type="radio" checked={this.props.approved === 1} readOnly={true} />
                     </div>
                     <div className="col-sm-2">
-                        <a className="btn btn-primary" href={"#/admin/users/" + this.props.id + "/edit"} role="button">Rediger</a>
+                        <button className="btn btn-primary" onClick={() => {this.handleClick.bind(this); window.location.href="#/admin/users/" + this.props.id + "/edit"}} role="button">Rediger</button>
                     </div>
                      </div>
                 </li>
             </div>
         )
+    }
+
+    handleClick(){
+        console.log("click");
     }
 
     componentDidMount() {

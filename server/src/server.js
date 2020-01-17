@@ -423,13 +423,6 @@ app.post("/tickets", (req, res) => {
     })
 });
 
-app.post("/categories", (req, res) => {
-    eventDao.addCategory(req.body, (status, data) => {
-        res.status(status);
-        res.json(data)
-    })
-});
-
 app.put("/users/:userID/approve", (req, res) => {
     adminDao.approveUser(req.params.userID, (status, data) => {
         res.status(status);

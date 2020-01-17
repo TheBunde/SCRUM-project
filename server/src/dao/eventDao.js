@@ -19,7 +19,7 @@ module.exports = class adminDao extends Dao{
     }
 
     addEvent(event, callback){
-        super.query("INSERT INTO Event(name, description, date, place, img_url, artists, tech_rider, hospitality_rider, personnel, contract) VALUES (?,?,?,?,?,?,?,?,?,?)", [event.name, event.description, event.date, event.place, event.img_url, event.artists, event.tech_rider, event.hospitality_rider, event.personnel, event.contract], callback)
+        super.query("INSERT INTO Event(name, description, date, place, category_id, img_url, artists, tech_rider, hospitality_rider, personnel, contract) VALUES (?,?,?,?,?,?,?,?,?,?)", [event.name, event.description, event.date, event.place, event.categoryID, event.img_url, event.artists, event.tech_rider, event.hospitality_rider, event.personnel, event.contract], callback)
     }
 
     getCategories(callback){
@@ -32,10 +32,6 @@ module.exports = class adminDao extends Dao{
 
     addTicket(ticket, callback){
         super.query("INSERT INTO Event_Ticket(event_id, ticket_category_id, price, number) VALUES (?, ?, 0, ?)", [ticket.eventID, ticket.ticketID, ticket.amount], callback)
-    }
-
-    addCategory(category, callback){
-        super.query("INSERT INTO Event_Category(event_id, category_id) VALUES (?, ?)", [category.eventID, category.categoryID], callback)
     }
 
     deleteEvent(eventID, callback){
@@ -71,11 +67,7 @@ module.exports = class adminDao extends Dao{
     }
 
     updateEvent(eventID, eventInfo, callback){
-        super.query("UPDATE Event SET name = ?, description = ?, date = ?, place = ?, img_url = ?, artists = ?, tech_rider = ?, hospitality_rider = ?, contract = ?, personnel = ? WHERE event_id = ?", [eventInfo.name, eventInfo.description, eventInfo.date, eventInfo.place, eventInfo.img_url, eventInfo.artists, eventInfo.tech_rider, eventInfo.hospitality_rider, eventInfo.contract, eventInfo.personnel, eventID], callback)
-    }
-
-    updateEventCategory(eventId, categoryId, callback){
-        super.query("UPDATE Event_Category SET category_id = ? WHERE event_id = ?", [categoryId, eventId], callback)
+        super.query("UPDATE Event SET name = ?, description = ?, date = ?, place = ?, category_id = ?, img_url = ?, artists = ?, tech_rider = ?, hospitality_rider = ?, contract = ?, personnel = ? WHERE event_id = ?", [eventInfo.name, eventInfo.description, eventInfo.date, eventInfo.place, eventInfo.category_id, eventInfo.img_url, eventInfo.artists, eventInfo.tech_rider, eventInfo.hospitality_rider, eventInfo.contract, eventInfo.personnel, eventID], callback)
     }
 
     updateContactInfo(eventID, contactInfo, callback){

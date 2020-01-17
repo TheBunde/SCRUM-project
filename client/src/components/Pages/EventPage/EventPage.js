@@ -6,7 +6,7 @@ import $ from 'jquery';
 import Footer from '../../Footer/Footer'
 
 export class event {
-    constructor(event_id, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, category_id, filed, pending, img_url){
+    constructor(event_id, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, category_id, filed, pending, img_url, canceled){
         this.event_id = event_id;
         this.name = name;
         this.date = date;
@@ -20,6 +20,7 @@ export class event {
         this.pending = pending;
         this.img_url = img_url;
         this.description = description;
+        this.canceled = canceled;
     }
 }
 
@@ -292,7 +293,7 @@ class EventCard extends Component {
             color = "danger";
         }
         else if(filed === 1 && pending === 0){
-            color = "dark";
+            color = "secondary";
         }
         else if(pending === 0 && filed === 0 &&  date > this.getCurrentDate()){
             color = "success";

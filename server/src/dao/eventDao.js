@@ -50,7 +50,7 @@ module.exports = class adminDao extends Dao{
         super.query("UPDATE Event SET filed = 1 WHERE event_id = ?", [eventID], callback)
     }
 
-    updatePending(eventID){
+    updatePending(eventID, callback){
         super.query("UPDATE Event SET pending = 0 WHERE event_id = ?", [eventID], callback)
     }
 

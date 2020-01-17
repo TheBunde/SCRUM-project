@@ -73,6 +73,11 @@ class EventService{
         return axios.put("http://" + ipAdress + ":8080/event/" + eventID + "/archived", eventID).then(response => response.data);
     }
 
+    updatePending(eventID){
+        console.log(eventID + "!!!");
+        return axios.put("http://" + ipAdress + ":8080/event/" + eventID + "/pending", eventID).then(response => response.data);
+    }
+
     getCategoryFromEvent(eventID){
         return axios.get("http://" + ipAdress + ":8080/category/" + eventID).then(response => response.data[0]);
     }

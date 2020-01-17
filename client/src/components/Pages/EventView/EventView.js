@@ -129,6 +129,10 @@ class EventView extends Component{
                                         <div id="eventViewDelete">
                                             <button type="button" onClick={() => this.submitEventDeleteButton(this.state.event_id)} className="btn btn-outline-danger">Slett</button>
                                         </div>
+
+                                        <div id="eventViewDelete">
+                                            <button type="button" onClick={() => this.pend(this.state.event_id)} className="btn btn-outline-danger">pending</button>
+                                        </div>
                                     
                                     </div>
                                 </div>
@@ -252,6 +256,16 @@ class EventView extends Component{
             .catch(e => console.error(e));
         history.push("/event")
     }
+
+    pend(id){
+        console.log(id);
+        eventService
+            .updatePending(id)
+            .catch(e => console.error(e));
+        history.push("/event")
+    }
+
+
 }
 
 export default EventView;

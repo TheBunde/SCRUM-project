@@ -1,5 +1,9 @@
 import axios from 'axios';
-let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
+
+//let ipAdress = "10.24.3.122";
+let ipAdress = "localhost";
+//let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
+
 
 export class event {
     constructor(name, date, description, place, category_id, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
@@ -75,6 +79,11 @@ class EventService{
         return axios.put("http://" + ipAdress + ":8080/event/" + eventID + "/archived", eventID).then(response => response.data);
     }
 
+    updatePending(eventID){
+        console.log(eventID + "!!!");
+        return axios.put("http://" + ipAdress + ":8080/event/" + eventID + "/pending", eventID).then(response => response.data);
+    }
+
     getCategoryFromEvent(eventID){
         return axios.get("http://" + ipAdress + ":8080/category/" + eventID).then(response => response.data[0]);
     }
@@ -103,6 +112,15 @@ class EventService{
 
     deleteTicketsForEvent(eventID){
         return axios.delete("http://" + ipAdress + ":8080/event/tickets/" + eventID).then(response => response.data)
+    }
+
+    addComment(eventID, userID, commentText){
+        let comment = {eventID: eventID, userID: userID, commentText: commentText};
+        return axios.post("http://" + ipAdress + ":8080/event/comments", comment).then(response => response.data)
+    }
+
+    getComments(eventID){
+        return axios.get("http://" + ipAdress + ":8080/event/comments/" + eventID).then(response => response.data)
     }
 }
 

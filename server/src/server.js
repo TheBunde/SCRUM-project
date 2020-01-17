@@ -422,6 +422,15 @@ app.put('/event/:eventID/archived', (req, res) => {
     });
 });
 
+app.put('/event/:eventID/pending', (req, res) => {
+    console.log('/annonse/:eventID/pending: fikk request fra klient');
+    console.log(req.params.eventID);
+    eventDao.updatePending(req.params.eventID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
 app.get("/event/nonFiled", (req, res) => {
     console.log("/event fikk request fra klient");
     eventDao.getNonFiledEvents((status, data) => {
@@ -515,7 +524,7 @@ app.post("/contactinfo", (req, res) => {
         res.status(status);
         res.json(json);
     })
-})
+});
 
 app.get("/contactinfo/:id", (req, res) => {
     eventDao.getContactinfoForEvent(req.params.id, (status, data) =>{
@@ -554,6 +563,20 @@ app.put("/event/contactinfo/:id", (req, res) =>{
 
 app.delete("/event/tickets/:id", (req, res) =>{
     eventDao.deleteTicketsForEvent(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.post("/event/comments", (req, res) =>{
+    eventDao.addComment(req.body, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.get("/event/comments/:id", (req, res) =>{
+    eventDao.getComments(req.params.id, (status, data) =>{
         res.status(status);
         res.json(data);
     })

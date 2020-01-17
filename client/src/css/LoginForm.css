@@ -13,6 +13,13 @@
     width: 50%;
     box-shadow: 0 0 0 0 rgb(0, 0, 0), 5px 5px 10px 0 rgb(0, 0, 0);
 }
+#loginFormForgotPW a{
+    text-decoration: none;
+    color: grey;
+}
+#loginFormForgotPW{
+    margin-top: 10px;
+}
 
 .LoginFormCard{
     /*background-image: url('../img/Backgrounds/Background 2.png');*/

@@ -36,6 +36,10 @@ class EventService{
         return axios.get("http://" + ipAdress + ":8080/event/archived").then(response => response.data);
     }
 
+    getAllActive(){
+        return axios.get("http://" + ipAdress + ":8080/event/active").then(response => response.data);
+    }
+
     getNonFiledEvents(){
         return axios.get("http://" + ipAdress + ":8080/event/nonfiled").then(response => response.data);
     }
@@ -44,7 +48,7 @@ class EventService{
     }
 
     deleteEvent(eventID){
-        console.log("Inne i delete metode")
+        console.log("Inne i delete metode");
         return axios.delete("http://" + ipAdress + ":8080/event/" + eventID).then(response => response.data);
     }
 

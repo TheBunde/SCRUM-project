@@ -99,4 +99,13 @@
     padding: 20px 0 40px 0;
 }
 
+#eventPageStatus:hover{
+    text-decoration: none;
+    pointer-events: none;
+}
+#eventPageStatus .btn-sm:hover{
+    text-decoration: none;
+    pointer-events: none;
+}
+
 

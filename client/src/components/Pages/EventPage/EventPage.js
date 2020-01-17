@@ -6,7 +6,7 @@ import $ from 'jquery';
 import Footer from '../../Footer/Footer'
 
 export class event {
-    constructor(event_id, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, category_id, filed, pending, img_url, canceled){
+    constructor(event_id, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, category_id, filed, pending, canceled, img_url){
         this.event_id = event_id;
         this.name = name;
         this.date = date;
@@ -18,9 +18,9 @@ export class event {
         this.category_id = category_id;
         this.filed = filed;
         this.pending = pending;
+        this.canceled = canceled;
         this.img_url = img_url;
         this.description = description;
-        this.canceled = canceled;
     }
 }
 
@@ -226,21 +226,8 @@ class EventPage extends Component {
 
 class EventCard extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            status: {}
-        }
-
-    }
-
-    componentDidMount() {
-        let status = this.getStatus(this.props.pending, this.props.filed,  this.props.compareDate);
-        this.setState(this.state = {status});
-    }
-
     render(){
-        let color = this.getColor(this.props.pending, this.props.filed, this.props.compareDate);
+        let color = this.getColor(this.props.canceled, this.props.pending, this.props.filed, this.props.compareDate);
         return (
             <div id="eventPageEventCardLink">
                 <a onClick={() => window.location.href = "#/event/" + this.props.event_id}>
@@ -252,7 +239,7 @@ class EventCard extends Component {
                             <div id="eventPageCardBody" class="card-body">
                                 <h5 class="card-title">{this.props.name}</h5>
                                 <div id="eventPageStatus">
-                                    <a className={"btn btn-sm btn-"+color}>Status: {this.getStatus(this.props.pending, this.props.filed,  this.props.compareDate)}</a>
+                                    <a className={"btn btn-sm btn-"+color}>Status: {this.getStatus(this.props.canceled, this.props.pending, this.props.filed,  this.props.compareDate)}</a>
                                 </div>
                                 <div id="eventPageCardLocation">
                                     {this.props.place}
@@ -268,9 +255,11 @@ class EventCard extends Component {
         )
     }
 
-    getStatus(pending, filed, date){
+    getStatus(canceled, pending, filed, date){
         let status;
-        if(pending === 1 && filed === 0){
+        if(canceled === 1){
+            status = "Avlyst"
+        }else if(pending === 1 && filed === 0){
             status = "Til godkjenning";
         }
         else if(filed === 1 && pending === 0){
@@ -282,15 +271,17 @@ class EventCard extends Component {
         else if(pending === 0 && filed === 0 &&  date > this.getCurrentDate()){
             status = "Kommende";
         }else{
-            status = "Utførte";
+            status = "Utført";
         }
         return status;
     }
 
-    getColor(pending, filed, date){
+    getColor(canceled, pending, filed, date){
         let color;
-        if(pending === 1 && filed === 0){
-            color = "danger";
+        if(canceled === 1) {
+            color = "danger"
+        }else if(pending === 1 && filed === 0){
+            color = "warning";
         }
         else if(filed === 1 && pending === 0){
             color = "secondary";
@@ -299,7 +290,7 @@ class EventCard extends Component {
             color = "success";
         }
         else if(pending === 1 && filed === 1){
-            color = "warning";
+            color = "primary";
         }else{
             color = "info";
         }

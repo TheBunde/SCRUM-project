@@ -99,7 +99,7 @@ class EventView extends Component{
 
                     <div id="eventViewImageContainer">
                         <div id="eventViewImage">
-                            <img src={"http://localhost:8080/image/" + this.state.img_url} />
+                            <img src={"http://localhost:8080/image/" + this.state.img_url} alt={this.state.name} />
                         </div>
                     </div>
                     
@@ -143,23 +143,7 @@ class EventView extends Component{
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div id="eventViewDescriptionContainer">
-                        <div id="eventViewDescription">
-                            <div id="eventViewDescriptionBox">
-                                <div>
-                                    <div id="eventViewDescriptionBoxTitle">
-                                        <h1>Beskrivelse av arrangementet</h1>
-                                    </div>
-                                    
-                                    <h6>{this.state.description}</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div id="eventViewInfoTicketsAndFilesContainer">
                         <div id="eventViewInfoTicketsContainer">
                             <div id="eventViewInfoTickets">
                             <h3>Billettyper</h3>
@@ -182,6 +166,7 @@ class EventView extends Component{
                                 </tbody>
                             </table>
                         </div>
+
                         <div id="eventViewFilesContainer">
                             <div id="eventViewFiles">
                                 <div>
@@ -205,11 +190,24 @@ class EventView extends Component{
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
-
                     </div>
-
                     
+                    <div id="eventViewDescriptionContainer">
+                        <div id="eventViewDescription">
+                            <div id="eventViewDescriptionBox">
+                                <div>
+                                    <div id="eventViewDescriptionBoxTitle">
+                                        <h1>Beskrivelse av arrangementet</h1>
+                                    </div>
+                                    
+                                    <h6>{this.state.description}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <Footer />
             </div>

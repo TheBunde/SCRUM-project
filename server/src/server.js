@@ -196,6 +196,9 @@ app.post("/user/reset_password", (req, res) => {
     //Hash that password
     //Change the password that that new hash
     //Send the email
+    console.log("EMAIL:::");
+    console.log(req.body);
+    console.log(req.body.email);
     userDao.getUser(req.body.email, (status, data) => {
         if (data.length > 0) {
             let newPass = makeid(8);
@@ -204,6 +207,7 @@ app.post("/user/reset_password", (req, res) => {
             userDao.changePassword({user_id : data[0].user_id, password: newPass}, (statusCode, result) => {
                 res.status(statusCode);
                 res.json(result);
+                mail.sendResetPasswordMail(data[0], newPass);
             });
 
         } else {
@@ -265,8 +269,12 @@ app.get("/users/", (req, res) => {
 
 app.post("/user", (req, res) => {
     console.log("post /user");
-    mail.sendMail(req.body);
+    
     userDao.registerUser(req.body, (status, data) => {
+        console.log("http status code: "+status);
+        if(status === 200){
+            mail.sendMail(req.body);
+        }
         res.status(status);
         res.json(data);
     });

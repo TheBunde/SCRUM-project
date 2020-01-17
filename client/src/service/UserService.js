@@ -7,15 +7,17 @@ export class User {
     name;
     email;
     phone;
+    profile_photo;
     password;
     roleid;
     approved;
 
-    constructor(user_id, name, email, phone, password,roleId, approved) {
+    constructor(user_id, name, email, phone, profile_photo, password,roleId, approved) {
         this.user_id = user_id;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.profile_photo = profile_photo;
         this.password = password;
         this.roleid = roleId;
         this.approved = approved;
@@ -66,7 +68,7 @@ export const auth = {
 
 export let authenticate = auth.authenticate.bind(auth);
 export class UserService {
-    registerUser(user) {
+    registerUser(user){
         return Axios.post("http://" + ipAdress + ":8080/user", user);
     }
 

@@ -18,6 +18,7 @@ export class ProfileService{
                 a.name,
                 a.email,
                 a.phone,
+                a.profile_photo,
                 a.password,
                 a.roleid,
                 a.approved,

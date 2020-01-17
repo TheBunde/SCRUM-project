@@ -55,8 +55,6 @@ class AddEvent extends Component{
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
 
-
-
     changeValue(event){
         this.setState({[event.target.id]: event.target.value})
     }
@@ -71,10 +69,20 @@ class AddEvent extends Component{
     }
 
     formValidation(){
-
-        return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === "" || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" );
-
+        return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === ""
+            || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
     }
+
+    ticketCheck(){
+        let status = false;
+        this.state.Tickets.map(ticket =>{
+            if(this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
+                status = true;
+            }
+        });
+        return status;
+    }
+
     render() {
         return (
             <div class="pageSetup">
@@ -429,11 +437,9 @@ class AddEvent extends Component{
                 }
             }
         });
-        //may be redundant...
         eventService
             .addContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, EventId)
             .catch(Error => console.log(Error));
-
 
     }
 }

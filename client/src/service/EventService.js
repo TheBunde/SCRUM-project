@@ -1,6 +1,8 @@
 import axios from 'axios';
+
 //let ipAdress = "10.24.3.122";
 let ipAdress = "localhost";
+//let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 
 export class event {
@@ -38,6 +40,10 @@ class EventService{
         return axios.get("http://" + ipAdress + ":8080/event/archived").then(response => response.data);
     }
 
+    getAllActive(){
+        return axios.get("http://" + ipAdress + ":8080/event/active").then(response => response.data);
+    }
+
     getNonFiledEvents(){
         return axios.get("http://" + ipAdress + ":8080/event/nonfiled").then(response => response.data);
     }
@@ -46,7 +52,7 @@ class EventService{
     }
 
     deleteEvent(eventID){
-        console.log("Inne i delete metode")
+        console.log("Inne i delete metode");
         return axios.delete("http://" + ipAdress + ":8080/event/" + eventID).then(response => response.data);
     }
 
@@ -73,6 +79,11 @@ class EventService{
         return axios.put("http://" + ipAdress + ":8080/event/" + eventID + "/archived", eventID).then(response => response.data);
     }
 
+    updatePending(eventID){
+        console.log(eventID + "!!!");
+        return axios.put("http://" + ipAdress + ":8080/event/" + eventID + "/pending", eventID).then(response => response.data);
+    }
+
     getCategoryFromEvent(eventID){
         return axios.get("http://" + ipAdress + ":8080/category/" + eventID).then(response => response.data[0]);
     }
@@ -96,12 +107,20 @@ class EventService{
 
     updateContactInfo(name, phone, email, eventID){
         let contactInfo = {name: name, phone: phone, email: email};
-        return axios.put("http://" + ipAdress + ":8080/contactInfo/" + eventID, contactInfo).then(response => response.data)
+        return axios.put("http://" + ipAdress + ":8080/event/contactinfo/" + eventID, contactInfo).then(response => response.data)
     }
 
-    updateEventTicket(ticketID, eventID, amount){
-        let ticketInfo = {ticketID: ticketID, amount: amount};
-        return axios.put("http://" + ipAdress + ":8080/tickets/" + eventID, ticketInfo).then(response => response.data)
+    deleteTicketsForEvent(eventID){
+        return axios.delete("http://" + ipAdress + ":8080/event/tickets/" + eventID).then(response => response.data)
+    }
+
+    addComment(eventID, userID, commentText){
+        let comment = {eventID: eventID, userID: userID, commentText: commentText};
+        return axios.post("http://" + ipAdress + ":8080/event/comments", comment).then(response => response.data)
+    }
+
+    getComments(eventID){
+        return axios.get("http://" + ipAdress + ":8080/event/comments/" + eventID).then(response => response.data)
     }
 }
 

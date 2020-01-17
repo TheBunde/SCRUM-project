@@ -22,7 +22,10 @@ class MainPage extends Component {
                         </div>
                         <div id="MainPageButtons">
                             <button type="button" className="btn btn-outline-light btn-lg" onClick={()=> window.location.href = "#/register"}>Registrer ny bruker</button>
-                        </div> 
+                        </div>
+                        <div id="MainPageButtons">
+                            <button type="button" className="btn btn-outline-light btn-lg" onClick={()=> window.location.href = "#/forgotpassword"}>Glemt passord?</button>
+                        </div>
                     </div>
                     <div>
                         <FooterTransparent />

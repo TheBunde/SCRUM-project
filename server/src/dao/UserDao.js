@@ -6,12 +6,12 @@ const saltRounds = 10;
 module.exports = class UserDao extends dao {
 
     registerUser(json, callback) {
-        let val = [json.name, json.email, json.phone];
+        let val = [json.name, json.email, json.phone, json.profile_photo];
         bcrypt.hash(json.password, saltRounds)
             .then((resp) => {
                 val.push(resp);
                 super.query(
-                    "INSERT into User (name, email, phone, password_hash) values (?, ?, ?, ?)",
+                    "INSERT into User (name, email, phone, profile_photo, password_hash) values (?, ?,?, ?, ?)",
                     val,
                     callback
                 );
@@ -34,6 +34,7 @@ module.exports = class UserDao extends dao {
         console.log(email);
         super.query("SELECT * from User JOIN Role on User.role_id = Role.role_id where email = ? AND approved = 1", email, callback)
     }
+
 
 
     changePassword(json, callback) {

@@ -17,6 +17,8 @@ const jwt = require('jsonwebtoken');
 
 let saltRounds = 10;
 
+let Mail = require("./sendMail");
+
 
 
 app.use(bodyParser.json()); // for å tolke JSON
@@ -43,6 +45,8 @@ app.use(function (req, res, next) {
 const userDao = new UserDao(pool);
 let adminDao = new AdminDao(pool);
 let eventDao = new EventDao(pool);
+
+let mail = new Mail();
 
 //Here we need to have a app.use which will verify the token so that you can not use any of them without token!!
 
@@ -133,10 +137,19 @@ app.use('/ftp', express.static('../../public/uploads'), serveIndex('public', {'i
 
 
 app.post('/upload', upload.single('file'), function (req, res) {
-    console.log(req.file);
-    debug(req.file);
-    console.log('storage location is ', req.hostname + '/' + req.file.path);
-    return res.send(req.file.filename);
+    if (!req.file) {
+        console.log("No file received");
+        return res.send({
+            success: false
+        });
+    } else {
+        console.log("File received");
+        console.log(req.file);
+        return res.send({
+            filePath: req.file,
+            success: true
+        });
+    }
 });
 
 
@@ -182,6 +195,26 @@ app.get("/user/:userID", (req, res) => {
         res.status(status);
         res.json(data);
     });
+});
+/*
+I'm not sure if this is the best restful soliution, but hey ho
+ */
+app.post("/user/reset_password", (req, res) => {
+    userDao.getUser(req.body.email, (status, data) => {
+        if (data.length > 0) {
+            let newPass = makeid(8);
+            console.log(newPass);
+            //res.json(data[0].user_id);
+            userDao.changePassword({user_id : data[0].user_id, password: newPass}, (statusCode, result) => {
+                res.status(statusCode);
+                res.json(result);
+                mail.sendResetPasswordMail(data[0], newPass);
+            });
+
+        } else {
+            res.json({error: "User does not exist"})
+        }
+    })
 });
 
 app.put("/user/:userID/edit/password", (req, res) => {
@@ -236,10 +269,19 @@ app.get("/users/", (req, res) => {
 });
 
 app.post("/user", (req, res) => {
+    console.log("post /user");
+    console.log(req.body);
+
     userDao.registerUser(req.body, (status, data) => {
+        console.log("http status code: "+status);
+        if(status === 200){
+            mail.sendMail(req.body);
+        }
         res.status(status);
         res.json(data);
     });
+
+
 });
 
 app.post("/validate", (req, res) => {
@@ -362,11 +404,28 @@ app.get("/event/archived", (req, res) => {
     });
 });
 
+app.get("/event/active", (req, res) => {
+    console.log("/event fikk request fra klient");
+    eventDao.getAllActive((status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
 
 app.put('/event/:eventID/archived', (req, res) => {
     console.log('/annonse/:eventID/archived: fikk request fra klient');
     console.log(req.params.eventID);
     eventDao.updateFiled(req.params.eventID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
+app.put('/event/:eventID/pending', (req, res) => {
+    console.log('/annonse/:eventID/pending: fikk request fra klient');
+    console.log(req.params.eventID);
+    eventDao.updatePending(req.params.eventID, (status, data) => {
         res.status(status);
         res.json(data);
     });
@@ -465,7 +524,7 @@ app.post("/contactinfo", (req, res) => {
         res.status(status);
         res.json(json);
     })
-})
+});
 
 app.get("/contactinfo/:id", (req, res) => {
     eventDao.getContactinfoForEvent(req.params.id, (status, data) =>{
@@ -495,5 +554,32 @@ app.get("/event/tickets/:id", (req, res) =>{
     })
 });
 
+app.put("/event/contactinfo/:id", (req, res) =>{
+    eventDao.updateContactInfo(req.params.id, req.body, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.delete("/event/tickets/:id", (req, res) =>{
+    eventDao.deleteTicketsForEvent(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.post("/event/comments", (req, res) =>{
+    eventDao.addComment(req.body, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
+app.get("/event/comments/:id", (req, res) =>{
+    eventDao.getComments(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
 
 let server = app.listen(8080);

@@ -1,8 +1,6 @@
 import axios from 'axios';
 import {User} from "../service/UserService";
-//let ipAdress = "10.24.3.122";
-//let ipAdress = "localhost";
-let ipAdress = "10.22.2.85";
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 export class ProfileService{
 
@@ -20,6 +18,7 @@ export class ProfileService{
                 a.name,
                 a.email,
                 a.phone,
+                a.profile_photo,
                 a.password,
                 a.roleid,
                 a.approved,

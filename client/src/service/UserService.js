@@ -1,23 +1,23 @@
 import Axios from "axios";
 //Axios.interceptors.response.use(response => response.data);
-//let ipAdress = "10.24.3.122";
-//let ipAdress = "localhost";
-let ipAdress = "10.22.2.85";
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 export class User {
     user_id;
     name;
     email;
     phone;
+    profile_photo;
     password;
     roleid;
     approved;
 
-    constructor(user_id, name, email, phone, password,roleId, approved) {
+    constructor(user_id, name, email, phone, profile_photo, password,roleId, approved) {
         this.user_id = user_id;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.profile_photo = profile_photo;
         this.password = password;
         this.roleid = roleId;
         this.approved = approved;
@@ -68,7 +68,7 @@ export const auth = {
 
 export let authenticate = auth.authenticate.bind(auth);
 export class UserService {
-    registerUser(user) {
+    registerUser(user){
         return Axios.post("http://" + ipAdress + ":8080/user", user);
     }
 
@@ -89,6 +89,14 @@ export class UserService {
                 "newPassword": newPassword
             }
         );
+    }
+
+    forgotPassword(email) {
+        return Axios.post("http://" + ipAdress + ":8080/user/reset_password",
+            {
+                "email" : email
+            }
+            )
     }
 }
 

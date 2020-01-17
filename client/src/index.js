@@ -21,6 +21,7 @@ import AdminUserPage from './components/Pages/AdminUsersPage/AdminUsersPage';
 import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 import guestEventView from './components/Pages/Guest/GuestEventView/GuestEventView';
 import guestMainPage from './components/Pages/Guest/GuestMainPage/GuestMainPage';
+import ForgotPassword from "./components/Pages/ForgotPassword/ForgotPassword";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -29,11 +30,11 @@ import 'react-toastify/dist/ReactToastify.css';
 const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
     <Route {...rest} render={(props) => (
         authenticate(), // Checks if the user is authenticated, then updates the users role and status for use in the next line
-            auth.authenticated === true // If user is authenticated, check if they are authorized to view page
-                ? authorized.includes(auth.role) === true
-                ? <Component {...props} />
-                : <Redirect to="overview" />
-                : <Redirect to="login" /> // User is not authenticated, and needs to log in
+        auth.authenticated === true // If user is authenticated, check if they are authorized to view page
+            ? authorized.includes(auth.role) === true 
+                ? <Component {...props} /> 
+                : <Redirect to="overview" /> 
+            : <Redirect to="" /> // User is not authenticated, and needs to log in
     )}/>
 );
 
@@ -49,10 +50,11 @@ ReactDOM.render(
         <ToastContainer />
         <div>
             <Route exact path="/" component={guestMainPage} />
-            <Route exact path="/guestview" component={guestEventView} />
+            <Route exact path="/event/public/:id" component={guestEventView} />
             <Route exact path="/portal" component={MainPage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
+            <Route exacth path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/about" component={About} />
             <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} />
             <RestrictedRoute exact path="/profile/:userID" component={ShowProfile} authorized={restriction.regular} />

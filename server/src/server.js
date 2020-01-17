@@ -423,13 +423,6 @@ app.post("/tickets", (req, res) => {
     })
 });
 
-app.put("/categories", (req, res) => {
-    eventDao.addCategory(req.body, (status, data) => {
-        res.status(status);
-        res.json(data)
-    })
-});
-
 app.put("/users/:userID/approve", (req, res) => {
     adminDao.approveUser(req.params.userID, (status, data) => {
         res.status(status);
@@ -467,6 +460,13 @@ app.get("/category/:id", (req, res) =>{
     });
 });
 
+app.post("/contactinfo", (req, res) => {
+    eventDao.addContactInfo(req.body, (status, data) => {
+        res.status(status);
+        res.json(json);
+    })
+})
+
 app.get("/contactinfo/:id", (req, res) => {
     eventDao.getContactinfoForEvent(req.params.id, (status, data) =>{
         res.status(status);
@@ -487,5 +487,13 @@ app.get("/event/tickets/:id", (req, res) =>{
         res.json(data);
     })
 });
+
+app.get("/event/tickets/:id", (req, res) =>{
+    eventDao.getTicketFromEvent(req.params.id, (status, data) =>{
+        res.status(status);
+        res.json(data);
+    })
+});
+
 
 let server = app.listen(8080);

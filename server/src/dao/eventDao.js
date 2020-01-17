@@ -15,7 +15,7 @@ module.exports = class adminDao extends Dao{
     }
 
     getEventByID(eventID, callback){
-        super.query("SELECT Event.event_id, Event.name, Event.description, Event.date, Event.place, Event.img_url, Event.artists, Event.tech_rider, Event.hospitality_rider, Event.contract, Event.personnel, Event.filed, Event.pending, Category.name as category_name FROM Event left join Event_Category on Event_Category.event_id = Event.event_id left join Category on Event_Category.category_id = Category.category_id WHERE Event.event_id=?", [eventID], callback);
+        super.query("SELECT Event.event_id, Event.name, Event.description, Event.date, Event.place, Event.img_url, Event.artists, Event.tech_rider, Event.hospitality_rider, Event.contract, Event.personnel, Event.filed, Event.pending, Category.name as category_name FROM Event left join Category on Event.category_id= Category.category_id WHERE Event.event_id=?", [eventID], callback);
     }
 
     addEvent(event, callback){
@@ -35,8 +35,8 @@ module.exports = class adminDao extends Dao{
     }
 
     deleteEvent(eventID, callback){
+        super.query("DELETE FROM Comment WHERE event_id = ?", [eventID], callback2);
         super.query("DELETE FROM Contact_Info WHERE event_id = ?", [eventID], callback2);
-        super.query("DELETE FROM Event_Category WHERE event_id = ?", [eventID], callback2);
         super.query("DELETE FROM Event_Ticket WHERE event_id = ?", [eventID], callback2);
         super.query("DELETE FROM Event WHERE event_id = ?", [eventID], callback)
     }
@@ -51,7 +51,7 @@ module.exports = class adminDao extends Dao{
     }
 
     getCategoryFromEvent(eventID, callback){
-        super.query("SELECT category_id FROM Event_Category WHERE event_id = ?", [eventID], callback)
+        super.query("SELECT category_id FROM Event WHERE event_id = ?", [eventID], callback)
     }
 
     getContactinfoForEvent(eventID, callback){
@@ -63,12 +63,13 @@ module.exports = class adminDao extends Dao{
     }
 
     getTicketFromEvent(eventID, callback){
-        super.query("SELECT * FROM Event_Ticket WHERE event_id = ?", [eventID], callback)
+        super.query("SELECT event_id, Event_Ticket.ticket_category_id, price, number, name FROM Event_Ticket left join Ticket_Category on Event_Ticket.ticket_category_id = Ticket_Category.ticket_category_id WHERE event_id = ?", [eventID], callback)
     }
 
     updateEvent(eventID, eventInfo, callback){
         super.query("UPDATE Event SET name = ?, description = ?, date = ?, place = ?, category_id = ?, img_url = ?, artists = ?, tech_rider = ?, hospitality_rider = ?, contract = ?, personnel = ? WHERE event_id = ?", [eventInfo.name, eventInfo.description, eventInfo.date, eventInfo.place, eventInfo.category_id, eventInfo.img_url, eventInfo.artists, eventInfo.tech_rider, eventInfo.hospitality_rider, eventInfo.contract, eventInfo.personnel, eventID], callback)
     }
+
 
     updateContactInfo(eventID, contactInfo, callback){
         super.query("UPDATE Contact_Info SET name = ?, phone = ?, email = ? WHERE event_id = ?", [contactInfo.name, contactInfo.phone, contactInfo.email, eventID], callback)

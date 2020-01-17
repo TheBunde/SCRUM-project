@@ -82,8 +82,7 @@ class EventView extends Component{
             return place.trim(" ,");
         }
 
-        /* */
-        /**<img src={"https://www.denverkarateonline.com/wp-content/uploads/2017/04/default-image.jpg"} /> */
+
 
         return (
             <div>
@@ -136,7 +135,7 @@ class EventView extends Component{
                                         </div>
                                             
                                         <div id="eventViewDelete">
-                                            <button type="button" onClick={() => this.submitEventDeleteButton(this.state.event_id)} className="btn btn-danger">Slett</button>
+                                            <button type="button" onClick={() => this.submitEventDeleteButton(this.state.event_id)} className="btn btn-outline-danger">Slett</button>
                                         </div>
                                     
                                     </div>

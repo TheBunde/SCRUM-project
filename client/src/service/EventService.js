@@ -1,12 +1,14 @@
 import axios from 'axios';
 //let ipAdress = "10.24.3.122";
-let ipAdress = "localhost";
+//let ipAdress = "localhost";
+let ipAdress = "10.22.2.85";
 
 export class event {
-    constructor(name, date, description, place, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
+    constructor(name, date, description, place, category_id, artists, tech_rider, hospitality_rider, personnel, img_url, contract){
         this.name = name;
         this.date = date;
         this.place = place;
+        this.category_id = category_id;
         this.artists = artists;
         this.tech_rider = tech_rider;
         this.hospitality_rider = hospitality_rider;

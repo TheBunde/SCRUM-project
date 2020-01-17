@@ -1,0 +1,25 @@
+#GuestMainPageContainer{
+    width: 100%;
+    text-align: center;
+    vertical-align: center;
+    margin: auto;
+
+    flex-wrap: wrap;
+    overflow: scroll;
+    align-content: space-between;
+}
+
+.cardsContainer{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.guestEventCard{
+    max-width: 400px;
+    max-height: 400px;
+}
+
+#GuestMainPageContainer button{
+    margin: 300px 20px 0 20px;
+}

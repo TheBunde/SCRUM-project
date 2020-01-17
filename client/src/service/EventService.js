@@ -1,6 +1,7 @@
 import axios from 'axios';
 //let ipAdress = "10.24.3.122";
-let ipAdress = "localhost";
+//let ipAdress = "localhost";
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 //let ipAdress = "10.22.2.85";
 
 export class event {
@@ -36,6 +37,10 @@ class EventService{
 
     getAllArchived(){
         return axios.get("http://" + ipAdress + ":8080/event/archived").then(response => response.data);
+    }
+
+    getAllActive(){
+        return axios.get("http://" + ipAdress + ":8080/event/active").then(response => response.data);
     }
 
     getNonFiledEvents(){

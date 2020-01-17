@@ -17,6 +17,8 @@ const jwt = require('jsonwebtoken');
 
 let saltRounds = 10;
 
+let Mail = require("./sendMail");
+
 
 
 app.use(bodyParser.json()); // for å tolke JSON
@@ -43,6 +45,8 @@ app.use(function (req, res, next) {
 const userDao = new UserDao(pool);
 let adminDao = new AdminDao(pool);
 let eventDao = new EventDao(pool);
+
+let mail = new Mail();
 
 //Here we need to have a app.use which will verify the token so that you can not use any of them without token!!
 
@@ -183,6 +187,30 @@ app.get("/user/:userID", (req, res) => {
         res.json(data);
     });
 });
+/*
+I'm not sure if this is the best restful soliution, but hey ho
+ */
+app.post("/user/reset_password", (req, res) => {
+    //Firstly get the email, then get the userID.
+    //Then randomize a new passord
+    //Hash that password
+    //Change the password that that new hash
+    //Send the email
+    userDao.getUser(req.body.email, (status, data) => {
+        if (data.length > 0) {
+            let newPass = makeid(8);
+            console.log(newPass);
+            //res.json(data[0].user_id);
+            userDao.changePassword({user_id : data[0].user_id, password: newPass}, (statusCode, result) => {
+                res.status(statusCode);
+                res.json(result);
+            });
+
+        } else {
+            res.json({error: "User does not exist"})
+        }
+    })
+})
 
 app.put("/user/:userID/edit/password", (req, res) => {
     // Check if user with pw entered exists, if so -> change their pw.
@@ -236,6 +264,8 @@ app.get("/users/", (req, res) => {
 });
 
 app.post("/user", (req, res) => {
+    console.log("post /user");
+    mail.sendMail(req.body);
     userDao.registerUser(req.body, (status, data) => {
         res.status(status);
         res.json(data);
@@ -357,6 +387,14 @@ app.get("/event/all", (req, res) => {
 app.get("/event/archived", (req, res) => {
     console.log("/event fikk request fra klient");
     eventDao.getAllArchived((status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
+app.get("/event/active", (req, res) => {
+    console.log("/event fikk request fra klient");
+    eventDao.getAllActive((status, data) => {
         res.status(status);
         res.json(data);
     });

@@ -36,6 +36,7 @@ module.exports = class UserDao extends dao {
     }
 
 
+
     changePassword(json, callback) {
         let val = [json.user_id];
         bcrypt.hash(json.password, saltRounds).then(res => {

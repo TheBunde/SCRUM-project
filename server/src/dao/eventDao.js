@@ -10,6 +10,10 @@ module.exports = class adminDao extends Dao{
         super.query(" SELECT * FROM Event WHERE filed = 1 ORDER BY date DESC", [], callback);
     }
 
+    getAllActive(callback){
+        super.query("Select * FROM Event WHERE pending = 0 and filed = 0 and date > now(); ", [], callback);
+    }
+
     getNonFiledEvents(callback){
         super.query(" SELECT * FROM Event WHERE filed = 0 ORDER BY date DESC", [], callback);
     }

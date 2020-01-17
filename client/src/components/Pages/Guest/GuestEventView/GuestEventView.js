@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
 import FontAwesome from 'react-fontawesome'
 import 'font-awesome/css/font-awesome.min.css'
-import Navbar from '../../Navbar/Navbar'
-import Footer from '../../Footer/Footer'
-import '../../../css/EventView.css'
-import {eventService} from '../../../service/EventService'
+
 import { createHashHistory } from 'history';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-
+import {eventService} from '../../../../service/EventService'
+import NavbarMainPage from '../../../Navbar/NavbarMainPage'
 
 const history = createHashHistory();
 
-class EventView extends Component{
+class GuestEventView extends Component{
     constructor(props){
         super(props);
         this.state= {
@@ -75,19 +73,17 @@ class EventView extends Component{
             category_name: events[0].category_name}))
             .catch(error => console.error(error.message));
     }
-        
-
+    
     render() {
 
         function mapLocation(place) {
             return place.trim(" ,");
         }
 
-
-
         return (
             <div>
-                <Navbar />
+                <NavbarMainPage />
+                
                 <div id="eventViewBackground">
 
                     <div id="titleEvent">
@@ -120,26 +116,8 @@ class EventView extends Component{
                                                 <a href="https://www.embedgooglemap.net/blog/nordvpn-coupon-code/"></a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> 
                                     
-                                    <div id="eventViewButtons">
-                                        <div id="eventViewBack">
-                                            <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Tilbake</button>
-                                        </div>
-
-                                        <div id="eventViewEdit">
-                                            <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event/" + this.state.event_id + "/edit"}>Rediger</button>
-                                        </div>
-
-                                        <div id="eventViewArchive">
-                                            <button type="button" onClick={() => this.submitEventArchiveButton(this.state.event_id)}  className="btn btn-outline-primary">Arkiver</button>
-                                        </div>
-                                            
-                                        <div id="eventViewDelete">
-                                            <button type="button" onClick={() => this.submitEventDeleteButton(this.state.event_id)} className="btn btn-outline-danger">Slett</button>
-                                        </div>
-                                    
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -182,107 +160,18 @@ class EventView extends Component{
                                 </tbody>
                             </table>
                         </div>
-                        <div id="eventViewFilesContainer">
-                            <div id="eventViewFiles">
-                                <div>
-                                    <h3>Personell</h3>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.personnel)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
-                                </div>
-
-                                <div>
-                                    <h3>Teknisk rider</h3>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
-                                </div>
-
-                                <div>
-                                    <h3>Hospitality rider</h3>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"> Last ned</i></button>
-                                </div>
-
-                                <div>
-                                    <h3>Kontrakt</h3>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     </div>
 
                     
                 </div>
-                <Footer />
+                
             </div>
-        );
-    }
-
-    submitEventDeleteButton(id) {
-        confirmAlert({
-            title: 'Bekreftelse av sletting',
-            message: 'Er du sikker på at du vil slette arrangementet?',
-            buttons: [
-                {
-                    label: 'Ja',
-                    onClick : () => this.delete(id)
-                },
-                {
-                    label: 'Nei'
-                }
-            ]
-        });
-    }
-
-    submitEventArchiveButton(id) {
-        confirmAlert({
-            title: 'Bekreftelse av arkivering',
-            message: 'Er du sikker på at du vil arkivere arrangementet?',
-            buttons: [
-                {
-                    label: 'Ja',
-                    onClick : () => this.archive(id),
-                },
-                {
-                    label: 'Nei'
-                }
-            ]
-        });
-    }
-
-    delete(id){
-        console.log(id);
-        eventService
-            .deleteEvent(id)
-            .catch(e => console.error(e));
-        history.push("/event")
-    }
-
-    archive(id){
-        console.log(id);
-        eventService
-            .updateFiled(id)
-            .catch(e => console.error(e));
-        history.push("/event")
+        )
     }
 }
 
-export default EventView;
+export default GuestEventView;
 
 
-
-
-/*
-* Pers nice tabell i bootstrap
-
-<div id="eventViewArtistContainer">
-    <table className="table table-borderless">
-        <tbody>
-        {this.state.artists.map(artist =>
-        <tr>
-            <th scope="row">{artist}</th>
-        </tr>
-            )}
-        </tbody>
-    </table>
-</div>
-
-*/

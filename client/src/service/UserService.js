@@ -92,7 +92,7 @@ export class UserService {
     forgotPassword(email) {
         return Axios.post("http://" + ipAdress + ":8080/user/reset_password",
             {
-                "email:" : email
+                "email" : email
             }
             )
     }

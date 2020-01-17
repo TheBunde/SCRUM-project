@@ -17,7 +17,7 @@ class ForgotPassword extends Component {
 
     render() {
         return (
-            <div className="pageSetup">
+            <div className="LoginFormForm">
                 <div className="pageSetup">
                     <div id="LoginFormDiv">
                         <div id="MainPageTitle"><a id="LoginPageTitle" href="">HARMONI</a></div>
@@ -25,7 +25,7 @@ class ForgotPassword extends Component {
                             <div className={"registerContainer"}>
                                 <div className="card RegisterPageCard">
                                     <div className="card-body">
-                                        <h1 id={"regTitle"}>Forgot password</h1>
+                                        <h1 id={"regTitle"}>Glemt passord</h1>
                                         <form>
                                             <div className="form-group" id="RegisterPageFormGroup">
                                                 <div id="RegisterPageFormFieldsDiv">
@@ -43,7 +43,7 @@ class ForgotPassword extends Component {
                                                            aria-describedby="emailHelp" placeholder="Email..."/>
                                                 </div>
                                                 <div id="RegisterPageFormButtonDiv">
-                                                    <button type={"button"} onClick={() => this.submit()}>Bekreft glem passord</button>
+                                                    <button type={"button"} className={"btn btn-outline-dark"} onClick={() => this.submit()}>Bekreft glem passord</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -72,7 +72,6 @@ class ForgotPassword extends Component {
     submit = () => {
         if (this.state.email === this.state.emailRep) {
             let userService = new UserService();
-            window.location.hash="/login";
             userService.forgotPassword(this.state.email)
                 .then((res) => {
                     console.log(res);

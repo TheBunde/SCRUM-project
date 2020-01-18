@@ -344,7 +344,7 @@ class EventView extends Component{
             status = "Arkivert";
         }
         else if(filed === 1 && pending === 1){
-            status = "Databasefeil";
+            status = "Ikke utført";
         }
         else if(pending === 0 && filed === 0 &&  date > this.getCurrentDate()){
             status = "Kommende";

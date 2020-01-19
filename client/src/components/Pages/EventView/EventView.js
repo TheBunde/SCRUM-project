@@ -30,7 +30,10 @@ class EventView extends Component{
             pending: "",
             img_url: "",
             description: "",
-            event_tickets: []
+            event_tickets: [],
+            contactInfo_name: "",
+            contactInfo_phone: "",
+            contactInfo_email: ""
         }
     }
 
@@ -65,6 +68,8 @@ class EventView extends Component{
             category_name: events[0].category_name}))
             .catch(error => console.error(error.message));
         eventService.getTicketFromEvent(this.props.match.params.id).then(tickets => this.setState({event_tickets: tickets}))
+        eventService.getContactinfoForEvent(this.props.match.params.id).then(c => this.setState({contactInfo_name: c.name})).catch(Error => console.log(Error));
+        console.log(this.state.contact_info)
     }
         
 
@@ -73,8 +78,6 @@ class EventView extends Component{
         function mapLocation(place) {
             return place.trim(" ,");
         }
-
-
 
         return (
             <div>
@@ -138,6 +141,31 @@ class EventView extends Component{
                                 </div>
                             </div>
                         </div>
+    
+                        <div id="eventViewArtistsContainer">
+                            <div id="eventViewArtists">
+                                <div>
+                                    <h3>Artister</h3>
+                                </div>
+                                <div>
+                                    <p>{this.state.artists}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="eventViewContactInfoContainer">
+                            <div id="eventViewContactInfo">
+                                <div>
+                                    <h3>Kontaktinformasjon</h3>
+                                </div>
+                                <div>
+                                    <p>{"Navn: " + this.state.contactInfo_name}</p>
+                                    <p>{"Tlf: " + this.state.contactInfo_phone}</p>
+                                    <p>{"E-post: " + this.state.contactInfo_email}</p>   
+                                </div>
+                            </div>
+                        </div>
+                        
 
                         <div id="eventViewInfoTicketsContainer">
                             <div id="eventViewInfoTickets">

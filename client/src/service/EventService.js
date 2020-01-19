@@ -92,6 +92,10 @@ class EventService{
         return axios.get("http://" + ipAdress + ":8080/contactinfo/" + eventID).then(response => response.data[0]);
     }
 
+    getContactinfoForEventV2(eventID){
+        return axios.get("http://" + ipAdress + ":8080/contactinfo/" + eventID).then(response => response.data[0]);
+    }
+
     getTicketById(ticketID){
         return axios.get("http://" + ipAdress + ":8080/tickets/" + ticketID).then(response => response.data[0]);
     }

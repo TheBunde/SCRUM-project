@@ -9,6 +9,7 @@ import {NavbarMainPage} from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 import {FooterTransparent} from '../../Footer/Footer'
 import {confirmAlert} from "react-confirm-alert";
+import {toast} from "react-toastify";
 
 
 class RegisterPage extends Component {
@@ -74,7 +75,7 @@ class RegisterPage extends Component {
                                             </div>
                                             <div id="RegisterPageFormFieldsDiv">
                                                 <label htmlFor="exampleInputEmail1">Profilbilde:</label>
-                                                <input type="file" id={"imageUpload"}/>
+                                                <input type="file" id={"imageUpload"} accept={"image/jpeg, image/jpg, image/png"}/>
                                             </div>
                                             <div id="RegisterPageFormFieldsDiv">
                                                 <label htmlFor="exampleInputPassword1">Passord:</label>
@@ -132,6 +133,11 @@ class RegisterPage extends Component {
             modalTitle: title,
         })
     }
+
+    notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyWrongMimeType = () => toast("Du må laste opp et bilde", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
 
     handleTextChange = event => {
         event.preventDefault();
@@ -226,16 +232,18 @@ class RegisterPage extends Component {
                 let userService = new UserService();
                 let fileService = new FileService();
                 let profilePicture = document.getElementById("imageUpload").files[0];
-                console.log(profilePicture);
+
                 fileService.uploadImage(profilePicture)
                     .then((res) => {
                         console.log("filename: " + res.data.filePath.filename);
                         this.setState({
                             image_url: res.data.filePath.filename
                         });
+
                     })
                     .catch((err) => {
                         console.error(err);
+                        this.notifyWrongMimeType();
                     })
                     .then(() => {
                         let user = new User(null, this.state.name, this.state.email, this.state.phone, this.state.image_url, this.state.password, null, null);
@@ -255,7 +263,10 @@ class RegisterPage extends Component {
                                     this.showFeedback("samePhone");
                                 }
                             })
-                    });
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    })
 
             }
 

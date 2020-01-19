@@ -28,6 +28,7 @@ class EventView extends Component{
             category_id: "",
             filed: "",
             pending: "",
+            canceled:"",
             img_url: "",
             description: "",
             event_tickets: [],
@@ -63,6 +64,7 @@ class EventView extends Component{
             category_id: events[0].category_id,
             filed: events[0].filed,
             pending: events[0].pending,
+            canceled: events[0].canceled,
             img_url: events[0].img_url,
             description: events[0].description,
             category_name: events[0].category_name}))
@@ -71,6 +73,8 @@ class EventView extends Component{
         eventService.getContactinfoForEvent(this.props.match.params.id).then(c => this.setState({contactInfo_name: c.name})).catch(Error => console.log(Error));
         console.log(this.state.contact_info)
     }
+
+
         
 
     render() {
@@ -79,17 +83,43 @@ class EventView extends Component{
             return place.trim(" ,");
         }
 
+        let color = this.getColor(this.state.canceled, this.state.pending, this.state.filed, this.state.date);
+        console.log(this.state.canceled);
+        console.log(color);
+
         return (
             <div>
                 <Navbar />
-                <div id="eventViewBackground">
-
-                    <div id="titleEvent">
-                        <div id="eventViewTitle">
-                            <h1>{this.state.name}</h1>
-                            <hr id="eventViewTitleHR"/>
+                <div id="titleEvent">
+                    <div id="eventViewStatus">
+                        <a className={"btn btn-lg border-" + color}>{this.getStatus(this.state.canceled, this.state.pending, this.state.filed, this.state.date)}</a>
+                    </div>
+                    <div id="eventViewTitle">
+                        <h1>{this.state.name}</h1>
+                        <hr id="eventViewTitleHR"/>
+                    </div>
+                    <div id="eventViewDropdown" className="dropdown">
+                        <div className="btn-group">
+                            <button type="button" className="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                Edit
+                            </button>
+                            <div className="dropdown-menu dropdown-menu-right">
+                                <button className="dropdown-item" type="button" onClick={() => this.submitEventApproveButton(this.state.event_id)}>Godkjenn arrangment</button>
+                                <div className="dropdown-divider"></div>
+                                <button className="dropdown-item" type="button">Rediger arrangment</button>
+                                <button className="dropdown-item" type="button" onClick={() => this.submitEventArchiveButton(this.state.event_id)}>Arkiver arrangement</button>
+                                <div className="dropdown-divider"></div>
+                                <button className="dropdown-item" type="button" onClick={() => this.submitEventCancelButton(this.state.event_id)}>Avlys arrangment</button>
+                                <div className="dropdown-divider"></div>
+                                <button className="dropdown-item" type="button" onClick={() => this.submitEventDeleteButton(this.state.event_id)}>Slett arrangment</button>
+                            </div>
                         </div>
                     </div>
+
+                </div>
+                <div id="eventViewBackground">
+
 
                     <div id="eventViewImageContainer">
                         <div id="eventViewImage">
@@ -269,6 +299,38 @@ class EventView extends Component{
         });
     }
 
+    submitEventApproveButton(id) {
+        confirmAlert({
+            title: 'Bekreftelse av godkjenning',
+            message: 'Er du sikker på at du vil godkjnne arrangementet?',
+            buttons: [
+                {
+                    label: 'Ja',
+                    onClick : () => this.pend(id),
+                },
+                {
+                    label: 'Nei'
+                }
+            ]
+        });
+    }
+
+    submitEventCancelButton(id) {
+        confirmAlert({
+            title: 'Bekreftelse av avlysing',
+            message: 'Er du sikker på at du vil avlyse arrangementet?',
+            buttons: [
+                {
+                    label: 'Ja',
+                    onClick : () => this.cancel(id),
+                },
+                {
+                    label: 'Nei'
+                }
+            ]
+        });
+    }
+
     delete(id){
         console.log(id);
         eventService
@@ -293,27 +355,81 @@ class EventView extends Component{
         history.push("/event")
     }
 
+    cancel(id){
+        console.log(id);
+        eventService
+            .updateCancel(id)
+            .catch(e => console.error(e));
+        history.push("/event")
+    }
+
+    getStatus(canceled, pending, filed, date){
+        let status;
+        if(canceled === 1){
+            status = "Avlyst"
+        }else if(pending === 1 && filed === 0){
+            status = "Til godkjenning";
+        }
+        else if(filed === 1 && pending === 0){
+            status = "Arkivert";
+        }
+        else if(filed === 1 && pending === 1){
+            status = "Ikke utført";
+        }
+        else if(pending === 0 && filed === 0 &&  date > this.getCurrentDate()){
+            status = "Kommende";
+        }else{
+            status = "Utført";
+        }
+        return status;
+    }
+
+    getColor(canceled, pending, filed, date){
+        let color;
+        if(canceled === 1) {
+            color = "danger"
+        }else if(pending === 1 && filed === 0){
+            color = "warning";
+        }
+        else if(filed === 1 && pending === 0){
+            color = "secondary";
+        }
+        else if(pending === 0 && filed === 0 &&  date > this.getCurrentDate()){
+            color = "success";
+        }
+        else if(pending === 1 && filed === 1){
+            color = "primary";
+        }else{
+            color = "info";
+        }
+        return color;
+    }
+
+    getCurrentDate() {
+        let newDate = new Date();
+        let date = newDate.getDate();
+        if(date<10){
+            date = "0" + date;
+        }
+        let month = newDate.getMonth()+1;
+        if(month<10){
+            month = "0" + month;
+        }
+        let year = newDate.getFullYear();
+        let hours = newDate.getHours();
+        if(hours<10){
+            hours = "0" + hours;
+        }
+        let minutes = newDate.getMinutes();
+        if(minutes<10){
+            minutes = "0" + minutes;
+        }
+        return year + "-" + month + "-" + date + "T" + hours + ":" + minutes + ":00:000Z";
+    }
+
 
 }
 
 export default EventView;
 
 
-
-
-/*
-* Pers nice tabell i bootstrap
-
-<div id="eventViewArtistContainer">
-    <table className="table table-borderless">
-        <tbody>
-        {this.state.artists.map(artist =>
-        <tr>
-            <th scope="row">{artist}</th>
-        </tr>
-            )}
-        </tbody>
-    </table>
-</div>
-
-*/

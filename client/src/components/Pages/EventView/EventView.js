@@ -70,7 +70,7 @@ class EventView extends Component{
             category_name: events[0].category_name}))
             .catch(error => console.error(error.message));
         eventService.getTicketFromEvent(this.props.match.params.id).then(tickets => this.setState({event_tickets: tickets}))
-        eventService.getContactinfoForEvent(this.props.match.params.id).then(c => this.setState({contactInfo_name: c.name})).catch(Error => console.log(Error));
+        eventService.getContactinfoForEvent(this.props.match.params.id).then(contactInfo => this.setState({contactInfo_name: contactInfo.name, contactInfo_phone: contactInfo.phone, contactInfo_email: contactInfo.email})).catch(Error => console.log(Error));
         console.log(this.state.contact_info)
     }
 
@@ -140,34 +140,13 @@ class EventView extends Component{
                                     <div id="eventViewInfoBoxMap">
                                         <div class="mapouter">
                                             <div class="gmap_canvas">
-                                                <iframe width="250" height="250" id="gmap_canvas" src={"https://maps.google.com/maps?q=" + mapLocation(this.state.place) + "%2C%20Trondheim&t=&z=15&ie=UTF8&iwloc=&output=embed"} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                                <iframe width="300" height="300" id="gmap_canvas" src={"https://maps.google.com/maps?q=" + mapLocation(this.state.place) + "%2C%20Trondheim&t=&z=15&ie=UTF8&iwloc=&output=embed"} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                                                 <a href="https://www.embedgooglemap.net/blog/nordvpn-coupon-code/"></a>
                                             </div>
                                         </div>
                                     </div>
                                     
-                                    <div id="eventViewButtons">
-                                        <div id="eventViewBack">
-                                            <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Tilbake</button>
-                                        </div>
-
-                                        <div id="eventViewEdit">
-                                            <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event/" + this.state.event_id + "/edit"}>Rediger</button>
-                                        </div>
-
-                                        <div id="eventViewArchive">
-                                            <button type="button" onClick={() => this.submitEventArchiveButton(this.state.event_id)}  className="btn btn-outline-primary">Arkiver</button>
-                                        </div>
-                                            
-                                        <div id="eventViewDelete">
-                                            <button type="button" onClick={() => this.submitEventDeleteButton(this.state.event_id)} className="btn btn-outline-danger">Slett</button>
-                                        </div>
-
-                                        <div id="eventViewDelete">
-                                            <button type="button" onClick={() => this.pend(this.state.event_id)} className="btn btn-outline-danger">pending</button>
-                                        </div>
                                     
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -228,6 +207,11 @@ class EventView extends Component{
                                 </div>
 
                                 <div>
+                                    <h3>Kontrakt</h3>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
+                                </div>
+
+                                <div>
                                     <h3>Teknisk rider</h3>
                                     <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
@@ -236,11 +220,7 @@ class EventView extends Component{
                                     <h3>Hospitality rider</h3>
                                     <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"> Last ned</i></button>
                                 </div>
-
-                                <div>
-                                    <h3>Kontrakt</h3>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
-                                </div>
+                                
                             </div>
                         </div>
                         
@@ -431,5 +411,34 @@ class EventView extends Component{
 }
 
 export default EventView;
+
+
+/* 
+
+<div id="eventViewButtons">
+    <div id="eventViewBack">
+        <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Tilbake</button>
+    </div>
+
+    <div id="eventViewEdit">
+        <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event/" + this.state.event_id + "/edit"}>Rediger</button>
+    </div>
+
+    <div id="eventViewArchive">
+        <button type="button" onClick={() => this.submitEventArchiveButton(this.state.event_id)}  className="btn btn-outline-primary">Arkiver</button>
+    </div>
+        
+    <div id="eventViewDelete">
+        <button type="button" onClick={() => this.submitEventDeleteButton(this.state.event_id)} className="btn btn-outline-danger">Slett</button>
+    </div>
+
+    <div id="eventViewDelete">
+        <button type="button" onClick={() => this.pend(this.state.event_id)} className="btn btn-outline-danger">pending</button>
+    </div>
+
+</div>
+
+
+*/
 
 

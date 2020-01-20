@@ -84,11 +84,20 @@ class EventService{
         return axios.put("http://" + ipAdress + ":8080/event/" + eventID + "/pending", eventID).then(response => response.data);
     }
 
+    updateCancel(eventID){
+        console.log("Er i event service");
+        return axios.put("http://" + ipAdress + ":8080/event/" + eventID + "/cancel", eventID).then(response => response.data);
+    }
+
     getCategoryFromEvent(eventID){
         return axios.get("http://" + ipAdress + ":8080/category/" + eventID).then(response => response.data[0]);
     }
 
     getContactinfoForEvent(eventID){
+        return axios.get("http://" + ipAdress + ":8080/contactinfo/" + eventID).then(response => response.data[0]);
+    }
+
+    getContactinfoForEventV2(eventID){
         return axios.get("http://" + ipAdress + ":8080/contactinfo/" + eventID).then(response => response.data[0]);
     }
 

@@ -45,7 +45,7 @@ class EventPage extends Component {
         let hours = tempDate.slice(11, 13);
         let minutes = tempDate.slice(14, 16);
 
-        return date + "-" + month + "-" + year + " " + hours + ":" + minutes;
+        return date + "." + month + "." + year + " " + hours + ":" + minutes;
     }
 
     getCurrentDate() {
@@ -263,7 +263,7 @@ class EventCard extends Component {
                                 <h5 class="card-title">{this.props.name}</h5>
                                 <div id="eventPageStatus">
 
-                                    <a className={"btn btn-sm btn-"+color}>Status: {this.getStatus(this.props.canceled, this.props.pending, this.props.filed,  this.props.compareDate)}</a>
+                                    <a className={"btn btn-outline-"+color}>Status: {this.getStatus(this.props.canceled, this.props.pending, this.props.filed,  this.props.compareDate)}</a>
                                 </div>
                                 <div id="eventPageCardLocation">
                                     {this.props.place}

@@ -621,8 +621,8 @@ class EditEvent extends Component{
 
         eventService
             .updateContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, eventID)
+            .then(() => window.location.href="#/event/" + this.props.match.params.id)
             .catch(Error => console.log(Error));
-        window.location.href="#/event/" + this.props.match.params.id;
     }
 }
 

@@ -37,7 +37,6 @@ let pool = mysql.createPool({
 
 
 
-
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
@@ -376,7 +375,7 @@ app.post("/validate", (req, res) => {
                         approved: approved,
                         user_id: id
                     }, privateKey, {
-                        expiresIn: 900
+                        expiresIn: 90000
                     });
                     res.json({jwt: token});
                 } else {

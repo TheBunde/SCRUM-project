@@ -38,31 +38,6 @@
     margin: auto auto auto;
 }
 
-.mapouter {
-    position:relative;
-    text-align:right;
-    height:100%;
-    width:100%;
-}
-
-.gmap_canvas {
-    overflow:hidden;
-    background:none
-    !important;
-    height:100%;
-    width:100%;
-    min-height: 100px;
-    min-width: 100px;
-     
-}
-
-.gmap_canvas iframe{
-    height:100%;
-    width:100%;
-    min-height: 300px;
-    min-width: 100px;
-}
-
 #guestEventViewInfoTickets{
     width: 80%;
 }

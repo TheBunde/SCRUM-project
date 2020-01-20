@@ -200,7 +200,7 @@ class EventPage extends Component {
                             <div id="eventPageEventTable">
                                 {this.state.shownEvents.slice(0, this.state.length).map(event => (
                                     <div>
-                                        <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={this.formatDate(event.date)} compareDate={event.date} place={event.place} pending={event.pending} filed={event.filed}/>
+                                        <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={this.formatDate(event.date)} compareDate={event.date} place={event.place} pending={event.pending} filed={event.filed} canceled={event.canceled}/>
                                     </div>
                                 ))}
 
@@ -227,6 +227,7 @@ class EventPage extends Component {
 class EventCard extends Component {
 
     render(){
+
         let color = this.getColor(this.props.canceled, this.props.pending, this.props.filed, this.props.compareDate);
         return (
             <div id="eventPageEventCardLink">
@@ -239,6 +240,7 @@ class EventCard extends Component {
                             <div id="eventPageCardBody" class="card-body">
                                 <h5 class="card-title">{this.props.name}</h5>
                                 <div id="eventPageStatus">
+
                                     <a className={"btn btn-sm btn-"+color}>Status: {this.getStatus(this.props.canceled, this.props.pending, this.props.filed,  this.props.compareDate)}</a>
                                 </div>
                                 <div id="eventPageCardLocation">
@@ -266,7 +268,7 @@ class EventCard extends Component {
             status = "Arkivert";
         }
         else if(filed === 1 && pending === 1){
-            status = "Databasefeil";
+            status = "Ikke utført";
         }
         else if(pending === 0 && filed === 0 &&  date > this.getCurrentDate()){
             status = "Kommende";

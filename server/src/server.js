@@ -451,6 +451,15 @@ app.put('/event/:eventID/archived', (req, res) => {
     });
 });
 
+app.put('/event/:eventID/cancel', (req, res) => {
+    console.log('/annonse/:eventID/archived: fikk request fra klient');
+    console.log("er i event DataBASE SERVER");
+    eventDao.updateCancel(req.params.eventID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
 app.put('/event/:eventID/pending', (req, res) => {
     console.log('/annonse/:eventID/pending: fikk request fra klient');
     console.log(req.params.eventID);

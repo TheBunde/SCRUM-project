@@ -65,7 +65,7 @@ test("get the approved user", done => {
         expect(data[0].user_id).toBe(3);
         expect(data[0].name).toBe('test3');
         expect(data[0].role_id).toBe(2);
-        expect(data[1].role).toBe('Sceneansvarlig');
+        expect(data[0].role).toBe('Sceneansvarlig');
         done();
     }
     userDao.getApprovedUser(

@@ -9,23 +9,42 @@ import NavbarMainPage from "../Navbar/NavbarMainPage";
 import {eventService} from "../../service/EventService";
 import {confirmAlert} from "react-confirm-alert";
 import Footer from "../Footer/Footer";
+import {auth, authenticate} from "../../service/UserService";
 
 const history = createHashHistory();
 
 export default class Calendar extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
             events: [
                 {id: 1, title: "one", date: "2020-01-21"},{id: 2, title: "to", date: "2020-01-22"},{id: 3, title: "Tre", date: "2020-01-23"}
-            ]
+            ],
+            check: {}
         }
 
     }
 
 
     componentDidMount() {
+        authenticate();
+        if (auth.authenticated) {
+            console.log("Er logget inn")
+            this.setState(
+                {
+                    check: 1
+                }
+            )
+            console.log(this.state.check);
+        } else {
+            this.setState(
+                {
+                    check: 2
+                }
+            )
+            console.log(this.state.check);
+            console.log("Er ikke logget inn")
+        }
         let list = [];
         eventService.getNonFiledEvents().then(events => {
             events.map(item => list.push({id: item.event_id, title: item.name, date: this.formatDate(item.date)}))
@@ -63,18 +82,39 @@ export default class Calendar extends React.Component {
                         plugins={[ dayGridPlugin, interactionPlugin ]}
                         events= {myEvents}
                         eventClick={function (calEvent) {
-                            confirmAlert({
-                                title: calEvent.event._def.title,
-                                buttons: [
-                                    {
-                                        label: 'Se arrangement',
-                                        onClick : () => history.push("/event/public/" + calEvent.event._def.publicId)
-                                    },
-                                    {
-                                        label: 'Avslutt'
-                                    }
-                                ]
-                            });
+                            console.log("SE ME " + this.state.check)
+                            if(this.state.check === true){
+                                confirmAlert({
+                                    title: calEvent.event._def.title,
+                                    buttons: [
+                                        {
+                                            label: 'Se arrangement',
+                                            onClick : () => history.push("/event/public/" + calEvent.event._def.publicId)
+                                        },
+                                        {
+                                            label: 'Se redigerbart arrangement',
+                                            onClick : () => history.push("/event/" + calEvent.event._def.publicId)
+                                        },
+                                        {
+                                            label: 'Avslutt'
+                                        }
+                                    ]
+                                });
+                            }else{
+                                confirmAlert({
+                                    title: calEvent.event._def.title,
+                                    buttons: [
+                                        {
+                                            label: 'Se arrangement',
+                                            onClick : () => history.push("/event/public/" + calEvent.event._def.publicId)
+                                        },
+                                        {
+                                            label: 'Avslutt'
+                                        }
+                                    ]
+                                });
+                            }
+
 
                         }}
                     />

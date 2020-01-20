@@ -187,10 +187,10 @@ class EventPage extends Component {
                                             Vis
                                         </button>
                                         <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" onClick={() => this.eventFilterAllActive()}>Alle arrangementer som ikke er arkivert</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterPending()}>Under planlegging</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterApproved()}>Ferdig planlagte arrangementer</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterAllActive()}>Alle arrangementer som ikke er arkivert</a>
+                                            <a className="dropdown-item" href="#/event"  onClick={() => this.eventFilterPending()}>Under planlegging</a>
+                                            <a className="dropdown-item" href="#/event" aria-pressed="false" onClick={() => this.eventFilterApproved()}>Ferdig planlagte arrangementer</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
                                         </div>
                                     </div>
                                 </div>
@@ -201,10 +201,10 @@ class EventPage extends Component {
                                             Sorter etter
                                         </button>
                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" onClick={() => this.sortByName()}>Navn</a>
-                                            <a className="dropdown-item" onClick={() => this.sortByClosest()}>Nærmeste</a>
-                                            <a className="dropdown-item" onClick={() => this.sortByDate()}>Lengst frem</a>
-                                            <a className="dropdown-item" onClick={() => this.sortByCategory()}>Kategori</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.sortByName()}>Navn</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.sortByClosest()}>Nærmeste</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.sortByDate()}>Lengst frem</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.sortByCategory()}>Kategori</a>
                                         </div>
                                     </div>
                                 </div>

@@ -5,9 +5,11 @@
         background-image: url('../img/Backgrounds/Background 1.jpeg');
         background-size: cover;
         z-index: 2000;
+        max-width: 100%;
 }
 #LoginFormWithoutFooter{
     min-height: 100vh;
+    max-width: 100%;
 }
 
 #LoginFormForm{

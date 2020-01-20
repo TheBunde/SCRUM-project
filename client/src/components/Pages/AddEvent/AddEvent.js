@@ -358,8 +358,7 @@ class AddEvent extends Component{
             let filePersonell = document.getElementById("personellInput");
             let fileRider1 = document.getElementById("rider1Input");
             let fileRider2 = document.getElementById("rider2Input");
-            let image = document.getElementById("imageInput");
-
+            let image = document.getElementById("imageInput")
 
             let filesUpload = [];
 

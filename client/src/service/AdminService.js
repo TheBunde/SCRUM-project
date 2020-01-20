@@ -7,7 +7,7 @@ class AdminService{
 
 
     updateUser(name, email,phone, userID) {
-        return axios.put("http://localhost:8080/api/users/" + userID + "/newName", {
+        return axios.put("http://localhost:8080/users/" + userID + "/newName", {
             name: name,
             email: email,
             phone: phone

@@ -593,7 +593,6 @@ app.get("/user/:userID", verifyToken, (req, res) => {
         } else {
 
             console.log("/users/ fikk request fra klient");
-            console.log()
             adminDao.getUser(req.params.userID, (status, data) => {
                 res.status(status);
                 res.json(data);

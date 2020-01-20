@@ -597,7 +597,6 @@ class EditEvent extends Component{
                     .catch(Error => console.log(Error));
 
                 this.notifySuccess();
-                window.location.href="#/event/" + this.props.match.params.id;
             }
         }
         else{
@@ -622,7 +621,8 @@ class EditEvent extends Component{
 
         eventService
             .updateContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, eventID)
-            .catch(Error => console.log(Error))
+            .catch(Error => console.log(Error));
+        window.location.href="#/event/" + this.props.match.params.id;
     }
 }
 

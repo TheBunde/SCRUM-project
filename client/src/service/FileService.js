@@ -31,6 +31,25 @@ export class FileService {
 
     }
 
+    uploadFile(file) {
+        const url = "http://" + ipAdress + ":8080/uploadFile";
+        const formData = new FormData();
+        formData.append("file", file);
+        const config = {
+            headers: {
+                'Content-Type': "multipart/form-data"
+            }
+        };
+        return axios.post(url, formData, config);
+    }
+
+    getFile(fileName) {
+        const url = "http://" + ipAdress + ":8080/image/" + fileName;
+        console.log("URL:");
+        console.log(url);
+        return axios.get(url);
+    }
+
 
 
 

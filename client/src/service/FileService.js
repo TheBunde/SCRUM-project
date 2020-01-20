@@ -1,4 +1,6 @@
 import axios from "axios";
+import {authenticationHeader} from "./UserService";
+
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 export class FileService {

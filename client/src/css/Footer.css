@@ -42,7 +42,6 @@
     padding: 0 10px 0 10px;
 }
 
-
 #FooterTransparent{
     z-index: 3;
     width: 100vw;
@@ -65,9 +64,6 @@
 #FooterTransparentLink{
     padding: 0 10px 0 10px;
 }
-
-
-
 
 @Media only screen and (max-width: 800px){
     #footerDropUp{

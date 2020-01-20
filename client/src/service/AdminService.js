@@ -13,18 +13,6 @@ class AdminService{
             phone: phone
         }, {headers: authenticationHeader()}).then(response => response.data);
     }
-    updateName(name, userID){
-        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/newName", {name: name}, {headers: authenticationHeader()}).then(response => response.data);
-
-    }
-
-    updatePhone(phone, userID){
-        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/newPhone", {phone: phone}, {headers: authenticationHeader()}).then(response => response.data);
-    }
-
-    updateEmail(email, userID){
-        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/newEmail", {email: email}, {headers: authenticationHeader()}).then(response => response.data);
-    }
 
     getRoles(){
         return axios.get("http://" + ipAdress + ":8080/roles", {headers: authenticationHeader()}).then(response => response.data);

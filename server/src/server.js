@@ -1,12 +1,11 @@
+const dotenv = require('dotenv').config({path: "../.env"});
 let express = require("express");
 let mysql = require("mysql");
 let app = express();
 let bodyParser = require("body-parser");
 let urlencodedParser = bodyParser.urlencoded({extended: false});
 const UserDao = require("./dao/UserDao");
-const dotenv = require('dotenv');
 let secret = require("./config.json");
-dotenv.config();
 let multer = require("multer");
 let uuid = require("uuid");
 const debug = require('debug')('myapp:server');
@@ -25,7 +24,7 @@ app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
 const EventDao = require("../src/dao/eventDao");
 
-
+console.log(process.env.DB_URL);
 let pool = mysql.createPool({
     connectionLimit: 5,
     host: process.env.DB_URL,
@@ -34,7 +33,6 @@ let pool = mysql.createPool({
     database: process.env.DB,
     debug: false
 });
-
 
 
 
@@ -169,6 +167,27 @@ app.post('/upload', upload.single('file'), function (req, res) {
     }
 });
 
+app.post("/uploadFile", upload.single("file"), (req, res) => {
+    if (!req.file) {
+        console.log("No file received");
+        return res.send({
+            success: false
+        });
+    } else {
+        if (req.file.mimetype !== "text/plain" && req.file.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && req.file.mimetype !== "application/pdf") { //Not an image
+            return res.send({
+                success: false,
+                error: "Only images are allowed"
+            })
+        } else {
+            return res.send({
+                filePath: req.file,
+                success: true
+            });
+        }
+    }
+});
+
 
 app.post("/uploadFiles", upload.array("files", 5), (req, res) => {
     if (!req.files) {
@@ -193,11 +212,6 @@ app.post("/uploadFiles", upload.array("files", 5), (req, res) => {
                 error: "You have uploaded some files which are not allowed"
             })
         }
-
-
-
-
-
     }
 });
 
@@ -377,7 +391,7 @@ app.post("/validate", (req, res) => {
                         approved: approved,
                         user_id: id
                     }, privateKey, {
-                        expiresIn: 900
+                        expiresIn: 90000
                     });
                     res.json({jwt: token});
                 } else {

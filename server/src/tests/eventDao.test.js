@@ -72,10 +72,10 @@ test("test: updateFiled", done =>{
     }
 
     function callback(){
-        eventDao.getEventByID(3, callback2)
+        eventDao.getEventByID(2, callback2)
     }
 
-    eventDao.updateFiled(3,callback);
+    eventDao.updateFiled(2,callback);
 });
 
 test("test: addEvent()", done =>{
@@ -118,7 +118,7 @@ test("test: deleteEvent()", done =>{
     eventDao.addEvent(event, dummy);
     let contactInfo = {name: "hei sveis", phone: "00000000", email: "hwudijwdhwojndw@sohfsoidhjs.nckjw", eventID: 5};
     eventDao.addContactInfo(contactInfo, dummy);
-    let ticket = {eventID: 5, ticketID: 3, amount: 20}
+    let ticket = {eventID: 5, ticketID: 3, amount: 20};
     eventDao.addTicket(ticket, dummy);
     eventDao.getAllEvents(callback)
 });
@@ -151,7 +151,7 @@ test("test: getCategories()", done =>{
     
     eventDao.getCategories(callback);
 });
-
+/*
 test("test: addCategory()", done =>{
 
     function callback(status, data){
@@ -163,8 +163,9 @@ test("test: addCategory()", done =>{
     }
 
     let category = {eventID : 1, categoryID: 2};
-    eventDao.addCategory(category, callback);
+    eventDao.addCategories(category, callback);
 });
+*/
 
 test("test: getCategoryFromEvent()", done =>{
     function callback(status, data) {
@@ -172,6 +173,7 @@ test("test: getCategoryFromEvent()", done =>{
             "Test getCategoryFromEvent for event 1 eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data.length).toBe(1);
+        expect(data[0].category_id).toBe(2);
         done();
     }
 

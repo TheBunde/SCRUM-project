@@ -9,6 +9,7 @@ import { createHashHistory } from 'history';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import {auth} from "../../../service/UserService";
+import {toast} from "react-toastify";
 
 
 const history = createHashHistory();
@@ -256,6 +257,10 @@ class EventView extends Component{
 
     };
 
+    notifyDeleteSuccess = () => {
+        toast("Sletting av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
+    };
+
     submitEventDeleteButton(id) {
         confirmAlert({
             title: 'Bekreftelse av sletting',
@@ -325,6 +330,7 @@ class EventView extends Component{
         eventService
             .deleteEvent(id)
             .catch(e => console.error(e));
+        this.notifyDeleteSuccess();
         history.push("/event")
     }
 

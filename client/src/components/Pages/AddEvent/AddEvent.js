@@ -73,6 +73,7 @@ class AddEvent extends Component{
             || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
     }
 
+
     ticketCheck(){
         let status = false;
         this.state.Tickets.map(ticket =>{
@@ -211,7 +212,7 @@ class AddEvent extends Component{
                                className="form-control"
                                placeholder={this.state.Placeholder}
                                id="rider1Input"
-                               required={true} accept={"application/msword, text/plain, application/pdf"}
+                               required={true} accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -220,7 +221,7 @@ class AddEvent extends Component{
                                className="form-control"
                                placeholder={this.state.Placeholder}
                                id="rider2Input"
-                               required={true} accept={"application/msword, text/plain, application/pdf"}
+                               required={true} accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -229,7 +230,7 @@ class AddEvent extends Component{
                                className="form-control"
                                placeholder={this.state.Placeholder}
                                id="personellInput"
-                               required={true} accept={"application/msword, text/plain, application/pdf"}
+                               required={true} accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -238,7 +239,7 @@ class AddEvent extends Component{
                                className="form-control"
                                placeholder={this.state.Placeholder}
                                id="contractInput"
-                               required={true} accept={"application/msword, text/plain, application/pdf, image/*"}
+                               required={true} accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain, application/pdf, image/*"}
                         />
                     </div>
                     <div id="EventInputFields">
@@ -348,10 +349,9 @@ class AddEvent extends Component{
      */
 
     registerEvent(){
+        console.log("Registrating event");
         if(this.formValidation()) {
             console.log("Reg event");
-            let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg";
-            if (this.state.Picture === "") this.setState({Picture: altPicture});
 
             let fileService = new FileService();
             let fileContract = document.getElementById("contractInput");
@@ -359,7 +359,6 @@ class AddEvent extends Component{
             let fileRider1 = document.getElementById("rider1Input");
             let fileRider2 = document.getElementById("rider2Input");
             let image = document.getElementById("imageInput");
-
 
             let filesUpload = [];
 

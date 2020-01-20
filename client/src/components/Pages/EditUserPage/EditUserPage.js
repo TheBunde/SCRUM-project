@@ -124,7 +124,9 @@ class EditUserPage extends Component {
     };
 
     deleteUser() {
-        adminService.deleteUser(this.props.match.params.id).then((response) => console.log("d")).catch((error) => console.error(error))
+        adminService.deleteUser(this.props.match.params.id).then((response) => {
+            window.location.hash = "/admin/users";
+        }).catch((error) => console.error(error))
     }
 
     handleCheckboxChange() {
@@ -162,6 +164,7 @@ class EditUserPage extends Component {
             buttons: [
                 {
                     label: 'Ja',
+                    onClick : () => this.deleteUser()
 
                 },
                 {

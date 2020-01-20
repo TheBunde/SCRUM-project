@@ -4,7 +4,7 @@
     text-align: center;
 }
 
-.cardsContainer{
+#overviewPageCardContainer{
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 100px;
@@ -75,10 +75,16 @@
     width: 100px;
 }
 
+#overviewPageCardContainer{
+    margin: auto;
+    text-align: center;
+}
+
 @media only screen and (max-width: 800px){
     #overviewPageCardContainer{
         display: grid;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        justify-content: center;
         grid-template-areas: "overviewPageCardTitle"
                              "overviewPageCardText"
                              "overviewPageCardBtn";

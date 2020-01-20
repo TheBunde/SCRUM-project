@@ -1,4 +1,5 @@
 import Axios from "axios";
+
 //Axios.interceptors.response.use(response => response.data);
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
@@ -40,7 +41,7 @@ let parseJwt =  (token) => {
     }
 };
 
-let authenticationHeader = function authenticationHeader() {
+export let authenticationHeader = function authenticationHeader() {
     let token = window.localStorage.getItem("token");
 
     if (token) {
@@ -87,7 +88,7 @@ export class UserService {
                 "email": email,
                 "password": password,
                 "newPassword": newPassword
-            }
+            }, {headers: authenticationHeader()}
         );
     }
 

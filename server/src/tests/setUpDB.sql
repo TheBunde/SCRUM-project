@@ -141,9 +141,11 @@ insert into Ticket_Category(name) values ('GoldenCircle');
 insert into Ticket_Category(name) values ('EarlyBird');
 
 
-insert into Event(name, description, date, place, category_id, artists, tech_rider, hospitality_rider, personnel)
-  values ('the Donn party', 'Donn holder repetisjonsforelesning i OS', '2020-02-03 20:30:00', 'Sukkerhuset', 1, 'Donn Morrison', 'speakers 2x\n vocal solo mic 1x\n soundtrack with playback player 1x\n projector to show lectures\n all with linux', 'give him a beer or something to put an OS in, and compliment his lectures... just do it', 'an audience'),
-  ('Metallica metal', 'Metallica kommer til Sukkerhuset!', '2020-01-09 14:30:00', 'Sukkerhuset', 2, 'Metallica' , 'speakers 6x\n vocal solo mic 1x\n more speakers', 'lots of cool looking drinks and beer', 'has their own');
+insert into Event(name, description, date, place, category_id, img_url, artists, tech_rider, hospitality_rider, personnel)
+  values
+    ('the Donn party', 'Donn holder repetisjonsforelesning i OS', '2020-02-03 20:30:00', 'Sukkerhuset', 1, 'picture of Donn', 'Donn Morrison', 'speakers 2x\n vocal solo mic 1x\n soundtrack with playback player 1x\n projector to show lectures\n all with linux', 'give him a beer or something to put an OS in, and compliment his lectures... just do it', 'an audience'),
+      ('Metallica metal', 'Metallica kommer til Sukkerhuset!', '2020-01-09 14:30:00', 'Sukkerhuset', 2, 'picture of metallica', 'Metallica' , 'speakers 6x\n vocal solo mic 1x\n more speakers', 'lots of cool looking drinks and beer', 'has their own'),
+        ('quiz-kveld', 'vi har quiz! kom med lag eller finn nye lag og delta med, vi har fine premier', '20-05-05 18:00:00', 'Sukkerhuset', 3, 'quiz-trophy', 'Sukkerhusets egne quizmaster', 'bunch of stuff', 'kopimaskin, ark, bord', 'quiz-master');
 
 insert into Contact_Info( name, phone, email, event_id) values ('Donn team', '1991', 'Donn@linux.OS', 1);
 insert into Contact_Info( name, phone, email, event_id) values ('Metallica', '2386724692', 'metallica@metal.band', 1);
@@ -156,3 +158,6 @@ insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2,
 
 insert into Comment(event_id, user_id, comment, date) values (1,1,'this is a test comment', now());
 insert into Comment(event_id, user_id, comment, date) values (1,2,'this is also a test comment', now());
+
+update User set approved = 1, role_id = 1 where user_id = 2;
+update User set approved = 1, role_id = 2 where user_id = 3;

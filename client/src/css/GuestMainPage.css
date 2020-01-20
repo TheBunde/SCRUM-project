@@ -1,24 +1,40 @@
 #GuestMainPageContainer{
     width: 100%;
-    display: inline-block;
-}
-
-.cardsContainer{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    width: 90%;
-    margin: auto;
-
-}
-
-.guestEventCard{
-    margin: 3px;
-    height: 300px;
-    width: 300px;
-}
-.card-img{
-    width: 100%;
     height: 100%;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(5, 5, 5, 100) ),url("https://palmesus.com/images.php/960x/1120/20190706_2356_Palmesus_Chainsmokers_LR_4566_FH.jpg");
+    background-size: contain;
+}
+
+#mainPageTitleDiv{
+    color: white;
+    letter-spacing: 3px;
+    width: 60%;
+    margin: 200px auto 50px auto;
+    padding: 50px 200px 50px 200px;
+    height: 200px;
+    border-radius: 3px;
+}
+#mainPageTitleDiv h1{
+    color: white;
+    margin: 270px auto auto auto;
+    font-family: Arial, serif;
+    font-size: 42px;
+}
+#mainPageSearchBar{
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.eventCardsContainer{
+    grid-gap: 5px;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    width: 90%;
+    margin: 200px auto auto auto;
+}
+
+.card-img{
     object-fit: cover;
 }
 #GuestMainPageContainer button{

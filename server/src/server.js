@@ -24,7 +24,7 @@ app.use(bodyParser.json()); // for å tolke JSON
 const AdminDao = require("../src/dao/adminDao");
 const EventDao = require("../src/dao/eventDao");
 
-
+console.log(process.env.DB_URL);
 let pool = mysql.createPool({
     connectionLimit: 5,
     host: process.env.DB_URL,

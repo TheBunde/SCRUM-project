@@ -193,7 +193,7 @@ class EventPage extends Component {
                                     </div>
                                 </div>
                                 <div id="eventPageSearchBar">
-                                    <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}></input>
+                                    <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}/>
                                 </div>
                             </div>
                             <div className="dropdown-divider border-dark"></div>

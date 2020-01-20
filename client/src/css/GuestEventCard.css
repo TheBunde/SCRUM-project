@@ -1,8 +1,10 @@
 .guestEventCard{
+    width: 300px;
+    height: 300px;
+    margin-bottom: 4px;
     border-radius: 0;
     border: none;
     position: relative;
-    max-width: 300px;
     -webkit-transform: perspective(1px) translateZ(0);
     transform: perspective(1px) translateZ(0);
     box-shadow: 0 0 1px rgba(0, 0, 0, 0);
@@ -23,6 +25,8 @@
 .guestEventCard img{
     border-radius: 0;
     border: none;
+    height: 100%;
+    width: 100%;
 }
 
 .card-img-overlay{

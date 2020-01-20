@@ -58,6 +58,22 @@ class EditEvent extends Component{
         return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === ""
             || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
     }
+    checkDate(){
+        let day = this.state.date.getDate();
+        let month = this.state.date.getMonth() + 1;
+        let year = this.state.date.getFullYear();
+        let hour = this.state.dateChosenHour;
+        let min = this.state.dateChosenMin;
+        if (day < 10) {
+            day = "0" + day
+        }
+        if (month < 10) {
+            month = "0" + month
+        }
+        let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
+
+        return new Date(date) > new Date();
+    }
 
     ticketCheck(){
         let status = false;
@@ -101,6 +117,8 @@ class EditEvent extends Component{
     };
 
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyDateFailure = () => toast("Ugyldig dato", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
     notifyNoFileUploaded = () => toast("Du må laste opp en fil", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
@@ -535,7 +553,7 @@ class EditEvent extends Component{
     }
 
     registerEvent(){
-        if(this.formValidation()){
+        if(this.formValidation() && this.checkDate()){
             let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg";
             if (this.state.Picture === "") this.setState({Picture: altPicture});
 
@@ -567,7 +585,12 @@ class EditEvent extends Component{
             window.location.hash="event/" + this.props.match.params.id;
         }
         else{
-            this.notifyFailure();
+            if(!this.checkDate()){
+                this.notifyDateFailure();
+            }
+            else{
+                this.notifyFailure();
+            }
         }
     }
     updateById(eventID){

@@ -12,6 +12,10 @@
     display: grid;
     grid-template-columns: 1fr 1.5fr;
 }
+#EventNewFile{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+}
 
 #EventInputCalendar{
     margin: auto;
@@ -84,6 +88,9 @@
 
 
 @media only screen and (max-width: 800px){
+    #EventInputFields{
+        width: 90%;
+    }
 
     #EventInputTicketContainer{
         grid-template-columns: 1fr;

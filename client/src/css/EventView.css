@@ -54,7 +54,7 @@
     height:100%;
     width:100%;
     min-height: 300px;
-    min-width: 100px;
+
 }
 
 .gmap_canvas iframe{
@@ -62,6 +62,7 @@
     width:100%;
     min-height: 300px;
     min-width: 100px;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
     
 }
 
@@ -97,7 +98,8 @@
     grid-template-areas:
     "title tilte"
             "eventViewImage eventViewInfoContainer"
-            "eventViewDescription eventViewInfoContainer";
+            "eventViewDescription eventViewInfoContainer"
+            "eventViewComment eventViewInfoContainer";
     grid-template-columns: 2fr 1fr;
 }
 
@@ -110,20 +112,19 @@
     width: 100%;
     height: 100%;
     margin: 0px 15px 0px 15px;
-    padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
     max-width: 98%;
     text-align: center;
 }
 #eventViewImage img{
-    height: 85%;
-    width: 95%;
+    height: 100%;
+    width: 100%;
     max-height: 500px;
-    max-width: 1000px;
     /*object-fit: contain;*/
     object-fit: cover;  
-    margin: auto;  
+    margin: auto;
+    border-radius: 5px;
 }
 
 #eventViewDescriptionContainer{
@@ -248,6 +249,23 @@
     padding-right: 15px;
 }
 
+#eventViewCommentSectionContainer{
+    grid-area: eventViewComment;
+}
+#eventViewCommentSection{
+    background-color: white;
+    width: 100%;
+    margin: 0 15px 15px 15px;
+    padding: 40px;
+    max-width: 98%;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    border-radius: 5px;
+    min-height: 470px;
+    max-height: 95;
+    height: 98%;
+    overflow-y: auto;
+}
+
 
 
 #titleEvent{
@@ -278,3 +296,5 @@
     text-align: right;
     padding-right: 20px;
 }
+
+

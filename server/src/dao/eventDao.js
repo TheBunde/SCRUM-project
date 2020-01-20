@@ -18,6 +18,10 @@ module.exports = class adminDao extends Dao{
         super.query(" SELECT * FROM Event WHERE filed = 0 ORDER BY date DESC", [], callback);
     }
 
+    getAllCancelled(callback){
+        super.query("SELECT * FROM Event WHERE canceled = 1 ORDER BY date DESC", [], callback);
+    }
+
     getEventByID(eventID, callback){
         super.query("SELECT Event.event_id, Event.category_id, Event.name, Event.description, Event.date, Event.place, Event.img_url, Event.artists, Event.tech_rider, Event.hospitality_rider, Event.contract, Event.personnel, Event.filed, Event.pending, Event.canceled, Category.name as category_name FROM Event left join Category on Event.category_id= Category.category_id WHERE Event.event_id=?", [eventID], callback);
     }
@@ -93,7 +97,7 @@ module.exports = class adminDao extends Dao{
     }
 
     getComments(eventID, callback){
-        super.query("select name, comment, date from Comment left join User on User.user_id = Comment.user_id where event_id = ? order by date asc",[eventID],callback)
+        super.query("select name, comment, date from Comment left join User on User.user_id = Comment.user_id where event_id = ? order by date ASC",[eventID],callback)
     }
 
     addComment(comment, callback){

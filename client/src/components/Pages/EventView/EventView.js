@@ -8,7 +8,10 @@ import {eventService} from '../../../service/EventService'
 import { createHashHistory } from 'history';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import '../../../css/CommentSection.css'
+import {ProfileService} from '../../../service/ProfileService';
 import {auth} from "../../../service/UserService";
+import {toast} from "react-toastify";
 
 
 const history = createHashHistory();
@@ -35,7 +38,9 @@ class EventView extends Component{
             event_tickets: [],
             contactInfo_name: "",
             contactInfo_phone: "",
-            contactInfo_email: ""
+            contactInfo_email: "",
+            comments: [],
+            user: {}
         }
     }
 
@@ -47,7 +52,7 @@ class EventView extends Component{
         let hours = tempDate.slice(11, 13);
         let minutes = tempDate.slice(14, 16);
 
-        return date + "-" + month + "-" + year + " " + hours + ":" + minutes;
+        return date + "." + month + "." + year + " " + hours + ":" + minutes;
     }
 
     componentDidMount(){
@@ -72,11 +77,11 @@ class EventView extends Component{
             .catch(error => console.error(error.message));
         eventService.getTicketFromEvent(this.props.match.params.id).then(tickets => this.setState({event_tickets: tickets}));
         eventService.getContactinfoForEvent(this.props.match.params.id).then(contactInfo => this.setState({contactInfo_name: contactInfo.name, contactInfo_phone: contactInfo.phone, contactInfo_email: contactInfo.email})).catch(Error => console.log(Error));
-        console.log(this.state.contact_info)
+        eventService.getComments(this.props.match.params.id).then(comments => this.setState({comments: comments})).catch(Error => console.log(Error));
+        let profileService = new ProfileService();
+        profileService.getUser(auth.user_id).then(user => this.setState({user: user})).catch((error) => {console.error(error);});
+        console.log("auth.user_id: " + auth.user_id);
     }
-
-
-        
 
     render() {
         function mapLocation(place) {
@@ -84,8 +89,6 @@ class EventView extends Component{
         }
 
         let color = this.getColor(this.state.canceled, this.state.pending, this.state.filed, this.state.date);
-        console.log(this.state.canceled);
-        console.log(color);
 
         return (
             <div>
@@ -119,8 +122,6 @@ class EventView extends Component{
 
                 </div>
                 <div id="eventViewBackground">
-
-
                     <div id="eventViewImageContainer">
                         <div id="eventViewImage">
                             <img src={"http://localhost:8080/image/" + this.state.img_url} alt={this.state.name} />
@@ -223,7 +224,6 @@ class EventView extends Component{
                                 
                             </div>
                         </div>
-                        
                     </div>
                     </div>
                     
@@ -240,12 +240,73 @@ class EventView extends Component{
                             </div>
                         </div>
                     </div>
+                    <div id="eventViewCommentSectionContainer">
+                        <div id="eventViewCommentSection">
+                            
+                                <div class="comment-wrapper">
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <h3>Kommentarfelt</h3>
+                                        </div>
+                                        <div class="panel-warning">
+                                            <p>Her kan dere dele informasjon eller erfaringer som ble gjort under arrangementplanleggingen.</p>
+                                        </div>
+                                        <div class="panel-body">
+                                        <textarea type="text" class="form-control" id="commentInput" placeholder="Skriv en kommentar ..." rows="3"></textarea>
+                                        <br />
+                                        <button type="button" class="btn btn-outline-info pull-right" onClick={e => this.publishComment(e)}>Publiser</button>
+                                        <div class="clearfix"></div>
+                                        <hr />
+                                        <div id="kommentarer">
+                                            <ul class="media-list">
+                                            {this.state.comments.map(comments => (
+                                                <li class="media">
+                                                <div class="media-body">
+                                                    <span class="text-muted pull-right">
+                                                        <small class="text-muted">{this.formatDate(comments.date)}</small>
+                                                    </span>
+                                                    <strong class="text-info"> {comments.name}</strong>
+                                                    <p>
+                                                        {comments.comment}
+                                                    </p>
+                                                    <hr />
+                                                </div>
+                                            </li>
+                                            ))}
+                                            </ul>
+                                        </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <Footer />
             </div>
         );
     }
+
+    publishComment = event => {
+
+        let commentInputElement = document.getElementById("commentInput");
+        let commentInput = commentInputElement.value; 
+
+        let commentArray = this.state.comments;
+
+        commentArray.push({
+            event_id: this.props.match.params.id,
+            user_id: auth.user_id,
+            name: this.state.user.name,
+            date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+            comment: commentInput
+        })
+
+        this.setState({comments: commentArray})
+        eventService.addComment(this.props.match.params.id, auth.user_id, commentInput).then((response) => console.log("Adding comment worked")).catch(error => console.error(error.message));
+        commentInputElement.value = "";
+    }
+
 
     checkRights(){
         if(auth.role === "admin") return 1;
@@ -256,6 +317,10 @@ class EventView extends Component{
 
         else return 4;
 
+    };
+
+    notifyDeleteSuccess = () => {
+        toast("Sletting av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
     };
 
     submitEventDeleteButton(id) {
@@ -327,6 +392,7 @@ class EventView extends Component{
         eventService
             .deleteEvent(id)
             .catch(e => console.error(e));
+        this.notifyDeleteSuccess();
         history.push("/event")
     }
 

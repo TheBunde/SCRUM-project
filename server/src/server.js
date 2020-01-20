@@ -10,13 +10,29 @@ let multer = require("multer");
 let uuid = require("uuid");
 const debug = require('debug')('myapp:server');
 let path = require("path");
+let Mail = require("./sendMail");
 const serveIndex = require("serve-index");
 let bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 
-let saltRounds = 10;
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+//app.use(express.static(path.join(__dirname;
+app.use('/ftp', express.static('../../public/uploads'), serveIndex('public', {'icons': true}));
 
-let Mail = require("./sendMail");
+
+let storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        console.log(__dirname + '/../../..');
+        cb(null, path.join(__dirname, "../../public/uploads/"));
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + uuid.v4() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({storage: storage});
+
 
 
 
@@ -51,96 +67,443 @@ let eventDao = new EventDao(pool);
 
 let mail = new Mail();
 
-//Here we need to have a app.use which will verify the token so that you can not use any of them without token!!
 
 let privateKey = (publicKey = secret.secret);
-/*
-app.use("", (req, res, next) => {
-    console.log("SJEKKER OM TOKEN ER GOOD!!!");
-    let token = req.token;
-    console.log(token);
-    jwt.verify(token, publicKey, (err, decoded) => {
+
+
+//CATEGORIES
+app.get("/categories", verifyToken,(req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
-            console.log("Token IKKE ok");
-            res.status(401);
-            res.json({ error: "Not authorized" });
+            res.sendStatus(401);
         } else {
-            console.log("Token ok: " + decoded.username);
-            next();
+            eventDao.getCategories((status, data) => {
+                res.status(status);
+                res.json(data)
+            })
+        }
+    });
+
+});
+
+app.get("/category/:id", verifyToken,(req, res) =>{
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.getCategoryFromEvent(req.params.id, (status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+
+});
+
+
+
+//CONTACTINFO
+
+app.post("/contactinfo", verifyToken,(req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.addContactInfo(req.body, (status, data) => {
+                res.status(status);
+                res.json(data);
+            })
         }
     });
 });
 
- */
-
-
-function makeid(length) {
-    let result           = '';
-    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-}
-
-/*app.all("*", function(req, res, next) {
-    //get auth header value
-    console.log("Step 1")
-    if(req.path !== "/validate" && req.path !== "/user"){
-        console.log("Step 2")
-        const bearerHeader = req.headers["authorization"];
-        console.log(bearerHeader);
-
-        if (typeof bearerHeader !== "undefined") {
-            console.log("Step 3")
-            //split at the space
-            const bearer = bearerHeader.split(' '); //Removes Bearer before token
-            const token = bearer[1];
-            console.log(token)
-
-            jwt.verify(token, publicKey, (err, decoded) => {
-                if (err) {
-                    console.log("Token IKKE ok");
-                    res.json({ error: "Not authorized" });
-                } else {
-                    console.log("Token ok: " + decoded.username);
-                    next();
-                }
-            });
+app.get("/contactinfo/:id",verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
         } else {
-            console.log("heyhey :(");
+            eventDao.getContactinfoForEvent(req.params.id, (status, data) =>{
+                res.status(status);
+                res.json(data);
+            })
         }
-    }
-    next();
-});*/
+    });
 
-function makeid(length) {
-    let result           = '';
-    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-}
-
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        console.log(__dirname + '/../../..');
-        cb(null, path.join(__dirname, "../../public/uploads/"));
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + uuid.v4() + path.extname(file.originalname));
-    }
 });
 
-const upload = multer({storage: storage});
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-//app.use(express.static(path.join(__dirname;
-app.use('/ftp', express.static('../../public/uploads'), serveIndex('public', {'icons': true}));
+//EVENT
 
+app.post("/event", verifyToken,(req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.addEvent(req.body, (status, data) => {
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+
+
+app.get("/event/all", (req, res) => {
+    console.log("/event fikk request fra klient");
+    eventDao.getAllEvents((status, data) => {
+        res.status(status);
+        res.json(data);
+    });
+});
+
+app.get("/event/archived",verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            console.log("/event fikk request fra klient");
+            eventDao.getAllArchived((status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+
+});
+
+app.get("/event/active", verifyToken,(req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            console.log("/event fikk request fra klient");
+            eventDao.getAllActive((status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+
+});
+
+app.get("/event/cancelled", verifyToken, (req, res) => {
+    let token = req.token;
+    jwt.verify(token, privateKey, (err, authData) => {
+        if(err) {
+            res.sendStatus(401);
+        } else{
+            console.log(authData);
+            eventDao.getAllCancelled((status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+});
+
+
+app.get("/event/nonFiled",verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            console.log("/event fikk request fra klient");
+            eventDao.getNonFiledEvents((status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+
+});
+app.get("/event/:eventID",(req, res) => {
+    console.log("/event/ID fikk request fra klient");
+    eventDao.getEventByID(req.params.eventID, (status, data) => {
+        res.status(status);
+        res.json(data);
+    })
+});
+
+
+app.put('/event/:eventID/archived', verifyToken,(req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            console.log('/annonse/:eventID/archived: fikk request fra klient');
+            console.log(req.params.eventID);
+            eventDao.updateFiled(req.params.eventID, (status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+
+});
+
+app.put('/event/:eventID/cancel',verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            console.log('/annonse/:eventID/archived: fikk request fra klient');
+            console.log("er i event DataBASE SERVER");
+            eventDao.updateCancel(req.params.eventID, (status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+
+});
+
+app.put('/event/:eventID/pending', verifyToken,(req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            console.log('/annonse/:eventID/pending: fikk request fra klient');
+            console.log(req.params.eventID);
+            eventDao.updatePending(req.params.eventID, (status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+
+})
+
+//DENNE BURDE ENDRES SÅ DEN ER LIK DE OVER!!!
+app.delete('/event/:id',verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.deleteEvent(parseInt(req.params.id), (status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+    console.log('/event/:id: fikk request fra klient');
+
+});
+
+app.put("/event/:id/edit",verifyToken, (req, res) =>{
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.updateEvent(req.params.id, req.body, (status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+
+});
+
+
+
+app.put("/event/contactinfo/:id",verifyToken, (req, res) =>{
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.updateContactInfo(req.params.id, req.body, (status, data) =>{
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+app.delete("/event/tickets/:id", verifyToken,(req, res) =>{
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.deleteTicketsForEvent(req.params.id, (status, data) =>{
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+app.get("/event/tickets/:id",verifyToken, (req, res) =>{
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.getTicketFromEvent(req.params.id, (status, data) =>{
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+app.get("/event/tickets/:id",verifyToken, (req, res) =>{
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.getTicketFromEvent(req.params.id, (status, data) =>{
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+
+app.post("/event/comments",verifyToken, (req, res) =>{
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.addComment(req.body, (status, data) =>{
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+app.get("/event/comments/:id", verifyToken,(req, res) =>{
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.getComments(req.params.id, (status, data) =>{
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+
+
+//PROFILE
+app.put("/profile/:userId/edit",verifyToken,(req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            console.log('/profile/:userId/edit: fikk request fra klient');
+            userDao.updateProfile(req.body, (status, data) => {
+                console.log(data);
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+
+});
+
+
+//ROLE BURDE ENDRES DET OGSPÅ !!!! :((
+
+app.get("/roles", verifyToken,(req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            adminDao.getRoles((status, data) => {
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+app.get("/role/:roleID",verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            adminDao.getRoleById(req.params.roleID, (status, data) => {
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+app.get("/roles/:role", verifyToken,(req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            adminDao.getRole(req.params.role, (status, data) => {
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+
+
+
+//TICKETS
+app.post("/tickets",verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.addTicket(req.body, (status, data) => {
+                res.status(status);
+                res.json(data)
+            })
+        }
+    });
+
+});
+
+app.get("/tickets", verifyToken,(req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.getTicket((status, data) => {
+                res.status(status);
+                res.json(data)
+            })
+        }
+    });
+
+});
+
+
+app.get("/tickets/:id", verifyToken,(req, res)=>{
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.getTicketById(req.params.id, (status, data) =>{
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+
+
+//UPLOAD
 
 app.post('/upload', upload.single('file'), function (req, res) {
     if (!req.file) {
@@ -220,20 +583,8 @@ app.get('/image/:imagePath', (req, res) => {
 });
 
 
-app.post("/posts", verifyToken, (req, res) => {
-    console.log(req);
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(403);
-        } else {
-            res.json({
-                message: "Post created",
-                authData
-            });
-        }
-    });
 
-});
+//USER
 
 app.get("/user/:userID", verifyToken, (req, res) => {
     jwt.verify(req.token, privateKey, (err, authData) => {
@@ -242,7 +593,6 @@ app.get("/user/:userID", verifyToken, (req, res) => {
         } else {
 
             console.log("/users/ fikk request fra klient");
-            console.log()
             adminDao.getUser(req.params.userID, (status, data) => {
                 res.status(status);
                 res.json(data);
@@ -321,19 +671,7 @@ app.get("/user/:userID", verifyToken,(req, res) => {
 
 });
 
-app.get("/role/:roleID",verifyToken, (req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            adminDao.getRoleById(req.params.roleID, (status, data) => {
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
 
-});
 
 
 app.get("/users/", verifyToken,(req, res) => {
@@ -367,6 +705,163 @@ app.post("/user", (req, res) => {
 
 });
 
+
+app.put("/users/:userID", verifyToken,(req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            console.log("users/:userID fikk request fra klient");
+            adminDao.approveUser(req.params.userID, (status, data) => {
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+
+app.post("/users/:userID/role",verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            console.log("users/:userID/role fikk request fra klient");
+            console.log(req.body);
+            console.log(req.params.userID);
+            adminDao.assignRole(req.params.userID, req.body.roleID, (status, data) => {
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+app.delete("/users/:userID/", verifyToken,(req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            adminDao.deleteUser(req.params.userID, (status, data) => {
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+
+app.put("/users/:userID/approve",verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            adminDao.approveUser(req.params.userID, (status, data) => {
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+app.put("/users/:userID/disapprove",verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            adminDao.disapproveUser(req.params.userID, (status, data) => {
+                res.status(status);
+                res.json(data);
+            })
+        }
+    });
+
+});
+
+
+//USERS
+
+
+
+//VALIDATE
+/*
+app.use("", (req, res, next) => {
+    console.log("SJEKKER OM TOKEN ER GOOD!!!");
+    let token = req.token;
+    console.log(token);
+    jwt.verify(token, publicKey, (err, decoded) => {
+        if (err) {
+            console.log("Token IKKE ok");
+            res.status(401);
+            res.json({ error: "Not authorized" });
+        } else {
+            console.log("Token ok: " + decoded.username);
+            next();
+        }
+    });
+});
+
+ */
+
+
+function makeid(length) {
+    let result           = '';
+    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+/*app.all("*", function(req, res, next) {
+    //get auth header value
+    console.log("Step 1")
+    if(req.path !== "/validate" && req.path !== "/user"){
+        console.log("Step 2")
+        const bearerHeader = req.headers["authorization"];
+        console.log(bearerHeader);
+
+        if (typeof bearerHeader !== "undefined") {
+            console.log("Step 3")
+            //split at the space
+            const bearer = bearerHeader.split(' '); //Removes Bearer before token
+            const token = bearer[1];
+            console.log(token)
+
+            jwt.verify(token, publicKey, (err, decoded) => {
+                if (err) {
+                    console.log("Token IKKE ok");
+                    res.json({ error: "Not authorized" });
+                } else {
+                    console.log("Token ok: " + decoded.username);
+                    next();
+                }
+            });
+        } else {
+            console.log("heyhey :(");
+        }
+    }
+    next();
+});*/
+
+function makeid(length) {
+    let result           = '';
+    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+
+
+
 app.post("/validate", (req, res) => {
     //Check password and email up against a databsae call
     //If okay create a token, and send that token back
@@ -391,7 +886,7 @@ app.post("/validate", (req, res) => {
                         approved: approved,
                         user_id: id
                     }, privateKey, {
-                        expiresIn: 90000
+                        expiresIn: '1d'
                     });
                     res.json({jwt: token});
                 } else {
@@ -427,460 +922,5 @@ function verifyToken(req, res, next) {
     }
 }
 
-
-app.put("/users/:userID", verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            console.log("users/:userID fikk request fra klient");
-            adminDao.approveUser(req.params.userID, (status, data) => {
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-
-app.post("/users/:userID/role",verifyToken, (req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            console.log("users/:userID/role fikk request fra klient");
-            console.log(req.body);
-            adminDao.assignRole(req.params.userID, req.body.roleID, (status, data) => {
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-app.delete("/users/:userID/", verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            adminDao.deleteUser(req.params.userID, (status, data) => {
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-
-app.put("/profile/:userId/edit",verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            console.log('/profile/:userId/edit: fikk request fra klient');
-            userDao.updateProfile(req.body, (status, data) => {
-                console.log(data);
-                res.status(status);
-                res.json(data);
-            });
-        }
-    });
-
-});
-
-
-app.post("/event", verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.addEvent(req.body, (status, data) => {
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-app.get("/event/all", (req, res) => {
-    console.log("/event fikk request fra klient");
-    eventDao.getAllEvents((status, data) => {
-        res.status(status);
-        res.json(data);
-    });
-});
-
-app.get("/event/archived",verifyToken, (req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            console.log("/event fikk request fra klient");
-            eventDao.getAllArchived((status, data) => {
-                res.status(status);
-                res.json(data);
-            });
-        }
-    });
-
-});
-
-app.get("/event/active", verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            console.log("/event fikk request fra klient");
-            eventDao.getAllActive((status, data) => {
-                res.status(status);
-                res.json(data);
-            });
-        }
-    });
-
-});
-
-
-app.put('/event/:eventID/archived', verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            console.log('/annonse/:eventID/archived: fikk request fra klient');
-            console.log(req.params.eventID);
-            eventDao.updateFiled(req.params.eventID, (status, data) => {
-                res.status(status);
-                res.json(data);
-            });
-        }
-    });
-
-});
-
-app.put('/event/:eventID/cancel',verifyToken, (req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            console.log('/annonse/:eventID/archived: fikk request fra klient');
-            console.log("er i event DataBASE SERVER");
-            eventDao.updateCancel(req.params.eventID, (status, data) => {
-                res.status(status);
-                res.json(data);
-            });
-        }
-    });
-
-});
-
-app.put('/event/:eventID/pending', verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            console.log('/annonse/:eventID/pending: fikk request fra klient');
-            console.log(req.params.eventID);
-            eventDao.updatePending(req.params.eventID, (status, data) => {
-                res.status(status);
-                res.json(data);
-            });
-        }
-    });
-
-});
-
-app.get("/event/nonFiled",verifyToken, (req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            console.log("/event fikk request fra klient");
-            eventDao.getNonFiledEvents((status, data) => {
-                res.status(status);
-                res.json(data);
-            });
-        }
-    });
-
-});
-app.get("/event/:eventID",(req, res) => {
-            console.log("/event/ID fikk request fra klient");
-            eventDao.getEventByID(req.params.eventID, (status, data) => {
-                res.status(status);
-                res.json(data);
-            })
-});
-
-app.get("/categories", verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.getCategories((status, data) => {
-                res.status(status);
-                res.json(data)
-            })
-        }
-    });
-
-});
-
-app.get("/tickets", verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.getTicket((status, data) => {
-                res.status(status);
-                res.json(data)
-            })
-        }
-    });
-
-});
-
-
-app.get("/roles/:role", verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            adminDao.getRole(req.params.role, (status, data) => {
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-app.get("/roles", verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            adminDao.getRoles((status, data) => {
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-app.post("/tickets",verifyToken, (req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.addTicket(req.body, (status, data) => {
-                res.status(status);
-                res.json(data)
-            })
-        }
-    });
-
-});
-
-app.put("/users/:userID/approve",verifyToken, (req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            adminDao.approveUser(req.params.userID, (status, data) => {
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-app.put("/users/:userID/disapprove",verifyToken, (req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            adminDao.disapproveUser(req.params.userID, (status, data) => {
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-app.delete('/event/:id',verifyToken, (req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.deleteEvent(parseInt(req.params.id), (status, data) => {
-                res.status(status);
-                res.json(data);
-            });
-        }
-    });
-    console.log('/event/:id: fikk request fra klient');
-
-});
-
-app.put("/event/:id/edit",verifyToken, (req, res) =>{
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.updateEvent(req.params.id, req.body, (status, data) => {
-                res.status(status);
-                res.json(data);
-            });
-        }
-    });
-
-});
-
-
-app.get("/category/:id", verifyToken,(req, res) =>{
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.getCategoryFromEvent(req.params.id, (status, data) => {
-                res.status(status);
-                res.json(data);
-            });
-        }
-    });
-
-});
-
-app.post("/contactinfo", verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.addContactInfo(req.body, (status, data) => {
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-});
-
-app.get("/contactinfo/:id",verifyToken, (req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.getContactinfoForEvent(req.params.id, (status, data) =>{
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-app.get("/tickets/:id", verifyToken,(req, res)=>{
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.getTicketById(req.params.id, (status, data) =>{
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-app.get("/event/tickets/:id",verifyToken, (req, res) =>{
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.getTicketFromEvent(req.params.id, (status, data) =>{
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-app.get("/event/tickets/:id",verifyToken, (req, res) =>{
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.getTicketFromEvent(req.params.id, (status, data) =>{
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-app.put("/event/contactinfo/:id",verifyToken, (req, res) =>{
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.updateContactInfo(req.params.id, req.body, (status, data) =>{
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-app.delete("/event/tickets/:id", verifyToken,(req, res) =>{
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.deleteTicketsForEvent(req.params.id, (status, data) =>{
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-app.post("/event/comments",verifyToken, (req, res) =>{
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.addComment(req.body, (status, data) =>{
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
-
-app.get("/event/comments/:id", verifyToken,(req, res) =>{
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.getComments(req.params.id, (status, data) =>{
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
-
-});
 
 let server = app.listen(8080);

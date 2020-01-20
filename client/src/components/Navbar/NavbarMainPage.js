@@ -21,10 +21,6 @@ class NavbarMainPage extends Component {
                                 <a className="nav-link"
                                    href = "#/calendar">Kalender</a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link"
-                                   onClick={() => window.location.href = "#/calendar"}>Kalender</a>
-                            </li>
                         </ul>
                         <ul class="navbar-nav ml-auto">
                             <li className="nav-item">

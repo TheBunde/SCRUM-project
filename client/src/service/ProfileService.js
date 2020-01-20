@@ -22,7 +22,7 @@ export class ProfileService{
                 a.profile_photo,
                 a.password,
                 a.roleid,
-                a.approved,
+                a.approved
             );
 
         }).catch(error => console.log(error));

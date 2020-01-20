@@ -42,6 +42,10 @@ class EventService{
         return axios.get("http://" + ipAdress + ":8080/event/archived", {headers: authenticationHeader()}).then(response => response.data);
     }
 
+    getCancelled(){
+        return axios.get("http://" + ipAdress + ":8080/event/cancelled", {headers: authenticationHeader()}).then(response => response.data);
+    }
+
     getAllActive(){
         return axios.get("http://" + ipAdress + ":8080/event/active", {headers: authenticationHeader()}).then(response => response.data);
     }

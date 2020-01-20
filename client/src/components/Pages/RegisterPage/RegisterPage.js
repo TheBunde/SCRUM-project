@@ -10,6 +10,7 @@ import Footer from '../../Footer/Footer'
 import {FooterTransparent} from '../../Footer/Footer'
 import {confirmAlert} from "react-confirm-alert";
 import {toast} from "react-toastify";
+import {validateEmail} from "../../../validaters";
 
 
 class RegisterPage extends Component {
@@ -213,6 +214,16 @@ class RegisterPage extends Component {
                     },
                 ]
             });
+        } else if (feedback === "email") {
+            confirmAlert({
+                title: "Feil!",
+                message : "Eposten er ikke av gyldig format",
+                buttons : [
+                    {
+                        label : "Ok",
+                    }
+                ]
+            })
         }
 
     }
@@ -225,7 +236,8 @@ class RegisterPage extends Component {
 
             } else if (!(this.state.phone.match(/^\d{8}$/))) {
                 this.showFeedback("phone");
-
+            } else if (!(validateEmail(this.state.email))) {
+                this.showFeedback("email");
             } else if (this.state.password !== this.state.repeatedPassword) {
 
                 this.showFeedback("passwords");

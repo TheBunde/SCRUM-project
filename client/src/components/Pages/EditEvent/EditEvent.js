@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
-
+import {validatePhone, validateEmail} from "../../../validaters";
 import {toast} from 'react-toastify';
-import Calendar from 'react-calendar-mobile'
+import Calendar from 'react-calendar'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 import {FileService} from "../../../service/FileService";
@@ -58,6 +58,22 @@ class EditEvent extends Component{
         return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === ""
             || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
     }
+    checkDate(){
+        let day = this.state.date.getDate();
+        let month = this.state.date.getMonth() + 1;
+        let year = this.state.date.getFullYear();
+        let hour = this.state.dateChosenHour;
+        let min = this.state.dateChosenMin;
+        if (day < 10) {
+            day = "0" + day
+        }
+        if (month < 10) {
+            month = "0" + month
+        }
+        let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
+
+        return new Date(date) > new Date();
+    }
 
     ticketCheck(){
         let status = false;
@@ -100,12 +116,21 @@ class EditEvent extends Component{
         toast("Registrering av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
     };
 
+    notifySuccessDelete = () => {
+        toast("Sletting av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
+    };
+
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyDateFailure = () => toast("Ugyldig dato", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
     notifyNoFileUploaded = () => toast("Du må laste opp en fil", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
     notifyPictureUploaded = () => toast("Fil opplastet. Trykk på lagre endringer for å lagre alt", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
 
+    notifyUnvalidPhone = () => toast("Ugyldig telefonnummer", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
     updateEventInfo(data){
         let date = data[0].date.split("T");
@@ -171,10 +196,8 @@ class EditEvent extends Component{
                         <p id="EventInputLabels">Dato for arrangementet:</p>
                         <div id="EventInputCalendar">
                             <Calendar
-                                onSelectDate = {this.changeDate}
-                                startOnMonday = {true}
-                                selectedDate = {this.state.date}
-                                startDateAt ={this.state.date}
+                                value = {this.state.date}
+                                onChange = {this.changeDate}
                             />
                         </div>
                     </div>
@@ -279,15 +302,16 @@ class EditEvent extends Component{
                         </div>
                         <div>
                             <p id="EventInputLabels">Nye Tech Riders:</p>
-                            <input type="file"
-                                   className="form-control"
-                                   placeholder={this.state.Placeholder}
-                                   id="rider1Input"
-                                   required={true}
-                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
-                            />
-                            <button
-                                    className={""} onClick={() => this.submitNewTechRider()}>Bekreft</button>
+                            <div id="EventNewFile">
+                                <input type="file"
+                                       className="form-control"
+                                       placeholder={this.state.Placeholder}
+                                       id="rider1Input"
+                                       required={true}
+                                       accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
+                                />
+                                <button className={""} onClick={() => this.submitNewTechRider()}>Bekreft</button>
+                            </div>
                         </div>
                     </div>
 
@@ -301,14 +325,16 @@ class EditEvent extends Component{
                         </div>
                         <div>
                             <p id="EventInputLabels">Nye Hospitality Riders:</p>
-                            <input type="file"
-                                   className="form-control"
-                                   placeholder={this.state.Placeholder}
-                                   id="rider2Input"
-                                   required={true}
-                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
-                            />
-                            <button type={"button"} className={""} onClick={() => this.submitNewHospitalityRider()}>Bekreft</button>
+                            <div id="EventNewFile">
+                                <input type="file"
+                                       className="form-control"
+                                       placeholder={this.state.Placeholder}
+                                       id="rider2Input"
+                                       required={true}
+                                       accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
+                                />
+                                <button type={"button"} className={""} onClick={() => this.submitNewHospitalityRider()}>Bekreft</button>
+                            </div>
                         </div>
                     </div>
 
@@ -322,15 +348,16 @@ class EditEvent extends Component{
                         </div>
                         <div>
                             <p id="EventInputLabels">Nytt Personnel:</p>
-                            <input type="file"
-                                   className="form-control"
-                                   placeholder={this.state.Placeholder}
-                                   id="personellInput"
-                                   required={true}
-                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
-                            />
-                            <button type={"button"} className={""} onClick={() => this.submitNewPersonell()}>Bekreft</button>
-
+                            <div id="EventNewFile">
+                                <input type="file"
+                                       className="form-control"
+                                       placeholder={this.state.Placeholder}
+                                       id="personellInput"
+                                       required={true}
+                                       accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
+                                />
+                                <button type={"button"} className={""} onClick={() => this.submitNewPersonell()}>Bekreft</button>
+                            </div>
                         </div>
                     </div>
 
@@ -344,19 +371,21 @@ class EditEvent extends Component{
                         </div>
                         <div>
                             <p id="EventInputLabels">Nytt bilde:</p>
-                            <input type="file"
-                                   className="form-control"
-                                   placeholder={this.state.Placeholder}
-                                   id="imageInput"
-                                   required={true}
-                                   accept={"image/*"}
-                            />
-                            <button type={"button"} className={""} onClick={() => this.submitNewPicture()}>Bekreft</button>
+                            <div id="EventNewFile">
+                                <input type="file"
+                                       className="form-control"
+                                       placeholder={this.state.Placeholder}
+                                       id="imageInput"
+                                       required={true}
+                                       accept={"image/*"}
+                                />
+                                <button type={"button"} className={""} onClick={() => this.submitNewPicture()}>Bekreft</button>
+                            </div>
                         </div>
                     </div>
 
                     <div id="EventInputFiles">
-                        <div >
+                        <div>
                             <p id = "EventInputLabels">Nåværende kontrakt:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
                                     onClick={() => window.open("http://localhost:8080/image/" + this.state.Contract)}
@@ -365,16 +394,18 @@ class EditEvent extends Component{
                         </div>
                         <div>
                             <p id="EventInputLabels">Ny kontrakt:</p>
-                            <input type="file"
-                                   className="form-control"
-                                   placeholder={this.state.Placeholder}
-                                   id="contractInput"
-                                   required={true}
-                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
-                            />
-                            <button type={"button"} className={""} onClick={() => this.submitNewContract()}>Bekreft</button>
-
+                            <div id="EventNewFile">
+                                <input type="file"
+                                       className="form-control"
+                                       placeholder={this.state.Placeholder}
+                                       id="contractInput"
+                                       required={true}
+                                       accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
+                                />
+                                <button type={"button"} className={""} onClick={() => this.submitNewContract()}>Bekreft</button>
+                            </div>
                         </div>
+
                     </div>
 
                     <div id ="EventInputFields">
@@ -535,39 +566,46 @@ class EditEvent extends Component{
     }
 
     registerEvent(){
-        if(this.formValidation()){
-            let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg";
-            if (this.state.Picture === "") this.setState({Picture: altPicture});
+        if(this.formValidation() && this.checkDate()){
+            if (!(validateEmail(this.state.ContactEmail))) {
+                this.notifyUnvalidEmail();
+            } else if (!(validatePhone(this.state.ContactPhone))) {
+                this.notifyUnvalidPhone();
+            } else {
+                console.log(this.state);
 
-            console.log(this.state);
+                let day = this.state.date.getDate();
+                let month = this.state.date.getMonth() + 1;
+                let year = this.state.date.getFullYear();
+                let hour = this.state.dateChosenHour;
+                let min = this.state.dateChosenMin;
+                if (day < 10) {
+                    day = "0" + day
+                }
+                if (month < 10) {
+                    month = "0" + month
+                }
+                let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
 
-            let day = this.state.date.getDate();
-            let month = this.state.date.getMonth() + 1;
-            let year = this.state.date.getFullYear();
-            let hour = this.state.dateChosenHour;
-            let min = this.state.dateChosenMin;
-            if (day < 10) {
-                day = "0" + day
+                eventService
+                    .updateEvent(this.props.match.params.id, this.state.Name, date, this.state.Description, this.state.Place, this.state.Category, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
+                    .catch(Error => console.log(Error));
+
+                eventService
+                    .deleteTicketsForEvent(this.props.match.params.id)
+                    .then(() => this.updateById(this.props.match.params.id))
+                    .catch(Error => console.log(Error));
+
+                this.notifySuccess();
             }
-            if (month < 10) {
-                month = "0" + month
-            }
-            let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
-
-            eventService
-                .updateEvent(this.props.match.params.id, this.state.Name, date, this.state.Description, this.state.Place, this.state.Category, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
-                .catch(Error => console.log(Error));
-
-            eventService
-                .deleteTicketsForEvent(this.props.match.params.id)
-                .then(() => this.updateById(this.props.match.params.id))
-                .catch(Error => console.log(Error));
-
-            this.notifySuccess();
-            window.location.hash="event/" + this.props.match.params.id;
         }
         else{
-            this.notifyFailure();
+            if(!this.checkDate()){
+                this.notifyDateFailure();
+            }
+            else{
+                this.notifyFailure();
+            }
         }
     }
     updateById(eventID){
@@ -583,7 +621,8 @@ class EditEvent extends Component{
 
         eventService
             .updateContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, eventID)
-            .catch(Error => console.log(Error))
+            .then(() => window.location.href="#/event/" + this.props.match.params.id)
+            .catch(Error => console.log(Error));
     }
 }
 

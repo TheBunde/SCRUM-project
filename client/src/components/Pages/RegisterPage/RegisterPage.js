@@ -41,72 +41,74 @@ class RegisterPage extends Component {
         return (
             <div class="pageSetup">
                 <div id="LoginFormDiv">
-                    <div id="MainPageTitle"><a id="LoginPageTitle" href="#/portal">HARMONI</a></div>
-                    <div className={"wrapper"}>
-                        <div className={"registerContainer"}>
-                            <div class="card RegisterPageCard">
-                                <div class="card-body">
-                                    <h1 id={"regTitle"}>Registrer</h1>
-                                    <form>
-                                        <div className="form-group" id="RegisterPageFormGroup">
-                                            <div id="RegisterPageFormFieldsDiv">
-                                                <label htmlFor="exampleInputEmail1">Navn: </label>
-                                                <input type="name" name={"name"} className="form-control"
-                                                       id="firstNameInput"
-                                                       onChange={this.handleTextChange.bind(this)}
-                                                       aria-describedby="emailHelp" placeholder="Navn..."
-                                                       onKeyPress={this.keyPressed}/>
+                    <div id="LoginFormWithoutFooter">
+                        <div id="MainPageTitle"><a id="LoginPageTitle" href="#/portal">HARMONI</a></div>
+                        <div className={"wrapper"}>
+                            <div className={"registerContainer"}>
+                                <div class="card RegisterPageCard">
+                                    <div class="card-body">
+                                        <h1 id={"regTitle"}>Registrer</h1>
+                                        <form>
+                                            <div className="form-group" id="RegisterPageFormGroup">
+                                                <div id="RegisterPageFormFieldsDiv">
+                                                    <label htmlFor="exampleInputEmail1">Navn: </label>
+                                                    <input type="name" name={"name"} className="form-control"
+                                                        id="firstNameInput"
+                                                        onChange={this.handleTextChange.bind(this)}
+                                                        aria-describedby="emailHelp" placeholder="Navn..."
+                                                        onKeyPress={this.keyPressed}/>
+                                                </div>
+                                                <div id="RegisterPageFormFieldsDiv">
+                                                    <label htmlFor="exampleInputEmail1">E-post: </label>
+                                                    <input type="email" name={"email"} className="form-control"
+                                                        id="emailInput"
+                                                        onChange={this.handleTextChange.bind(this)}
+                                                        aria-describedby="emailHelp" placeholder="E-post..."
+                                                        onKeyPress={this.keyPressed}/>
+                                                </div>
+                                                <div id="RegisterPageFormFieldsDiv">
+                                                    <label htmlFor="exampleInputEmail1">Telefon:</label>
+                                                    <input type="tel" pattern={"[0-9]{8}"} name={"phone"}
+                                                        className="form-control" id="exampleInputEmail1"
+                                                        onChange={this.handleTextChange.bind(this)}
+                                                        aria-describedby="emailHelp" placeholder="Telefon..."
+                                                        onKeyPress={this.keyPressed}/>
+                                                </div>
+                                                <div id="RegisterPageFormFieldsDiv">
+                                                    <label htmlFor="exampleInputEmail1">Profilbilde:</label>
+                                                    <input type="file" id={"imageUpload"} accept={"image/jpeg, image/jpg, image/png"}/>
+                                                </div>
+                                                <div id="RegisterPageFormFieldsDiv">
+                                                    <label htmlFor="exampleInputPassword1">Passord:</label>
+                                                    <input type="password" name="password" className="form-control"
+                                                        id="passwordInput"
+                                                        onChange={this.handleTextChange.bind(this)}
+                                                        placeholder="Passord..." onKeyPress={this.keyPressed}/>
+                                                </div>
+                                                <div id="RegisterPageFormFieldsDiv">
+                                                    <label htmlFor="exampleInputPassword1">Gjenta passord:</label>
+                                                    <input type="password" name={"repeatedPassword"}
+                                                        className="form-control" id="passwordInput"
+                                                        onChange={this.handleTextChange.bind(this)}
+                                                        placeholder="Gjenta passord..." onKeyPress={this.keyPressed}/>
+                                                </div>
+                                                <div id="RegisterPageFormButtonDiv">
+                                                    <button type="button"
+                                                            id={"regBtn"}
+                                                            className="btn btn-outline-dark"
+                                                            onClick={this.regUser.bind(this)}
+                                                            disabled={this.state.name === "" || this.state.email === ""
+                                                            || this.state.phone === "" || this.state.password === "" || this.state.repeatedPassword === ""}>Registrer
+                                                    </button>
+                                                    <button type="button" className="btn btn-outline-dark"
+                                                            onClick={() => window.location.href = "#/login"}>
+                                                        Allerede bruker?
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div id="RegisterPageFormFieldsDiv">
-                                                <label htmlFor="exampleInputEmail1">E-post: </label>
-                                                <input type="email" name={"email"} className="form-control"
-                                                       id="emailInput"
-                                                       onChange={this.handleTextChange.bind(this)}
-                                                       aria-describedby="emailHelp" placeholder="E-post..."
-                                                       onKeyPress={this.keyPressed}/>
-                                            </div>
-                                            <div id="RegisterPageFormFieldsDiv">
-                                                <label htmlFor="exampleInputEmail1">Telefon:</label>
-                                                <input type="tel" pattern={"[0-9]{8}"} name={"phone"}
-                                                       className="form-control" id="exampleInputEmail1"
-                                                       onChange={this.handleTextChange.bind(this)}
-                                                       aria-describedby="emailHelp" placeholder="Telefon..."
-                                                       onKeyPress={this.keyPressed}/>
-                                            </div>
-                                            <div id="RegisterPageFormFieldsDiv">
-                                                <label htmlFor="exampleInputEmail1">Profilbilde:</label>
-                                                <input type="file" id={"imageUpload"} accept={"image/jpeg, image/jpg, image/png"}/>
-                                            </div>
-                                            <div id="RegisterPageFormFieldsDiv">
-                                                <label htmlFor="exampleInputPassword1">Passord:</label>
-                                                <input type="password" name="password" className="form-control"
-                                                       id="passwordInput"
-                                                       onChange={this.handleTextChange.bind(this)}
-                                                       placeholder="Passord..." onKeyPress={this.keyPressed}/>
-                                            </div>
-                                            <div id="RegisterPageFormFieldsDiv">
-                                                <label htmlFor="exampleInputPassword1">Gjenta passord:</label>
-                                                <input type="password" name={"repeatedPassword"}
-                                                       className="form-control" id="passwordInput"
-                                                       onChange={this.handleTextChange.bind(this)}
-                                                       placeholder="Gjenta passord..." onKeyPress={this.keyPressed}/>
-                                            </div>
-                                            <div id="RegisterPageFormButtonDiv">
-                                                <button type="button"
-                                                        id={"regBtn"}
-                                                        className="btn btn-outline-dark"
-                                                        onClick={this.regUser.bind(this)}
-                                                        disabled={this.state.name === "" || this.state.email === ""
-                                                        || this.state.phone === "" || this.state.password === "" || this.state.repeatedPassword === ""}>Registrer
-                                                </button>
-                                                <button type="button" className="btn btn-outline-dark"
-                                                        onClick={() => window.location.href = "#/login"}>
-                                                    Allerede bruker?
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                        </form>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>

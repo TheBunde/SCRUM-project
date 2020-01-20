@@ -20,35 +20,37 @@ class ForgotPassword extends Component {
             <div className="LoginFormForm">
                 <div className="pageSetup">
                     <div id="LoginFormDiv">
-                        <div id="MainPageTitle"><a id="LoginPageTitle" href="#/portal">HARMONI</a></div>
-                        <div className={"wrapper"}>
-                            <div className={"registerContainer"}>
-                                <div className="card RegisterPageCard">
-                                    <div className="card-body">
-                                        <h1 id={"regTitle"}>Glemt passord</h1>
-                                        <form>
-                                            <div className="form-group" id="RegisterPageFormGroup">
-                                                <div id="RegisterPageFormFieldsDivForgot">
-                                                    <label htmlFor="exampleInputEmail1">E-post: </label>
-                                                    <input type="name" name={"email"} className="form-control"
-                                                           id="emailInput"
-                                                           onChange={this.handleTextChange.bind(this)}
-                                                           aria-describedby="emailHelp" placeholder="E-post..."/>
+                        <div id="LoginFormWithoutFooter">
+                            <div id="MainPageTitle"><a id="LoginPageTitle" href="#/portal">HARMONI</a></div>
+                            <div className={"wrapper"}>
+                                <div className={"registerContainer"}>
+                                    <div className="card RegisterPageCard">
+                                        <div className="card-body">
+                                            <h1 id={"regTitle"}>Glemt passord</h1>
+                                            <form>
+                                                <div className="form-group" id="RegisterPageFormGroup">
+                                                    <div id="RegisterPageFormFieldsDivForgot">
+                                                        <label htmlFor="exampleInputEmail1">E-post: </label>
+                                                        <input type="name" name={"email"} className="form-control"
+                                                            id="emailInput"
+                                                            onChange={this.handleTextChange.bind(this)}
+                                                            aria-describedby="emailHelp" placeholder="E-post..."/>
+                                                    </div>
+                                                    <div id="RegisterPageFormFieldsDivForgot">
+                                                        <label htmlFor="exampleInputEmail1">Gjenta e-post: </label>
+                                                        <input type="name" name={"emailRep"} className="form-control"
+                                                            id="repEmailInput"
+                                                            onChange={this.handleTextChange.bind(this)}
+                                                            aria-describedby="emailHelp" placeholder="E-post..." required="true"/>
+                                                    </div>
+                                                    <div id="RegisterPageFormButtonDivForgot">
+                                                        <button type={"button"} className={"btn btn-outline-dark"} onClick={() => this.submit()}>Resett passord</button>
+                                                        <button type={"button"} className={"btn btn-outline-dark"} onClick={() => window.location.href="#/login"}>Logg inn</button>
+                                                    </div>
                                                 </div>
-                                                <div id="RegisterPageFormFieldsDivForgot">
-                                                    <label htmlFor="exampleInputEmail1">Gjenta e-post: </label>
-                                                    <input type="name" name={"emailRep"} className="form-control"
-                                                           id="repEmailInput"
-                                                           onChange={this.handleTextChange.bind(this)}
-                                                           aria-describedby="emailHelp" placeholder="E-post..." required="true"/>
-                                                </div>
-                                                <div id="RegisterPageFormButtonDivForgot">
-                                                    <button type={"button"} className={"btn btn-outline-dark"} onClick={() => this.submit()}>Resett passord</button>
-                                                    <button type={"button"} className={"btn btn-outline-dark"} onClick={() => window.location.href="#/login"}>Logg inn</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                            </form>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>

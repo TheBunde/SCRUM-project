@@ -1,12 +1,11 @@
+const dotenv = require('dotenv').config({path: "../.env"});
 let express = require("express");
 let mysql = require("mysql");
 let app = express();
 let bodyParser = require("body-parser");
 let urlencodedParser = bodyParser.urlencoded({extended: false});
 const UserDao = require("./dao/UserDao");
-const dotenv = require('dotenv');
 let secret = require("./config.json");
-dotenv.config();
 let multer = require("multer");
 let uuid = require("uuid");
 const debug = require('debug')('myapp:server');

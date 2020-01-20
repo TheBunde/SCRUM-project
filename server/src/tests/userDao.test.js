@@ -1,7 +1,6 @@
 let mysql = require("mysql");
 
 const UserDao = require("../dao/UserDao.js");
-const runsqlfile = require("./runsqlfile");
 
 let pool = mysql.createPool({
     connectionLimit: 1,
@@ -54,7 +53,7 @@ test("get user", done => {
         done();
     }
     userDao.getUser(
-        "test2@tester.no", callback
+        ["test2@tester.no"], callback
     );
 });
 
@@ -69,7 +68,7 @@ test("get the approved user", done => {
         done();
     }
     userDao.getApprovedUser(
-        "test3@tester.no", callback
+        ["test3@tester.no"], callback
     );
 });
 

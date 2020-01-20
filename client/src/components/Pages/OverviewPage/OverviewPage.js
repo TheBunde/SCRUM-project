@@ -21,6 +21,10 @@ class OverviewPage extends Component{
         }
     }
 
+    getUserID(){
+        console.log(this.state.user.user_id);
+    }
+
     componentDidMount() {
         authenticate();
         console.log(auth.user_id);

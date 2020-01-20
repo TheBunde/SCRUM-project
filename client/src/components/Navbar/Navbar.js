@@ -18,6 +18,10 @@ class Navbar extends Component {
         }
     }
 
+    someFn(){
+        this.props.getUser(this.state.user);
+    }
+
     signOut = () => {
         window.localStorage.removeItem("token");
         window.location.hash = "/login";

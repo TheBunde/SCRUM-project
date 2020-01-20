@@ -3,7 +3,7 @@ import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
 import {validatePhone, validateEmail} from "../../../validaters";
 import {toast} from 'react-toastify';
-import Calendar from 'react-calendar-mobile'
+import Calendar from 'react-calendar'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 import {FileService} from "../../../service/FileService";
@@ -196,10 +196,8 @@ class EditEvent extends Component{
                         <p id="EventInputLabels">Dato for arrangementet:</p>
                         <div id="EventInputCalendar">
                             <Calendar
-                                onSelectDate = {this.changeDate}
-                                startOnMonday = {true}
-                                selectedDate = {this.state.date}
-                                startDateAt ={this.state.date}
+                                value = {this.state.date}
+                                onChange = {this.changeDate}
                             />
                         </div>
                     </div>

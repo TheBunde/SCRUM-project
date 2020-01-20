@@ -247,7 +247,7 @@ class EventCard extends Component {
         let color = this.getColor(this.props.canceled, this.props.pending, this.props.filed, this.props.compareDate);
         return (
             <div id="eventPageEventCardLink">
-                <a onClick={() => window.location.href = "#/event/" + this.props.event_id}>
+                <a href = {"#/event/" + this.props.event_id}>
                     <div class="card eventPageEventCard">
                             <img class="card-img-top eventPageEventCardImg" src={"http://localhost:8080/image/" + this.props.img_url} alt={this.props.name} />
 

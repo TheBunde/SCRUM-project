@@ -15,13 +15,17 @@ class NavbarMainPage extends Component {
                         <ul class="navbar-nav mr-auto">
                             <li className="nav-item">
                                 <a className="nav-link"
-                                   onClick={() => window.location.href = "#/"}>Arrangementer</a>
+                                   href = "#/">Arrangementer</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link"
+                                   href = "#/calendar">Kalender</a>
                             </li>
                         </ul>
                         <ul class="navbar-nav ml-auto">
                             <li className="nav-item">
                                 <a className="nav-link"
-                                   onClick={() => window.location.href = "#/portal"}>Arrangørportal</a>
+                                   href = "#/portal">Arrangørportal</a>
                             </li>
                         </ul>
                     </div>

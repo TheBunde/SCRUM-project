@@ -375,7 +375,7 @@ app.post("/validate", (req, res) => {
                         approved: approved,
                         user_id: id
                     }, privateKey, {
-                        expiresIn: 900
+                        expiresIn: 90000
                     });
                     res.json({jwt: token});
                 } else {

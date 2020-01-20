@@ -360,7 +360,6 @@ class AddEvent extends Component{
             let fileRider2 = document.getElementById("rider2Input");
             let image = document.getElementById("imageInput");
 
-
             let filesUpload = [];
 
             filesUpload.push(fileContract.files[0]);

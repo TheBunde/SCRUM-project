@@ -560,7 +560,7 @@ app.get("/category/:id", (req, res) =>{
 app.post("/contactinfo", (req, res) => {
     eventDao.addContactInfo(req.body, (status, data) => {
         res.status(status);
-        res.json(json);
+        res.json(data);
     })
 });
 

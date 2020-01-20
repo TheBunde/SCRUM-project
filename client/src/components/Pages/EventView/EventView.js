@@ -8,9 +8,14 @@ import {eventService} from '../../../service/EventService'
 import { createHashHistory } from 'history';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+<<<<<<< HEAD
 import '../../../css/CommentSection.css'
 import {ProfileService} from '../../../service/ProfileService';
 import {auth} from "../../../service/UserService";
+=======
+import {auth} from "../../../service/UserService";
+import {toast} from "react-toastify";
+>>>>>>> d70b49f50079491dd684993b2ef2a56b76278b15
 
 
 const history = createHashHistory();
@@ -74,7 +79,7 @@ class EventView extends Component{
             description: events[0].description,
             category_name: events[0].category_name}))
             .catch(error => console.error(error.message));
-        eventService.getTicketFromEvent(this.props.match.params.id).then(tickets => this.setState({event_tickets: tickets}))
+        eventService.getTicketFromEvent(this.props.match.params.id).then(tickets => this.setState({event_tickets: tickets}));
         eventService.getContactinfoForEvent(this.props.match.params.id).then(contactInfo => this.setState({contactInfo_name: contactInfo.name, contactInfo_phone: contactInfo.phone, contactInfo_email: contactInfo.email})).catch(Error => console.log(Error));
         eventService.getComments(this.props.match.params.id).then(comments => this.setState({comments: comments})).catch(Error => console.log(Error));
         let profileService = new ProfileService();
@@ -83,7 +88,6 @@ class EventView extends Component{
     }
 
     render() {
-
         function mapLocation(place) {
             return place.trim(" ,");
         }
@@ -108,22 +112,20 @@ class EventView extends Component{
                                 Edit
                             </button>
                             <div className="dropdown-menu dropdown-menu-right">
-                                <button className="dropdown-item" type="button" onClick={() => this.submitEventApproveButton(this.state.event_id)}>Godkjenn arrangment</button>
+                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventApproveButton(this.state.event_id)}>Godkjenn arrangment</button>
                                 <div className="dropdown-divider"></div>
-                                <button className="dropdown-item" type="button">Rediger arrangment</button>
-                                <button className="dropdown-item" type="button" onClick={() => this.submitEventArchiveButton(this.state.event_id)}>Arkiver arrangement</button>
+                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights() === 2|| this.checkRights()===3)} onClick={() => history.push("/event/" + this.state.event_id + "/edit")}>Rediger arrangment</button>
+                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===3)} onClick={() => this.submitEventArchiveButton(this.state.event_id)}>Arkiver arrangement</button>
                                 <div className="dropdown-divider"></div>
-                                <button className="dropdown-item" type="button" onClick={() => this.submitEventCancelButton(this.state.event_id)}>Avlys arrangment</button>
+                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventCancelButton(this.state.event_id)}>Avlys arrangment</button>
                                 <div className="dropdown-divider"></div>
-                                <button className="dropdown-item" type="button" onClick={() => this.submitEventDeleteButton(this.state.event_id)}>Slett arrangment</button>
+                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventDeleteButton(this.state.event_id)}>Slett arrangment</button>
                             </div>
                         </div>
                     </div>
 
                 </div>
                 <div id="eventViewBackground">
-
-
                     <div id="eventViewImageContainer">
                         <div id="eventViewImage">
                             <img src={"http://localhost:8080/image/" + this.state.img_url} alt={this.state.name} />
@@ -310,6 +312,20 @@ class EventView extends Component{
     }
 
 
+    checkRights(){
+        if(auth.role === "admin") return 1;
+
+        else if(auth.role === "Sceneansvarlig") return 2;
+
+        else if(auth.role === "Økonomiansvarlig") return 3;
+
+        else return 4;
+
+    };
+
+    notifyDeleteSuccess = () => {
+        toast("Sletting av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
+    };
 
     submitEventDeleteButton(id) {
         confirmAlert({
@@ -380,6 +396,7 @@ class EventView extends Component{
         eventService
             .deleteEvent(id)
             .catch(e => console.error(e));
+        this.notifyDeleteSuccess();
         history.push("/event")
     }
 

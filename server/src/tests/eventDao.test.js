@@ -37,7 +37,7 @@ test("test: getAllEvents()", done =>{
             "Test getAllEvents eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data.length).toBe(3);
-        expect(data[0].event_id).toBe(1);
+        expect(data[0].event_id).toBe(2);
         done();
     }
 
@@ -72,10 +72,10 @@ test("test: updateFiled", done =>{
     }
 
     function callback(){
-        eventDao.getEventByID(3, callback2)
+        eventDao.getEventByID(2, callback2)
     }
 
-    eventDao.updateFiled(3,callback);
+    eventDao.updateFiled(2,callback);
 });
 
 test("test: addEvent()", done =>{
@@ -89,10 +89,9 @@ test("test: addEvent()", done =>{
     }
     
     function callback(status, data){
-        eventDao.getEventByID(4,callback2);
+        eventDao.getEventByID(data.insertId,callback2);
     }
-    
-    let event = {name : "Just added", date:  "2020-01-20 20:45:00",description:  "the DB test made this", place : "Sukkerhuset", artists : "Javascript, mysql, ci, nodeJs ", tech_rider:  "nintendo switch", hospitality_rider: "potato chips", personnel: "Team 5", img_url: "eagle.png"};
+    let event = {name : "Just added", date:  "2020-01-20 20:45:00",description:  "the DB test made this", place : "Sukkerhuset", categoryID: 1, artists : "Javascript, mysql, ci, nodeJs ", tech_rider:  "nintendo switch", hospitality_rider: "potato chips", personnel: "Team 5", img_url: "eagle.png", contract: "everyone agrees"};
     eventDao.addEvent(event, callback);
 });
 
@@ -114,11 +113,11 @@ test("test: deleteEvent()", done =>{
 
     }
 
-    let event = {name : "to be deleted", date:  "2020-01-20 20:45:00",description:  "the DB test made this to be deleted", place : "Sukkerhuset", artists : "Javascript, mysql, ci, nodeJs ", tech_rider:  "nintendo switch", hospitality_rider: "potato chips", personnel: "Team 5", img_url: "eagle.png"};
+    let event = {name : "to be deleted", date:  "2020-01-20 20:45:00",description:  "the DB test made this to be deleted", place : "Sukkerhuset", artists : "Javascript, mysql, ci, nodeJs ", tech_rider:  "nintendo switch", hospitality_rider: "potato chips", personnel: "Team 5", img_url: "eagle.png", categoryID: 1};
     eventDao.addEvent(event, dummy);
     let contactInfo = {name: "hei sveis", phone: "00000000", email: "hwudijwdhwojndw@sohfsoidhjs.nckjw", eventID: 5};
     eventDao.addContactInfo(contactInfo, dummy);
-    let ticket = {eventID: 5, ticketID: 3, amount: 20}
+    let ticket = {eventID: 5, ticketID: 3, amount: 20};
     eventDao.addTicket(ticket, dummy);
     eventDao.getAllEvents(callback)
 });
@@ -151,7 +150,7 @@ test("test: getCategories()", done =>{
     
     eventDao.getCategories(callback);
 });
-
+/*
 test("test: addCategory()", done =>{
 
     function callback(status, data){
@@ -163,8 +162,9 @@ test("test: addCategory()", done =>{
     }
 
     let category = {eventID : 1, categoryID: 2};
-    eventDao.addCategory(category, callback);
+    eventDao.addCategories(category, callback);
 });
+*/
 
 test("test: getCategoryFromEvent()", done =>{
     function callback(status, data) {
@@ -172,6 +172,7 @@ test("test: getCategoryFromEvent()", done =>{
             "Test getCategoryFromEvent for event 1 eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data.length).toBe(1);
+        expect(data[0].category_id).toBe(2);
         done();
     }
 

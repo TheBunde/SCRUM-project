@@ -7,23 +7,11 @@ class AdminService{
 
 
     updateUser(name, email,phone, userID) {
-        return axios.put("http://localhost:8080/api/users/" + userID + "/newName", {
+        return axios.put("http://localhost:8080/users/" + userID + "/newName", {
             name: name,
             email: email,
             phone: phone
         }, {headers: authenticationHeader()}).then(response => response.data);
-    }
-    updateName(name, userID){
-        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/newName", {name: name}, {headers: authenticationHeader()}).then(response => response.data);
-
-    }
-
-    updatePhone(phone, userID){
-        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/newPhone", {phone: phone}, {headers: authenticationHeader()}).then(response => response.data);
-    }
-
-    updateEmail(email, userID){
-        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/newEmail", {email: email}, {headers: authenticationHeader()}).then(response => response.data);
     }
 
     getRoles(){

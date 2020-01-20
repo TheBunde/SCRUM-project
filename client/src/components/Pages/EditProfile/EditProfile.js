@@ -7,6 +7,7 @@ import {User, UserService} from "../../../service/UserService";
 import {Redirect} from 'react-router-dom';
 import {auth, authenticate} from "../../../service/UserService";
 import {toast} from 'react-toastify';
+import {validateEmail, validatePhone} from "../../../validaters";
 
 
 import Navbar from "../../Navbar/Navbar";
@@ -35,6 +36,10 @@ class EditProfile extends Component{
     };
 
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyUnvalidPhone = () => toast("Ugyldig telefonnummer", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
 
     componentDidMount() {
@@ -72,16 +77,21 @@ class EditProfile extends Component{
             phone === null || phone === "" ||
             pw === null || pw === "" ||
             role === null || role === "" ||
-            approved === null || approved === "") ||
-            (phone.length < 8 || phone.length > 8)
+            approved === null || approved === "")
         ){
-            console.log("WTF");
             this.notifyFailure();
             return false;
-        } else{
+        } else if (!(validatePhone(phone))) {
+            this.notifyUnvalidPhone();
+            return false;
+        } else if (!(validateEmail(email))) {
+            this.notifyUnvalidEmail();
+            return false;
+        }
+        else{
             return true;
         }
-    }
+    };
 
     render(){
         return(

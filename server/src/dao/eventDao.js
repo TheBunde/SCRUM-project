@@ -3,7 +3,7 @@ const Dao = require("./dao.js");
 module.exports = class adminDao extends Dao{
 
     getAllEvents(callback){
-        super.query(" SELECT * FROM Event  WHERE pending=0 ORDER BY date", [], callback);
+        super.query(" SELECT * FROM Event ORDER BY date asc", [], callback);
     }
 
     getAllArchived(callback){
@@ -16,6 +16,10 @@ module.exports = class adminDao extends Dao{
 
     getNonFiledEvents(callback){
         super.query(" SELECT * FROM Event WHERE filed = 0 ORDER BY date DESC", [], callback);
+    }
+
+    getAllCancelled(callback){
+        super.query("SELECT * FROM Event WHERE canceled = 1 ORDER BY date DESC", [], callback);
     }
 
     getEventByID(eventID, callback){

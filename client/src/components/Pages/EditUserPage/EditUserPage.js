@@ -17,6 +17,7 @@ class EditUserPage extends Component {
         email: "",
         phone: "",
         tempRole: "",
+        profile_photo : "",
         roles: [],
         roleID: "",
         roleChosen: "",
@@ -32,7 +33,7 @@ class EditUserPage extends Component {
                     <div className={"row"}>
                         <div className={"column"}>
                             <div className={"pbContainer"}>
-                                <img id="EditUserAdminProfile" alt="profilePic" src="https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                                <img id="EditUserAdminProfile" alt="profilePic" src={this.state.profile_photo === null || this.state.profile_photo === "" ? "https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" : "http://localhost:8080/image/" + this.state.profile_photo}
                                      width="300" height="300"/>
                             </div>
                         </div>
@@ -81,7 +82,7 @@ class EditUserPage extends Component {
                                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     {this.state.roles.map(role => {
                                                         return <a className="dropdown-item"
-                                                                  onClick={() => this.handleDropdownChange(role)}>{role}</a>
+                                                                  href = {"#/admin/users/"+this.state.id+"/edit"} onClick={() => this.handleDropdownChange(role)}>{role}</a>
                                                     })}
                                                 </div>
                                             </div>
@@ -200,10 +201,12 @@ class EditUserPage extends Component {
         window.scrollTo(0,0);
         adminService.getUser(this.props.match.params.id)
             .then((user) => {
+                console.log(user[0].profile_photo);
                     this.setState({
                         name: user[0].name,
                         email: user[0].email,
                         phone: user[0].phone,
+                        profile_photo : user[0].profile_photo,
                         approved: user[0].approved,
                         tempRole: user[0].role_id
                     });

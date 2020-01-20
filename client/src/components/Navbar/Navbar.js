@@ -60,29 +60,29 @@ class Navbar extends Component {
 
                             <li className="nav-item">
                                 <a className="nav-link"
-                                   onClick={() => window.location.href = "#/overview"}>Hovedside</a>
+                                   href = "#/overview">Hovedside</a>
                             </li>
 
                             <li className="nav-item" id={"adminUsersLink"}>
-                                <a className="nav-link" onClick={() => window.location.href = "#/admin/users"}>Rediger brukere</a>
+                                <a className="nav-link" href = "#/admin/users">Rediger brukere</a>
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+                                <a class="nav-link dropdown-toggle" href = "#" role="button" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">
                                     Arrangementer
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="navbarDropdown">
-                                    <a class="dropdown-item" onClick={() => window.location.href = "#/event"}>Alle
+                                    <a class="dropdown-item" href = "#/event">Alle
                                         arrangementer</a>
                                     <a class="dropdown-item"
-                                       onClick={() => window.location.href = "#/overview/addEvent"}>Legg til
+                                       href = "#/overview/addEvent">Legg til
                                         arrangement</a>
                                 </div>
                             </li>
 
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+                                <a className="nav-link dropdown-toggle" href = "#" role="button" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">
                                     <img id="navProfile" alt="profilePic" src={this.state.user.profile_photo === null || this.state.user.profile_photo === "" ? "https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" : "http://localhost:8080/image/" + this.state.user.profile_photo}
                                          width="30" height="30"/>
@@ -90,17 +90,17 @@ class Navbar extends Component {
                                 </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown" id="navbarDropdown">
                                     <a className="dropdown-item"
-                                       onClick={() => window.location.href = "#/profile/" + auth.user_id}>Min profil</a>
+                                       href = {"#/profile/" + auth.user_id}>Min profil</a>
                                     <a className="dropdown-item"
-                                    onClick={() => window.location.href = "#/profile/" + auth.user_id + "/edit"}>Rediger profil</a>
+                                    href = {"#/profile/" + auth.user_id + "/edit"}>Rediger profil</a>
                                     <div className="dropdown-divider"></div>
                                     <a className="dropdown-item"
-                                       onClick={() => window.location.href = "#/about"}>Om</a>
+                                       href = {"#/about"}>Om</a>
                                     <a className="dropdown-item" href="mailto:noreply.harmoni@gmail.com?Subject=Hello%20again">
                                         Kontakt oss</a>
                                     <div className="dropdown-divider"></div>
                                     <a className="dropdown-item"
-                                       onClick={() => this.signOut()}>Logg ut</a>
+                                       onClick={() => this.signOut()} href="#">Logg ut</a>
                                 </div>
                             </li>
                         </ul>

@@ -37,6 +37,10 @@
     width: 220px;
 }
 
+#MainPageDivWithoutFooter{
+    min-height: 90vh;
+}
+
 @Media only screen and (max-width: 840px){
     #MainPageDiv{
         margin: auto;

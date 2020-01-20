@@ -755,7 +755,6 @@ app.post("/contactinfo", verifyToken,(req, res) => {
             })
         }
     });
-
 });
 
 app.get("/contactinfo/:id",verifyToken, (req, res) => {

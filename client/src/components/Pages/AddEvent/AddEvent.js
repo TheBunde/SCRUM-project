@@ -352,8 +352,6 @@ class AddEvent extends Component{
         console.log("Registrating event");
         if(this.formValidation()) {
             console.log("Reg event");
-            let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg";
-            if (this.state.Picture === "") this.setState({Picture: altPicture});
 
             let fileService = new FileService();
             let fileContract = document.getElementById("contractInput");

@@ -14,14 +14,16 @@ class MainPage extends Component {
         return (
             <div>
                 <div id="MainPageDiv">
-                    <div id="MainPageTitle"><a>HARMONI</a></div>
-                    <div id="MainPageText"><h4>En portal for informasjonsflyt under planlegging av arrangementer</h4></div>
-                    <div id="MainPageButtonDiv">
-                        <div id="MainPageButtons">
-                            <button type="button" className="btn btn-outline-light btn-lg" onClick={()=> window.location.href = "#/login"}>Logg inn</button>
-                        </div>
-                        <div id="MainPageButtons">
-                            <button type="button" className="btn btn-outline-light btn-lg" onClick={()=> window.location.href = "#/register"}>Registrer ny bruker</button>
+                    <div id="MainPageDivWithoutFooter">
+                        <div id="MainPageTitle"><a>HARMONI</a></div>
+                        <div id="MainPageText"><h4>En portal for informasjonsflyt under planlegging av arrangementer</h4></div>
+                        <div id="MainPageButtonDiv">
+                            <div id="MainPageButtons">
+                                <button type="button" className="btn btn-outline-light btn-lg" onClick={()=> window.location.href = "#/login"}>Logg inn</button>
+                            </div>
+                            <div id="MainPageButtons">
+                                <button type="button" className="btn btn-outline-light btn-lg" onClick={()=> window.location.href = "#/register"}>Registrer ny bruker</button>
+                            </div>
                         </div>
                     </div>
                     <div>

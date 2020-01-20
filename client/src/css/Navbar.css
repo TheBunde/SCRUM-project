@@ -1,6 +1,7 @@
 #navbar{
     /*position: fixed;*/
-    background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(68, 111, 184));
+    background-image: linear-gradient(to bottom right, rgb(20, 49, 80), rgb(8, 71, 72));
+    /* background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(68, 111, 184)); */
     /*background-image: linear-gradient(to bottom right, red, yellow);*/
     top: 0;
     width: 100%;
@@ -48,7 +49,8 @@
 }
 
 #navbarDropdown{
-    background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(43, 83, 154))
+    /*background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(43, 83, 154)); */
+    background-image: linear-gradient(to bottom right, rgb(20, 49, 80), rgb(8, 71, 72));
     /*background-color: rgb(34, 33, 33);*/
     
 }

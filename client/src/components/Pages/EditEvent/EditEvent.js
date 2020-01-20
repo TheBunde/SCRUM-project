@@ -6,6 +6,8 @@ import {toast} from 'react-toastify';
 import Calendar from 'react-calendar-mobile'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
+import {FileService} from "../../../service/FileService";
+
 
 class EditEvent extends Component{
     constructor(props) {
@@ -23,7 +25,12 @@ class EditEvent extends Component{
             GoldenCircleTicketBox: false, GoldenCircleTicketAmount: null,
             Categories: [], Tickets: [],
             DateHour: ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
-            DateMin: ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59]
+            DateMin: ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59],
+            contractUploaded : false,
+            personellUploaded : false,
+            pictureUploaded : false,
+            techUploaded : false,
+            hospitalityUploaded : false
         };
         this.changeBox = this.changeBox.bind(this);
         this.changeDate = this.changeDate.bind(this);
@@ -94,6 +101,11 @@ class EditEvent extends Component{
     };
 
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyNoFileUploaded = () => toast("Du må laste opp en fil", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyPictureUploaded = () => toast("Fil opplastet. Trykk på lagre endringer for å lagre alt", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
+
 
     updateEventInfo(data){
         let date = data[0].date.split("T");
@@ -272,7 +284,10 @@ class EditEvent extends Component{
                                    placeholder={this.state.Placeholder}
                                    id="rider1Input"
                                    required={true}
+                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
                             />
+                            <button
+                                    className={""} onClick={() => this.submitNewTechRider()}>Bekreft</button>
                         </div>
                     </div>
 
@@ -291,7 +306,9 @@ class EditEvent extends Component{
                                    placeholder={this.state.Placeholder}
                                    id="rider2Input"
                                    required={true}
+                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
                             />
+                            <button type={"button"} className={""} onClick={() => this.submitNewHospitalityRider()}>Bekreft</button>
                         </div>
                     </div>
 
@@ -308,9 +325,12 @@ class EditEvent extends Component{
                             <input type="file"
                                    className="form-control"
                                    placeholder={this.state.Placeholder}
-                                   id="personnelInput"
+                                   id="personellInput"
                                    required={true}
+                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
                             />
+                            <button type={"button"} className={""} onClick={() => this.submitNewPersonell()}>Bekreft</button>
+
                         </div>
                     </div>
 
@@ -327,9 +347,11 @@ class EditEvent extends Component{
                             <input type="file"
                                    className="form-control"
                                    placeholder={this.state.Placeholder}
-                                   id="personnelInput"
+                                   id="imageInput"
                                    required={true}
+                                   accept={"image/*"}
                             />
+                            <button type={"button"} className={""} onClick={() => this.submitNewPicture()}>Bekreft</button>
                         </div>
                     </div>
 
@@ -346,9 +368,12 @@ class EditEvent extends Component{
                             <input type="file"
                                    className="form-control"
                                    placeholder={this.state.Placeholder}
-                                   id="personnelInput"
+                                   id="contractInput"
                                    required={true}
+                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
                             />
+                            <button type={"button"} className={""} onClick={() => this.submitNewContract()}>Bekreft</button>
+
                         </div>
                     </div>
 
@@ -413,10 +438,108 @@ class EditEvent extends Component{
         );
     }
 
+    submitNewContract() {
+        let fileService = new FileService();
+        let fileContract = document.getElementById("contractInput");
+
+        fileService.uploadFile(fileContract.files[0])
+            .then((res) => {
+                this.setState({
+                    Contract : res.data.filePath.filename
+                });
+                this.notifyPictureUploaded();
+
+            })
+            .catch((err) => {
+                this.notifyNoFileUploaded();
+                console.error(err);
+            })
+    }
+
+    submitNewTechRider() {
+        let fileService = new FileService();
+        let fileRider1 = document.getElementById("rider1Input");
+
+        fileService.uploadFile(fileRider1.files[0])
+            .then((res) => {
+                this.setState({
+                    Tech : res.data.filePath.filename
+                });
+                this.notifyPictureUploaded();
+
+            })
+            .catch((err) => {
+                console.error(err);
+                this.notifyNoFileUploaded();
+            })
+
+    }
+
+    submitNewHospitalityRider() {
+        let fileService = new FileService();
+        let fileRider2 = document.getElementById("rider2Input");
+
+        fileService.uploadFile(fileRider2.files[0])
+            .then((res) => {
+                this.setState({
+                    Hospitality : res.data.filePath.filename
+                });
+                this.notifyPictureUploaded();
+
+            })
+            .catch((err) => {
+                console.error(err);
+                this.notifyNoFileUploaded();
+            })
+
+
+    }
+
+    submitNewPersonell() {
+        let fileService = new FileService();
+        let filePersonell = document.getElementById("personellInput");
+
+        fileService.uploadFile(filePersonell.files[0])
+            .then((res) => {
+                this.setState({
+                    Personnel : res.data.filePath.filename
+                });
+                this.notifyPictureUploaded();
+
+            })
+            .catch((err) => {
+                console.error(err);
+                this.notifyNoFileUploaded();
+            })
+
+    }
+
+    submitNewPicture() {
+        let fileService = new FileService();
+        let image = document.getElementById("imageInput");
+
+        fileService.uploadImage(image.files[0])
+            .then((res) => {
+                this.setState({
+                    Picture : res.data.filePath.filename
+                });
+                this.notifyPictureUploaded();
+            })
+            .catch((err) => {
+                console.error(err);
+                this.notifyNoFileUploaded();
+
+            })
+
+
+    }
+
     registerEvent(){
         if(this.formValidation()){
             let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg";
             if (this.state.Picture === "") this.setState({Picture: altPicture});
+
+            console.log(this.state);
 
             let day = this.state.date.getDate();
             let month = this.state.date.getMonth() + 1;
@@ -441,6 +564,7 @@ class EditEvent extends Component{
                 .catch(Error => console.log(Error));
 
             this.notifySuccess();
+            window.location.hash="event/" + this.props.match.params.id;
         }
         else{
             this.notifyFailure();

@@ -168,6 +168,27 @@ app.post('/upload', upload.single('file'), function (req, res) {
     }
 });
 
+app.post("/uploadFile", upload.single("file"), (req, res) => {
+    if (!req.file) {
+        console.log("No file received");
+        return res.send({
+            success: false
+        });
+    } else {
+        if (req.file.mimetype !== "text/plain" && req.file.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && req.file.mimetype !== "application/pdf") { //Not an image
+            return res.send({
+                success: false,
+                error: "Only images are allowed"
+            })
+        } else {
+            return res.send({
+                filePath: req.file,
+                success: true
+            });
+        }
+    }
+});
+
 
 app.post("/uploadFiles", upload.array("files", 5), (req, res) => {
     if (!req.files) {
@@ -192,11 +213,6 @@ app.post("/uploadFiles", upload.array("files", 5), (req, res) => {
                 error: "You have uploaded some files which are not allowed"
             })
         }
-
-
-
-
-
     }
 });
 

@@ -11,6 +11,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
     "nodemon": "^2.0.2",
     "popper": "^1.0.1",
     "popper.js": "^1.14.3",
@@ -21,13 +22,13 @@
     "react-calendar-mobile": "^0.1.6",
     "react-confirm-alert": "^2.4.1",
     "react-dom": "^16.12.0",
+    "react-fontawesome": "^1.7.1",
     "react-leaflet": "^2.6.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
     "react-test-renderer": "^16.12.0",
-    "reactjs-event-calendar": "0.0.1",
-    "react-fontawesome": "^1.7.1",
     "react-toastify": "^5.5.0",
+    "reactjs-event-calendar": "0.0.1",
     "regex": "^0.1.1"
   },
   "scripts": {

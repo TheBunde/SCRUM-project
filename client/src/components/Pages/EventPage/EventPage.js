@@ -4,6 +4,7 @@ import "../../../css/EventPage.css"
 import {eventService} from "../../../service/EventService";
 import $ from 'jquery';
 import Footer from '../../Footer/Footer'
+import {auth} from "../../../service/UserService.js"
 var moment = require("moment");
 moment().format();
 
@@ -85,6 +86,11 @@ class EventPage extends Component {
     eventFilterApproved() {
         this.fetchNonFiled()
         this.setState({shownEvents: this.state.loadedEvents.filter(e => (e.date > this.getCurrentDate()) && e.pending === 0)})
+    }
+
+    eventFilterCancelled(){
+        eventService.getCancelled().then(events => this.setState({shownEvents: events, loadedEvents: events}));
+        console.log(this.state.shownEvents);
     }
 
     sortByName(){
@@ -191,6 +197,7 @@ class EventPage extends Component {
                                             <a className="dropdown-item" onClick={() => this.eventFilterPending()}>Under planlegging</a>
                                             <a className="dropdown-item" onClick={() => this.eventFilterApproved()}>Ferdig planlagte arrangementer</a>
                                             <a className="dropdown-item" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterCancelled()}>Avlyste</a>
                                         </div>
                                     </div>
                                 </div>

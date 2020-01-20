@@ -128,6 +128,7 @@ class EventPage extends Component {
 
     fetchNonFiled(){
         eventService.getNonFiledEvents().then(events => this.setState({
+            shownEvents: events,
             loadedEvents: events}))
             .catch(error => console.error(error.message));
     }
@@ -235,7 +236,7 @@ class EventCard extends Component {
                     <div class="card eventPageEventCard">
                             <img class="card-img-top eventPageEventCardImg" src={"http://localhost:8080/image/" + this.props.img_url} alt={this.props.name} />
 
-                            <div class="card-body">
+                            <div class="card-body" id="eventPageOuterCardBody">
 
                             <div id="eventPageCardBody" class="card-body">
                                 <h5 class="card-title">{this.props.name}</h5>

@@ -593,19 +593,12 @@ app.get("/event/nonFiled",verifyToken, (req, res) => {
     });
 
 });
-app.get("/event/:eventID", verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
+app.get("/event/:eventID",(req, res) => {
             console.log("/event/ID fikk request fra klient");
             eventDao.getEventByID(req.params.eventID, (status, data) => {
                 res.status(status);
                 res.json(data);
             })
-        }
-    });
-
 });
 
 app.get("/categories", verifyToken,(req, res) => {

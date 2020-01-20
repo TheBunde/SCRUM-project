@@ -168,6 +168,10 @@ class EventPage extends Component {
             .catch(error => console.error(error.message));
     }
 
+    getUserFromNavbar = user => {
+            console.log(user);
+    };
+
     render() {
 
         $(function(){
@@ -181,7 +185,7 @@ class EventPage extends Component {
 
         return (
             <div class="pageSetup">
-                <Navbar />
+                <Navbar getUser={this.getUserFromNavbar()} />
                 <div>
                     <div id="eventPageBackground">
                         <div id="eventPageContainer">
@@ -214,10 +218,12 @@ class EventPage extends Component {
                                             Sorter etter
                                         </button>
                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
                                             <a className="dropdown-item" href="#/event" onClick={() => this.sortByName()}>Navn</a>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.sortByClosest()}>Nærmeste</a>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.sortByDate()}>Lengst frem</a>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.sortByCategory()}>Kategori</a>
+
                                         </div>
                                     </div>
                                 </div>
@@ -285,6 +291,8 @@ class EventCard extends Component {
             </div>
         )
     }
+
+
 
     getStatus(canceled, pending, filed, date){
         let status;

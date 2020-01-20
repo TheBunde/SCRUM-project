@@ -122,6 +122,7 @@
 }
 #eventPageOuterCardBody{
     overflow: auto;
+    padding-top: 0.5rem;
 }
 #eventPageCardBody{
     margin: 0;
@@ -133,26 +134,6 @@
     margin:auto;
     text-align: center;
     padding: 20px 0 40px 0;
-}
-#eventPageStatus .btn-danger{
-    background-color: rgba(220, 53, 69, 0.45);
-    border-color: rgba(220, 53, 69, 0.45);
-}
-#eventPageStatus .btn-warning{
-    background-color: rgba(255, 193, 7, 0.45);
-    border-color: rgba(255, 193, 7, 0.45);
-}
-#eventPageStatus .btn-info{
-    background-color: rgba(23, 162, 184, 0.45);
-    border-color: rgba(23, 162, 184, 0.45);
- }
-#eventPageStatus .btn-secondary{
-    background-color: rgba(108, 117, 125, 0.45);
-    border-color: rgba(108, 117, 125, 0.45);
-}
-#eventPageStatus .btn-primary{
-    background-color: rgba(0, 7, 191, 0.45);
-    border-color: rgba(0, 7, 191, 0.45);
 }
 #eventPageStatus:hover{
     text-decoration: none;

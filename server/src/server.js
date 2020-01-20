@@ -187,6 +187,21 @@ app.get("/event/active", verifyToken,(req, res) => {
 
 });
 
+app.get("/event/cancelled", verifyToken, (req, res) => {
+    let token = req.token;
+    jwt.verify(token, privateKey, (err, authData) => {
+        if(err) {
+            res.sendStatus(401);
+        } else{
+            console.log(authData);
+            eventDao.getAllCancelled((status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+});
+
 
 app.get("/event/nonFiled",verifyToken, (req, res) => {
     jwt.verify(req.token, privateKey, (err, authData) => {

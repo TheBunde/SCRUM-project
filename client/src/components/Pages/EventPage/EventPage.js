@@ -4,6 +4,7 @@ import "../../../css/EventPage.css"
 import {eventService} from "../../../service/EventService";
 import $ from 'jquery';
 import Footer from '../../Footer/Footer'
+import {auth} from "../../../service/UserService.js"
 var moment = require("moment");
 moment().format();
 
@@ -45,7 +46,7 @@ class EventPage extends Component {
         let hours = tempDate.slice(11, 13);
         let minutes = tempDate.slice(14, 16);
 
-        return date + "-" + month + "-" + year + " " + hours + ":" + minutes;
+        return date + "." + month + "." + year + " " + hours + ":" + minutes;
     }
 
     getCurrentDate() {
@@ -87,6 +88,11 @@ class EventPage extends Component {
             shownEvents: events.filter(e => (e.date > this.getCurrentDate() && e.pending === 0))
         }))
             .catch(error => console.error(error.message));
+    }
+
+    eventFilterCancelled(){
+        eventService.getCancelled().then(events => this.setState({shownEvents: events, loadedEvents: events}));
+        console.log(this.state.shownEvents);
     }
 
     sortByName(){
@@ -193,10 +199,11 @@ class EventPage extends Component {
                                             Vis
                                         </button>
                                         <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterAllActive()}>Alle arrangementer som ikke er arkivert</a>
-                                            <a className="dropdown-item" href="#/event"  onClick={() => this.eventFilterPending()}>Under planlegging</a>
-                                            <a className="dropdown-item" href="#/event" aria-pressed="false" onClick={() => this.eventFilterApproved()}>Ferdig planlagte arrangementer</a>
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterAllActive()}>Alle arrangementer som ikke er arkivert</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterPending()}>Under planlegging</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterApproved()}>Ferdig planlagte arrangementer</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
+                                            <a className="dropdown-item" onClick={() => this.eventFilterCancelled()}>Avlyste</a>
                                         </div>
                                     </div>
                                 </div>
@@ -263,7 +270,7 @@ class EventCard extends Component {
                                 <h5 class="card-title">{this.props.name}</h5>
                                 <div id="eventPageStatus">
 
-                                    <a className={"btn btn-sm btn-"+color}>Status: {this.getStatus(this.props.canceled, this.props.pending, this.props.filed,  this.props.compareDate)}</a>
+                                    <a className={"btn btn-outline-"+color}>Status: {this.getStatus(this.props.canceled, this.props.pending, this.props.filed,  this.props.compareDate)}</a>
                                 </div>
                                 <div id="eventPageCardLocation">
                                     {this.props.place}

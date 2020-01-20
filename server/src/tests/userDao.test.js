@@ -23,11 +23,12 @@ test("that we can register a user", done => {
     }
     userDao.registerUser(
         {
-            name: "Test testesen", email: "test@test.no", phone: "88888888", password: "hei123"
+            name: "Test testesen", email: "test@test.no", phone: "88888888", profile_photo: "test.jpg", password: "hei123"
         }, callback
     );
 });
 
+/*
 test("get hash", done => {
     function callback(status, data) {
         console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
@@ -40,18 +41,20 @@ test("get hash", done => {
     );
 });
 
+*/
+
 test("get user", done => {
     function callback(status, data) {
         console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
         expect(data.length).toBe(1);
-        expect(data[0].user_id).toBe(4);
-        expect(data[0].name).toBe('test4');
+        expect(data[0].user_id).toBe(2);
+        expect(data[0].name).toBe("test2");
         expect(data[0].role_id).toBe(1);
         expect(data[0].role).toBe('admin');
         done();
     }
     userDao.getUser(
-        "test4@tester.no", callback
+        "test2@tester.no", callback
     );
 });
 
@@ -59,14 +62,14 @@ test("get the approved user", done => {
     function callback(status, data) {
         console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
         expect(data.length).toBe(1);
-        expect(data[0].user_id).toBe(4);
-        expect(data[0].name).toBe('test4');
-        expect(data[0].role_id).toBe(1);
-        expect(data[0].role).toBe('admin');
+        expect(data[0].user_id).toBe(3);
+        expect(data[0].name).toBe('test3');
+        expect(data[0].role_id).toBe(2);
+        expect(data[0].role).toBe('Sceneansvarlig');
         done();
     }
     userDao.getApprovedUser(
-        "test4@tester.no", callback
+        "test3@tester.no", callback
     );
 });
 

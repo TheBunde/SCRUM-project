@@ -11,7 +11,7 @@ module.exports = class UserDao extends dao {
             .then((resp) => {
                 val.push(resp);
                 super.query(
-                    "INSERT into User (name, email, phone, profile_photo, password_hash) values (?, ?,?, ?, ?)",
+                    "INSERT into User (name, email, phone, profile_photo, password_hash) values (?, ?, ?, ?, ?)",
                     val,
                     callback
                 );
@@ -20,11 +20,11 @@ module.exports = class UserDao extends dao {
                 console.error(err);
             });
     }
-
-
+    /*
     getHash(email, callback) {
         super.query("SELECT password_hash from User where email = ?", [email], callback);
     }
+    */
 
     getUser(email, callback) {
         super.query("SELECT * from User join Role on User.role_id = Role.role_id where email = ? ", email, callback);

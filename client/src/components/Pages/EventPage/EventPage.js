@@ -49,7 +49,7 @@ class EventPage extends Component {
     }
 
     getCurrentDate() {
-        let newDate = new Date()
+        let newDate = new Date();
         let date = newDate.getDate();
         if(date<10){
             date = "0" + date;
@@ -71,20 +71,22 @@ class EventPage extends Component {
     }
 
     eventFilterAllActive(){
-        this.fetchNonFiled()
-        this.setState({shownEvents: this.state.loadedEvents});
+        this.fetchNonFiled();
     }
     eventFilterPending(){
-        this.fetchNonFiled()
-        this.setState({shownEvents: this.state.loadedEvents.filter(e=> (e.date > this.getCurrentDate()) && e.pending === 1)});
+        eventService.getNonFiledEvents().then(events => this.setState({
+            shownEvents: events.filter(e=> (e.date > this.getCurrentDate()) && e.pending === 1)
+        }))
+            .catch(error => console.error(error.message));
     }
     eventFilterArchived(){
         this.getArchivedEvents();
-        this.setState({shownEvents: this.state.loadedEvents});
     }
-    eventFilterApproved() {
-        this.fetchNonFiled()
-        this.setState({shownEvents: this.state.loadedEvents.filter(e => (e.date > this.getCurrentDate()) && e.pending === 0)})
+    eventFilterApproved(){
+        eventService.getNonFiledEvents().then(events => this.setState({
+            shownEvents: events.filter(e => (e.date > this.getCurrentDate() && e.pending === 0))
+        }))
+            .catch(error => console.error(error.message));
     }
 
     sortByName(){
@@ -104,7 +106,7 @@ class EventPage extends Component {
     }
 
     sortByDate() {
-        console.log(this.state.shownEvents[0].date)
+        console.log(this.state.shownEvents[0].date);
         this.setState(this.state.shownEvents.sort((a, b) => b.date.localeCompare(a.date)))
     }
     sortByCategory() {
@@ -129,35 +131,39 @@ class EventPage extends Component {
 
     getAllEvents(){
         eventService.getAllEvents().then(events => this.setState({
-            shownEvents: events,
-            loadedEvents: events}))
+            loadedEvents: events
+        }))
             .catch(error => console.error(error.message));
+        return true;
     }
     
     getArchivedEvents(){
         eventService.getAllArchived().then(events => this.setState({
-            shownEvents: events,
-            loadedEvents: events}))
+            loadedEvents: events,
+            shownEvents: events
+            }))
             .catch(error => console.error(error.message));
     }
 
     fetchNonFiled(){
         eventService.getNonFiledEvents().then(events => this.setState({
-            loadedEvents: events}))
+            loadedEvents: events,
+            shownEvents: events
+        }))
             .catch(error => console.error(error.message));
     }
 
     componentDidMount(){
         window.scrollTo(0,0);
         eventService.getNonFiledEvents().then(events => this.setState({
-            shownEvents: events,
-            loadedEvents: events}))
+            loadedEvents: events,
+            shownEvents: events
+        }))
             .catch(error => console.error(error.message));
     }
 
     render() {
 
-        console.log(this.state.shownEvents)
         $(function(){
             $("#eventPageShow a").click(function(){
             $("#eventPageShow .btn:first-child ").text($(this).text());
@@ -251,7 +257,7 @@ class EventCard extends Component {
                     <div class="card eventPageEventCard">
                             <img class="card-img-top eventPageEventCardImg" src={"http://localhost:8080/image/" + this.props.img_url} alt={this.props.name} />
 
-                            <div class="card-body">
+                            <div class="card-body" id="eventPageOuterCardBody">
 
                             <div id="eventPageCardBody" class="card-body">
                                 <h5 class="card-title">{this.props.name}</h5>

@@ -13,6 +13,7 @@ class EditUserPage extends Component {
 
 
     state = {
+        id : -1,
         name: "",
         email: "",
         phone: "",
@@ -176,16 +177,16 @@ class EditUserPage extends Component {
     }
 
     saveChanges() {
-        adminService.getRole(this.state.roleChosen).then(id =>
-            adminService.assignRole(this.props.match.params.id, id[0].role_id).then(() => window.location.hash="/admin/users").catch((error) => console.error(error))).catch((error => {
-            console.error(error)
-        }));
-
+        adminService.getRole(this.state.roleChosen).then(id => {
+            adminService.assignRole(this.props.match.params.id, id[0].role_id).then(() => window.location.hash="/admin/users").catch((error) => console.error(error))
+        });
+        console.log(this.props.match.params.id);
         adminService.updateUser(this.state.name, this.state.email, this.state.phone, this.props.match.params.id).then(response => console.log(response)).catch(error => console.error(error))
 
         {
 
             if (this.state.approved) {
+
                 adminService.approveUser(this.props.match.params.id).then((response) => console.log(response)).catch((error) => {
                     console.error(error)
                 })
@@ -201,8 +202,8 @@ class EditUserPage extends Component {
         window.scrollTo(0,0);
         adminService.getUser(this.props.match.params.id)
             .then((user) => {
-                console.log(user[0].profile_photo);
                     this.setState({
+                        id : this.props.match.params.id,
                         name: user[0].name,
                         email: user[0].email,
                         phone: user[0].phone,
@@ -210,9 +211,8 @@ class EditUserPage extends Component {
                         approved: user[0].approved,
                         tempRole: user[0].role_id
                     });
-                adminService.getRoleByID(this.state.tempRole).then(role => {this.setState({roleChosen: role[0].role})}).catch(error => console.error(error))
+                adminService.getRoleByID(this.state.tempRole).then(role => this.setState({roleChosen: role[0].role})).catch(error => console.error(error))
                 }
-
             )
             .catch((error) => {
                 console.error(error);

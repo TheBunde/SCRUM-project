@@ -24,6 +24,7 @@ import guestMainPage from './components/Pages/Guest/GuestMainPage/GuestMainPage'
 import ForgotPassword from "./components/Pages/ForgotPassword/ForgotPassword";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Calendar from "./components/Calendar/Calendar";
 
 
 // Component for restricting access.
@@ -54,6 +55,7 @@ ReactDOM.render(
             <Route exact path="/portal" component={MainPage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
+            <Route exact path="/calendar" component={Calendar} />
             <Route exacth path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/about" component={About} />
             <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} />

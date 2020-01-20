@@ -191,11 +191,6 @@ app.post("/uploadFiles", upload.array("files", 5), (req, res) => {
                 error: "You have uploaded some files which are not allowed"
             })
         }
-
-
-
-
-
     }
 });
 
@@ -526,6 +521,21 @@ app.get("/event/active", verifyToken,(req, res) => {
         }
     });
 
+});
+
+app.get("/event/cancelled", verifyToken, (req, res) => {
+    let token = req.token;
+    jwt.verify(token, privateKey, (err, authData) => {
+        if(err) {
+            res.sendStatus(401);
+        } else{
+            console.log(authData);
+            eventDao.getAllCancelled((status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
 });
 
 

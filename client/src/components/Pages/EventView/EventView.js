@@ -8,14 +8,10 @@ import {eventService} from '../../../service/EventService'
 import { createHashHistory } from 'history';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-<<<<<<< HEAD
 import '../../../css/CommentSection.css'
 import {ProfileService} from '../../../service/ProfileService';
 import {auth} from "../../../service/UserService";
-=======
-import {auth} from "../../../service/UserService";
 import {toast} from "react-toastify";
->>>>>>> d70b49f50079491dd684993b2ef2a56b76278b15
 
 
 const history = createHashHistory();

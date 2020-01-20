@@ -119,8 +119,6 @@ class EventView extends Component{
 
                 </div>
                 <div id="eventViewBackground">
-
-
                     <div id="eventViewImageContainer">
                         <div id="eventViewImage">
                             <img src={"http://localhost:8080/image/" + this.state.img_url} alt={this.state.name} />

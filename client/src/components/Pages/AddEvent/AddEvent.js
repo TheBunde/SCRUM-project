@@ -54,6 +54,7 @@ class AddEvent extends Component{
 
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    notifyDateFailure = () => toast("Ugyldig dato", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
     changeValue(event){
         this.setState({[event.target.id]: event.target.value})
@@ -73,7 +74,6 @@ class AddEvent extends Component{
             || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
     }
 
-
     ticketCheck(){
         let status = false;
         this.state.Tickets.map(ticket =>{
@@ -82,6 +82,23 @@ class AddEvent extends Component{
             }
         });
         return status;
+    }
+
+    checkDate(){
+        let day = this.state.date.getDate();
+        let month = this.state.date.getMonth() + 1;
+        let year = this.state.date.getFullYear();
+        let hour = this.state.dateChosenHour;
+        let min = this.state.dateChosenMin;
+        if (day < 10) {
+            day = "0" + day
+        }
+        if (month < 10) {
+            month = "0" + month
+        }
+        let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
+
+        return new Date(date) > new Date();
     }
 
     render() {
@@ -350,7 +367,7 @@ class AddEvent extends Component{
 
     registerEvent(){
         console.log("Registrating event");
-        if(this.formValidation()) {
+        if(this.formValidation() && this.checkDate()){
             console.log("Reg event");
 
             let fileService = new FileService();
@@ -407,8 +424,13 @@ class AddEvent extends Component{
                     window.location.hash = "/event/";
                 })
         } else{
-                this.setState({Placeholder: "Dette feltet må fylles inn"});
-                this.notifyFailure();
+                if(!this.checkDate()){
+                    this.notifyDateFailure();
+                }
+                else {
+                    this.setState({Placeholder: "Dette feltet må fylles inn"});
+                    this.notifyFailure();
+                }
             }
         }
 

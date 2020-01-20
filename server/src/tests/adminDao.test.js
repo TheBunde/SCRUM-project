@@ -44,7 +44,7 @@ test("get Users from DB", done =>{
         expect(data[0].user_id).toBe(1);
         expect(data[1].user_id).toBe(2);
         expect(data[0].name).toBe("test1");
-        expect(data[1].approved).toBe(0);
+        expect(data[0].approved).toBe(0);
         done();
     }
 

@@ -12,6 +12,10 @@
     display: grid;
     grid-template-columns: 1fr 1.5fr;
 }
+#EventNewFile{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+}
 
 #EventInputCalendar{
     margin: auto;

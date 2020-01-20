@@ -302,15 +302,16 @@ class EditEvent extends Component{
                         </div>
                         <div>
                             <p id="EventInputLabels">Nye Tech Riders:</p>
-                            <input type="file"
-                                   className="form-control"
-                                   placeholder={this.state.Placeholder}
-                                   id="rider1Input"
-                                   required={true}
-                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
-                            />
-                            <button
-                                    className={""} onClick={() => this.submitNewTechRider()}>Bekreft</button>
+                            <div id="EventNewFile">
+                                <input type="file"
+                                       className="form-control"
+                                       placeholder={this.state.Placeholder}
+                                       id="rider1Input"
+                                       required={true}
+                                       accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
+                                />
+                                <button className={""} onClick={() => this.submitNewTechRider()}>Bekreft</button>
+                            </div>
                         </div>
                     </div>
 
@@ -324,14 +325,16 @@ class EditEvent extends Component{
                         </div>
                         <div>
                             <p id="EventInputLabels">Nye Hospitality Riders:</p>
-                            <input type="file"
-                                   className="form-control"
-                                   placeholder={this.state.Placeholder}
-                                   id="rider2Input"
-                                   required={true}
-                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
-                            />
-                            <button type={"button"} className={""} onClick={() => this.submitNewHospitalityRider()}>Bekreft</button>
+                            <div id="EventNewFile">
+                                <input type="file"
+                                       className="form-control"
+                                       placeholder={this.state.Placeholder}
+                                       id="rider2Input"
+                                       required={true}
+                                       accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
+                                />
+                                <button type={"button"} className={""} onClick={() => this.submitNewHospitalityRider()}>Bekreft</button>
+                            </div>
                         </div>
                     </div>
 
@@ -345,15 +348,16 @@ class EditEvent extends Component{
                         </div>
                         <div>
                             <p id="EventInputLabels">Nytt Personnel:</p>
-                            <input type="file"
-                                   className="form-control"
-                                   placeholder={this.state.Placeholder}
-                                   id="personellInput"
-                                   required={true}
-                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
-                            />
-                            <button type={"button"} className={""} onClick={() => this.submitNewPersonell()}>Bekreft</button>
-
+                            <div id="EventNewFile">
+                                <input type="file"
+                                       className="form-control"
+                                       placeholder={this.state.Placeholder}
+                                       id="personellInput"
+                                       required={true}
+                                       accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
+                                />
+                                <button type={"button"} className={""} onClick={() => this.submitNewPersonell()}>Bekreft</button>
+                            </div>
                         </div>
                     </div>
 
@@ -367,19 +371,21 @@ class EditEvent extends Component{
                         </div>
                         <div>
                             <p id="EventInputLabels">Nytt bilde:</p>
-                            <input type="file"
-                                   className="form-control"
-                                   placeholder={this.state.Placeholder}
-                                   id="imageInput"
-                                   required={true}
-                                   accept={"image/*"}
-                            />
-                            <button type={"button"} className={""} onClick={() => this.submitNewPicture()}>Bekreft</button>
+                            <div id="EventNewFile">
+                                <input type="file"
+                                       className="form-control"
+                                       placeholder={this.state.Placeholder}
+                                       id="imageInput"
+                                       required={true}
+                                       accept={"image/*"}
+                                />
+                                <button type={"button"} className={""} onClick={() => this.submitNewPicture()}>Bekreft</button>
+                            </div>
                         </div>
                     </div>
 
                     <div id="EventInputFiles">
-                        <div >
+                        <div>
                             <p id = "EventInputLabels">Nåværende kontrakt:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
                                     onClick={() => window.open("http://localhost:8080/image/" + this.state.Contract)}
@@ -388,16 +394,18 @@ class EditEvent extends Component{
                         </div>
                         <div>
                             <p id="EventInputLabels">Ny kontrakt:</p>
-                            <input type="file"
-                                   className="form-control"
-                                   placeholder={this.state.Placeholder}
-                                   id="contractInput"
-                                   required={true}
-                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
-                            />
-                            <button type={"button"} className={""} onClick={() => this.submitNewContract()}>Bekreft</button>
-
+                            <div id="EventNewFile">
+                                <input type="file"
+                                       className="form-control"
+                                       placeholder={this.state.Placeholder}
+                                       id="contractInput"
+                                       required={true}
+                                       accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
+                                />
+                                <button type={"button"} className={""} onClick={() => this.submitNewContract()}>Bekreft</button>
+                            </div>
                         </div>
+
                     </div>
 
                     <div id ="EventInputFields">
@@ -564,9 +572,6 @@ class EditEvent extends Component{
             } else if (!(validatePhone(this.state.ContactPhone))) {
                 this.notifyUnvalidPhone();
             } else {
-                let altPicture = "https://cdn.xl.thumbs.canstockphoto.com/music-learning-center-letter-h-eps-vector_csp56970748.jpg";
-                if (this.state.Picture === "") this.setState({Picture: altPicture});
-
                 console.log(this.state);
 
                 let day = this.state.date.getDate();
@@ -594,7 +599,6 @@ class EditEvent extends Component{
                 this.notifySuccess();
                 window.location.href="#/event/" + this.props.match.params.id;
             }
-
         }
         else{
             if(!this.checkDate()){

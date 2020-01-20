@@ -84,6 +84,9 @@
 
 
 @media only screen and (max-width: 800px){
+    #EventInputFields{
+        width: 90%;
+    }
 
     #EventInputTicketContainer{
         grid-template-columns: 1fr;

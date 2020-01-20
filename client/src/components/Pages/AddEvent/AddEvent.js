@@ -5,7 +5,7 @@ import {FileService} from "../../../service/FileService";
 import {toast} from 'react-toastify';
 import {validateEmail, validatePhone} from "../../../validaters";
 
-import Calendar from 'react-calendar-mobile'
+import Calendar from 'react-calendar'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 
@@ -131,8 +131,8 @@ class AddEvent extends Component {
                         <p id="EventInputLabels">Dato for arrangementet:</p>
                         <div id="EventInputCalendar">
                             <Calendar
-                                onSelectDate={this.changeDate}
-                                startOnMonday={true}
+                                onChange={this.changeDate}
+                                value = {this.state.date}
                             />
                         </div>
                     </div>
@@ -380,6 +380,7 @@ class AddEvent extends Component {
      */
 
     registerEvent() {
+        console.log(this.state.date)
         console.log("Registrating event");
         if (this.formValidation() && this.checkDate()) {
             if (!(validateEmail(this.state.ContactEmail))) {

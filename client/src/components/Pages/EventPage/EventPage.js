@@ -4,6 +4,8 @@ import "../../../css/EventPage.css"
 import {eventService} from "../../../service/EventService";
 import $ from 'jquery';
 import Footer from '../../Footer/Footer'
+var moment = require("moment");
+moment().format();
 
 export class event {
     constructor(event_id, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, category_id, filed, pending, canceled, img_url){
@@ -88,6 +90,19 @@ class EventPage extends Component {
     sortByName(){
         this.setState(this.state.shownEvents.sort((a, b) => a.name.localeCompare(b.name)))
     }
+
+    sortByClosest(){
+        console.log(this.state.shownEvents)
+        let now = moment(new Date());
+        let temp = this.state.shownEvents.sort((a, b) => // Sort by closest to "now"
+            moment(a.date.slice(0,16)).diff(now, "minutes") > moment(b.date.slice(0,16)).diff(now, "minutes")
+        ).filter(a =>
+            now.diff(moment(a.date.slice(0,16)), "minutes") < 0
+        )
+        
+        this.setState({ shownEvents: temp });
+    }
+
     sortByDate() {
         console.log(this.state.shownEvents[0].date)
         this.setState(this.state.shownEvents.sort((a, b) => b.date.localeCompare(a.date)))
@@ -187,7 +202,8 @@ class EventPage extends Component {
                                         </button>
                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a className="dropdown-item" onClick={() => this.sortByName()}>Navn</a>
-                                            <a className="dropdown-item" onClick={() => this.sortByDate()}>Dato</a>
+                                            <a className="dropdown-item" onClick={() => this.sortByClosest()}>Nærmeste</a>
+                                            <a className="dropdown-item" onClick={() => this.sortByDate()}>Lengst frem</a>
                                             <a className="dropdown-item" onClick={() => this.sortByCategory()}>Kategori</a>
                                         </div>
                                     </div>

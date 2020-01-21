@@ -1,9 +1,12 @@
-import React from 'react'
+//import React from 'react'
+import listPlugin from '@fullcalendar/list';
+
+import * as React from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-import interactionPlugin from "@fullcalendar/interaction";
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
+
 import '../../css/Calendar.css';
 import { createHashHistory } from 'history';
 import './main.scss'
@@ -85,8 +88,13 @@ export default class Calendar extends React.Component {
                             <FullCalendar
                                 id="fullCalendar"
                                 defaultView="dayGridMonth"
-                                plugins={[dayGridPlugin, interactionPlugin]}
+                                plugins={[dayGridPlugin,timeGridPlugin, interactionPlugin]}
                                 events={myEvents}
+                                header={{
+                                    left: 'prev,next today',
+                                    center: 'title',
+                                    right: ''
+                                }}
                                 eventClick={function (calEvent) {
                                     confirmAlert({
                                         title: calEvent.event._def.title,
@@ -119,6 +127,11 @@ export default class Calendar extends React.Component {
                                 id="fullCalendar"
                                 defaultView="dayGridMonth"
                                 plugins={[dayGridPlugin, interactionPlugin]}
+                                header={{
+                                    left: 'prev,next today',
+                                    center: 'title',
+                                    right: ''
+                                }}
                                 events={myEvents}
                                 eventClick={function (calEvent) {
                                     confirmAlert({
@@ -151,6 +164,11 @@ export default class Calendar extends React.Component {
                                 id="fullCalendar"
                                 defaultView="listWeek"
                                 plugins={[listPlugin , interactionPlugin]}
+                                header={{
+                                    center: 'prev,next today',
+                                    left: 'title',
+                                    right: ''
+                                }}
                                 events={myEvents}
                                 eventClick={function (calEvent) {
                                     confirmAlert({
@@ -185,6 +203,11 @@ export default class Calendar extends React.Component {
                                 defaultView="listWeek"
                                 plugins={[listPlugin , interactionPlugin]}
                                 events={myEvents}
+                                header={{
+                                    center: 'prev,next today',
+                                    left: 'title',
+                                    right: ''
+                                }}
                                 eventClick={function (calEvent) {
                                     confirmAlert({
                                         title: calEvent.event._def.title,
@@ -234,6 +257,38 @@ confirmAlert({
                                         }
                                     ]
                                 });
+
+
+
+                                <FullCalendar
+                                id="fullCalendar"
+                                defaultView="dayGridMonth"
+                                plugins={[dayGridPlugin,timeGridPlugin, interactionPlugin]}
+                                events={myEvents}
+                                header={{
+                                    left: 'prev,next today',
+                                    center: 'title',
+                                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                                }}
+                                eventClick={function (calEvent) {
+                                    confirmAlert({
+                                        title: calEvent.event._def.title,
+                                        buttons: [
+                                            {
+                                                label: 'Se arrangement',
+                                                onClick: () => history.push("/event/public/" + calEvent.event._def.publicId)
+                                            },
+                                            {
+                                                label: 'Se redigerbart arrangement',
+                                                onClick: () => history.push("/event/" + calEvent.event._def.publicId)
+                                            },
+                                            {
+                                                label: 'Avslutt'
+                                            }
+                                        ]
+                                    });
+                                }}
+                            />
  */
 
 

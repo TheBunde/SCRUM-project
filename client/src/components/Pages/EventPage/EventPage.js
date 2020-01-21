@@ -104,16 +104,17 @@ class EventPage extends Component {
         this.setState(this.state.shownEvents.sort((a, b) => a.name.localeCompare(b.name)))
     }
 
-    sortByClosest(){
-        console.log(this.state.shownEvents)
-        let now = moment(new Date());
-        let temp = this.state.shownEvents.sort((a, b) => // Sort by closest to "now"
-            moment(a.date.slice(0,16)).diff(now, "minutes") > moment(b.date.slice(0,16)).diff(now, "minutes")
-        ).filter(a =>
-            now.diff(moment(a.date.slice(0,16)), "minutes") < 0
-        )
-        
-        this.setState({ shownEvents: temp });
+    timeFromNow(date, now){
+        const compareDate = new Date(date.date);
+        console.log(compareDate - now);
+
+        return compareDate - now;
+    }
+
+    sortByClosest() {
+        const now = new Date();
+        this.sortByDate()
+        this.setState({ shownEvents: this.state.shownEvents.reverse().filter(a => this.timeFromNow(a, now) > 0) })
     }
 
     sortByDate() {
@@ -146,14 +147,6 @@ class EventPage extends Component {
         }))
             .catch(error => console.error(error.message));
         return true;
-    }
-    
-    getArchivedEvents(){
-        /*eventService.getAllArchived().then(events => this.setState({
-            loadedEvents: events,
-            shownEvents: events
-            }))
-            .catch(error => console.error(error.message));*/
     }
 
     fetchNonFiled(){
@@ -189,17 +182,17 @@ class EventPage extends Component {
     });
 
         return (
-            <div class="pageSetup">
+            <div id="eventPagePage" class="pageSetup">
                 <Navbar getUser={this.getUserFromNavbar()} />
                 <div>
                     <div id="eventPageBackground">
                         <div id="eventPageContainer">
                             <div id="eventPageBanner">
-                                <div id={"eventPageTitle"}>
+                                <div id="eventPageTitle">
                                     <h1>ARRANGEMENTER</h1>
                                 </div>
                             </div>
-                            <div className={"eventPageInformation"}>
+                            <div id="eventPageInfoContainer" className="eventPageInformation">
                             <div id="eventPageBar">
                                 <div id="eventPageShow">
                                     <div className="dropdown">
@@ -208,11 +201,11 @@ class EventPage extends Component {
                                             Vis
                                         </button>
                                         <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" onClick={() => this.eventFilterAllActive()}>Alle arrangementer som ikke er arkivert</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterPending()}>Under planlegging</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterApproved()}>Ferdig planlagte arrangementer</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterCancelled()}>Avlyste</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterAllActive()}>Alle arrangementer som ikke er arkivert</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterPending()}>Under planlegging</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterApproved()}>Ferdig planlagte arrangementer</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterCancelled()}>Avlyste</a>
                                         </div>
                                     </div>
                                 </div>
@@ -232,8 +225,10 @@ class EventPage extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="eventPageSearchBar">
-                                    <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}/>
+                                <div id="eventPageSearchBarBox">
+                                    <div id="eventPageSearchBar">
+                                        <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}/>
+                                    </div>
                                 </div>
                             </div>
                             <div className="dropdown-divider border-dark"></div>
@@ -273,7 +268,7 @@ class EventCard extends Component {
             <div id="eventPageEventCardLink">
                 <a href = {"#/event/" + this.props.event_id}>
                     <div class="card eventPageEventCard">
-                            <img class="card-img-top eventPageEventCardImg" src={"http://localhost:8080/image/" + this.props.img_url} alt={this.props.name} />
+                            <img id="eventPageCardImg" class="card-img-top eventPageEventCardImg" src={"http://localhost:8080/image/" + this.props.img_url} alt={this.props.name} />
 
                             <div class="card-body" id="eventPageOuterCardBody">
 
@@ -281,7 +276,7 @@ class EventCard extends Component {
                                 <h5 class="card-title">{this.props.name}</h5>
                                 <div id="eventPageStatus">
 
-                                    <a className={"btn btn-outline-"+color}>Status: {this.getStatus(this.props.canceled, this.props.pending, this.props.filed,  this.props.compareDate)}</a>
+                                    <a className={"btn btn-outline-"+color+" btn-sm"}>Status: {this.getStatus(this.props.canceled, this.props.pending, this.props.filed,  this.props.compareDate)}</a>
                                 </div>
                                 <div id="eventPageCardLocation">
                                     {this.props.place}

@@ -20,6 +20,7 @@ module.exports = class UserDao extends dao {
                 console.error(err);
             });
     }
+
     /*
     getHash(email, callback) {
         super.query("SELECT password_hash from User where email = ?", [email], callback);
@@ -34,7 +35,6 @@ module.exports = class UserDao extends dao {
         console.log(email);
         super.query("SELECT * from User JOIN Role on User.role_id = Role.role_id where email = ? AND approved = 1", email, callback)
     }
-
 
 
     changePassword(json, callback) {

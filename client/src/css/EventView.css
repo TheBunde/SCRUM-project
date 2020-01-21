@@ -64,6 +64,8 @@
     min-width: 100px;
     box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
 
+
+
 }
 
 #eventViewInfoTickets{
@@ -268,7 +270,7 @@
 
 
 
-#titleEvent{
+#eventViewTitleEvent{
     padding-top: 20px;
     display: grid;
     grid-template-areas:

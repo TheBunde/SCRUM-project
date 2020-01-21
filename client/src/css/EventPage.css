@@ -7,6 +7,10 @@
     position: relative;
     background-color: whitesmoke;
 }
+#eventPageOuterCardBody{
+    overflow: auto;
+    object-fit: contain;
+}
 
 #eventPageBanner{
     color: white;
@@ -71,6 +75,7 @@
     height: 200px;
     width: 440px;
     color: black;
+    overflow: auto;
 }
 .eventPageEventCard a{
     color: black;
@@ -108,8 +113,9 @@
     display: inline-block;
 }
 
-.card-img-top{
+#eventPageCardImg{
     width: 180px;
+    height: 198px;
 }
 .eventPageEventCardButton{
     position: relative;
@@ -138,5 +144,77 @@
     text-decoration: none;
     pointer-events: none;
 }
+#eventPageStatus .btn-sm:focus{
+    text-decoration: none;
+    pointer-events: none;
+}
+@media only screen and (max-width: 800px) {
+    #eventPageTitle{
+        text-align: center;
+        width: 80%;
+    }
+    #eventPageTitle h1{
+        font-size: large;
+    }
+    #eventPagePage {
+        max-width: 100vw;
+    }
+    #eventPageTitle{
+        max-width: 100vw;
+    }
+    #eventPageBar{
+        padding: 12px 0 12px 0;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "vis sorter"
+            "sokefelt sokefelt";
+    }
+    #eventPageShow{
+        width: 100%;
+        grid-area: vis;
+    }
+    #eventPageSort{
+        width: 100%;
+        grid-area: sorter;
+    }
+    #eventPageSearchBarBox{
+        width: 100%;
+        padding: 10px 0 0 0;
+        grid-area: sokefelt;
+    }
+    #eventPageInfoContainer{
+        width: 100vw;
+        padding-left: 0;
+        margin-left: 0;
+        object-fit: contain;
+        overflow: hidden;
+    }
+    #eventPageInfoContainer a{
+        padding-left: 0;
+        margin-left: 0;
+        object-fit: contain;
+        overflow: hidden;
+    }
+    #eventPageInfoContainer div{
+         object-fit: contain;
+         overflow: hidden;
+     }
+    #eventPageEventTable{
+        width: 100vw;
+        object-fit: contain;
+        overflow: hidden;
+    }
+    .eventPageEventCard{
+        padding-left: 0;
+        margin-left: 0;
+        width: 100vw;
+    }
+    #eventPageBar div{
+        margin: auto;
+        padding: auto;
+    }
+    #dropdownMenuButton{
+        width: 90%;
+    }
 
-
+}

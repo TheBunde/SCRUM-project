@@ -5,6 +5,12 @@
     margin: auto;
 }
 
+#EventInputDescription{
+    width: 50%;
+    text-align: left;
+    margin: auto;
+}
+
 #EventInputFiles{
     width: 50%;
     text-align: left;
@@ -102,6 +108,9 @@
     #EventInputFields{
         width: 90%;
     }
+    #EventInputDescription{
+        width: 90%;
+    }
     #EventInputFiles{
         width: 90%;
         text-align: left;
@@ -133,5 +142,4 @@
     #EventTicketInnerLabel{
         text-align: left;
     }
-
 }

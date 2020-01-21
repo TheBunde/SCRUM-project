@@ -257,7 +257,7 @@ class EventView extends Component{
                                         <button type="button" class="btn btn-outline-info pull-right" onClick={e => this.publishComment(e)}>Publiser</button>
                                         <div class="clearfix"></div>
                                         <hr />
-                                        <div id="kommentarer">
+                                        <div id="comments">
                                             <ul class="media-list">
                                             {this.state.comments.map(comments => (
                                                 <li class="media">

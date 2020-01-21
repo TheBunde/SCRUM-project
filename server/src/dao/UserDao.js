@@ -6,12 +6,12 @@ const saltRounds = 10;
 module.exports = class UserDao extends dao {
 
     registerUser(json, callback) {
-        let val = [json.name, json.email, json.phone];
+        let val = [json.name, json.email, json.phone, json.profile_photo];
         bcrypt.hash(json.password, saltRounds)
             .then((resp) => {
                 val.push(resp);
                 super.query(
-                    "INSERT into User (name, email, phone, password_hash) values (?, ?, ?, ?)",
+                    "INSERT into User (name, email, phone, profile_photo, password_hash) values (?, ?, ?, ?, ?)",
                     val,
                     callback
                 );
@@ -20,11 +20,11 @@ module.exports = class UserDao extends dao {
                 console.error(err);
             });
     }
-
-
+    /*
     getHash(email, callback) {
         super.query("SELECT password_hash from User where email = ?", [email], callback);
     }
+    */
 
     getUser(email, callback) {
         super.query("SELECT * from User join Role on User.role_id = Role.role_id where email = ? ", email, callback);
@@ -53,12 +53,21 @@ module.exports = class UserDao extends dao {
     }
 
     updateProfile(user, callback) {
-        var val = [user.name, user.phone, user.email, user.user_id];
-        console.log(val);
-        super.query(
-            'UPDATE User SET name = ?, phone = ?, email = ? where user_id = ?',
-            val,
-            callback
-        );
+        if (user.profile_photo === "") {
+            let val = [user.name, user.phone, user.email, user.user_id];
+            super.query(
+                'UPDATE User SET name = ?, phone = ?, email = ? where user_id = ?',
+                val,
+                callback
+            );
+        } else {
+            let val = [user.name, user.phone, user.email, user.profile_photo, user.user_id];
+            super.query(
+                "UPDATE User set name = ?, phone = ?, email = ?, profile_photo = ? where user_id = ?",
+                val,
+                callback
+            )
+        }
+
     }
 };

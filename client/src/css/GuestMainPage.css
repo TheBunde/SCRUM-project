@@ -1,25 +1,28 @@
 #GuestMainPageContainer{
     width: 100%;
-    text-align: center;
-    vertical-align: center;
-    margin: auto;
-
-    flex-wrap: wrap;
-    overflow: scroll;
-    align-content: space-between;
+    height: 100%;
+    background-color: ghostwhite;
 }
-
-.cardsContainer{
-    width: 100%;
+.guestMainPageTitleDiv{
+    margin-left: 70px;
+    float: left;
+    margin-top: 100px;
     display: flex;
-    flex-wrap: wrap;
 }
 
-.guestEventCard{
-    max-width: 400px;
-    max-height: 400px;
+.carousel-item img{
+    object-fit: cover;
 }
 
-#GuestMainPageContainer button{
-    margin: 300px 20px 0 20px;
+#mainPageSearchBar{
+    margin-left: 200px;
+}
+
+.eventCardsContainer{
+    padding: 10px 40px 10px 10px;
+    grid-gap: 30px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 90%;
+    margin: auto;
 }

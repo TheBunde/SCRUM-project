@@ -1,23 +1,24 @@
 import Axios from "axios";
+
 //Axios.interceptors.response.use(response => response.data);
-//let ipAdress = "10.24.3.122";
-let ipAdress = "localhost";
-//let ipAdress = "10.22.2.85";
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 export class User {
     user_id;
     name;
     email;
     phone;
+    profile_photo;
     password;
     roleid;
     approved;
 
-    constructor(user_id, name, email, phone, password,roleId, approved) {
+    constructor(user_id, name, email, phone, profile_photo, password,roleId, approved) {
         this.user_id = user_id;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.profile_photo = profile_photo;
         this.password = password;
         this.roleid = roleId;
         this.approved = approved;
@@ -40,8 +41,7 @@ let parseJwt =  (token) => {
     }
 };
 
-let authenticationHeader = function authenticationHeader() {
-    console.log("yeeeee");
+export let authenticationHeader = function authenticationHeader() {
     let token = window.localStorage.getItem("token");
 
     if (token) {
@@ -72,8 +72,7 @@ export let authConfig = authenticationHeader;
 
 export let authenticate = auth.authenticate.bind(auth);
 export class UserService {
-
-    registerUser(user) {
+    registerUser(user){
         return Axios.post("http://" + ipAdress + ":8080/user", user);
     }
 
@@ -89,36 +88,21 @@ export class UserService {
 
     updatePassword(email, password, newPassword, user_id){
         console.log("User service: " + email);
-        let obj = authConfig;
-        obj["email"] = email;
-        obj["password"] = password;
-        obj["newPassword"] = newPassword;
-
-        return Axios.put("http://" + ipAdress + ":8080/user/" + user_id + "/edit/password", obj);
+        return Axios.put("http://" + ipAdress + ":8080/user/" + user_id + "/edit/password",
+            {
+                "email": email,
+                "password": password,
+                "newPassword": newPassword
+            }, {headers: authenticationHeader()}
+        );
     }
 
-    updateUser(user){
-        console.log("It is fixed");
-        let obj = authConfig;
-        obj["user"] = user;
-        return Axios.put("http://" + ipAdress + ":8080/profile/" + user.user_id + '/edit', obj);
-    }
-
-    getUser(userID){
-        console.log("hoi sjef")
-        return Axios.get("http://" + ipAdress + ":8080/user/" + userID, {headers: {authorization: "Bearer: " + window.localStorage.getItem("token")}}).then(response => {
-            let a = response.data[0];
-            console.log(a);
-            return new User(
-                a.user_id,
-                a.name,
-                a.email,
-                a.phone,
-                a.password,
-                a.roleid,
-                a.approved,
-            );
-        }).catch(error => console.log(error));
+    forgotPassword(email) {
+        return Axios.post("http://" + ipAdress + ":8080/user/reset_password",
+            {
+                "email" : email
+            }
+            )
     }
 }
 

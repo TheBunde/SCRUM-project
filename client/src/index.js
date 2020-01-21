@@ -21,8 +21,10 @@ import AdminUserPage from './components/Pages/AdminUsersPage/AdminUsersPage';
 import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 import guestEventView from './components/Pages/Guest/GuestEventView/GuestEventView';
 import guestMainPage from './components/Pages/Guest/GuestMainPage/GuestMainPage';
+import ForgotPassword from "./components/Pages/ForgotPassword/ForgotPassword";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Calendar from "./components/Calendar/Calendar";
 
 
 // Component for restricting access.
@@ -41,7 +43,7 @@ const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
 // Object with list of clearance levels used for routing and restricting access.
 const restriction = {
     admin: "admin",
-    regular: ["admin", "Sceneansvarlig", "Økonomiansvarlig", "Barsjef", "Bartender", "Handyman", "Fotograf", "Markedsfører", "SoMe-ansvarlig", "Ølbrygger", "Lydtekniker", "Lystekniker", "Scenerigger", "Artistbooker", "Artistkontakt", "Konseptutvikler", "Quizmaster", "Festplanlegger"]
+    regular: ["admin", "Sceneansvarlig", "Økonomisjef", "Barsjef", "Bartender", "Handyman", "Fotograf", "Markedsfører", "SoMe-ansvarlig", "Ølbrygger", "Lydteknikker", "Lystekniker", "Scenerigger", "Artistbooker", "Artistkontakt", "Konseptutvikler", "Quizmaster", "Festplanlegger"]
 };
 
 ReactDOM.render(
@@ -53,6 +55,8 @@ ReactDOM.render(
             <Route exact path="/portal" component={MainPage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
+            <Route exact path="/calendar" component={Calendar} />
+            <Route exacth path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/about" component={About} />
             <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} />
             <RestrictedRoute exact path="/profile/:userID" component={ShowProfile} authorized={restriction.regular} />

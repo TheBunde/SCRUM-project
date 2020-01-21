@@ -1,10 +1,16 @@
 import React, {Component} from 'react';
 import "../../../css/EditProfile.css"
 import { createHashHistory } from 'history';
+<<<<<<< HEAD
+=======
+import {ProfileService} from '../../../service/ProfileService'
+import {FileService} from "../../../service/FileService";
+>>>>>>> dev
 import {User, UserService} from "../../../service/UserService";
 import {Redirect} from 'react-router-dom';
 import {auth, authenticate} from "../../../service/UserService";
 import {toast} from 'react-toastify';
+import {validateEmail, validatePhone} from "../../../validaters";
 
 
 import Navbar from "../../Navbar/Navbar";
@@ -20,15 +26,24 @@ class EditProfile extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {user : {}}
+        this.state = {user : {}, img_url : ""}
 
     }
 
     notifySuccess = () => {
-        toast("Registrering av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
+        toast("Redigering av bruker vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
+    };
+
+    notifySuccessPw = () => {
+        toast("Redigering av e-post vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
     };
 
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyUnvalidPhone = () => toast("Ugyldig telefonnummer", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
 
     componentDidMount() {
         authenticate();
@@ -58,32 +73,37 @@ class EditProfile extends Component{
         console.log(name, email, phone, pw, role, approved);
 
         console.log(name === "");
-        
+
         if(
             (name === null || name === "" ||
             email === null || email === "" ||
             phone === null || phone === "" ||
             pw === null || pw === "" ||
             role === null || role === "" ||
-            approved === null || approved === "") || 
-            (phone.length < 8 || phone.length > 8)
+            approved === null || approved === "")
         ){
-            console.log("WTF");
             this.notifyFailure();
             return false;
-        } else{
+        } else if (!(validatePhone(phone))) {
+            this.notifyUnvalidPhone();
+            return false;
+        } else if (!(validateEmail(email))) {
+            this.notifyUnvalidEmail();
+            return false;
+        }
+        else{
             return true;
         }
-    }
+    };
 
     render(){
         return(
             auth.user_id === this.props.match.params.userID ?
             <div>
                 <Navbar/>
-                <Back/>
                 <div id="EditProfileDiv">
                     <h1>Endre Profil</h1>
+                    <div id="ShowProfileDivide" className="dropdown-divider border-dark"></div>
 
                     <div id="EditProfileInput">
                         <div className="col-sm-4">
@@ -119,6 +139,15 @@ class EditProfile extends Component{
                                 type="text"
                                 defaultValue={this.state.user.email}
                                 aria-describedby="emailhelp"
+                            />
+                            <br/>
+                        </div>
+                        <div className="col-sm-4">
+                            <h5>Profilbilde: </h5>
+                            <input
+                                id="fileInput"
+                                className="form-control form-control-lg"
+                                type="file" accept={"image/*"}
                             />
                             <br/>
                         </div>
@@ -198,27 +227,74 @@ class EditProfile extends Component{
             console.log("Du må fylle ut feltene!")
             return false;
         } else{
-            userService.updatePassword(email, oldPWInput, newPWInput, user_id);
+            userService.updatePassword(email, oldPWInput, newPWInput, user_id)
+                .then(() => {
+                    this.notifySuccessPw();
+                    window.location.hash="/profile/" + auth.user_id;
+                })
+                .catch((err) => {
+                    this.notifyFailure();
+                })
         }
     }
 
     save = (e) => {
-        console.log("Almost nice")
+        if(this.checkFields()) { // Check if any input-fields are empty
+            let fileService = new FileService();
+            let file = document.getElementById(("fileInput")).files[0];
+            console.log(file);
+
+            fileService.uploadImage(file)
+                .then((res) => {
+                    this.setState({
+                        img_url : res.data.filePath.filename
+                    })
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+                .then(() => {
+                    let profileService = new ProfileService();
+                    let newUser = new User(
+                        this.state.user.user_id,
+                        document.getElementById("nameInput").value,
+                        document.getElementById("emailInput").value,
+                        document.getElementById("tlfInput").value,
+                        this.state.img_url,
+                        this.state.user.password,
+                        this.state.user.roleid,
+                        this.state.user.approved
+                    );
+                    console.log(newUser);
+                    profileService.updateUser(newUser)
+                        .then (() => {
+                            this.notifySuccess();
+                            window.location.hash = "/profile/" + auth.user_id;
+                        })
+                        .catch((err) => {
+                            this.notifyFailure();
+                        })
+                })
+        }
+
+
+
+        /*
         if(this.checkFields()){ // Check if any input-fields are empty
-            let userService = new UserService();
-            console.log("Very najs");
-            let user = new User(
-                auth.user_id,
-                document.getElementById("nameInput").value.trim(),
-                document.getElementById("emailInput").value.trim(),
-                document.getElementById("tlfInput").value.trim(),
-                this.state.user.password,
-                this.state.user.roleid,
-                this.state.user.approved,
-            );
+            let profileService = new ProfileService();
+            let newUser = new User(
+            this.state.user.user_id,
+            document.getElementById("nameInput").value,
+            document.getElementById("emailInput").value,
+            document.getElementById("tlfInput").value,
+            this.state.user.password,
+            this.state.user.roleid,
+            this.state.user.approved
+        );
             console.log(user);
             userService.updateUser(user);
         }
+        */
         /*let newUser = new User(
             this.state.user.user_id,
             document.getElementById("nameInput").value,

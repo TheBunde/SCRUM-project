@@ -1,9 +1,7 @@
 import axios from "axios";
-import {authConfig} from "./UserService.js"
+import {authenticationHeader} from "./UserService";
 
-//let ipAdress = "10.24.3.122";
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
-//let ipAdress = "10.22.2.85";
 
 export class FileService {
     uploadImage(image) {
@@ -33,6 +31,25 @@ export class FileService {
         };
         return axios.post(url, formData, config);
 
+    }
+
+    uploadFile(file) {
+        const url = "http://" + ipAdress + ":8080/uploadFile";
+        const formData = new FormData();
+        formData.append("file", file);
+        const config = {
+            headers: {
+                'Content-Type': "multipart/form-data"
+            }
+        };
+        return axios.post(url, formData, config);
+    }
+
+    getFile(fileName) {
+        const url = "http://" + ipAdress + ":8080/image/" + fileName;
+        console.log("URL:");
+        console.log(url);
+        return axios.get(url);
     }
 
 

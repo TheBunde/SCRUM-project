@@ -74,7 +74,7 @@ class LoginForm extends Component{
                             <h1 id="login-title">Logg inn</h1>
                             <div class="form-group" id="email-input-container">
                                 <label for="email-input">E-post</label>
-                                <input type="email" name={"email"} className="form-control" id="email-input" placeholder="Skriv inn e-post" name="email" onChange={this.updateInputValue} />
+                                <input type="email" name={"email"} className="form-control" id="email-input" placeholder="Skriv inn e-post" name="email" onChange={this.updateInputValue} onKeyPress={this.keyPressed}/>
                             </div>
                             <div class="form-group" id="password-input-container">
                                 <label for="password-input">Passord</label>
@@ -82,7 +82,10 @@ class LoginForm extends Component{
                             </div>
                             <div id="LoginFormButtons">
                                 <button type="button" class="btn btn-outline-dark" id="login-button" onClick={this.submit}>Logg inn</button>
-                                <button type="button" class="btn btn-outline-dark" id="login-button" onClick={() => window.location.href="#/register"}>Register</button>        
+                                <button type="button" class="btn btn-outline-dark" id="login-button" onClick={() => window.location.href="#/register"}>Register</button>
+                            </div>
+                            <div id="loginFormForgotPW">
+                                <a href="#/forgotpassword">Glemt passord?</a>
                             </div>
                             </div>
                     </div>

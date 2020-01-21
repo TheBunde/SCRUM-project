@@ -21,6 +21,10 @@ class OverviewPage extends Component{
         }
     }
 
+    getUserID(){
+        console.log(this.state.user.user_id);
+    }
+
     componentDidMount() {
         authenticate();
         console.log(auth.user_id);
@@ -54,7 +58,7 @@ class OverviewPage extends Component{
                 </div>
                 <div id="OverviewDiv">
 
-                <div id="overviewPageCardContainer" className={"cardsContainer"}>
+                <div id="overviewPageCardContainer">
 
                     <div id="overviewPageCardContent" className="card overview">
                         <div className="card-body">

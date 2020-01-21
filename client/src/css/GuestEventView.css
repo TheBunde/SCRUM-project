@@ -1,0 +1,177 @@
+
+#guestEventViewTitle {
+    text-align: center;
+    padding-bottom: 20px;
+    color: rgb(39, 64, 74);
+}
+
+#guestEventViewTitleHR{
+    width: 20%;
+    height: 2px;
+    background-color: rgb(39, 64, 74);
+}
+
+#guestEventViewInfoBoxCard{
+    /*box-shadow: 0 0 0 0 rgb(0, 0, 0), 5px 5px 10px 0 rgb(0, 0, 0);*/
+    box-shadow: 0 0 0;
+}
+#guestEventViewInfoBoxMap{
+    padding-bottom: 20px;
+}
+
+#guestEventViewButtons{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: auto;
+}
+
+#guestEventViewButtons div{
+    margin: auto;
+}
+
+#guestEventViewButtons button{
+    width: 100px;
+    margin: 5px;
+}
+#guestEventViewTitle h1{
+    margin: auto auto auto;
+}
+
+#guestEventViewInfoTickets{
+    width: 80%;
+}
+
+#guestEventViewInfoDownloadButtons{
+    background-color: rgb(62, 107, 153);
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#guestEventViewInfoDownloadButtons:hover{
+    background-color: rgb(38, 63, 138);
+}
+
+
+/* ---------------------------------------- */
+
+
+
+#guestEventViewBackground{
+    min-height: 100%;
+    padding: 20px;
+    text-align: left;
+    background-color: rgb(255, 255, 255);
+
+    display: grid;
+    grid-template-areas: 
+            "title title"
+            "guestEventViewImage guestEventViewInfoContainer"
+            "guestEventViewDescription guestEventViewInfoContainer";
+    grid-template-columns: 2fr 1fr;
+}
+
+#guestEventViewImageContainer{
+    grid-area: guestEventViewImage;
+}
+#guestEventViewImage{
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    margin: 0px 15px 0px 15px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 98%;
+    text-align: center;
+}
+#guestEventViewImage img{
+    height: 85%;
+    width: 95%;
+    max-height: 500px;
+    max-width: 1000px;
+    /*object-fit: contain;*/
+    object-fit: cover;  
+    margin: auto;  
+}
+
+#guestEventViewDescriptionContainer{
+    grid-area: guestEventViewDescription;
+}
+#guestEventViewDescription{
+    background-color: white;
+    width: 100%;
+    margin: 15px;
+    padding: 40px;
+    max-width: 98%;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    border-radius: 5px;
+    min-height: 470px;
+    max-height: 95;
+    height: 98%;
+    overflow-y: auto;
+}
+#guestEventViewDescriptionBox{
+    width: 70%;
+    margin: auto;
+}
+#guestEventViewDescriptionBoxTitle{
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+#guestEventViewInfoBoxContainer{
+    grid-area: guestEventViewInfoContainer;
+    margin: 0px 0 0 15px; 
+    max-width: 98%;
+}
+#guestEventViewInfoBox{
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 98%;
+    border-radius: 5px;
+    background-color: white;
+    margin: 0 0 15px 0; 
+}
+
+#guestEventViewFilesContainer{
+}
+#guestEventViewFiles{
+    background-color: white;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 98%;
+    border-radius: 5px;
+    min-height: 100px;
+    max-height: 500px;
+    overflow-y: auto;
+    margin: 0 0 15px 0; 
+}
+#guestEventViewFiles div{
+    margin: 10px;
+}
+
+#guestEventViewInfoTicketsContainer{
+}
+#guestEventViewInfoTickets{
+    padding: 20px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 98%;
+    border-radius: 5px;
+    min-height: 100px;
+    max-height: 500px;
+    overflow-y: auto;
+    margin: 0 0 15px 0; 
+}
+
+#guestEventViewInfoTicketsAndFilesContainer{
+    grid-area: guestEventViewTicketsAndFiles;
+    padding-right: 15px;
+}

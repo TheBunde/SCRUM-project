@@ -257,7 +257,6 @@ class RegisterPage extends Component {
                     })
                     .catch((err) => {
                         console.error(err);
-                        this.notifyWrongMimeType();
                     })
                     .then(() => {
                         let user = new User(null, this.state.name, this.state.email, this.state.phone, this.state.image_url, this.state.password, null, null);

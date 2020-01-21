@@ -6,7 +6,7 @@ class GuestEventCard extends Component {
     render(){
         return (
             <div>
-                <a onClick={() => window.location.href = "#/event/public/" + this.props.id}>
+                <a href = {"#/event/public/" + this.props.id}>
 
                     <div className="card bg-dark text-white guestEventCard">
                         <img className="card-img guestCardImage" src={"http://localhost:8080/image/" + this.props.img_url} alt="Card image"/>

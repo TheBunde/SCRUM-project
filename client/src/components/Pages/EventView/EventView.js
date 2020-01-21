@@ -93,7 +93,7 @@ class EventView extends Component{
         return (
             <div>
                 <Navbar />
-                <div id="titleEvent">
+                <div id="eventViewTitleEvent">
                     <div id="eventViewStatus">
                         <a className={"btn btn-lg border-" + color}>{this.getStatus(this.state.canceled, this.state.pending, this.state.filed, this.state.date)}</a>
                     </div>
@@ -203,22 +203,22 @@ class EventView extends Component{
                         <div id="eventViewFilesContainer">
                             <div id="eventViewFiles">
                                 <div>
-                                    <h3>Personell</h3>
+                                    <h4>Personell</h4>
                                     <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.personnel)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
-                                    <h3>Kontrakt</h3>
+                                    <h4>Kontrakt</h4>
                                     <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
-                                    <h3>Teknisk rider</h3>
+                                    <h4>Teknisk rider</h4>
                                     <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
-                                    <h3>Hospitality rider</h3>
+                                    <h4>Hospitality rider</h4>
                                     <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"> Last ned</i></button>
                                 </div>
                                 
@@ -313,7 +313,7 @@ class EventView extends Component{
 
         else if(auth.role === "Sceneansvarlig") return 2;
 
-        else if(auth.role === "Økonomiansvarlig") return 3;
+        else if(auth.role === "Økonomisjef") return 3;
 
         else return 4;
 

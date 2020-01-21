@@ -3,23 +3,23 @@ const Dao = require("./dao.js");
 module.exports = class adminDao extends Dao{
 
     getAllEvents(callback){
-        super.query(" SELECT * FROM Event ORDER BY date asc", [], callback);
+        super.query(" SELECT * FROM Event ORDER BY date", [], callback);
     }
 
     getAllArchived(callback){
-        super.query(" SELECT * FROM Event WHERE filed = 1 ORDER BY date DESC", [], callback);
+        super.query(" SELECT * FROM Event WHERE filed = 1 ORDER BY date", [], callback);
     }
 
     getAllActive(callback){
-        super.query("Select * FROM Event WHERE pending = 0 and filed = 0 and date > now(); ", [], callback);
+        super.query("Select * FROM Event WHERE pending = 0 and filed = 0 and canceled = 0 and date > now(); ", [], callback);
     }
 
     getNonFiledEvents(callback){
-        super.query(" SELECT * FROM Event WHERE filed = 0 ORDER BY date DESC", [], callback);
+        super.query(" SELECT * FROM Event WHERE filed = 0 ORDER BY date", [], callback);
     }
 
     getAllCancelled(callback){
-        super.query("SELECT * FROM Event WHERE canceled = 1 ORDER BY date DESC", [], callback);
+        super.query("SELECT * FROM Event WHERE canceled = 1 ORDER BY date", [], callback);
     }
 
     getEventByID(eventID, callback){
@@ -39,7 +39,7 @@ module.exports = class adminDao extends Dao{
     }
 
     addTicket(ticket, callback){
-        super.query("INSERT INTO Event_Ticket(event_id, ticket_category_id, price, number) VALUES (?, ?, 0, ?)", [ticket.eventID, ticket.ticketID, ticket.amount], callback)
+        super.query("INSERT INTO Event_Ticket(event_id, ticket_category_id, price, number) VALUES (?, ?, ?, ?)", [ticket.eventID, ticket.ticketID, ticket.price, ticket.amount], callback)
     }
 
     deleteEvent(eventID, callback){

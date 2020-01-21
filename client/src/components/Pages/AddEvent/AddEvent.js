@@ -19,7 +19,7 @@ class AddEvent extends Component {
             ContactName: "", ContactPhone: "", ContactEmail: "",
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
             Picture: "", Category: 1,
-            GratisTicketBox: false, GratisTicketAmount: null, GratisTicketPrice: null,
+            GratisTicketBox: false, GratisTicketAmount: null, GratisTicketPrice: 0,
             StandardTicketBox: false, StandardTicketAmount: null, StandardTicketPrice: null,
             VIPTicketBox: false, VIPTicketAmount: null, VIPTicketPrice: null,
             EarlyBirdTicketBox: false, EarlyBirdTicketAmount: null, EarlyBirdTicketPrice: null,
@@ -148,13 +148,13 @@ class AddEvent extends Component {
                                     value={this.state.dateChosenHour}
                                     onChange={this.changeValue}
                             >
-                                {this.state.DateHour.map(year =>
+                                {this.state.DateHour.map(hour =>
                                     <option
-                                        key={year}
-                                        value={year}
-                                        defaultValue={year}
+                                        key={hour}
+                                        value={hour}
+                                        defaultValue={hour}
                                     >
-                                        {year}
+                                        {hour}
                                     </option>
                                 )}
                             </select>
@@ -163,13 +163,13 @@ class AddEvent extends Component {
                                     value={this.state.dateChosenMin}
                                     onChange={this.changeValue}
                             >
-                                {this.state.DateMin.map(year =>
+                                {this.state.DateMin.map(min =>
                                     <option
-                                        key={year}
-                                        value={year}
-                                        defaultValue={year}
+                                        key={min}
+                                        value={min}
+                                        defaultValue={min}
                                     >
-                                        {year}
+                                        {min}
                                     </option>
                                 )}
                             </select>
@@ -177,13 +177,13 @@ class AddEvent extends Component {
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
-                        <input type="text"
-                               className="form-control"
-                               placeholder={this.state.Placeholder}
-                               id="Description"
-                               value={this.state.Description}
-                               onChange={this.changeValue}
-                        />
+                        <textarea rows="4"
+                                  className="form-control"
+                                  placeholder={this.state.Placeholder}
+                                  id="Description"
+                                  value={this.state.Description}
+                                  onChange={this.changeValue}>
+                        </textarea>
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Sted for arrangementet:</p>
@@ -306,7 +306,40 @@ class AddEvent extends Component {
 
                     <p id="EventInputTitle">Billettyper:</p>
                     <div id="EventInputTicketContainer">
-                        {this.state.Tickets.map(tickets =>
+                        <div id="EventInputTicketBoxes">
+                            <div id="EventInputCheckboxes">
+                                <div id="EventTicketInnerLabel">
+                                    <label id="EventTicketLabels">{"Gratis billetter"}</label>
+                                </div>
+                                <div id="EventTicketInnerCheckbox">
+                                    <input type="checkbox"
+                                           id={"Gratis"}
+                                           onChange={this.changeBox}
+                                    />
+                                </div>
+                            </div>
+                            <div id="EventTicketInput">
+                                <div id="EventTicketAmount">
+                                    <input type="number"
+                                           id={"GratisTicketAmount"}
+                                           className="form-control"
+                                           placeholder={"Antall Gratis billetter"}
+                                           value={this.state["GratisTicketAmount"]}
+                                           disabled={!this.state["GratisTicketBox"]}
+                                           onChange={this.changeValue}
+                                    />
+                                </div>
+                                <div id="EventTicketPrice">
+                                    <input type="number"
+                                           id ={"GratisTicketPrice"}
+                                           className="form-control"
+                                           value = {0}
+                                           disabled={true}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        {(this.state.Tickets.filter(tickets => (tickets.name !== "Gratis"))).map(tickets =>
                             <div id="EventInputTicketBoxes">
                                 <div id="EventInputCheckboxes">
                                     <div id="EventTicketInnerLabel">
@@ -319,7 +352,7 @@ class AddEvent extends Component {
                                         />
                                     </div>
                                 </div>
-                                    <div id="EventTicketInput">
+                                <div id="EventTicketInput">
                                     <div id="EventTicketAmount">
                                         <input type="number"
                                                id={tickets.name + "TicketAmount"}
@@ -484,7 +517,7 @@ class AddEvent extends Component {
             if (this.state[ticket.name + "TicketBox"]) {
                 if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0) {
                     eventService
-                        .addTicket(ticket.ticket_category_id, EventId, this.state[ticket.name + "TicketAmount"])
+                        .addTicket(ticket.ticket_category_id, EventId, this.state[ticket.name + "TicketAmount"], this.state[ticket.name + "TicketPrice"])
                         .catch(Error => console.log(Error))
                 }
             }
@@ -492,7 +525,6 @@ class AddEvent extends Component {
         eventService
             .addContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, EventId)
             .catch(Error => console.log(Error));
-
     }
 }
 

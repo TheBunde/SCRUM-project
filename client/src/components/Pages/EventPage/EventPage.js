@@ -104,16 +104,17 @@ class EventPage extends Component {
         this.setState(this.state.shownEvents.sort((a, b) => a.name.localeCompare(b.name)))
     }
 
-    sortByClosest(){
-        console.log(this.state.shownEvents)
-        let now = moment(new Date());
-        let temp = this.state.shownEvents.sort((a, b) => // Sort by closest to "now"
-            moment(a.date.slice(0,16)).diff(now, "minutes") > moment(b.date.slice(0,16)).diff(now, "minutes")
-        ).filter(a =>
-            now.diff(moment(a.date.slice(0,16)), "minutes") < 0
-        )
-        
-        this.setState({ shownEvents: temp });
+    timeFromNow(date, now){
+        const compareDate = new Date(date.date);
+        console.log(compareDate - now);
+
+        return compareDate - now;
+    }
+
+    sortByClosest() {
+        const now = new Date();
+        this.sortByDate()
+        this.setState({ shownEvents: this.state.shownEvents.reverse().filter(a => this.timeFromNow(a, now) > 0) })
     }
 
     sortByDate() {
@@ -146,14 +147,6 @@ class EventPage extends Component {
         }))
             .catch(error => console.error(error.message));
         return true;
-    }
-    
-    getArchivedEvents(){
-        /*eventService.getAllArchived().then(events => this.setState({
-            loadedEvents: events,
-            shownEvents: events
-            }))
-            .catch(error => console.error(error.message));*/
     }
 
     fetchNonFiled(){
@@ -208,11 +201,11 @@ class EventPage extends Component {
                                             Vis
                                         </button>
                                         <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" onClick={() => this.eventFilterAllActive()}>Alle arrangementer som ikke er arkivert</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterPending()}>Under planlegging</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterApproved()}>Ferdig planlagte arrangementer</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterCancelled()}>Avlyste</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterAllActive()}>Alle arrangementer som ikke er arkivert</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterPending()}>Under planlegging</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterApproved()}>Ferdig planlagte arrangementer</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterCancelled()}>Avlyste</a>
                                         </div>
                                     </div>
                                 </div>

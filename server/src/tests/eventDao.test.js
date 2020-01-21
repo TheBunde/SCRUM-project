@@ -117,7 +117,7 @@ test("test: deleteEvent()", done =>{
     eventDao.addEvent(event, dummy);
     let contactInfo = {name: "hei sveis", phone: "00000000", email: "hwudijwdhwojndw@sohfsoidhjs.nckjw", eventID: 5};
     eventDao.addContactInfo(contactInfo, dummy);
-    let ticket = {eventID: 5, ticketID: 3, amount: 20};
+    let ticket = {eventID: 5, ticketID: 3, amount: 20, price: 100};
     eventDao.addTicket(ticket, dummy);
     eventDao.getAllEvents(callback)
 });
@@ -204,7 +204,7 @@ test("test: addTicket()", done =>{
         done();
     }
 
-    let event_ticket = {eventID: 1, ticketID: 3, amount: 20};
+    let event_ticket = {eventID: 1, ticketID: 3, amount: 20, price: 100};
     eventDao.addTicket(event_ticket, callback);
 });
 

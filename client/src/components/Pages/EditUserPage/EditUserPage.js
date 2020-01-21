@@ -34,8 +34,7 @@ class EditUserPage extends Component {
                     <div className={"row"}>
                         <div className={"column"}>
                             <div className={"pbContainer"}>
-                                <img id="EditUserAdminProfile" alt="profilePic" src={this.state.profile_photo === null || this.state.profile_photo === "" ? "https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" : "http://localhost:8080/image/" + this.state.profile_photo}
-                                     width="300" height="300"/>
+                                <img id="EditUserAdminProfile" alt="profilePic" src={this.state.profile_photo === null || this.state.profile_photo === "" ? "https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" : "http://localhost:8080/image/" + this.state.profile_photo}/>
                             </div>
                         </div>
 
@@ -47,6 +46,7 @@ class EditUserPage extends Component {
                                         <label htmlFor="exampleInputEmail1">Navn</label>
                                         <input name = "name" value={this.state.name} className="form-control" type="text"
                                                placeholder="Readonly input here…"
+                                               id={"EditUserPageInput"}
                                                onChange={this.handleTextChange.bind(this)}
 
                                         />
@@ -55,6 +55,7 @@ class EditUserPage extends Component {
                                         <label htmlFor="exampleInputPassword1">E-post</label>
                                         <input name = "email" value={this.state.email} className="form-control" type="text"
                                                placeholder="Readonly input here…"
+                                               id={"EditUserPageInput"}
                                                onChange={this.handleTextChange.bind(this)}
 
                                         />
@@ -63,6 +64,7 @@ class EditUserPage extends Component {
                                         <label className="form-check-label" htmlFor="exampleCheck1">Telefon</label>
                                         <input name = "phone" value={this.state.phone} className="form-control" type="text"
                                                placeholder="Readonly input here…"
+                                               id={"EditUserPageInput"}
                                                onChange={this.handleTextChange.bind(this)}
 
                                         />

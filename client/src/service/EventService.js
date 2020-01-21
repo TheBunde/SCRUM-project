@@ -70,8 +70,8 @@ class EventService{
         return axios.get("http://" + ipAdress + ":8080/tickets", {headers: authenticationHeader()}).then(response => response.data);
     }
 
-    addTicket(ticketID, eventID, amount){
-        let newTicket = {ticketID: ticketID, eventID: eventID, amount: amount};
+    addTicket(ticketID, eventID, amount, price){
+        let newTicket = {ticketID: ticketID, eventID: eventID, amount: amount, price: price};
         return axios.post("http://" + ipAdress + ":8080/tickets", newTicket, {headers: authenticationHeader()}).then(response => response.data)
     }
 

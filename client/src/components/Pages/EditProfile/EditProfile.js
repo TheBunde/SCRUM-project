@@ -32,7 +32,7 @@ class EditProfile extends Component{
     };
 
     notifySuccessPw = () => {
-        toast("Redigering av e-post vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
+        toast("Redigering av passord vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
     };
 
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
@@ -194,11 +194,6 @@ class EditProfile extends Component{
                                 <br/>
                             </div>
 
-                            <div className="col-sm-4">
-                                <button type="button" className="btn btn-primary" onClick={this.changePW} id="changePwBtn">Endre passord</button>
-                                <br/>
-                            </div>
-
                         </div>
                     </div>
 
@@ -213,7 +208,6 @@ class EditProfile extends Component{
     }
 
     changePW = (e) => {
-        console.log("aaaaaaaa");
         let userService = new UserService();
 
         const email = this.state.user.email;
@@ -229,18 +223,30 @@ class EditProfile extends Component{
             return false;
         } else{
             userService.updatePassword(email, oldPWInput, newPWInput, user_id)
-                .then(() => {
-                    this.notifySuccessPw();
-                    window.location.hash="/profile/" + auth.user_id;
+                .then((res) => {
+                    console.log(res.data.error);
+                    if (res.data.error === "Not authorized") {
+                        this.notifyFailure();
+                    } else {
+                        this.notifySuccessPw();
+                        window.location.hash="/profile/" + auth.user_id;
+                    }
                 })
                 .catch((err) => {
+                    console.log(err);
                     this.notifyFailure();
                 })
         }
-    }
+    };
 
     save = (e) => {
         if(this.checkFields()) { // Check if any input-fields are empty
+            const oldPWInput = document.getElementById("oldPasswordInput").value;
+            const newPWInput = document.getElementById("newPasswordInput").value;
+
+            if (oldPWInput !== "" && oldPWInput !== null && newPWInput !== "" && newPWInput !== null) {
+                this.changePW();
+            }
             let fileService = new FileService();
             let file = document.getElementById(("fileInput")).files[0];
             console.log(file);

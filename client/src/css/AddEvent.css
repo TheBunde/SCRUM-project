@@ -12,6 +12,7 @@
     display: grid;
     grid-template-columns: 1fr 1.5fr;
 }
+
 #EventNewFile{
     display: grid;
     grid-template-columns: 4fr 1fr;
@@ -90,6 +91,13 @@
 @media only screen and (max-width: 800px){
     #EventInputFields{
         width: 90%;
+    }
+    #EventInputFiles{
+        width: 90%;
+        text-align: left;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr;
     }
 
     #EventInputTicketContainer{

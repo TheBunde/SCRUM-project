@@ -208,7 +208,6 @@ class EditProfile extends Component{
     }
 
     changePW = (e) => {
-        console.log("aaaaaaaa");
         let userService = new UserService();
 
         const email = this.state.user.email;

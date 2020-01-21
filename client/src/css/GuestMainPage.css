@@ -10,15 +10,27 @@
     display: flex;
 }
 
+.carousel-caption{
+    margin: auto;
+    width: max-content;
+    border-radius: 10px;
+    padding: 20px 20px 20px 20px;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) );
+}
+
+.carousel-caption:hover{
+    cursor: pointer;
+}
+
 .carousel-item img{
     object-fit: cover;
 }
 
-#mainPageSearchBar{
-    margin-left: 200px;
+.carousel-item{
+    height: 500px;
 }
 
-.eventCardsContainer{
+.guestEventCardsContainer{
     padding: 10px 40px 10px 10px;
     grid-gap: 30px;
     display: grid;

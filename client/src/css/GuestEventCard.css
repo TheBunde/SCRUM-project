@@ -8,15 +8,13 @@
 
 .guestEventCard:hover{
     cursor: pointer;
-    z-index: 9;
-    color: grey;
 }
 
-.guestCardBody{
+.guestEventCardBody{
     background-color: ghostwhite;
 }
 
-.card-img-overlay{
+.guestCardOverlay{
     border-radius: 10px;
     margin: 200px 0 5px 5px;
     background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) );
@@ -30,7 +28,7 @@
     border-radius: 7px;
     width: 100%;
     height: 300px;
-    background-position: center center;
+
     object-fit: cover;
     box-shadow: 6px 6px 8px -2px rgba(0,0,0,0.46);
 }
@@ -44,15 +42,6 @@
     height: 600px;
 }
 
-.carousel-item{
-    object-fit: cover;
-}
 
-.card-img-top{
-    object-fit: cover;
-}
 
-#dateText{
-    float: right;
-}
 

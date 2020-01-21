@@ -21,49 +21,45 @@ class AdminUsersPage extends Component {
 
             <div className={"AdminUsersPageWrapper"}>
                 <Navbar/>
+                <div id="AdminUsersPageOverflow">
+                    <div id={"adminSearchField"}>
+                        <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="adminSearchBar" onChange={() => this.handleSearch()}/>
+                    </div>
 
-                <div id={"adminSearchField"}>
+                    <div className={"card"} id={"AdminUsersPageContainer"}>
+                        <div className={"card-header"}>
+                            <div className={"row"}>
 
-
-                    <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="adminSearchBar" onChange={() => this.handleSearch()}/>
-
-
-                </div>
-
-                <div className={"card"} id={"AdminUsersPageContainer"}>
-                    <div className={"card-header"}>
-                        <div className={"row"}>
-
-                            <div className="col-sm-1">
-                                <p>Id</p>
-                            </div>
-                            <div className="col-sm-2">
-                                <p>Navn</p>
-                            </div>
-                            <div className="col-sm-2">
-                                <p>Email</p>
-                            </div>
-                            <div className="col-sm-1">
-                                <p>Telefon</p>
-                            </div>
-                            <div className="col-sm-2">
-                                <p>Rolle</p>
-                            </div>
-                            <div className="col-sm-2">
-                                <p>Godkjent</p>
-                            </div>
-                            <div className="col-sm-2">
-                                <p>Rediger</p>
+                                <div className="col-sm-1">
+                                    <p>Id</p>
+                                </div>
+                                <div className="col-sm-2">
+                                    <p>Navn</p>
+                                </div>
+                                <div className="col-sm-2">
+                                    <p>Email</p>
+                                </div>
+                                <div className="col-sm-1">
+                                    <p>Telefon</p>
+                                </div>
+                                <div className="col-sm-2">
+                                    <p>Rolle</p>
+                                </div>
+                                <div className="col-sm-2">
+                                    <p>Godkjent</p>
+                                </div>
+                                <div className="col-sm-2">
+                                    <p>Rediger</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
+                    {this.state.shownUsers.map((user) => {
+                        console.log(user);
+                        return (<ViewUser key={user.user_id} id={user.user_id} name={user.name} email={user.email} phone={user.phone} role={user.role_id} approved={user.approved} />)
+                    })}
                 </div>
-
-                {this.state.shownUsers.map((user) => {
-                    console.log(user);
-                    return (<ViewUser key={user.user_id} id={user.user_id} name={user.name} email={user.email} phone={user.phone} role={user.role_id} approved={user.approved} />)
-                })}
             </div>
         );
     }

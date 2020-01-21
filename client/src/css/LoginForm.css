@@ -19,7 +19,7 @@
 }
 #loginFormForgotPW a{
     text-decoration: none;
-    color: grey;
+    color: black;
 }
 #loginFormForgotPW{
     margin-top: 10px;
@@ -28,7 +28,7 @@
 .LoginFormCard{
     /*background-image: url('../img/Backgrounds/Background 2.png');*/
     background-color: white;
-    opacity: 0.8;
+    
     padding: 20px;
 }
 

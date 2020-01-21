@@ -88,3 +88,19 @@ test('Changing contact information', done => {
 
     userDao.updateProfile({ name: 'Grete', phone: '09876543', email : 'new@mail.com', user_id: 2 }, callback);
 });
+
+test("changing password", done => {
+    function callback2(status, data) {
+       console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
+
+       expect(data[0].password_hash).toBe("$2b$10$V06K1Z5HDCeIu423qwfef.JtO4VY1ll9r8FvgvXiIpoxE6ObstdUi");
+       done();
+    }
+    function callback(status, data){
+        userDao.getUser("test@test.no", callback2);
+        expect(data.affectedRows).toBe(1);
+    }
+
+    let json = {user_id: 4, password: "hei1234"};
+    userDao.changePassword(json, callback);
+});

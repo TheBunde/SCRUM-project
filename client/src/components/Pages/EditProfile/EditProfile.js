@@ -93,6 +93,10 @@ class EditProfile extends Component{
         }
     };
 
+    hideButton() {
+        document.getElementById()
+    }
+
     render(){
         return(
             auth.user_id === this.props.match.params.userID ?
@@ -191,7 +195,7 @@ class EditProfile extends Component{
                             </div>
 
                             <div className="col-sm-4">
-                                <button type="button" className="btn btn-primary" onClick={this.changePW}>Endre passord</button>
+                                <button type="button" className="btn btn-primary" onClick={this.changePW} id="changePwBtn">Endre passord</button>
                                 <br/>
                             </div>
 

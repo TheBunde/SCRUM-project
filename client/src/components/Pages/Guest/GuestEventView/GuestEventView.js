@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import FontAwesome from 'react-fontawesome'
 import 'font-awesome/css/font-awesome.min.css'
-import NavbarMainPage from '../../../Navbar/Navbar'
+import NavbarMainPage from '../../../Navbar/NavbarMainPage'
 import Footer from '../../../Footer/Footer'
 import '../../../../css/GuestEventView.css'
 import {eventService} from '../../../../service/EventService'
@@ -10,8 +10,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import {ProfileService} from '../../../../service/ProfileService';
 import {auth} from "../../../../service/UserService";
-
-
+import {toast} from "react-toastify";
 
 const history = createHashHistory();
 
@@ -92,10 +91,8 @@ class EventView extends Component{
         return (
             <div>
                 <NavbarMainPage />
-                <div id="titleEvent">
-                    <div id="guestEventViewStatus">
-                        <a className={"btn btn-lg border-" + color}>{this.getStatus(this.state.canceled, this.state.pending, this.state.filed, this.state.date)}</a>
-                    </div>
+                <div id="guestEventViewTitleEvent">
+                    
                     <div id="guestEventViewTitle">
                         <h1>{this.state.name}</h1>
                         <hr id="guestEventViewTitleHR"/>
@@ -143,70 +140,8 @@ class EventView extends Component{
                                 </div>
                             </div>
                         </div>
-
-                        <div id="guestEventViewContactInfoContainer">
-                            <div id="guestEventViewContactInfo">
-                                <div>
-                                    <h3>Kontaktinformasjon</h3>
-                                </div>
-                                <div>
-                                    <p>{"Navn: " + this.state.contactInfo_name}</p>
-                                    <p>{"Tlf: " + this.state.contactInfo_phone}</p>
-                                    <p>{"E-post: " + this.state.contactInfo_email}</p>   
-                                </div>
-                            </div>
-                        </div>
-                        
-
-                        <div id="guestEventViewInfoTicketsContainer">
-                            <div id="guestEventViewInfoTickets">
-                            <h3>Billettyper</h3>
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Type</th>
-                                        <th scope="col">Pris</th>
-                                        <th scope="col">Antall</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {this.state.event_tickets.map(ticket => 
-                                    <tr>
-                                        <th scope="row" width="60">{ticket.name}</th>
-                                        <td width="30">{ticket.price}</td>
-                                        <td width="30">{ticket.number}</td>
-                                    </tr>)
-                                }
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div id="guestEventViewFilesContainer">
-                            <div id="guestEventViewFiles">
-                                <div>
-                                    <h3>Personell</h3>
-                                    <button id="guestEventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.personnel)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
-                                </div>
-
-                                <div>
-                                    <h3>Kontrakt</h3>
-                                    <button id="guestEventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
-                                </div>
-
-                                <div>
-                                    <h3>Teknisk rider</h3>
-                                    <button id="guestEventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
-                                </div>
-
-                                <div>
-                                    <h3>Hospitality rider</h3>
-                                    <button id="guestEventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"> Last ned</i></button>
-                                </div>
-                                
-                            </div>
-                        </div>
                     </div>
-                    </div>
+                    
                     
                     <div id="guestEventViewDescriptionContainer">
                         <div id="guestEventViewDescription">
@@ -221,46 +156,7 @@ class EventView extends Component{
                             </div>
                         </div>
                     </div>
-                    <div id="guestEventViewCommentSectionContainer">
-                        <div id="guestEventViewCommentSection">
-                            
-                                <div class="comment-wrapper">
-                                    <div class="panel panel-info">
-                                        <div class="panel-heading">
-                                            <h3>Kommentarfelt</h3>
-                                        </div>
-                                        <div class="panel-warning">
-                                            <p>Her kan dere dele informasjon eller erfaringer som ble gjort under arrangementplanleggingen.</p>
-                                        </div>
-                                        <div class="panel-body">
-                                        <textarea type="text" class="form-control" id="commentInput" placeholder="Skriv en kommentar ..." rows="3"></textarea>
-                                        <br />
-                                        <button type="button" class="btn btn-outline-info pull-right" onClick={e => this.publishComment(e)}>Publiser</button>
-                                        <div class="clearfix"></div>
-                                        <hr />
-                                        <div id="kommentarer">
-                                            <ul class="media-list">
-                                            {this.state.comments.map(comments => (
-                                                <li class="media">
-                                                <div class="media-body">
-                                                    <span class="text-muted pull-right">
-                                                        <small class="text-muted">{this.formatDate(comments.date)}</small>
-                                                    </span>
-                                                    <strong class="text-info"> {comments.name}</strong>
-                                                    <p>
-                                                        {comments.comment}
-                                                    </p>
-                                                    <hr />
-                                                </div>
-                                            </li>
-                                            ))}
-                                            </ul>
-                                        </div>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
+                    
 
                 </div>
                 <Footer />
@@ -268,25 +164,6 @@ class EventView extends Component{
         );
     }
 
-    publishComment = event => {
-
-        let commentInputElement = document.getElementById("commentInput");
-        let commentInput = commentInputElement.value; 
-
-        let commentArray = this.state.comments;
-
-        commentArray.push({
-            event_id: this.props.match.params.id,
-            user_id: auth.user_id,
-            name: this.state.user.name,
-            date: new Date().toISOString().slice(0, 19).replace('T', ' '),
-            comment: commentInput
-        })
-
-        this.setState({comments: commentArray})
-        eventService.addComment(this.props.match.params.id, auth.user_id, commentInput).then((response) => console.log("Adding comment worked")).catch(error => console.error(error.message));
-        commentInputElement.value = "";
-    }
 
     getStatus(canceled, pending, filed, date){
         let status;
@@ -357,5 +234,33 @@ class EventView extends Component{
 
 export default EventView;
 
+
+/* 
+
+<div id="guestEventViewInfoTicketsContainer">
+                            <div id="guestEventViewInfoTickets">
+                            <h3>Billettyper</h3>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Pris</th>
+                                        <th scope="col">Antall</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {this.state.event_tickets.map(ticket => 
+                                    <tr>
+                                        <th scope="row" width="60">{ticket.name}</th>
+                                        <td width="30">{ticket.price}</td>
+                                        <td width="30">{ticket.number}</td>
+                                    </tr>)
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+
+
+*/
 
 

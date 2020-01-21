@@ -43,7 +43,7 @@ const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
 // Object with list of clearance levels used for routing and restricting access.
 const restriction = {
     admin: "admin",
-    regular: ["admin", "Sceneansvarlig", "Økonomiansvarlig", "Barsjef", "Bartender", "Handyman", "Fotograf", "Markedsfører", "SoMe-ansvarlig", "Ølbrygger", "Lydtekniker", "Lystekniker", "Scenerigger", "Artistbooker", "Artistkontakt", "Konseptutvikler", "Quizmaster", "Festplanlegger"]
+    regular: ["admin", "Sceneansvarlig", "Økonomisjef", "Barsjef", "Bartender", "Handyman", "Fotograf", "Markedsfører", "SoMe-ansvarlig", "Ølbrygger", "Lydteknikker", "Lystekniker", "Scenerigger", "Artistbooker", "Artistkontakt", "Konseptutvikler", "Quizmaster", "Festplanlegger"]
 };
 
 ReactDOM.render(

@@ -69,7 +69,7 @@ class OverviewPage extends Component{
                                 <p className="card-text">Legg til de eventene du måtte ønske.</p>
                             </div>
                             <div id="overviewPageCardBtn">
-                                <button className="btn btn-outline-primary" onClick={this.addEvent} role="button">Legg til arrangement</button>
+                                <button className="btn btn-primary" onClick={this.addEvent} role="button">Legg til arrangement</button>
                             </div>
                         </div>
                     </div>
@@ -83,7 +83,7 @@ class OverviewPage extends Component{
                                 <p className="card-text">Få en oversikt over alle dine arrangementer.</p>
                             </div>
                             <div id="overviewPageCardBtn">
-                                <button className="btn btn-outline-success" onClick={this.seeEvents} role="button">Se alle arrangement</button>
+                                <button className="btn btn-success" onClick={this.seeEvents} role="button">Se alle arrangement</button>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@ class OverviewPage extends Component{
                                 <p className="card-text">Vil du endre profilen din kan du gjøre det her.</p>
                             </div>
                             <div id="overviewPageCardBtn">
-                                <button className="btn btn-outline-warning" onClick={() => this.seeProfile(auth.user_id)}  role="button">Vis profil</button>
+                                <button className="btn btn-warning" onClick={() => this.seeProfile(auth.user_id)}  role="button">Vis profil</button>
                             </div>
                         </div>
                     </div>

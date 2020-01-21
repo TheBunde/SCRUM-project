@@ -12,6 +12,12 @@
     display: grid;
     grid-template-columns: 1fr 1.5fr;
 }
+
+#EventTicketInput{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
 #EventNewFile{
     display: grid;
     grid-template-columns: 4fr 1fr;
@@ -54,6 +60,11 @@
     width: 90%;
     margin: auto;
 }
+#EventTicketPrice{
+    width: 90%;
+    margin: auto;
+    padding-top: 10px;
+}
 
 #EventTicketAmount div{
     padding: 0 0 0 5%;
@@ -91,6 +102,13 @@
     #EventInputFields{
         width: 90%;
     }
+    #EventInputFiles{
+        width: 90%;
+        text-align: left;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
 
     #EventInputTicketContainer{
         grid-template-columns: 1fr;
@@ -115,5 +133,4 @@
     #EventTicketInnerLabel{
         text-align: left;
     }
-
 }

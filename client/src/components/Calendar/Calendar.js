@@ -63,7 +63,17 @@ export default class Calendar extends React.Component {
         let year = tempDate.slice(0, 4);
         let month = tempDate.slice(5, 7);
         let date = tempDate.slice(8, 10);
+        let hours = tempDate.slice(11, 13);
 
+        let thisDate = new Date(year + "-" + month + "-" +date +" " + hours +":00:00");
+        thisDate.setHours(thisDate.getHours()+1);
+
+
+        year = thisDate.getFullYear();
+        month = thisDate.getMonth()+1;
+        if(month < 10) month = "0" + month;
+        date = thisDate.getDate();
+        if(date < 10) date = "0" + date;
 
         return year + "-" + month + "-" + date;
     }

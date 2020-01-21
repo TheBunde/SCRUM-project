@@ -98,7 +98,7 @@ class EditUserPage extends Component {
                                     <div className="form-check">
                                         <input onClick={() => this.handleCheckboxChange()} className="form-check-input"
                                                type="checkbox" checked={this.state.approved} value="checkbox"
-                                               id="defaultCheck1"/>
+                                               id="godkjentCheckbox"/>
                                         <label className="form-check-label" htmlFor="defaultCheck1">
                                             Godkjent
                                         </label>

@@ -203,22 +203,22 @@ class EventView extends Component{
                         <div id="eventViewFilesContainer">
                             <div id="eventViewFiles">
                                 <div>
-                                    <h3>Personell</h3>
+                                    <h4>Personell</h4>
                                     <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.personnel)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
-                                    <h3>Kontrakt</h3>
+                                    <h4>Kontrakt</h4>
                                     <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
-                                    <h3>Teknisk rider</h3>
+                                    <h4>Teknisk rider</h4>
                                     <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
-                                    <h3>Hospitality rider</h3>
+                                    <h4>Hospitality rider</h4>
                                     <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"> Last ned</i></button>
                                 </div>
                                 

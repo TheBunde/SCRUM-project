@@ -98,7 +98,6 @@ test("changing password", done => {
     }
     function callback(status, data){
         userDao.getUser("test@test.no", callback2);
-        expect(data.affectedRows).toBe(1);
     }
 
     let json = {user_id: 4, password: "hei1234"};

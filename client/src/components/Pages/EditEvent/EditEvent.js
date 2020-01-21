@@ -45,9 +45,12 @@ class EditEvent extends Component{
         this.setState({[event.target.id]: event.target.value})
     }
 
-    changeBox(event){
-        this.setState({[event.target.id]: event.target.checked});
-        if(this.state[event.target.id]) this.setState({[event.target.name]: 0});
+    changeBox(event) {
+        this.setState({[event.target.id + "TicketBox"]: event.target.checked});
+        if (this.state[event.target.id + "TicketBox"]){
+            this.setState({[event.target.id + "TicketAmount"]: 0});
+            this.setState({[event.target.id + "TicketPrice"]: 0});
+        }
     }
 
     changeDate(event) {
@@ -431,18 +434,51 @@ class EditEvent extends Component{
                             )};
                         </select>
                     </div>
-                    <p id = "EventInputTitle">Billettyper:</p>
-                    <div id ="EventInputTicketContainer">
-                        {this.state.Tickets.map(tickets =>
-                            <div id = "EventInputTicketBoxes">
+                    <p id="EventInputTitle">Billettyper:</p>
+                    <div id="EventInputTicketContainer">
+                        <div id="EventInputTicketBoxes">
+                            <div id="EventInputCheckboxes">
+                                <div id="EventTicketInnerLabel">
+                                    <label id="EventTicketLabels">{"Gratis billetter"}</label>
+                                </div>
+                                <div id="EventTicketInnerCheckbox">
+                                    <input type="checkbox"
+                                           id={"Gratis"}
+                                           checked={this.state.GratisTicketBox}
+                                           onChange={this.changeBox}
+                                    />
+                                </div>
+                            </div>
+                            <div id="EventTicketInput">
+                                <div id="EventTicketAmount">
+                                    <input type="number"
+                                           id={"GratisTicketAmount"}
+                                           className="form-control"
+                                           placeholder={"Antall Gratis billetter"}
+                                           value={this.state["GratisTicketAmount"]}
+                                           disabled={!this.state["GratisTicketBox"]}
+                                           onChange={this.changeValue}
+                                    />
+                                </div>
+                                <div id="EventTicketPrice">
+                                    <input type="number"
+                                           id ={"GratisTicketPrice"}
+                                           className="form-control"
+                                           value = {0}
+                                           disabled={true}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        {(this.state.Tickets.filter(tickets => (tickets.name !== "Gratis"))).map(tickets =>
+                            <div id="EventInputTicketBoxes">
                                 <div id="EventInputCheckboxes">
-                                    <div id ="EventTicketInnerLabel">
+                                    <div id="EventTicketInnerLabel">
                                         <label id="EventTicketLabels">{tickets.name + " billetter"}</label>
                                     </div>
-                                    <div id ="EventTicketInnerCheckbox">
-                                        <input type ="checkbox"
-                                               id ={tickets.name + "TicketBox"}
-                                               name ={tickets.name + "TicketAmount"}
+                                    <div id="EventTicketInnerCheckbox">
+                                        <input type="checkbox"
+                                               id={tickets.name}
                                                checked={this.state[tickets.name +"TicketBox"]}
                                                onChange={this.changeBox}
                                         />

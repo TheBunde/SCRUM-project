@@ -30,7 +30,7 @@ class AdminUsersPage extends Component {
 
                 </div>
 
-                <div className={"card"}>
+                <div className={"card"} id={"AdminUsersPageContainer"}>
                     <div className={"card-header"}>
                         <div className={"row"}>
 

@@ -71,6 +71,10 @@ class Navbar extends Component {
                                 <a className="nav-link" href = "#/admin/users">Rediger brukere</a>
                             </li>
 
+                            <li className="nav-item" id={"adminUsersLink"}>
+                                <a className="nav-link" href = "#/calendar">Kalender</a>
+                            </li>
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href = "#" role="button" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">

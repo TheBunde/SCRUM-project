@@ -88,7 +88,7 @@ class EventPage extends Component {
     }
     eventFilterPending(){
         eventService.getNonFiledEvents().then(events => this.setState({
-            shownEvents: events.filter(e=> (e.date > this.getCurrentDate()) && e.pending === 1)
+            shownEvents: events.filter(e=> (e.date > this.getCurrentDate()) && e.pending === 1 && e.canceled !== 1)
         })).then(this.resetSortDropdown())
             .catch(error => console.error(error.message));
     }

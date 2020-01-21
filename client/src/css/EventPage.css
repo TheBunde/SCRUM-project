@@ -163,11 +163,14 @@
         max-width: 100vw;
     }
     #eventPageBar{
+        position: relative;
         padding: 12px 0 12px 0;
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
             "vis sorter"
             "sokefelt sokefelt";
+    }
+    #dropdownMenuButton{
     }
     #eventPageShow{
         width: 100%;
@@ -187,6 +190,8 @@
         padding-left: 0;
         margin-left: 0;
         object-fit: contain;
+    }
+    #eventPageEventTable{
         overflow: hidden;
     }
     #eventPageInfoContainer a{
@@ -197,7 +202,6 @@
     }
     #eventPageInfoContainer div{
          object-fit: contain;
-         overflow: hidden;
      }
     #eventPageEventTable{
         width: 100vw;

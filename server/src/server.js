@@ -172,20 +172,19 @@ app.get("/event/archived",verifyToken, (req, res) => {
 
 });
 
-app.get("/event/active", verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
+app.get("/event/active",(req, res) => {
+    /*jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
             res.sendStatus(401);
         } else {
+
+     */
             console.log("/event fikk request fra klient");
             eventDao.getAllActive((status, data) => {
                 res.status(status);
                 res.json(data);
             });
-        }
     });
-
-});
 
 app.get("/event/cancelled", verifyToken, (req, res) => {
     let token = req.token;
@@ -301,7 +300,6 @@ app.put("/event/:id/edit",verifyToken, (req, res) =>{
             });
         }
     });
-
 });
 
 

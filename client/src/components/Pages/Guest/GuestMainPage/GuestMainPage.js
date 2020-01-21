@@ -12,7 +12,7 @@ class GuestMainPage extends Component {
 
     componentDidMount(){
         window.scrollTo(0,0);
-        eventService.getAllEvents().then(events => {console.log(events);this.setState({events: events})}).catch(error => {console.error(error)});
+        eventService.getAllActive().then(events => {console.log(events);this.setState({events: events})}).catch(error => {console.error(error)});
     }
 
 
@@ -52,7 +52,8 @@ class GuestMainPage extends Component {
                     </div>
 
                     <div className={"guestMainPageTitleDiv"}>
-                        <h1>Alle arrangementer</h1>
+                        <h3>Alle arrangementer</h3>
+                        <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="mainPageSearchBar" onChange={() => this.handleSearch()}/>
                     </div>
 
                     <div className={"eventCardsContainerBackground"}>

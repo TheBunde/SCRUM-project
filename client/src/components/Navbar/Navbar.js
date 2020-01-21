@@ -7,6 +7,7 @@ import {ProfileService} from "../../service/ProfileService";
 
 /*Changing ml-auto to mr-auto will change the placement of the navbar-collapse items to the left besides the logo/name to the left on the Navbar */
 
+
 class Navbar extends Component {
 
     constructor(props) {
@@ -112,6 +113,9 @@ class Navbar extends Component {
             </div>
         );
     }
+
+
+
 }
 
 export default Navbar;

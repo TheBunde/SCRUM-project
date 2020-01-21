@@ -8,29 +8,38 @@ services:
 variables:
   MYSQL_DATABASE: supertestdb
   MYSQL_ROOT_PASSWORD: secret
+  
+# Install node libraries
+before_script:
+  - cd client
+  - npm install
+  - cd ../server
+  - npm install
+  - cd ..
+  
 
 # Run JEST tests
 server_tests:
   stage: test
   script:
     - cd server
-    - npm install
+    #- npm install
     - npm test
   artifacts:
     paths:
       #- server/coverage
-      - coverage
+      - coverage/
 
 client_tests:
   stage: test
   script:
     - cd client
-    - npm install
+    #- npm install
     - npm test
   artifacts:
     paths:
       #- client/coverage
-      - coverage
+      - coverage/
 
 # Make JSDoc
 #client_jsdoc:

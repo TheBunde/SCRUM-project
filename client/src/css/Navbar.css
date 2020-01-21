@@ -28,6 +28,12 @@
     color: white;
 }
 
+#navbar a:focus{
+    text-decoration: none;
+}
+
+
+
 
 #navbarSupportedContent a{
     color: white;
@@ -45,6 +51,11 @@
 
 
 #navbarSupportedContent a:hover{
+    /*color: rgb(34, 91, 160);*/
+    color:black;
+}
+
+#navbarSupportedContent a:focus{
     /*color: rgb(34, 91, 160);*/
     color:black;
 }

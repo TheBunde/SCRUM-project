@@ -231,7 +231,7 @@ class EventView extends Component{
 
                                 <div>
                                     <h4>Hospitality rider</h4>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"> Last ned</i></button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
                                 
                             </div>

@@ -15,7 +15,7 @@ class EditEvent extends Component{
         this.state = {
             date: new Date(), dateChosenHour: null, dateChosenMin: null,
             Name: "", Description: "", Place: "", Artists: "",
-            ContactName: "", ContactPhone: "", ContactEmail: "",
+            ContactName: "", ContactPhone: "", ContactEmail: "", haveContactInfo: true,
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
             Picture: "", Category: 1,
             GratisTicketBox: false, GratisTicketAmount: null,
@@ -171,9 +171,14 @@ class EditEvent extends Component{
     }
 
     updateContactInfo(data){
-        this.setState({ContactName: data.name});
-        this.setState({ContactPhone: data.phone});
-        this.setState({ContactEmail: data.email});
+        if(data === undefined){
+            this.setState({haveContactInfo: false} )
+        }
+        else {
+            this.setState({ContactName: data.name});
+            this.setState({ContactPhone: data.phone});
+            this.setState({ContactEmail: data.email});
+        }
     }
 
     render() {
@@ -618,11 +623,18 @@ class EditEvent extends Component{
                 }
             }
         });
-
-        eventService
-            .updateContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, eventID)
-            .then(() => window.location.href="#/event/" + this.props.match.params.id)
-            .catch(Error => console.log(Error));
+        if(this.state.haveContactInfo) {
+            eventService
+                .updateContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, eventID)
+                .then(() => window.location.href = "#/event/" + this.props.match.params.id)
+                .catch(Error => console.log(Error));
+        }
+        else{
+            eventService
+                .addContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, eventID)
+                .then(() => window.location.href = "#/event/" + this.props.match.params.id)
+                .catch(Error => console.log(Error))
+        }
     }
 }
 

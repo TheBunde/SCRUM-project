@@ -18,11 +18,11 @@ class EditEvent extends Component{
             ContactName: "", ContactPhone: "", ContactEmail: "", haveContactInfo: true,
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
             Picture: "", Category: 1,
-            GratisTicketBox: false, GratisTicketAmount: null,
-            StandardTicketBox: false, StandardTicketAmount: null,
-            VIPTicketBox: false, VIPTicketAmount: null,
-            EarlyBirdTicketBox: false, EarlyBirdTicketAmount: null,
-            GoldenCircleTicketBox: false, GoldenCircleTicketAmount: null,
+            GratisTicketBox: false, GratisTicketAmount: null, GratisTicketPrice: null,
+            StandardTicketBox: false, StandardTicketAmount: null, StandardTicketPrice: null,
+            VIPTicketBox: false, VIPTicketAmount: null, VIPTicketPrice: null,
+            EarlyBirdTicketBox: false, EarlyBirdTicketAmount: null, EarlyBirdTicketPrice: null,
+            GoldenCircleTicketBox: false, GoldenCircleTicketAmount: null, GoldenCircleTicketPrice: null,
             Categories: [], Tickets: [],
             DateHour: ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
             DateMin: ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59],
@@ -160,14 +160,15 @@ class EditEvent extends Component{
         data.map(ticket => {
             eventService
                 .getTicketById(ticket.ticket_category_id)
-                .then(name => this.updateTicketAmount(name.name, ticket.number))
+                .then(name => this.updateTicketAmount(name.name, ticket.number, ticket.price))
                 .catch(Error => console.log(Error))
         })
     }
 
-    updateTicketAmount(name, amount){
+    updateTicketAmount(name, amount, price){
         this.setState({[name + "TicketBox"]: true});
-        this.setState({[name + "TicketAmount"]: amount})
+        this.setState({[name + "TicketAmount"]: amount});
+        this.setState({[name + "TicketPrice"]: price});
     }
 
     updateContactInfo(data){
@@ -447,15 +448,27 @@ class EditEvent extends Component{
                                         />
                                     </div>
                                 </div>
-                                <div id ="EventTicketAmount">
-                                    <input type = "number"
-                                           id={tickets.name +"TicketAmount"}
-                                           className ="form-control"
-                                           placeholder={"Antall " + tickets.name + " billetter"}
-                                           value = {this.state[tickets.name + "TicketAmount"]}
-                                           disabled = {!this.state[tickets.name + "TicketBox"]}
-                                           onChange={this.changeValue}
-                                    />
+                                <div id="EventTicketInput">
+                                    <div id="EventTicketAmount">
+                                        <input type="number"
+                                               id={tickets.name + "TicketAmount"}
+                                               className="form-control"
+                                               placeholder={"Antall " + tickets.name + " billetter"}
+                                               value={this.state[tickets.name + "TicketAmount"]}
+                                               disabled={!this.state[tickets.name + "TicketBox"]}
+                                               onChange={this.changeValue}
+                                        />
+                                    </div>
+                                    <div id="EventTicketPrice">
+                                        <input type="number"
+                                               id ={tickets.name + "TicketPrice"}
+                                               className="form-control"
+                                               placeholder={"Pris for " + tickets.name + " billetter" }
+                                               value = {this.state[tickets.name + "TicketPrice"]}
+                                               disabled={!this.state[tickets.name + "TicketBox"]}
+                                               onChange={this.changeValue}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -618,7 +631,7 @@ class EditEvent extends Component{
             if(this.state[ticket.name + "TicketBox"]){
                 if(this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
                     eventService
-                        .addTicket(ticket.ticket_category_id, eventID, this.state[ticket.name + "TicketAmount"])
+                        .addTicket(ticket.ticket_category_id, eventID, this.state[ticket.name + "TicketAmount"], this.state[ticket.name + "TicketPrice"])
                         .catch(Error => console.log(Error))
                 }
             }

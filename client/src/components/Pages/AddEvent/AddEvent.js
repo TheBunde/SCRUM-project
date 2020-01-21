@@ -319,7 +319,7 @@ class AddEvent extends Component {
                                         />
                                     </div>
                                 </div>
-                                    <div id="EventTicketInput">
+                                <div id="EventTicketInput">
                                     <div id="EventTicketAmount">
                                         <input type="number"
                                                id={tickets.name + "TicketAmount"}

@@ -81,11 +81,16 @@ class EventPage extends Component {
             .catch(error => console.error(error.message));
     }
     eventFilterArchived(){
-        this.getArchivedEvents();
+        eventService.getAllArchived().then(events => this.setState({
+            loadedEvents: events,
+            shownEvents: events
+            }))
+            .catch(error => console.error(error.message));
+        //this.getArchivedEvents();
     }
     eventFilterApproved(){
         eventService.getNonFiledEvents().then(events => this.setState({
-            shownEvents: events.filter(e => (e.date > this.getCurrentDate() && e.pending === 0))
+            shownEvents: events.filter(e => (e.date > this.getCurrentDate() && e.pending === 0 && e.canceled !== 1))
         }))
             .catch(error => console.error(error.message));
     }
@@ -144,11 +149,11 @@ class EventPage extends Component {
     }
     
     getArchivedEvents(){
-        eventService.getAllArchived().then(events => this.setState({
+        /*eventService.getAllArchived().then(events => this.setState({
             loadedEvents: events,
             shownEvents: events
             }))
-            .catch(error => console.error(error.message));
+            .catch(error => console.error(error.message));*/
     }
 
     fetchNonFiled(){

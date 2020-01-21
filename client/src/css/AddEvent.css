@@ -13,6 +13,11 @@
     grid-template-columns: 1fr 1.5fr;
 }
 
+#EventTicketInput{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
 #EventNewFile{
     display: grid;
     grid-template-columns: 4fr 1fr;
@@ -54,6 +59,11 @@
 #EventTicketAmount{
     width: 90%;
     margin: auto;
+}
+#EventTicketPrice{
+    width: 90%;
+    margin: auto;
+    padding-top: 10px;
 }
 
 #EventTicketAmount div{

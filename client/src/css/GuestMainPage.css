@@ -3,34 +3,24 @@
     height: 100%;
     background-color: ghostwhite;
 }
-
-.carousel-inner{
-    height: 500px;
-}
-
-.carousel{
-    margin: auto;
-}
-
-.carousel-item{
-    margin: auto;
-}
-
 .guestMainPageTitleDiv{
     margin-left: 70px;
     float: left;
     margin-top: 100px;
-
+    display: flex;
 }
 
-.card-body{
-    background-color: ghostwhite;
+.carousel-item img{
+    object-fit: cover;
+}
+
+#mainPageSearchBar{
+    margin-left: 200px;
 }
 
 .eventCardsContainer{
-    background-color: ghostwhite;
     padding: 10px 40px 10px 10px;
-    grid-gap: 10px;
+    grid-gap: 30px;
     display: grid;
     grid-template-columns: 50% 50%;
     width: 90%;

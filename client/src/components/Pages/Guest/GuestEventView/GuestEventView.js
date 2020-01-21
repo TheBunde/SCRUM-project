@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import FontAwesome from 'react-fontawesome'
 import 'font-awesome/css/font-awesome.min.css'
-import NavbarMainPage from '../../../Navbar/Navbar'
+import NavbarMainPage from '../../../Navbar/NavbarMainPage'
 import Footer from '../../../Footer/Footer'
 import '../../../../css/GuestEventView.css'
 import {eventService} from '../../../../service/EventService'

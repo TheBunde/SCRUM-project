@@ -46,12 +46,13 @@ test("get user", done => {
     function callback(status, data) {
         console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
         expect(data.length).toBe(1);
-        expect(data[0].user_id).toBe(1);
-        expect(data[0].name).toBe("test1");
+        expect(data[0].user_id).toBe(5);
+        expect(data[0].name).toBe("test5");
+        expect(data[0].approved).toBe(false);
         done();
     }
     userDao.getUser(
-        "test1@tester.no", callback
+        "test5@tester.no", callback
     );
 });
 
@@ -98,6 +99,6 @@ test("changing password", done => {
         userDao.getUser("test@test.no", callback2);
     }
 
-    let json = {user_id: 5, password: "hei1234"};
+    let json = {user_id: 8, password: "hei1234"};
     userDao.changePassword(json, callback);
 });

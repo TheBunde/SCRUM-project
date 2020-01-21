@@ -16,7 +16,7 @@ let pool = mysql.createPool({
 let adminDao = new AdminDao(pool);
 
 /*
-    tests getUser: henter User med Id 2
+    tests getUser: henter User med Id
 */
 test("get User with id 1", done =>{
     function callback(status, data) {

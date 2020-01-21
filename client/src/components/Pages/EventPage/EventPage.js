@@ -46,6 +46,18 @@ class EventPage extends Component {
         let hours = tempDate.slice(11, 13);
         let minutes = tempDate.slice(14, 16);
 
+        let thisDate = new Date(year + "-" + month + "-" +date +" " + hours +":00:00");
+        thisDate.setHours(thisDate.getHours()+1);
+
+
+        year = thisDate.getFullYear();
+        month = thisDate.getMonth()+1;
+        if(month < 10) month = "0" + month;
+        date = thisDate.getDate();
+        if(date < 10) date = "0" + date;
+        hours = thisDate.getHours();
+        if(hours < 10) hours = "0" + hours;
+
         return date + "." + month + "." + year + " " + hours + ":" + minutes;
     }
 
@@ -77,51 +89,52 @@ class EventPage extends Component {
     eventFilterPending(){
         eventService.getNonFiledEvents().then(events => this.setState({
             shownEvents: events.filter(e=> (e.date > this.getCurrentDate()) && e.pending === 1)
-        }))
+        })).then(this.resetSortDropdown())
             .catch(error => console.error(error.message));
     }
     eventFilterArchived(){
         eventService.getAllArchived().then(events => this.setState({
             loadedEvents: events,
             shownEvents: events
-            }))
+            })).then(this.resetSortDropdown())
             .catch(error => console.error(error.message));
         //this.getArchivedEvents();
     }
     eventFilterApproved(){
         eventService.getNonFiledEvents().then(events => this.setState({
             shownEvents: events.filter(e => (e.date > this.getCurrentDate() && e.pending === 0 && e.canceled !== 1))
-        }))
+        })).then(this.resetSortDropdown())
             .catch(error => console.error(error.message));
     }
 
     eventFilterCancelled(){
-        eventService.getCancelled().then(events => this.setState({shownEvents: events, loadedEvents: events}));
+        eventService.getCancelled().then(events => this.setState({shownEvents: events, loadedEvents: events})).then(this.resetSortDropdown());
         console.log(this.state.shownEvents);
     }
 
     sortByName(){
-        this.setState(this.state.shownEvents.sort((a, b) => a.name.localeCompare(b.name)))
+        this.setState({ shownEvents: this.state.loadedEvents.sort((a, b) => a.name.localeCompare(b.name)) })
     }
 
-    sortByClosest(){
-        console.log(this.state.shownEvents)
-        let now = moment(new Date());
-        let temp = this.state.shownEvents.sort((a, b) => // Sort by closest to "now"
-            moment(a.date.slice(0,16)).diff(now, "minutes") > moment(b.date.slice(0,16)).diff(now, "minutes")
-        ).filter(a =>
-            now.diff(moment(a.date.slice(0,16)), "minutes") < 0
-        )
-        
-        this.setState({ shownEvents: temp });
+    timeFromNow(date, now){
+        const compareDate = new Date(date.date);
+        console.log(compareDate - now);
+
+        return compareDate - now;
+    }
+
+    sortByClosest() {
+        const now = new Date();
+        this.sortByDate()
+        this.setState({ shownEvents: this.state.loadedEvents.reverse().filter(a => this.timeFromNow(a, now) > 0) })
     }
 
     sortByDate() {
         console.log(this.state.shownEvents[0].date);
-        this.setState(this.state.shownEvents.sort((a, b) => b.date.localeCompare(a.date)))
+        this.setState({ shownEvents: this.state.loadedEvents.sort((a, b) => b.date.localeCompare(a.date)) })
     }
     sortByCategory() {
-        this.setState(this.state.shownEvents.sort((a, b) => b.category_id - a.category_id))
+        this.setState({ shownEvents: this.state.loadedEvents.sort((a, b) => b.category_id - a.category_id) })
     }
 
     handleSearch() {
@@ -140,6 +153,10 @@ class EventPage extends Component {
         $("#eventPageSort .btn:first-child ").text("Sorter etter");
     }
 
+    resetSortDropdown(){
+        $("#eventPageSort .btn:first-child ").text("Sorter etter");
+    }
+
     getAllEvents(){
         eventService.getAllEvents().then(events => this.setState({
             loadedEvents: events
@@ -147,20 +164,12 @@ class EventPage extends Component {
             .catch(error => console.error(error.message));
         return true;
     }
-    
-    getArchivedEvents(){
-        /*eventService.getAllArchived().then(events => this.setState({
-            loadedEvents: events,
-            shownEvents: events
-            }))
-            .catch(error => console.error(error.message));*/
-    }
 
     fetchNonFiled(){
         eventService.getNonFiledEvents().then(events => this.setState({
             loadedEvents: events,
             shownEvents: events
-        }))
+        })).then(this.resetSortDropdown())
             .catch(error => console.error(error.message));
     }
 
@@ -189,17 +198,17 @@ class EventPage extends Component {
     });
 
         return (
-            <div class="pageSetup">
+            <div id="eventPagePage" class="pageSetup">
                 <Navbar getUser={this.getUserFromNavbar()} />
                 <div>
                     <div id="eventPageBackground">
                         <div id="eventPageContainer">
                             <div id="eventPageBanner">
-                                <div id={"eventPageTitle"}>
+                                <div id="eventPageTitle">
                                     <h1>ARRANGEMENTER</h1>
                                 </div>
                             </div>
-                            <div className={"eventPageInformation"}>
+                            <div id="eventPageInfoContainer" className="eventPageInformation">
                             <div id="eventPageBar">
                                 <div id="eventPageShow">
                                     <div className="dropdown">
@@ -232,8 +241,10 @@ class EventPage extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="eventPageSearchBar">
-                                    <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}/>
+                                <div id="eventPageSearchBarBox">
+                                    <div id="eventPageSearchBar">
+                                        <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}/>
+                                    </div>
                                 </div>
                             </div>
                             <div className="dropdown-divider border-dark"></div>

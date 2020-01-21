@@ -148,13 +148,13 @@ class AddEvent extends Component {
                                     value={this.state.dateChosenHour}
                                     onChange={this.changeValue}
                             >
-                                {this.state.DateHour.map(year =>
+                                {this.state.DateHour.map(hour =>
                                     <option
-                                        key={year}
-                                        value={year}
-                                        defaultValue={year}
+                                        key={hour}
+                                        value={hour}
+                                        defaultValue={hour}
                                     >
-                                        {year}
+                                        {hour}
                                     </option>
                                 )}
                             </select>
@@ -163,13 +163,13 @@ class AddEvent extends Component {
                                     value={this.state.dateChosenMin}
                                     onChange={this.changeValue}
                             >
-                                {this.state.DateMin.map(year =>
+                                {this.state.DateMin.map(min =>
                                     <option
-                                        key={year}
-                                        value={year}
-                                        defaultValue={year}
+                                        key={min}
+                                        value={min}
+                                        defaultValue={min}
                                     >
-                                        {year}
+                                        {min}
                                     </option>
                                 )}
                             </select>
@@ -177,13 +177,13 @@ class AddEvent extends Component {
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
-                        <input type="text"
-                               className="form-control"
-                               placeholder={this.state.Placeholder}
-                               id="Description"
-                               value={this.state.Description}
-                               onChange={this.changeValue}
-                        />
+                        <textarea rows="4"
+                                  className="form-control"
+                                  placeholder={this.state.Placeholder}
+                                  id="Description"
+                                  value={this.state.Description}
+                                  onChange={this.changeValue}>
+                        </textarea>
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Sted for arrangementet:</p>
@@ -427,7 +427,6 @@ class AddEvent extends Component {
      */
 
     registerEvent() {
-        console.log(this.state.GratisTicketPrice)
         console.log("Registrating event");
         if (this.formValidation() && this.checkDate()) {
             if (!(validateEmail(this.state.ContactEmail))) {

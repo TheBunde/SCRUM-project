@@ -138,14 +138,17 @@ class EditEvent extends Component{
     updateEventInfo(data){
         let date = data[0].date.split("T");
         let time = date[1].split(":");
-        let hour = Number(time[0])+1;
-        if(hour<10) hour = "0"+hour;
         let min = Number(time[1]);
         if(min<10) min = "0"+min;
 
+        let thisDate = new Date(date[0]);
+        thisDate.setHours(Number(time[0]) +1);
+        let hour = thisDate.getHours();
+        if(hour<10) hour = "0"+hour;
+
         this.setState({dateChosenHour: hour});
         this.setState({dateChosenMin: min});
-        this.setState({date: new Date(date[0])});
+        this.setState({date: thisDate});
         this.setState({Name: data[0].name});
         this.setState({Description: data[0].description});
         this.setState({Place: data[0].place});
@@ -248,12 +251,13 @@ class EditEvent extends Component{
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
-                        <input type="text"
-                               className="form-control"
-                               id="Description"
-                               value ={this.state.Description}
-                               onChange={this.changeValue}
-                        />
+                        <textarea rows="4"
+                                  className="form-control"
+                                  placeholder={this.state.Placeholder}
+                                  id="Description"
+                                  value={this.state.Description}
+                                  onChange={this.changeValue}>
+                        </textarea>
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Sted for arrangementet:</p>

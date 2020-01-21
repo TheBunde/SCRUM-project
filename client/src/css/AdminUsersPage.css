@@ -12,3 +12,16 @@
 .card-header p{
     font-weight: bold;
 }
+
+@media only screen and (max-width: 600px) {
+    .AdminUsersPageWrapper {
+        text-align: left;
+    }
+    #AdminUsersPageContainer {
+        display: none;
+    }
+    #adminSearchField {
+        display: none;
+    }
+}
+

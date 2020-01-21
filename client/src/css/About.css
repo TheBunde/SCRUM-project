@@ -1,7 +1,9 @@
 #AboutMain{
     min-height: 100vh;
     text-align: center;
-    padding: 50px 150px 0 150px;
+    padding-top: 50px;
+    margin: auto;
+    width: 80%
 }
 
 #aboutText{
@@ -9,7 +11,7 @@
 }
 
 #links{
-    padding:150px 50px 50px 50px ;
+    padding-top: 10%;
 }
 
 #link{
@@ -18,5 +20,13 @@
 }
 
 #aboutEventViewMap{
-    padding: 0 100px 0 100px;
+    margin: auto;
+    width:80%;
+    padding-bottom: 50px;
+}
+
+@media only screen and (max-width: 800px) {
+    #AboutMain{
+        padding: 0
+    }
 }

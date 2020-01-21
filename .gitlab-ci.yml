@@ -34,7 +34,8 @@ client_tests:
 pages:
   stage: deploy
   dependencies:
-    - server_tests
+    # commented out for testing:
+    #- server_tests
     - client_tests
   script:
     - mkdir .public

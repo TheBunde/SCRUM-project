@@ -78,7 +78,7 @@ class EditEvent extends Component{
     ticketCheck(){
         let status = false;
         this.state.Tickets.map(ticket =>{
-            if(this.state[ticket.name + "TicketBox"] == true && (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0)){
+            if(this.state[ticket.name + "TicketBox"] === true && (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0)){
                 status = true;
             }
         });

@@ -88,3 +88,7 @@ test('Changing contact information', done => {
 
     userDao.updateProfile({ name: 'Grete', phone: '09876543', email : 'new@mail.com', user_id: 2 }, callback);
 });
+
+test("", done => {
+
+});

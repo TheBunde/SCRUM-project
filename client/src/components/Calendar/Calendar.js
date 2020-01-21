@@ -26,16 +26,9 @@ export default class Calendar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            events: [
-                {id: 1, title: "one", date: "2020-01-21"},{id: 2, title: "to", date: "2020-01-22"},{id: 3, title: "Tre", date: "2020-01-23"}
-            ],
-            width: 0, 
-            height: 0
-
+            events: []
         }
-
     }
-
 
     componentDidMount() {
         authenticate();
@@ -55,17 +48,6 @@ export default class Calendar extends React.Component {
                     events: list
                 }
             )}).catch(error => console.error(error.message));
-    }
-
-    updateDimensions = () => {
-        this.setState({ width: window.innerWidth, height: window.innerHeight });
-        console.log(this.state.width);
-    };
-    componentDidMount() {
-        window.addEventListener('resize', this.updateDimensions);
-    }
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateDimensions);
     }
 
     formatDate(backendDate) {
@@ -89,16 +71,7 @@ export default class Calendar extends React.Component {
     }
 
     render() {
-<<<<<<< HEAD
-        this.size = this.state.width;
-        if(this.size > 800){
-            this.ok = true;
-        }else{
-            this.ok = false;
-        }
-=======
         this.size = window.innerWidth;
->>>>>>> f3cf6c49eaf9b303d235052ae233532e2f1f573d
         let myEvents = this.state.events;
         let def;
         if(this.size > 800){

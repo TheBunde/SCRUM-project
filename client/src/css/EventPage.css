@@ -204,8 +204,9 @@
          object-fit: contain;
      }
     #eventPageEventTable{
-        width: 100vw;
-        object-fit: contain;
+        display: grid;
+        width: 98vw;
+        justify-content: normal;
         overflow: hidden;
     }
     .eventPageEventCard{
@@ -221,4 +222,9 @@
         width: 90%;
     }
 
+}
+@media only screen and (max-width: 1335px){
+    #eventPageEventTable{
+        justify-content: center;
+    }
 }

@@ -248,12 +248,13 @@ class EditEvent extends Component{
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Beskrivelse for arrangementet:</p>
-                        <input type="text"
-                               className="form-control"
-                               id="Description"
-                               value ={this.state.Description}
-                               onChange={this.changeValue}
-                        />
+                        <textarea rows="4"
+                                  className="form-control"
+                                  placeholder={this.state.Placeholder}
+                                  id="Description"
+                                  value={this.state.Description}
+                                  onChange={this.changeValue}>
+                        </textarea>
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Sted for arrangementet:</p>

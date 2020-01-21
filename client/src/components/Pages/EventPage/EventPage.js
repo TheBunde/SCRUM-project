@@ -189,17 +189,17 @@ class EventPage extends Component {
     });
 
         return (
-            <div class="pageSetup">
+            <div id="eventPagePage" class="pageSetup">
                 <Navbar getUser={this.getUserFromNavbar()} />
                 <div>
                     <div id="eventPageBackground">
                         <div id="eventPageContainer">
                             <div id="eventPageBanner">
-                                <div id={"eventPageTitle"}>
+                                <div id="eventPageTitle">
                                     <h1>ARRANGEMENTER</h1>
                                 </div>
                             </div>
-                            <div className={"eventPageInformation"}>
+                            <div id="eventPageInfoContainer" className="eventPageInformation">
                             <div id="eventPageBar">
                                 <div id="eventPageShow">
                                     <div className="dropdown">
@@ -232,8 +232,10 @@ class EventPage extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="eventPageSearchBar">
-                                    <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}/>
+                                <div id="eventPageSearchBarBox">
+                                    <div id="eventPageSearchBar">
+                                        <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="searchBar" onChange={() => this.handleSearch()}/>
+                                    </div>
                                 </div>
                             </div>
                             <div className="dropdown-divider border-dark"></div>

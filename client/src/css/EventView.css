@@ -16,7 +16,7 @@
     box-shadow: 0 0 0;
 }
 #eventViewInfoBoxMap{
-    
+
 }
 
 #eventViewButtons{
@@ -63,7 +63,7 @@
     min-height: 300px;
     min-width: 100px;
     box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
-    
+
 }
 
 #eventViewInfoTickets{
@@ -122,7 +122,7 @@
     width: 100%;
     max-height: 500px;
     /*object-fit: contain;*/
-    object-fit: cover;  
+    object-fit: cover;
     margin: auto;
     border-radius: 5px;
 }
@@ -154,7 +154,7 @@
 
 #eventViewInfoBoxContainer{
     grid-area: eventViewInfoContainer;
-    margin: 0px 0 0 15px; 
+    margin: 0px 0 0 15px;
     max-width: 98%;
 }
 #eventViewInfoBox{
@@ -177,7 +177,7 @@
     min-height: 100px;
     max-height: 500px;
     overflow-y: auto;
-    margin: 0 0 15px 0; 
+    margin: 0 0 15px 0;
 }
 #eventViewFiles div{
     margin: 10px;
@@ -195,7 +195,7 @@
     min-height: 100px;
     max-height: 500px;
     overflow-y: auto;
-    margin: 0 0 15px 0; 
+    margin: 0 0 15px 0;
 }
 #eventViewContactInfo h3{
     padding-bottom: 5px;
@@ -221,7 +221,7 @@
     min-height: 100px;
     max-height: 500px;
     overflow-y: auto;
-    margin: 0 0 15px 0; 
+    margin: 0 0 15px 0;
 }
 #eventViewFiles div{
     margin: 10px;
@@ -239,7 +239,7 @@
     min-height: 100px;
     max-height: 500px;
     overflow-y: auto;
-    margin: 0 0 15px 0; 
+    margin: 0 0 15px 0;
 }
 
 

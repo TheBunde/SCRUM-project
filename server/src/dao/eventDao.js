@@ -11,7 +11,7 @@ module.exports = class adminDao extends Dao{
     }
 
     getAllActive(callback){
-        super.query("Select * FROM Event WHERE pending = 0 and filed = 0 and date > now(); ", [], callback);
+        super.query("Select * FROM Event WHERE pending = 0 and filed = 0 and date > now()", [], callback);
     }
 
     getNonFiledEvents(callback){

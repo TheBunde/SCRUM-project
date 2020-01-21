@@ -16,7 +16,7 @@ let pool = mysql.createPool({
 let adminDao = new AdminDao(pool);
 
 /*
-    tests getUser: henter User med Id 2
+    tests getUser: henter User med Id
 */
 test("get User with id 1", done =>{
     function callback(status, data) {
@@ -82,17 +82,17 @@ test("test approving user", done =>{
         console.log(
             "Test approveUser adminDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data[0].user_id).toBe(2);
+        expect(data[0].user_id).toBe(1);
         expect(data[0].approved).toBe(1);
 
         done();
     }
 
     function callback(status, data){
-        adminDao.getUser(2, callback2);
+        adminDao.getUser(1, callback2);
     }
 
-    adminDao.approveUser(2, callback);
+    adminDao.approveUser(1, callback);
 });
 
 

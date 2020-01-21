@@ -313,7 +313,7 @@ class EventView extends Component{
 
         else if(auth.role === "Sceneansvarlig") return 2;
 
-        else if(auth.role === "Økonomiansvarlig") return 3;
+        else if(auth.role === "Økonomisjef") return 3;
 
         else return 4;
 

@@ -93,7 +93,7 @@ class EventView extends Component{
         return (
             <div>
                 <Navbar />
-                <div id="titleEvent">
+                <div id="eventViewTitleEvent">
                     <div id="eventViewStatus">
                         <a className={"btn btn-lg border-" + color}>{this.getStatus(this.state.canceled, this.state.pending, this.state.filed, this.state.date)}</a>
                     </div>

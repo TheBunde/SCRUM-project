@@ -7,6 +7,10 @@
     position: relative;
     background-color: whitesmoke;
 }
+#eventPageOuterCardBody{
+    overflow: auto;
+    object-fit: contain;
+}
 
 #eventPageBanner{
     color: white;
@@ -71,6 +75,7 @@
     height: 200px;
     width: 440px;
     color: black;
+    overflow: auto;
 }
 .eventPageEventCard a{
     color: black;
@@ -113,8 +118,9 @@
     display: inline-block;
 }
 
-.card-img-top{
+#eventPageCardImg{
     width: 180px;
+    height: 198px;
 }
 .eventPageEventCardButton{
     position: relative;
@@ -143,5 +149,7 @@
     text-decoration: none;
     pointer-events: none;
 }
-
-
+#eventPageStatus .btn-sm:focus{
+    text-decoration: none;
+    pointer-events: none;
+}

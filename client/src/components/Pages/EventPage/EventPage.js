@@ -268,7 +268,7 @@ class EventCard extends Component {
             <div id="eventPageEventCardLink">
                 <a href = {"#/event/" + this.props.event_id}>
                     <div class="card eventPageEventCard">
-                            <img class="card-img-top eventPageEventCardImg" src={"http://localhost:8080/image/" + this.props.img_url} alt={this.props.name} />
+                            <img id="eventPageCardImg" class="card-img-top eventPageEventCardImg" src={"http://localhost:8080/image/" + this.props.img_url} alt={this.props.name} />
 
                             <div class="card-body" id="eventPageOuterCardBody">
 
@@ -276,7 +276,7 @@ class EventCard extends Component {
                                 <h5 class="card-title">{this.props.name}</h5>
                                 <div id="eventPageStatus">
 
-                                    <a className={"btn btn-outline-"+color}>Status: {this.getStatus(this.props.canceled, this.props.pending, this.props.filed,  this.props.compareDate)}</a>
+                                    <a className={"btn btn-outline-"+color+" btn-sm"}>Status: {this.getStatus(this.props.canceled, this.props.pending, this.props.filed,  this.props.compareDate)}</a>
                                 </div>
                                 <div id="eventPageCardLocation">
                                     {this.props.place}

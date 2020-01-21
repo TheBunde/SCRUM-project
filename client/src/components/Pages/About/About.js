@@ -17,7 +17,6 @@ class About extends Component{
         }
     }
 
-
     componentDidMount() {
         authenticate();
         console.log(auth.authenticated);

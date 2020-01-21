@@ -54,7 +54,6 @@ test("get Users from DB", done =>{
 /*
     tests assignRole: assignes role 2 to user_id 1
 */
-
 test("test assigning roles", done =>{
 
     function callback2(status, data) {
@@ -74,8 +73,10 @@ test("test assigning roles", done =>{
 });
 
 
-
-test("test approve roles", done =>{
+/*
+    tests approveUser: approves user_id 2
+*/
+test("test approving user", done =>{
 
     function callback2(status, data) {
         console.log(
@@ -96,7 +97,7 @@ test("test approve roles", done =>{
 
 
 /*
-    delete user
+    delete user: deletes user with user_id 3
 */
 test("delete user", done =>{
 
@@ -112,7 +113,7 @@ test("delete user", done =>{
 });
 
 /*
-disapproveUser
+disapproveUser with user_id 1
  */
 test("disapprove user", done =>{
 

@@ -19,7 +19,7 @@ class AddEvent extends Component {
             ContactName: "", ContactPhone: "", ContactEmail: "",
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
             Picture: "", Category: 1,
-            GratisTicketBox: false, GratisTicketAmount: null, GratisTicketPrice: null,
+            GratisTicketBox: false, GratisTicketAmount: null, GratisTicketPrice: 0,
             StandardTicketBox: false, StandardTicketAmount: null, StandardTicketPrice: null,
             VIPTicketBox: false, VIPTicketAmount: null, VIPTicketPrice: null,
             EarlyBirdTicketBox: false, EarlyBirdTicketAmount: null, EarlyBirdTicketPrice: null,
@@ -306,7 +306,40 @@ class AddEvent extends Component {
 
                     <p id="EventInputTitle">Billettyper:</p>
                     <div id="EventInputTicketContainer">
-                        {this.state.Tickets.map(tickets =>
+                        <div id="EventInputTicketBoxes">
+                            <div id="EventInputCheckboxes">
+                                <div id="EventTicketInnerLabel">
+                                    <label id="EventTicketLabels">{"Gratis billetter"}</label>
+                                </div>
+                                <div id="EventTicketInnerCheckbox">
+                                    <input type="checkbox"
+                                           id={"Gratis"}
+                                           onChange={this.changeBox}
+                                    />
+                                </div>
+                            </div>
+                            <div id="EventTicketInput">
+                                <div id="EventTicketAmount">
+                                    <input type="number"
+                                           id={"GratisTicketAmount"}
+                                           className="form-control"
+                                           placeholder={"Antall Gratis billetter"}
+                                           value={this.state["GratisTicketAmount"]}
+                                           disabled={!this.state["GratisTicketBox"]}
+                                           onChange={this.changeValue}
+                                    />
+                                </div>
+                                <div id="EventTicketPrice">
+                                    <input type="number"
+                                           id ={"GratisTicketPrice"}
+                                           className="form-control"
+                                           value = {0}
+                                           disabled={true}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        {(this.state.Tickets.filter(tickets => (tickets.name !== "Gratis"))).map(tickets =>
                             <div id="EventInputTicketBoxes">
                                 <div id="EventInputCheckboxes">
                                     <div id="EventTicketInnerLabel">
@@ -319,7 +352,7 @@ class AddEvent extends Component {
                                         />
                                     </div>
                                 </div>
-                                    <div id="EventTicketInput">
+                                <div id="EventTicketInput">
                                     <div id="EventTicketAmount">
                                         <input type="number"
                                                id={tickets.name + "TicketAmount"}
@@ -394,6 +427,7 @@ class AddEvent extends Component {
      */
 
     registerEvent() {
+        console.log(this.state.GratisTicketPrice)
         console.log("Registrating event");
         if (this.formValidation() && this.checkDate()) {
             if (!(validateEmail(this.state.ContactEmail))) {
@@ -484,7 +518,7 @@ class AddEvent extends Component {
             if (this.state[ticket.name + "TicketBox"]) {
                 if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0) {
                     eventService
-                        .addTicket(ticket.ticket_category_id, EventId, this.state[ticket.name + "TicketAmount"])
+                        .addTicket(ticket.ticket_category_id, EventId, this.state[ticket.name + "TicketAmount"], this.state[ticket.name + "TicketPrice"])
                         .catch(Error => console.log(Error))
                 }
             }
@@ -492,7 +526,6 @@ class AddEvent extends Component {
         eventService
             .addContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, EventId)
             .catch(Error => console.log(Error));
-
     }
 }
 

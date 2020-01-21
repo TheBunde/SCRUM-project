@@ -11,7 +11,7 @@ module.exports = class adminDao extends Dao{
     }
 
     getAllActive(callback){
-        super.query("Select * FROM Event WHERE pending = 0 and filed = 0 and date > now(); ", [], callback);
+        super.query("Select * FROM Event WHERE pending = 0 and filed = 0 and canceled = 0 and date > now(); ", [], callback);
     }
 
     getNonFiledEvents(callback){
@@ -39,7 +39,7 @@ module.exports = class adminDao extends Dao{
     }
 
     addTicket(ticket, callback){
-        super.query("INSERT INTO Event_Ticket(event_id, ticket_category_id, price, number) VALUES (?, ?, 0, ?)", [ticket.eventID, ticket.ticketID, ticket.amount], callback)
+        super.query("INSERT INTO Event_Ticket(event_id, ticket_category_id, price, number) VALUES (?, ?, ?, ?)", [ticket.eventID, ticket.ticketID, ticket.price, ticket.amount], callback)
     }
 
     deleteEvent(eventID, callback){

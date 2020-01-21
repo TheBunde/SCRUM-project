@@ -1,19 +1,37 @@
 import React, {Component} from 'react';
 
 import Footer from '../../Footer/Footer'
-import Navbar from '../../Navbar/Navbar'
+import NavbarMainPage from '../../Navbar/NavbarMainPage'
+import NavBar from "../../Navbar/Navbar";
 import '../../../css/About.css'
-
+import {auth, authenticate} from "../../../service/UserService";
 
 
 // About, will be called by the "om" link in the footer
 
 class About extends Component{
-    
+    constructor(props) {
+        super(props);
+        this.state = {
+            loggedIn: false
+        }
+    }
+
+
+    componentDidMount() {
+        authenticate();
+        console.log(auth.authenticated);
+        if (auth.authenticated) {
+            this.setState({
+                loggedIn : true
+            })
+        }
+    }
+
     render() {
         return (
             <div class="pageSetup">
-                <Navbar />
+                {this.state.loggedIn === true ? <NavBar />: <NavbarMainPage />}
                 <div id='AboutMain'>
                     <h3>Harmoni</h3>
                     <p id="aboutText">

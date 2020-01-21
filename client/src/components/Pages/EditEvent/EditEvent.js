@@ -15,14 +15,14 @@ class EditEvent extends Component{
         this.state = {
             date: new Date(), dateChosenHour: null, dateChosenMin: null,
             Name: "", Description: "", Place: "", Artists: "",
-            ContactName: "", ContactPhone: "", ContactEmail: "",
+            ContactName: "", ContactPhone: "", ContactEmail: "", haveContactInfo: true,
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
             Picture: "", Category: 1,
-            GratisTicketBox: false, GratisTicketAmount: null,
-            StandardTicketBox: false, StandardTicketAmount: null,
-            VIPTicketBox: false, VIPTicketAmount: null,
-            EarlyBirdTicketBox: false, EarlyBirdTicketAmount: null,
-            GoldenCircleTicketBox: false, GoldenCircleTicketAmount: null,
+            GratisTicketBox: false, GratisTicketAmount: null, GratisTicketPrice: null,
+            StandardTicketBox: false, StandardTicketAmount: null, StandardTicketPrice: null,
+            VIPTicketBox: false, VIPTicketAmount: null, VIPTicketPrice: null,
+            EarlyBirdTicketBox: false, EarlyBirdTicketAmount: null, EarlyBirdTicketPrice: null,
+            GoldenCircleTicketBox: false, GoldenCircleTicketAmount: null, GoldenCircleTicketPrice: null,
             Categories: [], Tickets: [],
             DateHour: ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
             DateMin: ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59],
@@ -45,9 +45,12 @@ class EditEvent extends Component{
         this.setState({[event.target.id]: event.target.value})
     }
 
-    changeBox(event){
-        this.setState({[event.target.id]: event.target.checked});
-        if(this.state[event.target.id]) this.setState({[event.target.name]: 0});
+    changeBox(event) {
+        this.setState({[event.target.id + "TicketBox"]: event.target.checked});
+        if (this.state[event.target.id + "TicketBox"]){
+            this.setState({[event.target.id + "TicketAmount"]: 0});
+            this.setState({[event.target.id + "TicketPrice"]: 0});
+        }
     }
 
     changeDate(event) {
@@ -78,7 +81,7 @@ class EditEvent extends Component{
     ticketCheck(){
         let status = false;
         this.state.Tickets.map(ticket =>{
-            if(this.state[ticket.name + "TicketBox"] == true && (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0)){
+            if(this.state[ticket.name + "TicketBox"] === true && (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0)){
                 status = true;
             }
         });
@@ -160,20 +163,26 @@ class EditEvent extends Component{
         data.map(ticket => {
             eventService
                 .getTicketById(ticket.ticket_category_id)
-                .then(name => this.updateTicketAmount(name.name, ticket.number))
+                .then(name => this.updateTicketAmount(name.name, ticket.number, ticket.price))
                 .catch(Error => console.log(Error))
         })
     }
 
-    updateTicketAmount(name, amount){
+    updateTicketAmount(name, amount, price){
         this.setState({[name + "TicketBox"]: true});
-        this.setState({[name + "TicketAmount"]: amount})
+        this.setState({[name + "TicketAmount"]: amount});
+        this.setState({[name + "TicketPrice"]: price});
     }
 
     updateContactInfo(data){
-        this.setState({ContactName: data.name});
-        this.setState({ContactPhone: data.phone});
-        this.setState({ContactEmail: data.email});
+        if(data === undefined){
+            this.setState({haveContactInfo: false} )
+        }
+        else {
+            this.setState({ContactName: data.name});
+            this.setState({ContactPhone: data.phone});
+            this.setState({ContactEmail: data.email});
+        }
     }
 
     render() {
@@ -425,32 +434,77 @@ class EditEvent extends Component{
                             )};
                         </select>
                     </div>
-                    <p id = "EventInputTitle">Billettyper:</p>
-                    <div id ="EventInputTicketContainer">
-                        {this.state.Tickets.map(tickets =>
-                            <div id = "EventInputTicketBoxes">
+                    <p id="EventInputTitle">Billettyper:</p>
+                    <div id="EventInputTicketContainer">
+                        <div id="EventInputTicketBoxes">
+                            <div id="EventInputCheckboxes">
+                                <div id="EventTicketInnerLabel">
+                                    <label id="EventTicketLabels">{"Gratis billetter"}</label>
+                                </div>
+                                <div id="EventTicketInnerCheckbox">
+                                    <input type="checkbox"
+                                           id={"Gratis"}
+                                           checked={this.state.GratisTicketBox}
+                                           onChange={this.changeBox}
+                                    />
+                                </div>
+                            </div>
+                            <div id="EventTicketInput">
+                                <div id="EventTicketAmount">
+                                    <input type="number"
+                                           id={"GratisTicketAmount"}
+                                           className="form-control"
+                                           placeholder={"Antall Gratis billetter"}
+                                           value={this.state["GratisTicketAmount"]}
+                                           disabled={!this.state["GratisTicketBox"]}
+                                           onChange={this.changeValue}
+                                    />
+                                </div>
+                                <div id="EventTicketPrice">
+                                    <input type="number"
+                                           id ={"GratisTicketPrice"}
+                                           className="form-control"
+                                           value = {0}
+                                           disabled={true}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        {(this.state.Tickets.filter(tickets => (tickets.name !== "Gratis"))).map(tickets =>
+                            <div id="EventInputTicketBoxes">
                                 <div id="EventInputCheckboxes">
-                                    <div id ="EventTicketInnerLabel">
+                                    <div id="EventTicketInnerLabel">
                                         <label id="EventTicketLabels">{tickets.name + " billetter"}</label>
                                     </div>
-                                    <div id ="EventTicketInnerCheckbox">
-                                        <input type ="checkbox"
-                                               id ={tickets.name + "TicketBox"}
-                                               name ={tickets.name + "TicketAmount"}
+                                    <div id="EventTicketInnerCheckbox">
+                                        <input type="checkbox"
+                                               id={tickets.name}
                                                checked={this.state[tickets.name +"TicketBox"]}
                                                onChange={this.changeBox}
                                         />
                                     </div>
                                 </div>
-                                <div id ="EventTicketAmount">
-                                    <input type = "number"
-                                           id={tickets.name +"TicketAmount"}
-                                           className ="form-control"
-                                           placeholder={"Antall " + tickets.name + " billetter"}
-                                           value = {this.state[tickets.name + "TicketAmount"]}
-                                           disabled = {!this.state[tickets.name + "TicketBox"]}
-                                           onChange={this.changeValue}
-                                    />
+                                <div id="EventTicketInput">
+                                    <div id="EventTicketAmount">
+                                        <input type="number"
+                                               id={tickets.name + "TicketAmount"}
+                                               className="form-control"
+                                               placeholder={"Antall " + tickets.name + " billetter"}
+                                               value={this.state[tickets.name + "TicketAmount"]}
+                                               disabled={!this.state[tickets.name + "TicketBox"]}
+                                               onChange={this.changeValue}
+                                        />
+                                    </div>
+                                    <div id="EventTicketPrice">
+                                        <input type="number"
+                                               id ={tickets.name + "TicketPrice"}
+                                               className="form-control"
+                                               placeholder={"Pris for " + tickets.name + " billetter" }
+                                               value = {this.state[tickets.name + "TicketPrice"]}
+                                               disabled={!this.state[tickets.name + "TicketBox"]}
+                                               onChange={this.changeValue}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -613,16 +667,23 @@ class EditEvent extends Component{
             if(this.state[ticket.name + "TicketBox"]){
                 if(this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
                     eventService
-                        .addTicket(ticket.ticket_category_id, eventID, this.state[ticket.name + "TicketAmount"])
+                        .addTicket(ticket.ticket_category_id, eventID, this.state[ticket.name + "TicketAmount"], this.state[ticket.name + "TicketPrice"])
                         .catch(Error => console.log(Error))
                 }
             }
         });
-
-        eventService
-            .updateContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, eventID)
-            .then(() => window.location.href="#/event/" + this.props.match.params.id)
-            .catch(Error => console.log(Error));
+        if(this.state.haveContactInfo) {
+            eventService
+                .updateContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, eventID)
+                .then(() => window.location.href = "#/event/" + this.props.match.params.id)
+                .catch(Error => console.log(Error));
+        }
+        else{
+            eventService
+                .addContactInfo(this.state.ContactName, this.state.ContactPhone, this.state.ContactEmail, eventID)
+                .then(() => window.location.href = "#/event/" + this.props.match.params.id)
+                .catch(Error => console.log(Error))
+        }
     }
 }
 

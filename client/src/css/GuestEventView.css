@@ -6,7 +6,7 @@
 }
 
 #guestEventViewTitleHR{
-    width: 20%;
+    width: 80%;
     height: 2px;
     background-color: rgb(39, 64, 74);
 }
@@ -16,7 +16,7 @@
     box-shadow: 0 0 0;
 }
 #guestEventViewInfoBoxMap{
-    padding-bottom: 20px;
+    
 }
 
 #guestEventViewButtons{
@@ -36,6 +36,33 @@
 }
 #guestEventViewTitle h1{
     margin: auto auto auto;
+}
+
+.mapouter {
+    position:relative;
+    text-align:right;
+    height:100%;
+    width:100%;
+    margin: 25px 0 0 0;
+    padding-bottom: -30px;
+}
+
+.gmap_canvas {
+    overflow:hidden;
+    background:none
+    !important;
+    height:100%;
+    width:100%;
+    min-height: 300px;
+
+}
+
+.gmap_canvas iframe{
+    height:100%;
+    width:100%;
+    min-height: 300px;
+    min-width: 100px;
+    
 }
 
 #guestEventViewInfoTickets{
@@ -67,35 +94,36 @@
     background-color: rgb(255, 255, 255);
 
     display: grid;
-    grid-template-areas: 
-            "title title"
+    grid-template-areas:
+    "title tilte"
             "guestEventViewImage guestEventViewInfoContainer"
-            "guestEventViewDescription guestEventViewInfoContainer";
+            "guestEventViewDescription guestEventViewInfoContainer"
+            "guestEventViewComment guestEventViewInfoContainer";
     grid-template-columns: 2fr 1fr;
 }
 
 #guestEventViewImageContainer{
     grid-area: guestEventViewImage;
 }
+
 #guestEventViewImage{
     background-color: white;
     width: 100%;
     height: 100%;
     margin: 0px 15px 0px 15px;
-    padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
     max-width: 98%;
     text-align: center;
 }
 #guestEventViewImage img{
-    height: 85%;
-    width: 95%;
+    height: 100%;
+    width: 100%;
     max-height: 500px;
-    max-width: 1000px;
     /*object-fit: contain;*/
     object-fit: cover;  
-    margin: auto;  
+    margin: auto;
+    border-radius: 5px;
 }
 
 #guestEventViewDescriptionContainer{
@@ -120,7 +148,7 @@
 }
 #guestEventViewDescriptionBoxTitle{
     text-align: center;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
 }
 
 #guestEventViewInfoBoxContainer{
@@ -133,7 +161,49 @@
     max-width: 98%;
     border-radius: 5px;
     background-color: white;
+    margin: 0 0 15px 0;
+}
+
+#guestEventViewArtistsContainer{
+}
+#guestEventViewArtists{
+    background-color: white;
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 98%;
+    border-radius: 5px;
+    min-height: 100px;
+    max-height: 500px;
+    overflow-y: auto;
     margin: 0 0 15px 0; 
+}
+#guestEventViewFiles div{
+    margin: 10px;
+}
+
+#guestEventViewContactInfoContainer{
+}
+#guestEventViewContactInfo{
+    background-color: white;
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 98%;
+    border-radius: 5px;
+    min-height: 100px;
+    max-height: 500px;
+    overflow-y: auto;
+    margin: 0 0 15px 0; 
+}
+#guestEventViewContactInfo h3{
+    padding-bottom: 5px;
+}
+#guestEventViewContactInfo p{
+    margin-bottom: 8px;
+}
+#guestEventViewFiles div{
+    margin: 10px;
 }
 
 #guestEventViewFilesContainer{
@@ -171,7 +241,59 @@
     margin: 0 0 15px 0; 
 }
 
+
+
 #guestEventViewInfoTicketsAndFilesContainer{
     grid-area: guestEventViewTicketsAndFiles;
     padding-right: 15px;
 }
+
+#guestEventViewCommentSectionContainer{
+    grid-area: guestEventViewComment;
+}
+#guestEventViewCommentSection{
+    background-color: white;
+    width: 100%;
+    margin: 0 15px 15px 15px;
+    padding: 40px;
+    max-width: 98%;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    border-radius: 5px;
+    min-height: 470px;
+    max-height: 95;
+    height: 98%;
+    overflow-y: auto;
+}
+
+
+
+#guestEventViewTitleEvent{
+    padding-top: 20px;
+    display: grid;
+    grid-template-areas:
+            "guestEventViewStatus guestEventViewTitle guestEventViewDropdown";
+    grid-template-columns: auto;
+    grid-area: title;
+}
+
+#guestEventViewStatus{
+    padding-left: 20px;
+    grid-area: guestEventViewStatus;
+}
+
+#guestEventViewStatus :hover{
+    cursor: default;
+}
+
+#guestEventViewTitle{
+    grid-area: guestEventViewTitle;
+    text-align: center;
+}
+
+#guestEventViewDropdown{
+    grid-area: guestEventViewDropdown;
+    text-align: right;
+    padding-right: 20px;
+}
+
+

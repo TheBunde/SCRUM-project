@@ -19,6 +19,21 @@
     
 }
 
+#guestEventViewButtons{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: auto;
+}
+
+#guestEventViewButtons div{
+    margin: auto;
+}
+
+#guestEventViewButtons button{
+    width: 100px;
+    margin: 5px;
+}
 #guestEventViewTitle h1{
     margin: auto auto auto;
 }
@@ -54,6 +69,19 @@
     width: 80%;
 }
 
+#guestEventViewInfoDownloadButtons{
+    background-color: rgb(62, 107, 153);
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#guestEventViewInfoDownloadButtons:hover{
+    background-color: rgb(38, 63, 138);
+}
+
 
 /* ---------------------------------------- */
 
@@ -81,7 +109,7 @@
     background-color: white;
     width: 100%;
     height: 100%;
-    margin: 0px 10px 0px 10px;
+    margin: 0px 15px 0px 15px;
     border-radius: 5px;
     box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
     max-width: 98%;
@@ -102,14 +130,14 @@
 }
 #guestEventViewDescription{
     background-color: white;
-    width: 100%;
     margin: 15px;
     padding: 40px;
+    width: 100%;
     max-width: 98%;
     box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
     border-radius: 5px;
     min-height: 470px;
-    max-height: 95px;
+    max-height: 95;
     height: 98%;
     overflow-y: auto;
 }
@@ -149,6 +177,94 @@
     overflow-y: auto;
     margin: 0 0 15px 0; 
 }
+#guestEventViewFiles div{
+    margin: 10px;
+}
+
+#guestEventViewContactInfoContainer{
+}
+#guestEventViewContactInfo{
+    background-color: white;
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 100%;
+    border-radius: 5px;
+    min-height: 100px;
+    max-height: 500px;
+    overflow-y: auto;
+    margin: 0 0 15px 0; 
+}
+#guestEventViewContactInfo h3{
+    padding-bottom: 5px;
+}
+#guestEventViewContactInfo p{
+    margin-bottom: 8px;
+}
+#guestEventViewFiles div{
+    margin: 10px;
+}
+
+#guestEventViewFilesContainer{
+}
+#guestEventViewFiles{
+    background-color: white;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 100%;
+    border-radius: 5px;
+    min-height: 100px;
+    max-height: 500px;
+    overflow-y: auto;
+    margin: 0 0 15px 0; 
+}
+#guestEventViewFiles div{
+    margin: 10px;
+}
+
+#guestEventViewInfoTicketsContainer{
+}
+#guestEventViewInfoTickets{
+    padding: 20px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    max-width: 100%;
+    border-radius: 5px;
+    min-height: 100px;
+    max-height: 500px;
+    overflow-y: auto;
+    margin: 0 0 15px 0; 
+}
+
+
+
+#guestEventViewInfoTicketsAndFilesContainer{
+    grid-area: guestEventViewTicketsAndFiles;
+    padding-right: 15px;
+}
+
+#guestEventViewCommentSectionContainer{
+    grid-area: guestEventViewComment;
+}
+#guestEventViewCommentSection{
+    background-color: white;
+    width: 100%;
+    margin: 0 15px 15px 15px;
+    padding: 40px;
+    max-width: 98%;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
+    border-radius: 5px;
+    min-height: 470px;
+    max-height: 95;
+    height: 98%;
+    overflow-y: auto;
+}
+
+
 
 #guestEventViewTitleEvent{
     padding-top: 20px;
@@ -179,10 +295,9 @@
     padding-right: 20px;
 }
 
-
-@Media only screen and (max-width: 1000px){
+@Media only screen and (max-width: 840px){
     #guestEventViewBackground{
-        padding: 5px;
+        padding: 0px;
         grid-template-areas:
                 "guestEventViewImage"
                 "guestEventViewDescription"
@@ -190,26 +305,56 @@
                 "guestEventViewComment";
         grid-template-columns: 1fr;
     }
-    #guestEventViewDescription{
-        background-color: white;
-        width: 100%;
-        margin: 15px;
-        padding: 10px;
-        max-width: 99%;
-        box-shadow: 0 0 0 0 rgb(0, 0, 0), 1px 1px 5px 0 rgb(0, 0, 0);
-        border-radius: 5px;
-        min-height: 470px;
-        max-height: 95;
-        height: 98%;
-        overflow-y: auto;
-    }
-    #guestEventViewDescription{
-        margin: 10px;
-        padding: 40px;
-        max-width: 98%;
-    }
+
     #guestEventViewDescriptionBox{
-        width: 80%;
+        width: 90%;
         margin: auto;
     }
+    #guestEventViewTitleEvent{
+        padding-top: 20px;
+        display: grid;
+        grid-template-areas:
+                "guestEventViewStatus guestEventViewDropdown"
+                "guestEventViewTitle guestEventViewTitle";
+        grid-template-columns: 1fr 1fr;
+        grid-area: title;
+    }
+    #guestEventViewImage{
+        margin: 0px auto 5px auto;
+        max-width: 95%;
+    }
+    #guestEventViewDescription{
+        max-width: 95%;
+        margin: 5px auto 5px auto;
+        text-align: center;
+    }
+    #guestEventViewDescriptionBoxTitle{
+        text-align: center;
+        padding-bottom: 10px;
+        margin: auto;
+    }
+    #guestEventViewDescriptionBoxTitle h1{
+        font-size: 30px;
+    }
+    #guestEventViewInfoBoxContainer{
+        grid-area: guestEventViewInfoContainer;
+        margin: 0px 0 0 15px; 
+        max-width: 95%;
+        min-width: 95%;
+        margin: 5px auto 0px auto;
+    }
+
+    #guestEventViewCommentSection{
+        max-width: 95%;
+        margin: 0px auto 5px auto;
+    }
+    #guestEventViewTitle{
+        grid-area: guestEventViewTitle;
+        text-align: center;
+        padding-top: 10px;
+    }
+    
 }
+
+
+

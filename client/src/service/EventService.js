@@ -1,9 +1,6 @@
 import axios from 'axios';
 import {authenticationHeader} from "./UserService";
-
-//let ipAdress = "10.24.3.122";
-let ipAdress = "localhost";
-//let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 
 export class event {

@@ -89,16 +89,7 @@ export default class Calendar extends React.Component {
     }
 
     render() {
-<<<<<<< HEAD
-        this.size = this.state.width;
-        if(this.size > 800){
-            this.ok = true;
-        }else{
-            this.ok = false;
-        }
-=======
         this.size = window.innerWidth;
->>>>>>> f3cf6c49eaf9b303d235052ae233532e2f1f573d
         let myEvents = this.state.events;
         let def;
         if(this.size > 800){

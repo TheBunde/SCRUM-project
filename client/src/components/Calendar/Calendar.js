@@ -61,12 +61,15 @@ export default class Calendar extends React.Component {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
         console.log(this.state.width);
     };
+    /*
     componentDidMount() {
         window.addEventListener('resize', this.updateDimensions);
     }
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateDimensions);
     }
+
+     */
 
     formatDate(backendDate) {
         let tempDate = backendDate;

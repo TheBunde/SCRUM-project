@@ -203,11 +203,11 @@ class EventPage extends Component {
                                             Vis
                                         </button>
                                         <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" onClick={() => this.eventFilterAllActive()}>Alle arrangementer som ikke er arkivert</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterPending()}>Under planlegging</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterApproved()}>Ferdig planlagte arrangementer</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
-                                            <a className="dropdown-item" onClick={() => this.eventFilterCancelled()}>Avlyste</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterAllActive()}>Alle arrangementer som ikke er arkivert</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterPending()}>Under planlegging</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterApproved()}>Ferdig planlagte arrangementer</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterCancelled()}>Avlyste</a>
                                         </div>
                                     </div>
                                 </div>

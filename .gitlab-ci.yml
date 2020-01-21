@@ -33,16 +33,16 @@ client_tests:
       - coverage
 
 # Make JSDoc
-client_jsdoc:
-  stage: build
-  script:
-    - cd client
-    - npm install
-    - npm run doc
-
-  artifacts:
-    paths:
-      - jsdoc
+#client_jsdoc:
+#  stage: build
+#  script:
+#    - cd client
+#    - npm install
+#    - npm run doc
+#
+#  artifacts:
+#    paths:
+#      - jsdoc
 
 # Publish coverage report on gitlab-pages
 pages:

@@ -77,31 +77,31 @@ class EventPage extends Component {
     eventFilterPending(){
         eventService.getNonFiledEvents().then(events => this.setState({
             shownEvents: events.filter(e=> (e.date > this.getCurrentDate()) && e.pending === 1)
-        }))
+        })).then(this.resetSortDropdown())
             .catch(error => console.error(error.message));
     }
     eventFilterArchived(){
         eventService.getAllArchived().then(events => this.setState({
             loadedEvents: events,
             shownEvents: events
-            }))
+            })).then(this.resetSortDropdown())
             .catch(error => console.error(error.message));
         //this.getArchivedEvents();
     }
     eventFilterApproved(){
         eventService.getNonFiledEvents().then(events => this.setState({
             shownEvents: events.filter(e => (e.date > this.getCurrentDate() && e.pending === 0 && e.canceled !== 1))
-        }))
+        })).then(this.resetSortDropdown())
             .catch(error => console.error(error.message));
     }
 
     eventFilterCancelled(){
-        eventService.getCancelled().then(events => this.setState({shownEvents: events, loadedEvents: events}));
+        eventService.getCancelled().then(events => this.setState({shownEvents: events, loadedEvents: events})).then(this.resetSortDropdown());
         console.log(this.state.shownEvents);
     }
 
     sortByName(){
-        this.setState(this.state.shownEvents.sort((a, b) => a.name.localeCompare(b.name)))
+        this.setState({ shownEvents: this.state.loadedEvents.sort((a, b) => a.name.localeCompare(b.name)) })
     }
 
     timeFromNow(date, now){
@@ -114,15 +114,15 @@ class EventPage extends Component {
     sortByClosest() {
         const now = new Date();
         this.sortByDate()
-        this.setState({ shownEvents: this.state.shownEvents.reverse().filter(a => this.timeFromNow(a, now) > 0) })
+        this.setState({ shownEvents: this.state.loadedEvents.reverse().filter(a => this.timeFromNow(a, now) > 0) })
     }
 
     sortByDate() {
         console.log(this.state.shownEvents[0].date);
-        this.setState(this.state.shownEvents.sort((a, b) => b.date.localeCompare(a.date)))
+        this.setState({ shownEvents: this.state.loadedEvents.sort((a, b) => b.date.localeCompare(a.date)) })
     }
     sortByCategory() {
-        this.setState(this.state.shownEvents.sort((a, b) => b.category_id - a.category_id))
+        this.setState({ shownEvents: this.state.loadedEvents.sort((a, b) => b.category_id - a.category_id) })
     }
 
     handleSearch() {
@@ -141,6 +141,10 @@ class EventPage extends Component {
         $("#eventPageSort .btn:first-child ").text("Sorter etter");
     }
 
+    resetSortDropdown(){
+        $("#eventPageSort .btn:first-child ").text("Sorter etter");
+    }
+
     getAllEvents(){
         eventService.getAllEvents().then(events => this.setState({
             loadedEvents: events
@@ -153,7 +157,7 @@ class EventPage extends Component {
         eventService.getNonFiledEvents().then(events => this.setState({
             loadedEvents: events,
             shownEvents: events
-        }))
+        })).then(this.resetSortDropdown())
             .catch(error => console.error(error.message));
     }
 

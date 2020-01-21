@@ -593,7 +593,6 @@ app.get("/user/:userID", verifyToken, (req, res) => {
         } else {
 
             console.log("/users/ fikk request fra klient");
-            console.log()
             adminDao.getUser(req.params.userID, (status, data) => {
                 res.status(status);
                 res.json(data);
@@ -730,6 +729,7 @@ app.post("/users/:userID/role",verifyToken, (req, res) => {
         } else {
             console.log("users/:userID/role fikk request fra klient");
             console.log(req.body);
+            console.log(req.params.userID);
             adminDao.assignRole(req.params.userID, req.body.roleID, (status, data) => {
                 res.status(status);
                 res.json(data);

@@ -102,7 +102,6 @@ class EditProfile extends Component{
                     <h1>Endre Profil</h1>
                     <div id="ShowProfileDivide" className="dropdown-divider border-dark"></div>
 
-
                     <div id="EditProfileInput">
                         <div className="col-sm-4">
                             <h5>Navn: </h5>

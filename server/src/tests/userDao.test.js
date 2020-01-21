@@ -53,7 +53,7 @@ test("get user", done => {
         done();
     }
     userDao.getUser(
-        ["test2@tester.no"], callback
+        "test2@tester.no", callback
     );
 });
 
@@ -68,7 +68,7 @@ test("get the approved user", done => {
         done();
     }
     userDao.getApprovedUser(
-        ["test3@tester.no"], callback
+        "test3@tester.no", callback
     );
 });
 

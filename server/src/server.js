@@ -633,11 +633,16 @@ app.put("/user/:userID/edit/password",verifyToken, (req, res) => {
 
                     let passwordHash = JSON.stringify(data[0].password_hash).slice(1,-1);
                     bcrypt.compare(req.body.password, passwordHash, function(err, response) {
+                        console.log(err);
+                        console.log(response);
                         if (err) {
+                            res.status(401);
                             console.log("An error occured");
                             console.error(err);
-                        } if (response) { // If response is true <=> If the passwords are equal
+                        }
+                        if (response) { // If response is true <=> If the passwords are equal
                             userDao.changePassword({user_id: parseInt(req.params.userID), password: req.body.newPassword}, (statusCode, result) => {
+                                console.log("Status-code: " + statusCode);
                                 res.status(statusCode);
                                 res.json(result);
                                 console.log("Password changed");

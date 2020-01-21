@@ -94,23 +94,18 @@
 }
 
 .eventPageEventCardLink a:link, a:visited {
-    
+
     text-align: center;
     text-decoration-color: black;
     display: inline-block;
   }
   .eventPageEventCardLink a {
-    
+
     text-align: center;
     text-decoration-color: black;
     display: inline-block;
   }
-  
-.eventPageEventCardLink a:hover, a:active {
-    text-align: center;
-    text-decoration-color: black;
-    display: inline-block;
-  }
+
 
 .eventPageEventCardLink{
     text-align: center;

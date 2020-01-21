@@ -46,14 +46,12 @@ test("get user", done => {
     function callback(status, data) {
         console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
         expect(data.length).toBe(1);
-        expect(data[0].user_id).toBe(3);
-        expect(data[0].name).toBe("test3");
-        expect(data[0].role_id).toBe(2);
-        expect(data[0].role).toBe('Sceneansvarlig');
+        expect(data[0].user_id).toBe(1);
+        expect(data[0].name).toBe("test1");
         done();
     }
     userDao.getUser(
-        "test3@tester.no", callback
+        "test1@tester.no", callback
     );
 });
 
@@ -61,14 +59,14 @@ test("get the approved user", done => {
     function callback(status, data) {
         console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
         expect(data.length).toBe(1);
-        expect(data[0].user_id).toBe(3);
-        expect(data[0].name).toBe('test3');
-        expect(data[0].role_id).toBe(2);
-        expect(data[0].role).toBe('Sceneansvarlig');
+        expect(data[0].user_id).toBe(4);
+        expect(data[0].name).toBe('test4');
+        expect(data[0].role_id).toBe(4);
+        expect(data[0].role).toBe('Barsjef');
         done();
     }
     userDao.getApprovedUser(
-        "test3@tester.no", callback
+        "test4@tester.no", callback
     );
 });
 
@@ -100,6 +98,6 @@ test("changing password", done => {
         userDao.getUser("test@test.no", callback2);
     }
 
-    let json = {user_id: 4, password: "hei1234"};
+    let json = {user_id: 5, password: "hei1234"};
     userDao.changePassword(json, callback);
 });

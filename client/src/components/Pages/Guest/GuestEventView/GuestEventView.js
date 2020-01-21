@@ -148,7 +148,7 @@ class EventView extends Component{
                             <div id="guestEventViewDescriptionBox">
                                 <div>
                                     <div id="guestEventViewDescriptionBoxTitle">
-                                        <h1>Beskrivelse av arrangementet</h1>
+                                        <h2>Beskrivelse av arrangementet</h2>
                                     </div>
                                     
                                     <h6>{this.state.description}</h6>

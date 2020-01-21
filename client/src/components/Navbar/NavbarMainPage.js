@@ -25,7 +25,7 @@ class NavbarMainPage extends Component {
                         <ul class="navbar-nav ml-auto">
                             <li className="nav-item">
                                 <a className="nav-link"
-                                   href = "#/portal">Arrangørportal</a>
+                                   href = {"#/portal"}>Arrangørportal</a>
                             </li>
                         </ul>
                     </div>

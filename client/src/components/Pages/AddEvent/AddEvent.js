@@ -484,7 +484,7 @@ class AddEvent extends Component {
             if (this.state[ticket.name + "TicketBox"]) {
                 if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0) {
                     eventService
-                        .addTicket(ticket.ticket_category_id, EventId, this.state[ticket.name + "TicketAmount"])
+                        .addTicket(ticket.ticket_category_id, EventId, this.state[ticket.name + "TicketAmount"], this.state[ticket.name + "TicketPrice"])
                         .catch(Error => console.log(Error))
                 }
             }

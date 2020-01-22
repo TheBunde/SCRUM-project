@@ -1,7 +1,7 @@
 
 #guestEventViewTitle {
     text-align: center;
-    padding-bottom: 20px;
+    padding: 10px 0 20px 0;
     color: rgb(39, 64, 74);
 }
 
@@ -89,7 +89,7 @@
 
 #guestEventViewBackground{
     min-height: 100%;
-    padding: 20px;
+    padding: 0px 20px 20px 20px;
     text-align: left;
     background-color: rgb(255, 255, 255);
 

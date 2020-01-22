@@ -12,14 +12,17 @@
 
 .carousel-caption{
     margin: auto;
-    width: max-content;
     border-radius: 10px;
-    padding: 20px 20px 20px 20px;
     background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) );
 }
 
 .carousel-caption:hover{
     cursor: pointer;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(100%);
 }
 
 .carousel-item img{
@@ -28,6 +31,10 @@
 
 .carousel-item{
     height: 500px;
+}
+
+.carousel-item:hover{
+    cursor: pointer;
 }
 
 .guestEventCardsContainer{

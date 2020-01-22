@@ -3,6 +3,9 @@ import Axios from "axios";
 //Axios.interceptors.response.use(response => response.data);
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
+/**
+ * User
+ */
 export class User {
     user_id;
     name;
@@ -12,7 +15,17 @@ export class User {
     password;
     roleid;
     approved;
-
+    /**
+     * 
+     * @param {number} user_id 
+     * @param {string} name 
+     * @param {string} email 
+     * @param {string} phone 
+     * @param {File} profile_photo 
+     * @param {string} password 
+     * @param {number} roleId 
+     * @param {boolean} approved 
+     */
     constructor(user_id, name, email, phone, profile_photo, password,roleId, approved) {
         this.user_id = user_id;
         this.name = name;
@@ -68,19 +81,40 @@ export const auth = {
 };
 
 export let authenticate = auth.authenticate.bind(auth);
+
+/**
+ * User service
+ */
 export class UserService {
+    /**
+     * 
+     * @param {user} user 
+     */
     registerUser(user){
         return Axios.post("http://" + ipAdress + ":8080/user", user);
     }
-
+    /**
+     * 
+     * @param {string} email 
+     * @param {string} pw 
+     */
     validate(email, pw){
         return Axios.post("http://" + ipAdress + ":8080/validate", {"email":  email, "password" : pw});
     }
-
+    /**
+     * 
+     * @param {string} email 
+     */
     getHash(email) {
         return Axios.get("http://" + ipAdress + ":8080/validate/" + email);
     }
-
+    /**
+     * 
+     * @param {string} email 
+     * @param {string} password 
+     * @param {string} newPassword 
+     * @param {number} user_id 
+     */
     updatePassword(email, password, newPassword, user_id){
         console.log("User service: " + email);
         return Axios.put("http://" + ipAdress + ":8080/user/" + user_id + "/edit/password",
@@ -91,7 +125,10 @@ export class UserService {
             }, {headers: authenticationHeader()}
         );
     }
-
+    /**
+     * 
+     * @param {string} email 
+     */
     forgotPassword(email) {
         return Axios.post("http://" + ipAdress + ":8080/user/reset_password",
             {

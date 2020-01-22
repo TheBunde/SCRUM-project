@@ -162,7 +162,43 @@ test("test: updateFiled", done =>{
     eventDao.updateFiled(2,callback);
 });
 
+/**
+ * test for: updatePending() in eventDao.js
+ */
+test("test: updatePending", done =>{
+    function callback2(status, data) {
+        console.log(
+            "Test updatePending eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data[0].pending).toBe(0);
+        done();
+    }
 
+    function callback(){
+        eventDao.getEventByID(2, callback2)
+    }
+
+    eventDao.updatePending(2,callback);
+});
+
+/**
+ * test for: updateCancel() in eventDao.js
+ */
+test("test: updateCancel", done =>{
+    function callback2(status, data) {
+        console.log(
+            "Test updateCancel eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data[0].canceled).toBe(1);
+        done();
+    }
+
+    function callback(){
+        eventDao.getEventByID(2, callback2)
+    }
+
+    eventDao.updateCancel(2,callback);
+});
 
 /**
  * test for: deleteEvent() in eventDao.js
@@ -214,6 +250,7 @@ test("test: getCategories()", done =>{
     
     eventDao.getCategories(callback);
 });
+
 /*
 test("test: addCategory()", done =>{
 
@@ -229,6 +266,7 @@ test("test: addCategory()", done =>{
     eventDao.addCategories(category, callback);
 });
 */
+
 /**
  * test for: getCategoryFromEvent() in eventDao.js
  */
@@ -245,6 +283,8 @@ test("test: getCategoryFromEvent()", done =>{
     eventDao.getCategoryFromEvent(2, callback);
 
 });
+
+
 
 /**
  * test for: getTicket() in eventDao.js
@@ -279,6 +319,7 @@ test("test: addTicket()", done =>{
     let event_ticket = {eventID: 1, ticketID: 3, amount: 20, price: 100};
     eventDao.addTicket(event_ticket, callback);
 });
+
 
 /**
  * test for: addContactInfo() in eventDao.js

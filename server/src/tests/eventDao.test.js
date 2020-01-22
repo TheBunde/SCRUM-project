@@ -143,6 +143,7 @@ test("test: addEvent()", done =>{
     let event = {name : "Just added", date:  "2020-01-20 20:45:00",description:  "the DB test made this", place : "Sukkerhuset", categoryID: 1, artists : "Javascript, mysql, ci, nodeJs ", tech_rider:  "nintendo switch", hospitality_rider: "potato chips", personnel: "Team 5", img_url: "eagle.png", contract: "everyone agrees"};
     eventDao.addEvent(event, callback);
 });
+
 /**
  * test for: updateFiled() in eventDao.js
  */

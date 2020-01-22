@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import "../../css/Navbar.css";
 import $ from "jquery";
-import { auth, authenticate } from "../../service/UserService";
-import { ProfileService } from "../../service/ProfileService";
+import { auth, authenticate, UserService } from "../../service/UserService";
 
 /*Changing ml-auto to mr-auto will change the placement of the navbar-collapse items to the left besides the logo/name to the left on the Navbar */
 
@@ -36,8 +35,8 @@ class Navbar extends Component {
     } else {
       show.style.display = "none";
     }
-    let profileService = new ProfileService();
-    profileService
+    let userService = new UserService();
+    userService
       .getUser(auth.user_id)
       .then(user => {
         this.setState({

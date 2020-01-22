@@ -34,8 +34,8 @@ const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
         auth.authenticated === true // If user is authenticated, check if they are authorized to view page
             ? authorized.includes(auth.role) === true 
                 ? <Component {...props} /> 
-                : <Redirect to="overview" /> 
-            : <Redirect to="" /> // User is not authenticated, and needs to log in
+                : <Redirect to="/overview" /> 
+            : <Redirect to="/" /> // User is not authenticated, and needs to log in
     )}/>
 );
 

@@ -735,7 +735,6 @@ app.get("/users/", verifyToken,(req, res) => {
 app.post("/user", (req, res) => {
     console.log("post /user");
     console.log(req.body);
-
     userDao.registerUser(req.body, (status, data) => {
         console.log("http status code: "+status);
         if(status === 200){

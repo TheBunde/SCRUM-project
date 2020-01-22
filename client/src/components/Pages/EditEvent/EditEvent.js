@@ -375,38 +375,15 @@ class EditEvent extends Component{
                     </div>
 
                     <div id="EventInputFiles">
-                        <div >
-                            <p id = "EventInputLabels">Nåværende bilde:</p>
-                            <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Picture)}
-                                    target="_blank"><i className="fa fa-download"></i> Last ned
-                            </button>
-                        </div>
                         <div>
-                            <p id="EventInputLabels">Nytt bilde:</p>
-                            <div id="EventNewFile">
-                                <input type="file"
-                                       className="form-control"
-                                       placeholder={this.state.Placeholder}
-                                       id="imageInput"
-                                       required={true}
-                                       accept={"image/*"}
-                                />
-                                <button type={"button"} className={""} onClick={() => this.submitNewPicture()}>Bekreft</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="EventInputFiles">
-                        <div>
-                            <p id = "EventInputLabels">Nåværende kontrakt:</p>
+                            <p id = "EventInputLabels">Nåværende Kontrakt:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
                                     onClick={() => window.open("http://localhost:8080/image/" + this.state.Contract)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
                         <div>
-                            <p id="EventInputLabels">Ny kontrakt:</p>
+                            <p id="EventInputLabels">Ny Kontrakt:</p>
                             <div id="EventNewFile">
                                 <input type="file"
                                        className="form-control"
@@ -418,7 +395,29 @@ class EditEvent extends Component{
                                 <button type={"button"} className={""} onClick={() => this.submitNewContract()}>Bekreft</button>
                             </div>
                         </div>
+                    </div>
 
+                    <div id="EventInputFiles">
+                        <div >
+                            <p id = "EventInputLabels">Nåværende Bilde:</p>
+                            <button id="eventViewInfoDownloadButtons" className="btn"
+                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Picture)}
+                                    target="_blank"><i className="fa fa-download"></i> Last ned
+                            </button>
+                        </div>
+                        <div>
+                            <p id="EventInputLabels">Nytt Bilde:</p>
+                            <div id="EventNewFile">
+                                <input type="file"
+                                       className="form-control"
+                                       placeholder={this.state.Placeholder}
+                                       id="imageInput"
+                                       required={true}
+                                       accept={"image/*"}
+                                />
+                                <button type={"button"} className={""} onClick={() => this.submitNewPicture()}>Bekreft</button>
+                            </div>
+                        </div>
                     </div>
 
                     <div id ="EventInputFields">

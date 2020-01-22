@@ -5,23 +5,12 @@
     margin: auto;
 }
 
-#EventInputDescription{
-    width: 50%;
-    text-align: left;
-    margin: auto;
-}
-
 #EventInputFiles{
     width: 50%;
     text-align: left;
     margin: auto;
     display: grid;
     grid-template-columns: 1fr 1.5fr;
-}
-
-#EventTicketInput{
-    display: grid;
-    grid-template-columns: 1fr;
 }
 
 #EventNewFile{
@@ -68,10 +57,6 @@
     padding-top: 10px;
 }
 
-#EventTicketAmount div{
-    padding: 0 0 0 5%;
-}
-
 #EventDateInput{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -104,9 +89,11 @@
     #EventInputFields{
         width: 90%;
     }
+
     #EventInputDescription{
         width: 90%;
     }
+
     #EventInputFiles{
         width: 90%;
         text-align: left;
@@ -118,9 +105,11 @@
     #EventInputTicketContainer{
         grid-template-columns: 1fr;
     }
+
     #EventInputTicketBoxes{
         margin-bottom: 20px;
     }
+
     #EventInputCheckboxes{
         text-align: left;
         width: 90%;
@@ -128,13 +117,11 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
+
     #EventTicketInnerCheckbox{
         padding-top: 8%
     }
-    #EventTicketLabels{
-        padding: 0;
-        margin: 0;
-    }
+
     #EventTicketInnerLabel{
         text-align: left;
     }

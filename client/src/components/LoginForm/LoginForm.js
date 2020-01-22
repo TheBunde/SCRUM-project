@@ -10,8 +10,14 @@ let crypto = require('crypto');
 /*class LoginForm extends Component<{props: submit}>{
 const jwt =  require('jsonwebtoken');
 //const private_key = 'pizza1234';*/
-
+/**
+ * @class LoginForm
+ */
 class LoginForm extends Component{
+    /**
+     * 
+     * @param {json} props 
+     */
     constructor(props){
         super(props);
         this.state = {
@@ -25,8 +31,10 @@ class LoginForm extends Component{
 
 
 
-    // Submitting the values in state to a validate function to check if email/pw are valid.
-    // If so, send the user to the home page/overview page.
+    /**
+     * Submitting the values in state to a validate function to check if email/pw are valid.
+     * If so, send the user to the home page/overview page.
+     */
     submit = () => {
         let userService = new UserService();
         console.log(this.state.email);
@@ -48,7 +56,7 @@ class LoginForm extends Component{
 
     };
 
-    // Runs every time input-fields are updated. Updates the state with the most current values.
+    /** Runs every time input-fields are updated. Updates the state with the most current values. */
     updateInputValue = (e) => {
         this.setState({
             [e.target.name]: e.target.value 

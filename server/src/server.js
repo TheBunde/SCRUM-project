@@ -15,12 +15,37 @@ const serveIndex = require("serve-index");
 let bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 
+/**
+ * @file server.js is the root file for this express app
+ * @author Team 5
+ * @see <a href="http://localhost:3000">Harmoni</a>
+ */
+
+
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 //app.use(express.static(path.join(__dirname;
 app.use('/ftp', express.static('../../public/uploads'), serveIndex('public', {'icons': true}));
 
+/**
+ * Dummy class
+ */
+class DummyClass {
 
+}
+
+/**
+ * test
+ * @typedef {get} get
+ * @property {number} id - Student ID
+ * 
+ */
+
+
+
+/**
+ * @type {Object}
+ */
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
         console.log(__dirname + '/../../..');
@@ -73,8 +98,14 @@ let mail = new Mail();
 let privateKey = (publicKey = secret.secret);
 
 
-//CATEGORIES
+/**
+ * Get categories
+ * @function get
+ */
 app.get("/categories", verifyToken,(req, res) => {
+    /**
+     * verify
+     */
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
             res.sendStatus(401);
@@ -87,7 +118,10 @@ app.get("/categories", verifyToken,(req, res) => {
     });
 
 });
-
+/**
+ * GET category id
+ * @function get /category/:id
+ */
 app.get("/category/:id", verifyToken,(req, res) =>{
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
@@ -105,7 +139,9 @@ app.get("/category/:id", verifyToken,(req, res) =>{
 
 
 //CONTACTINFO
-
+/** test
+ * @default test
+ */
 app.post("/contactinfo", verifyToken,(req, res) => {
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
@@ -118,7 +154,9 @@ app.post("/contactinfo", verifyToken,(req, res) => {
         }
     });
 });
-
+/**
+ * @type {get} get
+ */
 app.get("/contactinfo/:id",verifyToken, (req, res) => {
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
@@ -855,7 +893,7 @@ function makeid(length) {
     }
     next();
 });*/
-
+/*
 function makeid(length) {
     let result           = '';
     let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -865,7 +903,7 @@ function makeid(length) {
     }
     return result;
 }
-
+*/
 
 
 

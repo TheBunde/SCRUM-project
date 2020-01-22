@@ -44,6 +44,10 @@ class EditProfile extends Component {
 
     notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    notifyUsedEmail = () => toast("E-post er allerede i bruk", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyUsedPhone = () => toast("Telefonnummeret er allerede i bruk", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
     notifyMissingPassword = () => toast("Du må fylle ut begge passord-feltene", {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
@@ -58,6 +62,8 @@ class EditProfile extends Component {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
     });
+
+
 
 
     componentDidMount() {
@@ -307,6 +313,7 @@ class EditProfile extends Component {
                                     window.location.hash = "/profile/" + auth.user_id;
                                 })
                                 .catch((err) => {
+                                    console.error(err.response.data);
                                     this.notifyFailure();
                                 })
                         })
@@ -341,7 +348,14 @@ class EditProfile extends Component {
                                 window.location.hash = "/profile/" + auth.user_id;
                             })
                             .catch((err) => {
-                                this.notifyFailure();
+                                if (err.response.data.sqlMessage.indexOf("email") > -1) {
+                                    this.notifyUsedEmail();
+                                } else if(err.response.data.sqlMessage.indexOf("phone") > -1) {
+                                    this.notifyUsedPhone();
+                                } else {
+                                    this.notifyFailure();
+                                }
+
                             })
                     })
             }

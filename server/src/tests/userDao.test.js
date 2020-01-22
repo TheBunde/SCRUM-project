@@ -96,9 +96,9 @@ test("changing password", done => {
        done();
     }
     function callback(status, data){
-        userDao.getUser("test@test.no", callback2);
+        userDao.getUser("test6@tester.no", callback2);
     }
 
-    let json = {user_id: 7, password: "hei1234"};
+    let json = {user_id: 6, password: "hei1234"};
     userDao.changePassword(json, callback);
 });

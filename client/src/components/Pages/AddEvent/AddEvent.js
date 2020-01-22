@@ -10,6 +10,11 @@ import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 
 class AddEvent extends Component {
+
+    /**
+     * Setting up states for all input variables
+     * @param props
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -35,6 +40,9 @@ class AddEvent extends Component {
         this.changeValue = this.changeValue.bind(this)
     }
 
+    /**
+     * Pulling categories and tickets at startup
+     */
     componentDidMount() {
         console.log(this.state);
         eventService
@@ -67,16 +75,24 @@ class AddEvent extends Component {
 
     notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+
     notifyTooBigFile = () => toast("En av filene du forsøkte å laste opp var for stor", {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
     });
 
-
+    /**
+     *onChange function to change state variables
+     * @param {SyntheticEvent} event
+     */
     changeValue(event) {
-        this.setState({[event.target.id]: event.target.value})
+        this.setState({[event.target.id]: event.target.value});
     }
 
+     /**
+     * onChange function to change checkedbox state
+     * @param {SyntheticEvent} event
+     */
     changeBox(event) {
         this.setState({[event.target.id + "TicketBox"]: event.target.checked});
         if (this.state[event.target.id + "TicketBox"]) {
@@ -85,10 +101,19 @@ class AddEvent extends Component {
         }
     }
 
+    /**
+     * onChange function to change date state from calendar
+     * @param {SyntheticEvent} event
+     */
     changeDate(event) {
         this.setState({date: event})
     }
 
+    /**
+     *
+     * @returns {boolean} true if all correct fields are filled
+     * @returns {boolean} false if inputs
+     */
     formValidation() {
         return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === ""
             || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
@@ -104,21 +129,12 @@ class AddEvent extends Component {
         return status;
     }
 
-    checkDate() {
-        let day = this.state.date.getDate();
-        let month = this.state.date.getMonth() + 1;
-        let year = this.state.date.getFullYear();
-        let hour = this.state.dateChosenHour;
-        let min = this.state.dateChosenMin;
-        if (day < 10) {
-            day = "0" + day
-        }
-        if (month < 10) {
-            month = "0" + month
-        }
-        let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
+    checkDate(){
+        let thisDate = this.state.date;
+        thisDate.setHours(this.state.dateChosenHour);
+        thisDate.setMinutes(this.state.dateChosenMin);
 
-        return new Date(date) > new Date();
+        return new Date(thisDate) > new Date();
     }
 
     render() {

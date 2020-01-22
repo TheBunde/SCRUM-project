@@ -45,7 +45,6 @@ class EventView extends Component{
     }
 
     formatDate(backendDate) {
-        
         let thisDate = new Date(backendDate);
 
         let year = thisDate.getFullYear();

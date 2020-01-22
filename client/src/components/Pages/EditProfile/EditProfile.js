@@ -313,9 +313,14 @@ class EditProfile extends Component {
                                     window.location.hash = "/profile/" + auth.user_id;
                                 })
                                 .catch((err) => {
-                                    console.error(err.response.data);
-                                    this.notifyFailure();
-                                })
+                                    if (err.response.data.sqlMessage.indexOf("email") > -1) {
+                                        this.notifyUsedEmail();
+                                    } else if (err.response.data.sqlMessage.indexOf("phone") > -1) {
+                                        this.notifyUsedPhone();
+                                    } else {
+                                        this.notifyFailure();
+                                    }
+                                });
                         })
                 }
             } else {

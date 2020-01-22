@@ -46,5 +46,5 @@ test("test: getComment()", done =>{
         expect(data[0].user_id).toBe(1);
         done();
     }
-    eventDao.addComment(1, callback);
+    eventDao.getComments(1, callback);
 });

@@ -80,7 +80,7 @@ test("test: getNonFiledEvents()", done =>{
             "Test getNonFiledEvents eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data.length).toBeGreaterThanOrEqual(4);
-        expect(data[0].name).toBe("Just added");
+        expect(data[0].name).toBe("Metallica metal");
         expect(data[1].filed).toBe(0);
         done();
     }
@@ -92,20 +92,15 @@ test("test: getNonFiledEvents()", done =>{
  * test for: getAllActive() in eventDao.js
  */
 test("test: getAllActive()", done =>{
-    function callback2(status, data) {
+    function callback(status, data) {
         console.log(
             "Test getAllActive eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data[0].pending).toBe(0);
-        expect(data.length).toBeGreaterThanOrEqual(2);
+        expect(data.length).toBeGreaterThanOrEqual(1);
         done();
     }
-
-    function callback(){
-        eventDao.getAllActive(callback2);
-    }
-
-    eventDao.updatePending(7,callback);
+        eventDao.getAllActive(callback);
 });
 
 /**
@@ -121,7 +116,7 @@ test("test: getAllCancelled()", done =>{
         done();
     }
 
-    function callback(){
+    function callback(status, data){
         eventDao.getAllCancelled(callback2);
     }
 

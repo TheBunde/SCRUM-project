@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import '../../../css/MainPage.css';
-
 import Navbar from '../../Navbar/Navbar.js';
 import {NavbarMainPage} from "../../Navbar/Navbar";
 import {FooterTransparent} from '../../Footer/Footer'
 import { auth } from "../../../service/UserService.js" 
-import {Redirect} from 'react-router-dom';
 
 class MainPage extends Component {
     componentDidMount(){

@@ -6,10 +6,11 @@ class AdminService{
 
 
     updateUser(name, email,phone, userID) {
-        return axios.put("http://localhost:8080/users/" + userID + "/newName", {
+        return axios.put("http://localhost:8080/profile/" + userID + "/edit", {
             name: name,
             email: email,
-            phone: phone
+            phone: phone,
+            user_id: userID,
         }, {headers: authenticationHeader()}).then(response => response.data);
     }
 

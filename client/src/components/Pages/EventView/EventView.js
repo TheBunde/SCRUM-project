@@ -259,7 +259,6 @@ class EventView extends Component{
                     </div>
                     <div id="eventViewCommentSectionContainer">
                         <div id="eventViewCommentSection">
-                            
                                 <div class="comment-wrapper">
                                     <div class="panel panel-info">
                                         <div class="panel-heading">

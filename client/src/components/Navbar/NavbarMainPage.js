@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
 
+/*
+* @class NavbarMainPage
+* The component of the navbar showing only when not logged in, or by showing the guest-pages.
+* These pages are the guestEventView showing the eventinfo, guestMainPage being the firstpage with an list of events,
+* and the calendar showing when not logged in.
+*/
 class NavbarMainPage extends Component {
     render() {
         return (

@@ -48,7 +48,7 @@ test("get user", done => {
         expect(data.length).toBe(1);
         expect(data[0].user_id).toBe(5);
         expect(data[0].name).toBe("test5");
-        expect(data[0].approved).toBe(false);
+        expect(data[0].approved).toBe(0);
         done();
     }
     userDao.getUser(
@@ -92,13 +92,13 @@ test("changing password", done => {
     function callback2(status, data) {
        console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
 
-       expect(data[0].password_hash).toBe("$2b$10$V06K1Z5HDCeIu423qwfef.JtO4VY1ll9r8FvgvXiIpoxE6ObstdUi");
+       expect(data[0].password_hash).toEqual(expect.not.stringMatching("75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279"));
        done();
     }
     function callback(status, data){
-        userDao.getUser("test@test.no", callback2);
+        userDao.getUser("test6@tester.no", callback2);
     }
 
-    let json = {user_id: 8, password: "hei1234"};
+    let json = {user_id: 6, password: "hei1234"};
     userDao.changePassword(json, callback);
 });

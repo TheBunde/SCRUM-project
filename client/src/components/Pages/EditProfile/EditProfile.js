@@ -41,6 +41,11 @@ class EditProfile extends Component{
 
     notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    notifyMissingPassword = () => toast("Du må fylle ut begge passord-feltene", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyPasswordFailure = () => toast("Du har skrevet inn feil nåværende passord", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+
 
     componentDidMount() {
         authenticate();
@@ -154,20 +159,18 @@ class EditProfile extends Component{
                         </div>
                     </div>
 
-
+                    <button type="button" className="btn btn-dark btn-lg" onClick={this.save}>Lagre endringer</button>
+                        <button
+                            className="btn changePassword btn-outline-info btn-lg"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#collapsechangePassword"
+                            aria-expanded="false"
+                            aria-controls="collapsechangePassword"
+                        >
+                            Endre passord
+                        </button>
                     <div id="EditProfileChangePasswordDiv">
-                        <p>
-                            <button
-                                className="btn changePassword btn-outline-info"
-                                type="button"
-                                data-toggle="collapse"
-                                data-target="#collapsechangePassword"
-                                aria-expanded="false"
-                                aria-controls="collapsechangePassword"
-                            >
-                                Endre passord
-                            </button>
-                        </p>
                         <div className="collapse" id="collapsechangePassword">
 
                             <div className="col-sm-4">
@@ -193,11 +196,12 @@ class EditProfile extends Component{
                                 />
                                 <br/>
                             </div>
+                            <div className={"col-sm-4"}>
+                                <button type="button" className="btn btn-dark btn-lg" onClick={() => this.changePW()}>Lagre nytt passord</button>
+                            </div>
 
                         </div>
                     </div>
-
-                    <button type="button" className="btn btn-dark btn-lg" onClick={this.save}>Lagre endringer</button>
 
                 </div>
                 <Footer/>
@@ -219,14 +223,14 @@ class EditProfile extends Component{
             oldPWInput === null || oldPWInput === "",
             newPWInput === null || newPWInput === ""
         ){
-            console.log("Du må fylle ut feltene!")
+            this.notifyMissingPassword();
             return false;
         } else{
             userService.updatePassword(email, oldPWInput, newPWInput, user_id)
                 .then((res) => {
                     console.log(res.data.error);
                     if (res.data.error === "Not authorized") {
-                        this.notifyFailure();
+                        this.notifyPasswordFailure();
                     } else {
                         this.notifySuccessPw();
                         window.location.hash="/profile/" + auth.user_id;

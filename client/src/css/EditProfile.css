@@ -4,6 +4,9 @@
     min-height: 100vh;
 }
 
+.changePassword {
+    margin: 1vw;
+}
 
 
 #EditProfileInput{

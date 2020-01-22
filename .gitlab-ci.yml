@@ -8,6 +8,15 @@ services:
 variables:
   MYSQL_DATABASE: supertestdb
   MYSQL_ROOT_PASSWORD: secret
+  
+# Install node libraries
+#before_script:
+#  - cd client
+#  - npm install
+#  - cd ../server
+#  - npm install
+#  - cd ..
+  
 
 # Run JEST tests
 server_tests:
@@ -19,6 +28,7 @@ server_tests:
   artifacts:
     paths:
       - server/coverage
+      #- coverage/
 
 client_tests:
   stage: test
@@ -29,17 +39,33 @@ client_tests:
   artifacts:
     paths:
       - client/coverage
+      #- coverage/
+
+# Make JSDoc
+#client_jsdoc:
+#  stage: build
+#  script:
+#    - cd client
+#    - npm install
+#    - npm run doc
+#
+#  artifacts:
+#    paths:
+#      - jsdoc
 
 # Publish coverage report on gitlab-pages
 pages:
   stage: deploy
   dependencies:
-    - server_tests
+    # commented out for testing:
+    #- server_tests
     - client_tests
   script:
     - mkdir .public
     - mkdir .public/client
     - mkdir .public/server
+    - mkdir .public/jsdoc
+
     - cp -r server/coverage/* .public/server
     - cp -r client/coverage/* .public/client
     - mv .public public
@@ -47,4 +73,5 @@ pages:
     paths:
       - public
   only:
-    - master
+    #- master
+    - dev

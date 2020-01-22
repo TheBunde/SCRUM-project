@@ -58,9 +58,8 @@ export default class Calendar extends React.Component {
         let date = tempDate.slice(8, 10);
         let hours = tempDate.slice(11, 13);
 
-        let thisDate = new Date(year + "-" + month + "-" +date +" " + hours +":00:00");
+        let thisDate = new Date(year + "-" + month + "-" +date +"T" + hours +":00:00");
         thisDate.setHours(thisDate.getHours()+1);
-
 
         year = thisDate.getFullYear();
         month = thisDate.getMonth()+1;

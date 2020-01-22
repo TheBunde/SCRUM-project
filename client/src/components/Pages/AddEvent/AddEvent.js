@@ -60,9 +60,17 @@ class AddEvent extends Component {
 
     notifyDateFailure = () => toast("Ugyldig dato", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
-    notifyUnvalidPhone = () => toast("Ugyldig telefonnummer", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+    notifyUnvalidPhone = () => toast("Ugyldig telefonnummer", {
+        type: toast.TYPE.ERROR,
+        position: toast.POSITION.BOTTOM_LEFT
+    });
 
     notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyTooBigFile = () => toast("En av filene du forsøkte å laste opp var for stor", {
+        type: toast.TYPE.ERROR,
+        position: toast.POSITION.BOTTOM_LEFT
+    });
 
 
     changeValue(event) {
@@ -71,7 +79,7 @@ class AddEvent extends Component {
 
     changeBox(event) {
         this.setState({[event.target.id + "TicketBox"]: event.target.checked});
-        if (this.state[event.target.id + "TicketBox"]){
+        if (this.state[event.target.id + "TicketBox"]) {
             this.setState({[event.target.id + "TicketAmount"]: 0});
             this.setState({[event.target.id + "TicketPrice"]: 0});
         }
@@ -96,7 +104,7 @@ class AddEvent extends Component {
         return status;
     }
 
-    checkDate(){
+    checkDate() {
         let day = this.state.date.getDate();
         let month = this.state.date.getMonth() + 1;
         let year = this.state.date.getFullYear();
@@ -135,7 +143,7 @@ class AddEvent extends Component {
                         <div id="EventInputCalendar">
                             <Calendar
                                 onChange={this.changeDate}
-                                value = {this.state.date}
+                                value={this.state.date}
                             />
                         </div>
                     </div>
@@ -331,9 +339,9 @@ class AddEvent extends Component {
                                 </div>
                                 <div id="EventTicketPrice">
                                     <input type="number"
-                                           id ={"GratisTicketPrice"}
+                                           id={"GratisTicketPrice"}
                                            className="form-control"
-                                           value = {0}
+                                           value={0}
                                            disabled={true}
                                     />
                                 </div>
@@ -365,10 +373,10 @@ class AddEvent extends Component {
                                     </div>
                                     <div id="EventTicketPrice">
                                         <input type="number"
-                                               id ={tickets.name + "TicketPrice"}
+                                               id={tickets.name + "TicketPrice"}
                                                className="form-control"
-                                               placeholder={"Pris for " + tickets.name + " billetter" }
-                                               value = {this.state[tickets.name + "TicketPrice"]}
+                                               placeholder={"Pris for " + tickets.name + " billetter"}
+                                               value={this.state[tickets.name + "TicketPrice"]}
                                                disabled={!this.state[tickets.name + "TicketBox"]}
                                                onChange={this.changeValue}
                                         />
@@ -443,50 +451,55 @@ class AddEvent extends Component {
 
                 let filesUpload = [];
 
-                filesUpload.push(fileContract.files[0]);
-                filesUpload.push(filePersonell.files[0]);
-                filesUpload.push(fileRider1.files[0]);
-                filesUpload.push(fileRider2.files[0]);
-                filesUpload.push(image.files[0]);
+                if (fileContract.files[0] !== undefined) filesUpload.push(fileContract.files[0]);
+                if (filePersonell.files[0] !== undefined) filesUpload.push(filePersonell.files[0]);
+                if (fileRider1.files[0] !== undefined) filesUpload.push(fileRider1.files[0]);
+                if (fileRider2.files[0] !== undefined) filesUpload.push(fileRider2.files[0]);
+                if (image.files[0] !== undefined) filesUpload.push(image.files[0]);
 
                 console.log(filesUpload);
+                console.log(filesUpload.some(file => file.size > 0));
 
-                fileService.uploadFiles(filesUpload)
-                    .then((res) => {
-                        console.log(res.data.filePath);
-                        this.setState({
-                            Tech: res.data.filePath[2].filename,
-                            Hospitality: res.data.filePath[3].filename,
-                            Personnel: res.data.filePath[1].filename,
-                            Contract: res.data.filePath[0].filename,
-                            Picture: res.data.filePath[4].filename
-                        });
-                        console.log(this.state);
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                    })
-                    .then(() => { //Added because the setState above did not run before the request to the database was made -Max
-                        let day = this.state.date.getDate();
-                        let month = this.state.date.getMonth() + 1;
-                        let year = this.state.date.getFullYear();
-                        let hour = this.state.dateChosenHour;
-                        let min = this.state.dateChosenMin;
-                        if (day < 10) {
-                            day = "0" + day
-                        }
-                        if (month < 10) {
-                            month = "0" + month
-                        }
-                        let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
+                if (filesUpload.some(file => file.size > 10000000)) {
+                    this.notifyTooBigFile();
+                } else {
+                    fileService.uploadFiles(filesUpload)
+                        .then((res) => {
+                            console.log(res.data.filePath);
+                            this.setState({
+                                Tech: res.data.filePath[2].filename,
+                                Hospitality: res.data.filePath[3].filename,
+                                Personnel: res.data.filePath[1].filename,
+                                Contract: res.data.filePath[0].filename,
+                                Picture: res.data.filePath[4].filename
+                            });
+                            console.log(this.state);
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        })
+                        .then(() => { //Added because the setState above did not run before the request to the database was made -Max
+                            let day = this.state.date.getDate();
+                            let month = this.state.date.getMonth() + 1;
+                            let year = this.state.date.getFullYear();
+                            let hour = this.state.dateChosenHour;
+                            let min = this.state.dateChosenMin;
+                            if (day < 10) {
+                                day = "0" + day
+                            }
+                            if (month < 10) {
+                                month = "0" + month
+                            }
+                            let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
 
-                        eventService
-                            .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Category, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
-                            .then(data => this.registerByID(data.insertId))
-                            .catch(Error => console.log(Error));
-                        this.notifySuccess();
-                        window.location.hash = "/event/";
-                    })
+                            eventService
+                                .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Category, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
+                                .then(data => this.registerByID(data.insertId))
+                                .catch(Error => console.log(Error));
+                            this.notifySuccess();
+                            window.location.hash = "/event/";
+                        })
+                }
             }
         } else {
             if (!this.checkDate()) {

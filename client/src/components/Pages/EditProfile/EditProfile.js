@@ -45,6 +45,8 @@ class EditProfile extends Component{
 
     notifyPasswordFailure = () => toast("Du har skrevet inn feil nåværende passord", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    notifyTooBigFile = () => toast("Filen du forsøkte å laste opp var for stor", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
 
 
     componentDidMount() {
@@ -253,39 +255,45 @@ class EditProfile extends Component{
             }
             let fileService = new FileService();
             let file = document.getElementById(("fileInput")).files[0];
-            console.log(file);
-
-            fileService.uploadImage(file)
-                .then((res) => {
-                    this.setState({
-                        img_url : res.data.filePath.filename
+            console.log(file.size);
+            if (file.size > 10000000) { //Bigger than 10 MB
+                this.notifyTooBigFile();
+            } else {
+                fileService.uploadImage(file)
+                    .then((res) => {
+                        this.setState({
+                            img_url : res.data.filePath.filename
+                        })
                     })
-                })
-                .catch((err) => {
-                    console.error(err);
-                })
-                .then(() => {
-                    let profileService = new ProfileService();
-                    let newUser = new User(
-                        this.state.user.user_id,
-                        document.getElementById("nameInput").value,
-                        document.getElementById("emailInput").value,
-                        document.getElementById("tlfInput").value,
-                        this.state.img_url,
-                        this.state.user.password,
-                        this.state.user.roleid,
-                        this.state.user.approved
-                    );
-                    console.log(newUser);
-                    profileService.updateUser(newUser)
-                        .then (() => {
-                            this.notifySuccess();
-                            window.location.hash = "/profile/" + auth.user_id;
-                        })
-                        .catch((err) => {
-                            this.notifyFailure();
-                        })
-                })
+                    .catch((err) => {
+                        console.log("ERROR:");
+                        console.error(err);
+                    })
+                    .then(() => {
+                        let profileService = new ProfileService();
+                        let newUser = new User(
+                            this.state.user.user_id,
+                            document.getElementById("nameInput").value,
+                            document.getElementById("emailInput").value,
+                            document.getElementById("tlfInput").value,
+                            this.state.img_url,
+                            this.state.user.password,
+                            this.state.user.roleid,
+                            this.state.user.approved
+                        );
+                        console.log(newUser);
+                        profileService.updateUser(newUser)
+                            .then (() => {
+                                this.notifySuccess();
+                                window.location.hash = "/profile/" + auth.user_id;
+                            })
+                            .catch((err) => {
+                                this.notifyFailure();
+                            })
+                    })
+            }
+
+
         }
 
 

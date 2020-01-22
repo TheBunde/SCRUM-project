@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 
 let crypto = require('crypto');
 
-/**
+/*
  * @class LoginForm
  */
 class LoginForm extends Component{

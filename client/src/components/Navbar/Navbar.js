@@ -3,10 +3,14 @@ import "../../css/Navbar.css";
 import $ from "jquery";
 import { auth, authenticate, UserService } from "../../service/UserService";
 
-/*Changing ml-auto to mr-auto will change the placement of the navbar-collapse items to the left besides the logo/name to the left on the Navbar */
+/*
+* Comment about the Bootstrap-alignment
+*   Changing ml-auto to mr-auto will change the placement of the navbar-collapse items to the left besides the logo/name to the left on the Navbar 
+*/
 
-/**
+/*
  * Navbar component
+ * @class Navbar
  */
 class Navbar extends Component {
   constructor(props) {
@@ -17,15 +21,27 @@ class Navbar extends Component {
     };
   }
 
+
+  /*
+  * This method fetches information about the user, which is then used further on by providing your profile picture,
+  profile name and some options in the navbar regarding your user profile.
+  */
   someFn() {
     this.props.getUser(this.state.user);
   }
-
+  
+  /*
+  * This method signs you; It redirects you to the login-page and removes the token stored in localStorage
+  */
   signOut = () => {
     window.localStorage.removeItem("token");
     window.location.hash = "/login";
   };
 
+  /*
+  * This gives render() instructions about what to do while mounting the component for the first time,
+  * and because the navbar is conditional rendered providing only admins admin-functionality, this method authenticates to check if admin, then fetch the user information.
+  */
   componentDidMount() {
     let show = document.getElementById("adminUsersLink");
     let style = window.getComputedStyle(show);
@@ -48,6 +64,9 @@ class Navbar extends Component {
       });
   }
 
+  /*
+  * The method rendering the component, what happens when the component is called upon by index.js, by an user loading the given url using this component. 
+  */
   render() {
     return (
       <div>
@@ -122,7 +141,7 @@ class Navbar extends Component {
                 >
                   <img
                     id="navProfile"
-                    alt="profilePic"
+                    alt="pb"
                     src={
                       this.state.user.profile_photo === null ||
                       this.state.user.profile_photo === ""

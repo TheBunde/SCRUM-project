@@ -1,3 +1,6 @@
+#AdminUsersPageContainerDiv{
+    min-height: 100vh;
+}
 
 .AdminUsersPageWrapper{
     text-align: center;

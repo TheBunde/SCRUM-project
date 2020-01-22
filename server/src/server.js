@@ -499,8 +499,6 @@ app.get("/tickets/:id", verifyToken,(req, res)=>{
 
 });
 
-
-
 //UPLOAD
 
 app.post('/upload', upload.single('file'), function (req, res) {
@@ -914,7 +912,6 @@ function verifyToken(req, res, next) {
         const bearerToken = bearer[1];
         req.token = bearerToken;
         next();
-
     } else {
         res.sendStatus(403);
     }

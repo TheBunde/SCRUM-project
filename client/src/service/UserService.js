@@ -72,6 +72,7 @@ export const auth = {
 
         if(response !== null){
             let valid = await userService.checkToken();
+            console.log("bruh", valid);
             if(valid){
                 console.log("Is this doing the work?", valid);
                 this.authenticated = true;

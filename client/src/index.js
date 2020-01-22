@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter, Route, Redirect} from 'react-router-dom';
 import './css/index.css';
@@ -28,17 +28,69 @@ import Calendar from "./components/Calendar/Calendar";
 
 
 // Component for restricting access.
-const RestrictedRoute = ({component: Component, authorized, isAllowed, ...rest}) => (
-    console.log(isAllowed),
-    <Route {...rest} render={(props) => (
-         // Checks if the user is authenticated, then updates the users role and status for use in the next line
-        isAllowed === true // If user is authenticated, check if they are authorized to view page
+/*const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
+    <Route {...rest} render={async (props) => (
+        await authenticate(), // Checks if the user is authenticated, then updates the users role and status for use in the next line
+        auth.authenticated === true // If user is authenticated, check if they are authorized to view page
             ? authorized.includes(auth.role) === true 
                 ? <Component {...props} /> 
                 : <Redirect to="/overview" /> 
             : <Redirect to="" /> // User is not authenticated, and needs to log in
     )}/>
-);
+);*/
+
+
+const RestrictedRoute = ({component: Component, authorized, ...rest}) => {
+    return class extends Component{
+        constructor(props){
+            super(props);   
+            this.state = {
+                allowed: false
+            }
+        }
+
+        componentDidMount(){
+            this.waitForAuth().then(allowed => {
+                console.log(allowed);
+                this.setState({allowed: allowed});
+            })
+        }
+
+        async waitForAuth(){
+            return await authenticate();
+        }
+
+        render(){
+            
+            const whatIsRendered = function(props){
+                let out = null;
+                if(this.state.allowed === true){
+                    authorized.includes(auth.role)
+                        ? out = <Component {...props} />
+                        : out = <Redirect to="/overview" />
+                } else{
+                    out = <Redirect to="" />
+                }
+                return out;
+            }
+
+            return(
+                <Route {...rest} render={whatIsRendered} />
+            )
+
+            /*return(
+                <Route {...rest} render={props => (
+                    this.state.allowed === true 
+                    ?
+                        authorized.includes(auth.role)
+                        ? <Component {...props} />
+                        : <Redirect to="/overview" />
+                    : <Redirect to="" />
+                )}/>
+            )*/
+            }
+        }
+    }
 
 
 // Object with list of clearance levels used for routing and restricting access.
@@ -57,9 +109,9 @@ ReactDOM.render(
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/calendar" component={Calendar} />
-            <Route exacth path="/forgotpassword" component={ForgotPassword} />
+            <Route exact path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/about" component={About} />
-            <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} isAllowed={authenticate()} />
+            <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} />
             <RestrictedRoute exact path="/profile/:userID" component={ShowProfile} authorized={restriction.regular} />
             <RestrictedRoute exact path="/profile/:userID/edit" component={EditProfile} authorized={restriction.regular} />
             <RestrictedRoute exact path="/event" component={EventPage} authorized={restriction.regular} />

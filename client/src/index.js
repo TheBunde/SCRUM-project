@@ -22,6 +22,7 @@ import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 import guestEventView from './components/Pages/Guest/GuestEventView/GuestEventView';
 import guestMainPage from './components/Pages/Guest/GuestMainPage/GuestMainPage';
 import ForgotPassword from "./components/Pages/ForgotPassword/ForgotPassword";
+import NotFound from "./components/Pages/NotFound/NotFound";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Calendar from "./components/Calendar/Calendar";
@@ -58,6 +59,7 @@ ReactDOM.render(
             <Route exact path="/calendar" component={Calendar} />
             <Route exacth path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/about" component={About} />
+            <Route path="" component={NotFound} />
             <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} />
             <RestrictedRoute exact path="/profile/:userID" component={ShowProfile} authorized={restriction.regular} />
             <RestrictedRoute exact path="/profile/:userID/edit" component={EditProfile} authorized={restriction.regular} />

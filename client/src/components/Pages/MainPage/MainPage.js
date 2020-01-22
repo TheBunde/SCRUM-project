@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import '../../../css/MainPage.css'
+import { Redirect } from "react-router-dom";
+import '../../../css/MainPage.css';
 
 import Navbar from '../../Navbar/Navbar.js';
 import {NavbarMainPage} from "../../Navbar/Navbar";
 import {FooterTransparent} from '../../Footer/Footer'
+import {auth} from "../../../service/UserService";
 
 class MainPage extends Component {
     componentDidMount(){
@@ -12,6 +14,9 @@ class MainPage extends Component {
 
     render() {  
         return (
+            auth.authenticated === true
+            ? <Redirect to="/overview" />
+            :
             <div>
                 <div id="MainPageDiv">
                     <div id="MainPageDivWithoutFooter">

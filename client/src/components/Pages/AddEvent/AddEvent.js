@@ -131,7 +131,7 @@ class AddEvent extends Component {
             if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
                 status = true;
             }
-            if(this.state[ticket.name + "TicketAmount"] < 0 || this.state[ticket.name + "TicketPrice"] < 0){
+            if(this.state[ticket.name + "TicketAmount"] < 0 || this.state[ticket.name + "TicketPrice"] < 0 || this.state[ticket.name + "TicketPrice"] === null){
                 belowZero = true;
             }
         });

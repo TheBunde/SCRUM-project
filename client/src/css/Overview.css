@@ -31,13 +31,18 @@
 }
 
 .jumbotron{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     height: 500px;
     background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("https://wp3921-flywheel.netdna-ssl.com/wp-content/uploads/2019/03/electricaura_contact-festival201805x.jpg");
     background-size: cover;
     background-position-y: 500px;
 }
-
+.titleContainer{
+    vertical-align: middle;
+}
 
 
 #OverviewDiv{

@@ -62,30 +62,31 @@ class EditEvent extends Component{
             || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
     }
     checkDate(){
-        let day = this.state.date.getDate();
-        let month = this.state.date.getMonth() + 1;
-        let year = this.state.date.getFullYear();
-        let hour = this.state.dateChosenHour;
-        let min = this.state.dateChosenMin;
-        if (day < 10) {
-            day = "0" + day
-        }
-        if (month < 10) {
-            month = "0" + month
-        }
-        let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
+        let thisDate = this.state.date;
+        thisDate.setHours(this.state.dateChosenHour);
+        thisDate.setMinutes(this.state.dateChosenMin);
 
-        return new Date(date) > new Date();
+        return thisDate > new Date();
     }
 
     ticketCheck(){
         let status = false;
-        this.state.Tickets.map(ticket =>{
-            if(this.state[ticket.name + "TicketBox"] === true && (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0)){
+        let belowZero = false;
+        this.state.Tickets.map(ticket => {
+            if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
                 status = true;
+                if(this.state[ticket.name +"TicketPrice"] === "" || this.state[ticket.name +"TicketPrice"] === null){
+                    belowZero = true;
+                }
+            }
+            if(this.state[ticket.name + "TicketAmount"] < 0 || this.state[ticket.name + "TicketPrice"] < 0){
+                belowZero = true;
             }
         });
-        return status;
+        if(!belowZero) {
+            return status;
+        }
+        else return false;
     }
 
     componentDidMount() {
@@ -129,23 +130,27 @@ class EditEvent extends Component{
 
     notifyNoFileUploaded = () => toast("Du må laste opp en fil", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
-    notifyPictureUploaded = () => toast("Fil opplastet. Trykk på lagre endringer for å lagre alt", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
+    notifyPictureUploaded = () => toast("Fil lastet opp. Trykk på lagre endringer for å lagre alt", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
 
     notifyUnvalidPhone = () => toast("Ugyldig telefonnummer", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
     notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    notifyTooBigFile = () => toast("En av filene du forsøkte å laste opp var for store", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyPictureUploaded = () => toast("Fil lastet opp. Trykk på lagre endringer for å lagre alt", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
+
+
     updateEventInfo(data){
-        let date = data[0].date.split("T");
-        let time = date[1].split(":");
-        let hour = Number(time[0])+1;
+        let thisDate = new Date(data[0].date);
+        let hour = thisDate.getHours();
         if(hour<10) hour = "0"+hour;
-        let min = Number(time[1]);
-        if(min<10) min = "0"+min;
+        let min = thisDate.getMinutes();
+        if(hour<10) hour = "0" + min;
 
         this.setState({dateChosenHour: hour});
         this.setState({dateChosenMin: min});
-        this.setState({date: new Date(date[0])});
+        this.setState({date: thisDate});
         this.setState({Name: data[0].name});
         this.setState({Description: data[0].description});
         this.setState({Place: data[0].place});
@@ -308,7 +313,6 @@ class EditEvent extends Component{
                                     onClick={() => window.open("http://localhost:8080/image/" + this.state.Tech)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
-
                         </div>
                         <div>
                             <p id="EventInputLabels">Nye Tech Riders:</p>
@@ -372,38 +376,15 @@ class EditEvent extends Component{
                     </div>
 
                     <div id="EventInputFiles">
-                        <div >
-                            <p id = "EventInputLabels">Nåværende bilde:</p>
-                            <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Picture)}
-                                    target="_blank"><i className="fa fa-download"></i> Last ned
-                            </button>
-                        </div>
                         <div>
-                            <p id="EventInputLabels">Nytt bilde:</p>
-                            <div id="EventNewFile">
-                                <input type="file"
-                                       className="form-control"
-                                       placeholder={this.state.Placeholder}
-                                       id="imageInput"
-                                       required={true}
-                                       accept={"image/*"}
-                                />
-                                <button type={"button"} className={""} onClick={() => this.submitNewPicture()}>Bekreft</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="EventInputFiles">
-                        <div>
-                            <p id = "EventInputLabels">Nåværende kontrakt:</p>
+                            <p id = "EventInputLabels">Nåværende Kontrakt:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
                                     onClick={() => window.open("http://localhost:8080/image/" + this.state.Contract)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
                         <div>
-                            <p id="EventInputLabels">Ny kontrakt:</p>
+                            <p id="EventInputLabels">Ny Kontrakt:</p>
                             <div id="EventNewFile">
                                 <input type="file"
                                        className="form-control"
@@ -415,7 +396,29 @@ class EditEvent extends Component{
                                 <button type={"button"} className={""} onClick={() => this.submitNewContract()}>Bekreft</button>
                             </div>
                         </div>
+                    </div>
 
+                    <div id="EventInputFiles">
+                        <div >
+                            <p id = "EventInputLabels">Nåværende Bilde:</p>
+                            <button id="eventViewInfoDownloadButtons" className="btn"
+                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Picture)}
+                                    target="_blank"><i className="fa fa-download"></i> Last ned
+                            </button>
+                        </div>
+                        <div>
+                            <p id="EventInputLabels">Nytt Bilde:</p>
+                            <div id="EventNewFile">
+                                <input type="file"
+                                       className="form-control"
+                                       placeholder={this.state.Placeholder}
+                                       id="imageInput"
+                                       required={true}
+                                       accept={"image/*"}
+                                />
+                                <button type={"button"} className={""} onClick={() => this.submitNewPicture()}>Bekreft</button>
+                            </div>
+                        </div>
                     </div>
 
                     <div id ="EventInputFields">
@@ -527,37 +530,45 @@ class EditEvent extends Component{
     submitNewContract() {
         let fileService = new FileService();
         let fileContract = document.getElementById("contractInput");
+        if (fileContract.files[0].size > 10000000) {
+            this.notifyTooBigFile();
+        } else {
+            fileService.uploadFile(fileContract.files[0])
+                .then((res) => {
+                    this.setState({
+                        Contract : res.data.filePath.filename
+                    });
+                    this.notifyPictureUploaded();
 
-        fileService.uploadFile(fileContract.files[0])
-            .then((res) => {
-                this.setState({
-                    Contract : res.data.filePath.filename
-                });
-                this.notifyPictureUploaded();
-
-            })
-            .catch((err) => {
-                this.notifyNoFileUploaded();
-                console.error(err);
-            })
+                })
+                .catch((err) => {
+                    this.notifyNoFileUploaded();
+                    console.error(err);
+                })
+        }
     }
 
     submitNewTechRider() {
         let fileService = new FileService();
         let fileRider1 = document.getElementById("rider1Input");
 
-        fileService.uploadFile(fileRider1.files[0])
-            .then((res) => {
-                this.setState({
-                    Tech : res.data.filePath.filename
-                });
-                this.notifyPictureUploaded();
+        if (fileRider1.files[0].size > 10000000) {
+            this.notifyTooBigFile();
+        } else {
+            fileService.uploadFile(fileRider1.files[0])
+                .then((res) => {
+                    this.setState({
+                        Tech : res.data.filePath.filename
+                    });
+                    this.notifyPictureUploaded();
 
-            })
-            .catch((err) => {
-                console.error(err);
-                this.notifyNoFileUploaded();
-            })
+                })
+                .catch((err) => {
+                    console.error(err);
+                    this.notifyNoFileUploaded();
+                })
+        }
+
 
     }
 
@@ -565,18 +576,23 @@ class EditEvent extends Component{
         let fileService = new FileService();
         let fileRider2 = document.getElementById("rider2Input");
 
-        fileService.uploadFile(fileRider2.files[0])
-            .then((res) => {
-                this.setState({
-                    Hospitality : res.data.filePath.filename
-                });
-                this.notifyPictureUploaded();
+        if (fileRider2.files[0].size > 10000000) {
+            this.notifyTooBigFile();
+        } else {
+            fileService.uploadFile(fileRider2.files[0])
+                .then((res) => {
+                    this.setState({
+                        Hospitality : res.data.filePath.filename
+                    });
+                    this.notifyPictureUploaded();
 
-            })
-            .catch((err) => {
-                console.error(err);
-                this.notifyNoFileUploaded();
-            })
+                })
+                .catch((err) => {
+                    console.error(err);
+                    this.notifyNoFileUploaded();
+                })
+        }
+
 
 
     }
@@ -585,18 +601,24 @@ class EditEvent extends Component{
         let fileService = new FileService();
         let filePersonell = document.getElementById("personellInput");
 
-        fileService.uploadFile(filePersonell.files[0])
-            .then((res) => {
-                this.setState({
-                    Personnel : res.data.filePath.filename
-                });
-                this.notifyPictureUploaded();
+        if (filePersonell.files[0].size > 10000000) {
+            this.notifyTooBigFile();
+        } else {
+            fileService.uploadFile(filePersonell.files[0])
+                .then((res) => {
+                    this.setState({
+                        Personnel : res.data.filePath.filename
+                    });
+                    this.notifyPictureUploaded();
 
-            })
-            .catch((err) => {
-                console.error(err);
-                this.notifyNoFileUploaded();
-            })
+                })
+                .catch((err) => {
+                    console.error(err);
+                    this.notifyNoFileUploaded();
+                })
+        }
+
+
 
     }
 
@@ -604,18 +626,23 @@ class EditEvent extends Component{
         let fileService = new FileService();
         let image = document.getElementById("imageInput");
 
-        fileService.uploadImage(image.files[0])
-            .then((res) => {
-                this.setState({
-                    Picture : res.data.filePath.filename
-                });
-                this.notifyPictureUploaded();
-            })
-            .catch((err) => {
-                console.error(err);
-                this.notifyNoFileUploaded();
+        if (image.files[0].size > 10000000) {
+            this.notifyTooBigFile();
+        } else {
+            fileService.uploadImage(image.files[0])
+                .then((res) => {
+                    this.setState({
+                        Picture : res.data.filePath.filename
+                    });
+                    this.notifyPictureUploaded();
+                })
+                .catch((err) => {
+                    console.error(err);
+                    this.notifyNoFileUploaded();
+                })
+        }
 
-            })
+
 
 
     }

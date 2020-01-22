@@ -84,7 +84,10 @@
 #eventViewInfoDownloadButtons:hover{
     background-color: rgb(38, 63, 138);
 }
-
+#eventViewInfoDownloadButtons:disabled{
+    cursor: default;
+    background-color: rgb(62, 107, 153);
+}
 
 /* ---------------------------------------- */
 
@@ -298,9 +301,13 @@
     padding-right: 20px;
 }
 
-@Media only screen and (max-width: 1000px){
+#eventViewParagraphs{
+    margin-bottom: 15px;
+}
+
+@Media only screen and (max-width: 840px){
     #eventViewBackground{
-        padding: 10px;
+        padding: 0px;
         grid-template-areas:
                 "eventViewImage"
                 "eventViewDescription"
@@ -308,6 +315,7 @@
                 "eventViewComment";
         grid-template-columns: 1fr;
     }
+
     #eventViewDescriptionBox{
         width: 90%;
         margin: auto;
@@ -321,12 +329,42 @@
         grid-template-columns: 1fr 1fr;
         grid-area: title;
     }
-    #eventViewDescription{
-        max-width: 96%;
-    }
     #eventViewImage{
-        max-width: 96%;
+        margin: 0px auto 5px auto;
+        max-width: 95%;
     }
+    #eventViewDescription{
+        max-width: 95%;
+        margin: 10px auto 5px auto;
+        text-align: center;
+    }
+    #eventViewDescriptionBoxTitle{
+        text-align: center;
+        padding-bottom: 10px;
+        margin: auto;
+    }
+    #eventViewDescriptionBoxTitle h1{
+        font-size: 30px;
+    }
+    #eventViewInfoBoxContainer{
+        grid-area: eventViewInfoContainer;
+        margin: 0px 0 0 15px; 
+        max-width: 95%;
+        min-width: 95%;
+        margin: 10px auto 0px auto;
+    }
+
+    #eventViewCommentSection{
+        max-width: 95%;
+        margin: 0px auto 15px auto;
+    }
+    #eventViewTitle{
+        grid-area: eventViewTitle;
+        text-align: center;
+        padding-top: 10px;
+    }
+    
 }
+
 
 

@@ -13,10 +13,6 @@ class LoginPage extends Component{
     
     render() {
         return (
-            auth.authenticated === true
-                ? <Redirect to="/overview" /> // Redirecting to overview page if user already is logged in.
-                : 
-            
             <div class="pageSetup">
                 <div id="LoginFormDiv">
                     <div id="LoginFormWithoutFooter">

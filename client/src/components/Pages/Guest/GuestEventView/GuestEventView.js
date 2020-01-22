@@ -43,12 +43,17 @@ class EventView extends Component{
     }
 
     formatDate(backendDate) {
-        let tempDate = backendDate;
-        let year = tempDate.slice(0, 4);
-        let month = tempDate.slice(5, 7);
-        let date = tempDate.slice(8, 10);
-        let hours = tempDate.slice(11, 13);
-        let minutes = tempDate.slice(14, 16);
+        let thisDate = new Date(backendDate);
+
+        let year = thisDate.getFullYear();
+        let month = thisDate.getMonth()+1;
+        if(month < 10) month = "0" + month;
+        let date = thisDate.getDate();
+        if(date < 10) date = "0" + date;
+        let hours = thisDate.getHours();
+        if(hours < 10) hours = "0" + hours;
+        let minutes = thisDate.getMinutes();
+        if(minutes < 10) minutes = "0" + minutes;
 
         return date + "." + month + "." + year + " " + hours + ":" + minutes;
     }
@@ -82,6 +87,14 @@ class EventView extends Component{
     }
 
     render() {
+        let descriptionString = JSON.stringify(this.state.description);
+        function descriptionArray() {
+            if(descriptionString !== undefined){
+                /*return descriptionString.substr(1,descriptionString.length-2).split("\\n");*/
+                return descriptionString.substr(1,descriptionString.length-2).split("\\n");
+            } 
+        }
+
         function mapLocation(place) {
             return place.trim(" ,");
         }
@@ -150,8 +163,11 @@ class EventView extends Component{
                                     <div id="guestEventViewDescriptionBoxTitle">
                                         <h2>Beskrivelse av arrangementet</h2>
                                     </div>
-                                    
-                                    <h6>{this.state.description}</h6>
+                                    {descriptionArray().map(paragraph => (
+                                        <div id="guestEventViewParagraphs">
+                                            <h6>{paragraph}</h6>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>

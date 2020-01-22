@@ -15,23 +15,50 @@ const serveIndex = require("serve-index");
 let bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 
+/**
+ * @file server.js is the root file for this express app
+ * @author Team 5
+ * @see <a href="http://localhost:3000">Harmoni</a>
+ */
+
+
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 //app.use(express.static(path.join(__dirname;
-app.use('/ftp', express.static('../../public/uploads'), serveIndex('public', {'icons': true}));
+app.use('/ftp', express.static('../../files/uploads'), serveIndex('files', {'icons': true}));
+
+/**
+ * Dummy class
+ */
+class DummyClass {
+
+}
+
+/**
+ * test
+ * @typedef {get} get
+ * @property {number} id - Student ID
+ * 
+ */
 
 
+
+/**
+ * @type {Object}
+ */
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
         console.log(__dirname + '/../../..');
-        cb(null, path.join(__dirname, "../../public/uploads/"));
+        cb(null, path.join(__dirname, "../../files/uploads/"));
     },
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + uuid.v4() + path.extname(file.originalname));
     }
 });
 
-const upload = multer({storage: storage});
+const upload = multer({storage: storage, limits: {
+        fileSize: 1024 * 1024 * 10   // 10 MB
+    }});
 
 
 
@@ -71,8 +98,14 @@ let mail = new Mail();
 let privateKey = (publicKey = secret.secret);
 
 
-//CATEGORIES
+/**
+ * Get categories
+ * @function get
+ */
 app.get("/categories", verifyToken,(req, res) => {
+    /**
+     * verify
+     */
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
             res.sendStatus(401);
@@ -85,7 +118,10 @@ app.get("/categories", verifyToken,(req, res) => {
     });
 
 });
-
+/**
+ * GET category id
+ * @function get /category/:id
+ */
 app.get("/category/:id", verifyToken,(req, res) =>{
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
@@ -103,7 +139,9 @@ app.get("/category/:id", verifyToken,(req, res) =>{
 
 
 //CONTACTINFO
-
+/** test
+ * @default test
+ */
 app.post("/contactinfo", verifyToken,(req, res) => {
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
@@ -116,7 +154,9 @@ app.post("/contactinfo", verifyToken,(req, res) => {
         }
     });
 });
-
+/**
+ * @type {get} get
+ */
 app.get("/contactinfo/:id",verifyToken, (req, res) => {
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
@@ -536,7 +576,7 @@ app.post("/uploadFile", upload.single("file"), (req, res) => {
         if (req.file.mimetype !== "text/plain" && req.file.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && req.file.mimetype !== "application/pdf") { //Not an image
             return res.send({
                 success: false,
-                error: "Only images are allowed"
+                error: "Only text-files or pdf are allowed"
             })
         } else {
             return res.send({
@@ -575,7 +615,7 @@ app.post("/uploadFiles", upload.array("files", 5), (req, res) => {
 });
 
 app.get('/image/:imagePath', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../public/uploads/' + req.params.imagePath));
+    res.sendFile(path.join(__dirname, '../../files/uploads/' + req.params.imagePath));
 });
 
 
@@ -617,7 +657,9 @@ app.post("/user/reset_password", (req, res) => {
         }
     })
 });
-
+/**
+ * @param
+ */
 app.put("/user/:userID/edit/password",verifyToken, (req, res) => {
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
@@ -631,11 +673,16 @@ app.put("/user/:userID/edit/password",verifyToken, (req, res) => {
 
                     let passwordHash = JSON.stringify(data[0].password_hash).slice(1,-1);
                     bcrypt.compare(req.body.password, passwordHash, function(err, response) {
+                        console.log(err);
+                        console.log(response);
                         if (err) {
+                            res.status(401);
                             console.log("An error occured");
                             console.error(err);
-                        } if (response) { // If response is true <=> If the passwords are equal
+                        }
+                        if (response) { // If response is true <=> If the passwords are equal
                             userDao.changePassword({user_id: parseInt(req.params.userID), password: req.body.newPassword}, (statusCode, result) => {
+                                console.log("Status-code: " + statusCode);
                                 res.status(statusCode);
                                 res.json(result);
                                 console.log("Password changed");
@@ -844,7 +891,7 @@ function makeid(length) {
     }
     next();
 });*/
-
+/*
 function makeid(length) {
     let result           = '';
     let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -854,7 +901,7 @@ function makeid(length) {
     }
     return result;
 }
-
+*/
 
 
 

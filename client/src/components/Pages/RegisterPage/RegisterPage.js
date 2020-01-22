@@ -54,44 +54,46 @@ class RegisterPage extends Component {
                                                 <div id="RegisterPageFormFieldsDiv">
                                                     <label htmlFor="exampleInputEmail1">Navn: </label>
                                                     <input type="name" name={"name"} className="form-control"
-                                                        id="firstNameInput"
-                                                        onChange={this.handleTextChange.bind(this)}
-                                                        aria-describedby="emailHelp" placeholder="Navn..."
-                                                        onKeyPress={this.keyPressed}/>
+                                                           id="firstNameInput"
+                                                           onChange={this.handleTextChange.bind(this)}
+                                                           aria-describedby="emailHelp" placeholder="Navn..."
+                                                           onKeyPress={this.keyPressed}/>
                                                 </div>
                                                 <div id="RegisterPageFormFieldsDiv">
                                                     <label htmlFor="exampleInputEmail1">E-post: </label>
                                                     <input type="email" name={"email"} className="form-control"
-                                                        id="emailInput"
-                                                        onChange={this.handleTextChange.bind(this)}
-                                                        aria-describedby="emailHelp" placeholder="E-post..."
-                                                        onKeyPress={this.keyPressed}/>
+                                                           id="emailInput"
+                                                           onChange={this.handleTextChange.bind(this)}
+                                                           aria-describedby="emailHelp" placeholder="E-post..."
+                                                           onKeyPress={this.keyPressed}/>
                                                 </div>
                                                 <div id="RegisterPageFormFieldsDiv">
                                                     <label htmlFor="exampleInputEmail1">Telefon:</label>
                                                     <input type="tel" pattern={"[0-9]{8}"} name={"phone"}
-                                                        className="form-control" id="exampleInputEmail1"
-                                                        onChange={this.handleTextChange.bind(this)}
-                                                        aria-describedby="emailHelp" placeholder="Telefon..."
-                                                        onKeyPress={this.keyPressed}/>
+                                                           className="form-control" id="exampleInputEmail1"
+                                                           onChange={this.handleTextChange.bind(this)}
+                                                           aria-describedby="emailHelp" placeholder="Telefon..."
+                                                           onKeyPress={this.keyPressed}/>
                                                 </div>
                                                 <div id="RegisterPageFormFieldsDiv">
                                                     <label htmlFor="exampleInputEmail1">Profilbilde:</label>
-                                                    <input type="file" id={"imageUpload"} accept={"image/jpeg, image/jpg, image/png"}/>
+                                                    <input type="file" id={"imageUpload"}
+                                                           accept={"image/jpeg, image/jpg, image/png"}/>
                                                 </div>
                                                 <div id="RegisterPageFormFieldsDiv">
                                                     <label htmlFor="exampleInputPassword1">Passord:</label>
                                                     <input type="password" name="password" className="form-control"
-                                                        id="passwordInput"
-                                                        onChange={this.handleTextChange.bind(this)}
-                                                        placeholder="Passord..." onKeyPress={this.keyPressed}/>
+                                                           id="passwordInput"
+                                                           onChange={this.handleTextChange.bind(this)}
+                                                           placeholder="Passord..." onKeyPress={this.keyPressed}/>
                                                 </div>
                                                 <div id="RegisterPageFormFieldsDiv">
                                                     <label htmlFor="exampleInputPassword1">Gjenta passord:</label>
                                                     <input type="password" name={"repeatedPassword"}
-                                                        className="form-control" id="passwordInput"
-                                                        onChange={this.handleTextChange.bind(this)}
-                                                        placeholder="Gjenta passord..." onKeyPress={this.keyPressed}/>
+                                                           className="form-control" id="passwordInput"
+                                                           onChange={this.handleTextChange.bind(this)}
+                                                           placeholder="Gjenta passord..."
+                                                           onKeyPress={this.keyPressed}/>
                                                 </div>
                                                 <div id="RegisterPageFormButtonDiv">
                                                     <button type="button"
@@ -139,7 +141,15 @@ class RegisterPage extends Component {
 
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
-    notifyWrongMimeType = () => toast("Du må laste opp et bilde", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+    notifyWrongMimeType = () => toast("Du må laste opp et bilde", {
+        type: toast.TYPE.ERROR,
+        position: toast.POSITION.BOTTOM_LEFT
+    });
+
+    notifyTooBigFile = () => toast("Filen du forsøkte å laste opp var for stor", {
+        type: toast.TYPE.ERROR,
+        position: toast.POSITION.BOTTOM_LEFT
+    });
 
 
     handleTextChange = event => {
@@ -217,10 +227,10 @@ class RegisterPage extends Component {
         } else if (feedback === "email") {
             confirmAlert({
                 title: "Feil!",
-                message : "Eposten er ikke av gyldig format",
-                buttons : [
+                message: "Eposten er ikke av gyldig format",
+                buttons: [
                     {
-                        label : "Ok",
+                        label: "Ok",
                     }
                 ]
             })
@@ -246,45 +256,47 @@ class RegisterPage extends Component {
                 let userService = new UserService();
                 let fileService = new FileService();
                 let profilePicture = document.getElementById("imageUpload").files[0];
+                if (profilePicture.size > 10000000) { //Bigger than 10 MB
+                    this.notifyTooBigFile();
+                } else {
+                    fileService.uploadImage(profilePicture)
+                        .then((res) => {
+                            console.log(res);
+                            console.log("filename: " + res.data.filePath.filename);
+                            this.setState({
+                                image_url: res.data.filePath.filename
+                            });
 
-                fileService.uploadImage(profilePicture)
-                    .then((res) => {
-                        console.log("filename: " + res.data.filePath.filename);
-                        this.setState({
-                            image_url: res.data.filePath.filename
-                        });
-
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                        this.notifyWrongMimeType();
-                    })
-                    .then(() => {
-                        let user = new User(null, this.state.name, this.state.email, this.state.phone, this.state.image_url, this.state.password, null, null);
-                        userService.registerUser(user)
-                            .then(() => {
-                                this.showFeedback("successfullRegistration");
-                                window.location.hash = "/login";
-                            })
-                            .catch((error) => {
-                                console.error(error.response.data);
-                                if (error.response.data.sqlMessage.indexOf("email") > -1) {
-                                    console.log("e-post");
-                                    this.showFeedback("sameEmail");
-                                }
-                                if (error.response.data.sqlMessage.indexOf("phone") > -1) {
-                                    console.log("telefon");
-                                    this.showFeedback("samePhone");
-                                }
-                            })
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                    })
-
+                        })
+                        .catch((err) => {
+                            console.log("ERROR:");
+                            console.error(err);
+                            console.log(err.status);
+                        })
+                        .then(() => {
+                            let user = new User(null, this.state.name, this.state.email, this.state.phone, this.state.image_url, this.state.password, null, null);
+                            userService.registerUser(user)
+                                .then(() => {
+                                    this.showFeedback("successfullRegistration");
+                                    window.location.hash = "/login";
+                                })
+                                .catch((error) => {
+                                    console.error(error.response.data);
+                                    if (error.response.data.sqlMessage.indexOf("email") > -1) {
+                                        console.log("e-post");
+                                        this.showFeedback("sameEmail");
+                                    }
+                                    if (error.response.data.sqlMessage.indexOf("phone") > -1) {
+                                        console.log("telefon");
+                                        this.showFeedback("samePhone");
+                                    }
+                                })
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        })
+                }
             }
-
-
         }
     };
 

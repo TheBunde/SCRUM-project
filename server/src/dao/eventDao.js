@@ -12,7 +12,7 @@ module.exports = class adminDao extends Dao{
 
     getAllActive(callback){
 
-        super.query("Select * FROM Event WHERE pending = 0 and filed = 0 and canceled = 0 and date > now(); ", [], callback);
+        super.query("Select * FROM Event WHERE pending = 0 and filed = 0 and canceled = 0 and date > now() ORDER BY name ", [], callback);
 
     }
 
@@ -108,5 +108,5 @@ module.exports = class adminDao extends Dao{
 };
 
 function callback2(){
- console.log("Dummy function")
+
 }

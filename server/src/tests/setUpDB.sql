@@ -127,6 +127,11 @@ insert into Role(role) values ('Festplanlegger');
 insert into User(name, email, phone, profile_photo, password_hash, role_id) values ('test1', 'test1@tester.no', '12345678', 'test1.jpg', '3856f5086eb7138f2e4e3d42d8569ce4f4b66a83cbce3192da65ee129e8c01d2832057b4bd8f124a2a47d376de0c1808cabc2e467275cc9f7b8a059d618c04bd', 1);
 insert into User(name, email, phone, profile_photo, password_hash, role_id) values ('test2', 'test2@tester.no', '87654321', 'test2.jpg', '75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 3);
 insert into User(name, email, phone, profile_photo, password_hash, role_id) values ('test3', 'test3@tester.no', '98765432', 'test3.jpg', '75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 7);
+insert into User(name, email, phone, profile_photo, password_hash, role_id) values ('test4', 'test4@tester.no', '10987654', 'test4.jpg', '75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 4);
+insert into User(name, email, phone, profile_photo, password_hash, role_id) values ('test5', 'test5@tester.no', '10987644', 'test5.jpg', '75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 4);
+insert into User(name, email, phone, profile_photo, password_hash, role_id) values ('test6', 'test6@tester.no', '67891011', 'test6.jpg', '75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 4);
+insert into User(name, email, phone, profile_photo, password_hash, role_id) values ('test7', 'test7@tester.no', '78910112', 'test7.jpg', '75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279', 4);
+
 
 
 insert into Category(name) values ('forelesning');
@@ -143,9 +148,12 @@ insert into Ticket_Category(name) values ('EarlyBird');
 
 insert into Event(name, description, date, place, category_id, img_url, artists, tech_rider, hospitality_rider, personnel)
   values
-    ('the Donn party', 'Donn holder repetisjonsforelesning i OS', '2020-02-03 20:30:00', 'Sukkerhuset', 1, 'picture of Donn', 'Donn Morrison', 'speakers 2x\n vocal solo mic 1x\n soundtrack with playback player 1x\n projector to show lectures\n all with linux', 'give him a beer or something to put an OS in, and compliment his lectures... just do it', 'an audience'),
-         ('Metallica metal', 'Metallica kommer til Sukkerhuset!', '2020-01-09 14:30:00', 'Sukkerhuset', 2, 'picture of metallica', 'Metallica' , 'speakers 6x\n vocal solo mic 1x\n more speakers', 'lots of cool looking drinks and beer', 'has their own'),
-              ('quiz-kveld', 'vi har quiz! kom med lag eller finn nye lag og delta med, vi har fine premier', '20-05-05 18:00:00', 'Sukkerhuset', 3, 'quiz-trophy', 'Sukkerhusets egne quizmaster', 'bunch of stuff', 'kopimaskin, ark, bord', 'quiz-master');
+      ('the Donn party', 'Donn holder repetisjonsforelesning i OS', '2020-02-03 20:30:00', 'Sukkerhuset', 1, 'picture of Donn', 'Donn Morrison', 'speakers 2x\n vocal solo mic 1x\n soundtrack with playback player 1x\n projector to show lectures\n all with linux', 'give him a beer or something to put an OS in, and compliment his lectures... just do it', 'an audience'),
+          ('Metallica metal', 'Metallica kommer til Sukkerhuset!', '2020-01-09 14:30:00', 'Sukkerhuset', 2, 'picture of metallica', 'Metallica' , 'speakers 6x\n vocal solo mic 1x\n more speakers', 'lots of cool looking drinks and beer', 'has their own'),
+              ('quiz-kveld', 'vi har quiz! kom med laget ditt eller finn nye folk å delta med her. Vi har bra premier!', '20-05-05 18:00:00', 'Sukkerhuset', 3, 'quiz-trophy', 'Sukkerhusets egne quizmaster', 'bunch of stuff', 'kopimaskin, ark, bord', 'quiz-master'),
+                  ('event abc', 'abcdefghijklmnopqrstuvwxyzæøå', '2020-03-15 15:30:00', 'alfabetland',3, 'abc.picture', 'alfabetet', 'abc-sangen på repeat over lydanlegget', 'bilder av alfabetet som på barneskolen', 'people'), -- active event
+                      ('enda en event', 'ja, enda en', '2021-05-20 17:30:00', 'Sukkerhuset', 1, 'flere.bilder', 'another one', 'more stuff', 'påfyll', 'personer'), -- filed event
+                          ('et siste event', 'I know', '21-06-24 15:50:00', 'Sukkerhuset', 3, 'siste.jpg', 'siste akt', 'det som ligger bakerst', 'siste ølet', 'han som ble ansatt sist'); -- cancelled event
 
 insert into Contact_Info( name, phone, email, event_id) values ('Donn team', '1991', 'Donn@linux.OS', 1);
 insert into Contact_Info( name, phone, email, event_id) values ('Metallica', '2386724692', 'metallica@metal.band', 1);
@@ -161,3 +169,9 @@ insert into Comment(event_id, user_id, comment, date) values (1,2,'this is also 
 
 update User set approved = 1, role_id = 1 where user_id = 2;
 update User set approved = 1, role_id = 2 where user_id = 3;
+update User set approved = 1 where user_id = 4;
+update User set approved = 1 where user_id = 6;
+
+update Event set pending = 0 where event_id = 4;
+update Event set filed = 1 where event_id = 5;
+update Event set canceled = 1 where event_id = 6;

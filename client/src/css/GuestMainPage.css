@@ -3,6 +3,7 @@
     height: 100%;
     background-color: ghostwhite;
 }
+
 .guestMainPageTitleDiv{
     margin-left: 70px;
     float: left;
@@ -12,14 +13,17 @@
 
 .carousel-caption{
     margin: auto;
-    width: max-content;
     border-radius: 10px;
-    padding: 20px 20px 20px 20px;
     background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) );
 }
 
 .carousel-caption:hover{
     cursor: pointer;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(100%);
 }
 
 .carousel-item img{
@@ -30,6 +34,10 @@
     height: 500px;
 }
 
+.carousel-item:hover{
+    cursor: pointer;
+}
+
 .guestEventCardsContainer{
     padding: 10px 40px 10px 10px;
     grid-gap: 30px;
@@ -37,4 +45,34 @@
     grid-template-columns: 50% 50%;
     width: 90%;
     margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .carousel{
+        width: 100%;
+        max-height: 500px;
+    }
+
+    .carousel-inner{
+        height: 500px;
+    }
+
+    .carousel-item{
+        height: 500px;
+        margin-bottom: 200px;
+    }
+
+
+
+
+
+
+    .guestEventCardsContainer{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        margin: auto;
+        padding: 0;
+    }
 }

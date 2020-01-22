@@ -3,3 +3,5 @@
 .idea
 client/.env
 server/.env
+client/docs
+server/docs

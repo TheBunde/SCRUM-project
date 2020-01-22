@@ -42,9 +42,26 @@ class EventView extends Component{
             comments: [],
             user: {}
         }
+        this.keyPressed = this.keyPressed.bind(this);
     }
 
     formatDate(backendDate) {
+        let thisDate = new Date(backendDate);
+
+        let year = thisDate.getFullYear();
+        let month = thisDate.getMonth()+1;
+        if(month < 10) month = "0" + month;
+        let date = thisDate.getDate();
+        if(date < 10) date = "0" + date;
+        let hours = thisDate.getHours();
+        if(hours < 10) hours = "0" + hours;
+        let minutes = thisDate.getMinutes();
+        if(minutes < 10) minutes = "0" + minutes;
+
+        return date + "." + month + "." + year + " " + hours + ":" + minutes;
+    }
+
+    formatDateComments(backendDate) {
         let tempDate = backendDate;
         let year = tempDate.slice(0, 4);
         let month = tempDate.slice(5, 7);
@@ -83,7 +100,21 @@ class EventView extends Component{
         console.log("auth.user_id: " + auth.user_id);
     }
 
+    keyPressed(event) {
+        if (event.key === "Enter" && (this.state.name !== "" && this.state.email !== "" && this.state.phone !== "" && this.state.password !== "" && this.state.repeatedPassword !== "")) {
+            this.publishComment();
+        }
+    }
+
     render() {
+        let descriptionString = JSON.stringify(this.state.description);
+        function descriptionArray() {
+            if(descriptionString !== undefined){
+                /*return descriptionString.substr(1,descriptionString.length-2).split("\\n");*/
+                return descriptionString.substr(1,descriptionString.length-2).split("\\n");
+            } 
+        }
+
         function mapLocation(place) {
             return place.trim(" ,");
         }
@@ -105,17 +136,17 @@ class EventView extends Component{
                         <div className="btn-group">
                             <button type="button" className="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                Edit
+                                Handlinger
                             </button>
                             <div className="dropdown-menu dropdown-menu-right">
-                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventApproveButton(this.state.event_id)}>Godkjenn arrangment</button>
+                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventApproveButton(this.state.event_id)}>Godkjenn arrangement</button>
                                 <div className="dropdown-divider"></div>
-                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights() === 2|| this.checkRights()===3)} onClick={() => history.push("/event/" + this.state.event_id + "/edit")}>Rediger arrangment</button>
+                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights() === 2|| this.checkRights()===3)} onClick={() => history.push("/event/" + this.state.event_id + "/edit")}>Rediger arrangement</button>
                                 <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===3)} onClick={() => this.submitEventArchiveButton(this.state.event_id)}>Arkiver arrangement</button>
                                 <div className="dropdown-divider"></div>
-                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventCancelButton(this.state.event_id)}>Avlys arrangment</button>
+                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventCancelButton(this.state.event_id)}>Avlys arrangement</button>
                                 <div className="dropdown-divider"></div>
-                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventDeleteButton(this.state.event_id)}>Slett arrangment</button>
+                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventDeleteButton(this.state.event_id)}>Slett arrangement</button>
                             </div>
                         </div>
                     </div>
@@ -204,22 +235,22 @@ class EventView extends Component{
                             <div id="eventViewFiles">
                                 <div>
                                     <h4>Personell</h4>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.personnel)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" disabled={this.state.personnel === ""} onClick={() => window.open("http://localhost:8080/image/" + this.state.personnel)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
                                     <h4>Kontrakt</h4>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" disabled={this.state.contract === ""} onClick={() => window.open("http://localhost:8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
                                     <h4>Teknisk rider</h4>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" disabled={this.state.tech_rider === ""} onClick={() => window.open("http://localhost:8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
                                     <h4>Hospitality rider</h4>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"> Last ned</i></button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" disabled={this.state.hospitality_rider === ""} onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
                                 
                             </div>
@@ -234,15 +265,17 @@ class EventView extends Component{
                                     <div id="eventViewDescriptionBoxTitle">
                                         <h1>Beskrivelse av arrangementet</h1>
                                     </div>
-                                    
-                                    <h6>{this.state.description}</h6>
+                                    {descriptionArray().map(paragraph => (
+                                        <div id="eventViewParagraphs">
+                                            <h6>{paragraph}</h6>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="eventViewCommentSectionContainer">
                         <div id="eventViewCommentSection">
-                            
                                 <div class="comment-wrapper">
                                     <div class="panel panel-info">
                                         <div class="panel-heading">
@@ -252,9 +285,9 @@ class EventView extends Component{
                                             <p>Her kan dere dele informasjon eller erfaringer som ble gjort under arrangementplanleggingen.</p>
                                         </div>
                                         <div class="panel-body">
-                                        <textarea type="text" class="form-control" id="commentInput" placeholder="Skriv en kommentar ..." rows="3"></textarea>
+                                        <textarea type="text" class="form-control" id="commentInput" placeholder="Skriv en kommentar ..." rows="3" onKeyPress={this.keyPressed}></textarea>
                                         <br />
-                                        <button type="button" class="btn btn-outline-info pull-right" onClick={e => this.publishComment(e)}>Publiser</button>
+                                        <button type="button" class="btn btn-outline-info pull-right" onClick={() => this.publishComment()}>Publiser</button>
                                         <div class="clearfix"></div>
                                         <hr />
                                         <div id="comments">
@@ -298,14 +331,14 @@ class EventView extends Component{
             event_id: this.props.match.params.id,
             user_id: auth.user_id,
             name: this.state.user.name,
-            date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+            date: new Date(),
             comment: commentInput
-        })
+        });
 
-        this.setState({comments: commentArray})
+        this.setState({comments: commentArray});
         eventService.addComment(this.props.match.params.id, auth.user_id, commentInput).then((response) => console.log("Adding comment worked")).catch(error => console.error(error.message));
         commentInputElement.value = "";
-    }
+    };
 
 
     checkRights(){

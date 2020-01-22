@@ -1,15 +1,23 @@
 import axios from 'axios';
 import {User} from "../service/UserService";
 import {authenticationHeader} from "./UserService";
-
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
+/**
+ * Profile service
+ */
 export class ProfileService{
-
+    /**
+     * 
+     * @param {user} user 
+     */
     updateUser(user){
         return axios.put("http://" + ipAdress + ":8080/profile/" + user.user_id + '/edit', user, {headers: authenticationHeader()});
     }
-
+    /**
+     * 
+     * @param {number} userID 
+     */
     getUser(userID){
         return axios.get("http://" + ipAdress + ":8080/user/" + userID, {headers: authenticationHeader()}).then(response => {
             let a = response.data[0];

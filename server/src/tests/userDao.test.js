@@ -48,7 +48,7 @@ test("get user", done => {
         expect(data.length).toBe(1);
         expect(data[0].user_id).toBe(5);
         expect(data[0].name).toBe("test5");
-        expect(data[0].approved).toBe(false);
+        expect(data[0].approved).toBe(0);
         done();
     }
     userDao.getUser(
@@ -99,6 +99,6 @@ test("changing password", done => {
         userDao.getUser("test@test.no", callback2);
     }
 
-    let json = {user_id: 8, password: "hei1234"};
+    let json = {user_id: 7, password: "hei1234"};
     userDao.changePassword(json, callback);
 });

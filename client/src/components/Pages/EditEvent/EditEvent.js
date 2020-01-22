@@ -312,7 +312,6 @@ class EditEvent extends Component{
                                     onClick={() => window.open("http://localhost:8080/image/" + this.state.Tech)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
-
                         </div>
                         <div>
                             <p id="EventInputLabels">Nye Tech Riders:</p>

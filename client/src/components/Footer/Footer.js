@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import '../../css/Footer.css';
 
-class Footer extends Component<> {
+/**
+ * @class Footer
+ */
+class Footer extends Component {
   render() {  
     return (
         <div>
@@ -14,8 +17,10 @@ class Footer extends Component<> {
     )
   }
 }
-
-class FooterTransparent extends Component<> {
+/**
+ * @class FooterTransparent
+ */
+class FooterTransparent extends Component {
   render() {  
     return (
         <div>

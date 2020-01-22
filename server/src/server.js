@@ -659,9 +659,7 @@ app.post("/user/reset_password", (req, res) => {
         }
     })
 });
-/**
- * @param
- */
+
 app.put("/user/:userID/edit/password",verifyToken, (req, res) => {
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {

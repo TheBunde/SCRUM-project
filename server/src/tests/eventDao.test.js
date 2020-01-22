@@ -231,6 +231,25 @@ test("test: deleteEvent()", done =>{
     eventDao.getAllEvents(callback)
 });
 
+/**
+ * test for: updateEvent() in eventDao.js
+ */
+test("test: updateEvent", done =>{
+    function callback2(status, data) {
+        console.log(
+            "Test updateEvent eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data[0].canceled).toBe(1);
+        done();
+    }
+
+    function callback(){
+        eventDao.getEventByID(7, callback2)
+    }
+    let event = {name: "oppdatert", description: "dette arrangementet er oppdatert", date: "2020-10-12 16:45:00", place: "Sukkerhuset", categoryID: 3, img_url: "oppdatert.jpg", artists: "ny og bedre..", tech_rider: "mere bedre", hospitality_rider: "oppgrader til vin", contract: "kontrakt", personnel: "flere folk"}
+    eventDao.updateEvent(7, event, callback);
+});
+
 
 
 

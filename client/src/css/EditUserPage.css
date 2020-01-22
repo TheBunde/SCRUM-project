@@ -22,6 +22,18 @@
     float: left;
 }
 
+.dropdown-item:hover{
+    background-color: lightgrey;
+}
+
+.dropdown-item a{
+    color: black;
+}
+
+.dropdown-item a:hover{
+    text-decoration: none;
+}
+
 .column{
     height: 470px;
     width: 50%;

@@ -126,12 +126,19 @@ class AddEvent extends Component {
 
     ticketCheck() {
         let status = false;
+        let belowZero = false;
         this.state.Tickets.map(ticket => {
-            if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0) {
+            if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
                 status = true;
             }
+            if(this.state[ticket.name + "TicketAmount"] < 0 || this.state[ticket.name + "TicketPrice"] < 0){
+                belowZero = true;
+            }
         });
-        return status;
+        if(!belowZero) {
+            return status;
+        }
+        else return false;
     }
 
     checkDate() {
@@ -139,7 +146,7 @@ class AddEvent extends Component {
         thisDate.setHours(this.state.dateChosenHour);
         thisDate.setMinutes(this.state.dateChosenMin);
 
-        return new Date(thisDate) > new Date();
+        return thisDate > new Date();
     }
 
     render() {

@@ -87,6 +87,14 @@ class EventView extends Component{
     }
 
     render() {
+        let descriptionString = JSON.stringify(this.state.description);
+        function descriptionArray() {
+            if(descriptionString !== undefined){
+                /*return descriptionString.substr(1,descriptionString.length-2).split("\\n");*/
+                return descriptionString.substr(1,descriptionString.length-2).split("\\n");
+            } 
+        }
+
         function mapLocation(place) {
             return place.trim(" ,");
         }
@@ -155,8 +163,11 @@ class EventView extends Component{
                                     <div id="guestEventViewDescriptionBoxTitle">
                                         <h2>Beskrivelse av arrangementet</h2>
                                     </div>
-                                    
-                                    <h6>{this.state.description}</h6>
+                                    {descriptionArray().map(paragraph => (
+                                        <div id="guestEventViewParagraphs">
+                                            <h6>{paragraph}</h6>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>

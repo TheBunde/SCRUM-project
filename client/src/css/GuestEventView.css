@@ -295,6 +295,10 @@
     padding-right: 20px;
 }
 
+#guestEventViewParagraphs{
+    margin-bottom: 15px;
+}
+
 @Media only screen and (max-width: 840px){
     #guestEventViewBackground{
         padding: 0px;

@@ -84,7 +84,10 @@
 #eventViewInfoDownloadButtons:hover{
     background-color: rgb(38, 63, 138);
 }
-
+#eventViewInfoDownloadButtons:disabled{
+    cursor: default;
+    background-color: rgb(62, 107, 153);
+}
 
 /* ---------------------------------------- */
 

@@ -32,7 +32,6 @@ module.exports = class UserDao extends dao {
     }
 
     getApprovedUser(email, callback) {
-        console.log(email);
         super.query("SELECT * from User JOIN Role on User.role_id = Role.role_id where email = ? AND approved = 1", email, callback)
     }
 
@@ -41,7 +40,6 @@ module.exports = class UserDao extends dao {
         let val = [json.user_id];
         bcrypt.hash(json.password, saltRounds).then(res => {
             val.unshift(res); // Hashing and then inserting at the beginning of val for use in the query.
-            console.log(val);
             super.query(
                 "UPDATE User SET password_hash = ? WHERE user_id = ?",
                 val,

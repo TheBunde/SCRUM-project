@@ -39,6 +39,22 @@ class EventPage extends Component {
     }
 
     formatDate(backendDate) {
+        let thisDate = new Date(backendDate);
+
+        let year = thisDate.getFullYear();
+        let month = thisDate.getMonth()+1;
+        if(month < 10) month = "0" + month;
+        let date = thisDate.getDate();
+        if(date < 10) date = "0" + date;
+        let hours = thisDate.getHours();
+        if(hours < 10) hours = "0" + hours;
+        let minutes = thisDate.getMinutes();
+        if(minutes < 10) minutes = "0" + minutes;
+
+        return date + "." + month + "." + year + " " + hours + ":" + minutes;
+    }
+
+    formatDate(backendDate) {
         let tempDate = backendDate;
         let year = tempDate.slice(0, 4);
         let month = tempDate.slice(5, 7);
@@ -46,9 +62,8 @@ class EventPage extends Component {
         let hours = tempDate.slice(11, 13);
         let minutes = tempDate.slice(14, 16);
 
-        let thisDate = new Date(year + "-" + month + "-" +date +" " + hours +":00:00");
+        let thisDate = new Date(year + "-" + month + "-" +date +"T" + hours +":00:00");
         thisDate.setHours(thisDate.getHours()+1);
-
 
         year = thisDate.getFullYear();
         month = thisDate.getMonth()+1;
@@ -376,16 +391,4 @@ class EventCard extends Component {
 
 export default EventPage;
 
-/*
-//this.props.date.slice(0, 16).replace("T", " ")
 
-//<div id="eventPageFetchMoreEventsButton">
-//    {this.state.shownEvents.length > this.state.length &&
-//    <div>
-//        <button type="button" className="btn btn-light"
-//                onClick={() => this.setState({length: this.state.length + 6})}>Last inn flere arrangementer
-//        </button>
-//    </div>
-//    }
-//</div>
-*/

@@ -14,9 +14,12 @@ let pool = mysql.createPool({
 
 let userDao = new UserDao(pool);
 
+/**
+ * registerUser: Registers a new user
+ */
 test("that we can register a user", done => {
     function callback(status, data) {
-        console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
+        console.log("Test registerUser userDao. callback: status = " + status + ", data= " + JSON.stringify(data));
         expect(data.affectedRows).toBeGreaterThanOrEqual(1);
         done();
     }
@@ -42,9 +45,12 @@ test("get hash", done => {
 
 */
 
+/**
+ * getUser: Returns user based on e-mail
+ */
 test("get user", done => {
     function callback(status, data) {
-        console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
+        console.log("Test getUser userDao. callback: status = " + status + ", data= " + JSON.stringify(data));
         expect(data.length).toBe(1);
         expect(data[0].user_id).toBe(5);
         expect(data[0].name).toBe("test5");
@@ -56,9 +62,12 @@ test("get user", done => {
     );
 });
 
+/**
+ *  getApprovedUser: Returns a user based on email only if the user is approved
+ */
 test("get the approved user", done => {
     function callback(status, data) {
-        console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
+        console.log("Test getApprovedUser userDao callback: status = " + status + ", data= " + JSON.stringify(data));
         expect(data.length).toBe(1);
         expect(data[0].user_id).toBe(4);
         expect(data[0].name).toBe('test4');
@@ -71,9 +80,12 @@ test("get the approved user", done => {
     );
 });
 
+/**
+ * UpdateProfile: updates the name, phone and email for user with user_id = 2
+ */
 test('Changing contact information', done => {
     function callback2(status, data) {
-        console.log('Test callback: status=' + status + ', data=' + JSON.stringify(data));
+        console.log('Test updateProfile userDao. callback: status=' + status + ', data=' + JSON.stringify(data));
         expect(data[0].user_id).toBe(2);
         expect(data[0].name).toBe('Grete');
         expect(data[0].phone).toBe('09876543');
@@ -88,9 +100,13 @@ test('Changing contact information', done => {
     userDao.updateProfile({ name: 'Grete', phone: '09876543', email : 'new@mail.com', user_id: 2 }, callback);
 });
 
+
+/**
+ * changePassword: Changes the password of user with user_id = 8
+ */
 test("changing password", done => {
     function callback2(status, data) {
-       console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
+       console.log("Test changePassword userDao. callback: status = " + status + ", data= " + JSON.stringify(data));
 
        expect(data[0].password_hash).toBe("$2b$10$V06K1Z5HDCeIu423qwfef.JtO4VY1ll9r8FvgvXiIpoxE6ObstdUi");
        done();

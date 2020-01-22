@@ -135,6 +135,8 @@ class EditEvent extends Component{
 
     notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    notifyTooBigFile = () => toast("En av filene du forsøkte å laste opp var for store", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
     updateEventInfo(data){
         let thisDate = new Date(data[0].date);
         let hour = thisDate.getHours();
@@ -526,37 +528,45 @@ class EditEvent extends Component{
     submitNewContract() {
         let fileService = new FileService();
         let fileContract = document.getElementById("contractInput");
+        if (fileContract.files[0].size > 10000000) {
+            this.notifyTooBigFile();
+        } else {
+            fileService.uploadFile(fileContract.files[0])
+                .then((res) => {
+                    this.setState({
+                        Contract : res.data.filePath.filename
+                    });
+                    this.notifyPictureUploaded();
 
-        fileService.uploadFile(fileContract.files[0])
-            .then((res) => {
-                this.setState({
-                    Contract : res.data.filePath.filename
-                });
-                this.notifyPictureUploaded();
-
-            })
-            .catch((err) => {
-                this.notifyNoFileUploaded();
-                console.error(err);
-            })
+                })
+                .catch((err) => {
+                    this.notifyNoFileUploaded();
+                    console.error(err);
+                })
+        }
     }
 
     submitNewTechRider() {
         let fileService = new FileService();
         let fileRider1 = document.getElementById("rider1Input");
 
-        fileService.uploadFile(fileRider1.files[0])
-            .then((res) => {
-                this.setState({
-                    Tech : res.data.filePath.filename
-                });
-                this.notifyPictureUploaded();
+        if (fileRider1.files[0].size > 10000000) {
+            this.notifyTooBigFile();
+        } else {
+            fileService.uploadFile(fileRider1.files[0])
+                .then((res) => {
+                    this.setState({
+                        Tech : res.data.filePath.filename
+                    });
+                    this.notifyPictureUploaded();
 
-            })
-            .catch((err) => {
-                console.error(err);
-                this.notifyNoFileUploaded();
-            })
+                })
+                .catch((err) => {
+                    console.error(err);
+                    this.notifyNoFileUploaded();
+                })
+        }
+
 
     }
 
@@ -564,18 +574,23 @@ class EditEvent extends Component{
         let fileService = new FileService();
         let fileRider2 = document.getElementById("rider2Input");
 
-        fileService.uploadFile(fileRider2.files[0])
-            .then((res) => {
-                this.setState({
-                    Hospitality : res.data.filePath.filename
-                });
-                this.notifyPictureUploaded();
+        if (fileRider2.files[0].size > 10000000) {
+            this.notifyTooBigFile();
+        } else {
+            fileService.uploadFile(fileRider2.files[0])
+                .then((res) => {
+                    this.setState({
+                        Hospitality : res.data.filePath.filename
+                    });
+                    this.notifyPictureUploaded();
 
-            })
-            .catch((err) => {
-                console.error(err);
-                this.notifyNoFileUploaded();
-            })
+                })
+                .catch((err) => {
+                    console.error(err);
+                    this.notifyNoFileUploaded();
+                })
+        }
+
 
 
     }
@@ -584,18 +599,24 @@ class EditEvent extends Component{
         let fileService = new FileService();
         let filePersonell = document.getElementById("personellInput");
 
-        fileService.uploadFile(filePersonell.files[0])
-            .then((res) => {
-                this.setState({
-                    Personnel : res.data.filePath.filename
-                });
-                this.notifyPictureUploaded();
+        if (filePersonell.files[0].size > 10000000) {
+            this.notifyTooBigFile();
+        } else {
+            fileService.uploadFile(filePersonell.files[0])
+                .then((res) => {
+                    this.setState({
+                        Personnel : res.data.filePath.filename
+                    });
+                    this.notifyPictureUploaded();
 
-            })
-            .catch((err) => {
-                console.error(err);
-                this.notifyNoFileUploaded();
-            })
+                })
+                .catch((err) => {
+                    console.error(err);
+                    this.notifyNoFileUploaded();
+                })
+        }
+
+
 
     }
 
@@ -603,18 +624,23 @@ class EditEvent extends Component{
         let fileService = new FileService();
         let image = document.getElementById("imageInput");
 
-        fileService.uploadImage(image.files[0])
-            .then((res) => {
-                this.setState({
-                    Picture : res.data.filePath.filename
-                });
-                this.notifyPictureUploaded();
-            })
-            .catch((err) => {
-                console.error(err);
-                this.notifyNoFileUploaded();
+        if (image.files[0].size > 10000000) {
+            this.notifyTooBigFile();
+        } else {
+            fileService.uploadImage(image.files[0])
+                .then((res) => {
+                    this.setState({
+                        Picture : res.data.filePath.filename
+                    });
+                    this.notifyPictureUploaded();
+                })
+                .catch((err) => {
+                    console.error(err);
+                    this.notifyNoFileUploaded();
+                })
+        }
 
-            })
+
 
 
     }

@@ -129,7 +129,7 @@ test("test: getNonFiledEvents()", done =>{
             "Test getNonFiledEvents eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data.length).toBeGreaterThanOrEqual(2);
-        expect(data[0].name).toBe("the Donn party");
+        expect(data[0].name).toBe("Just added");
         expect(data[1].filed).toBe(0);
         done();
     }

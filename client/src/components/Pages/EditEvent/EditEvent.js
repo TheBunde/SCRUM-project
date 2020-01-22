@@ -62,20 +62,11 @@ class EditEvent extends Component{
             || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
     }
     checkDate(){
-        let day = this.state.date.getDate();
-        let month = this.state.date.getMonth() + 1;
-        let year = this.state.date.getFullYear();
-        let hour = this.state.dateChosenHour;
-        let min = this.state.dateChosenMin;
-        if (day < 10) {
-            day = "0" + day
-        }
-        if (month < 10) {
-            month = "0" + month
-        }
-        let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
+        let thisDate = this.state.date;
+        thisDate.setHours(this.state.dateChosenHour);
+        thisDate.setMinutes(this.state.dateChosenMin);
 
-        return new Date(date) > new Date();
+        return thisDate > new Date();
     }
 
     ticketCheck(){

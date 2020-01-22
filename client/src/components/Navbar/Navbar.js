@@ -70,8 +70,8 @@ class Navbar extends Component {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
               <li className="nav-item">
-                <a className="nav-link" href="#/overview">
-                  Hovedside
+                <a className="nav-link" href="#/">
+                  Forside
                 </a>
               </li>
 

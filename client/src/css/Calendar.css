@@ -27,6 +27,7 @@ td.fc-event-container div{
     #CalendarShowDiv .fc-scroller{
         height: 80% !important;
     }
+
 }
 @media only screen and (max-width: 430px){
     #react-confirm-alert .react-confirm-alert{
@@ -66,5 +67,12 @@ td.fc-event-container div{
     #react-confirm-alert .react-confirm-alert-overlay{
         max-width: 100vw;
         overflow: hidden;
+    }
+
+}
+
+@media only screen and (max-width: 400px){
+    #CalendarShowDiv > div > div.fc-toolbar.fc-header-toolbar > div.fc-left > button{
+        margin-top: 10px;
     }
 }

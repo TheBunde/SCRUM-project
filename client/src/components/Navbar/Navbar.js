@@ -8,6 +8,7 @@ import { ProfileService } from "../../service/ProfileService";
 
 /**
  * Navbar component
+ @class 
  */
 class Navbar extends Component {
   constructor(props) {
@@ -18,10 +19,18 @@ class Navbar extends Component {
     };
   }
 
+
+  /*
+  * This method fetches information about the user, which is then used further on by providing your profile picture,
+  profile name and some options in the navbar regarding your user profile.
+  */
   someFn() {
     this.props.getUser(this.state.user);
   }
-
+  
+  /*
+  * This method 
+  */
   signOut = () => {
     window.localStorage.removeItem("token");
     window.location.hash = "/login";
@@ -123,7 +132,7 @@ class Navbar extends Component {
                 >
                   <img
                     id="navProfile"
-                    alt="profilePic"
+                    alt="pb"
                     src={
                       this.state.user.profile_photo === null ||
                       this.state.user.profile_photo === ""

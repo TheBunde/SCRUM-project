@@ -11,7 +11,6 @@ class NotFound extends Component {
                 <div id={"NotFoundMain"}>
                     <h1>404 Not Found</h1>
                     <img src={"https://media.giphy.com/media/xTiN0L7EW5trfOvEk0/giphy.gif"} alt={"GIF"}/>
-
                 </div>
                 <Footer />
             </div>

@@ -59,7 +59,6 @@ ReactDOM.render(
             <Route exact path="/calendar" component={Calendar} />
             <Route exacth path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/about" component={About} />
-            <Route path="" component={NotFound} />
             <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} />
             <RestrictedRoute exact path="/profile/:userID" component={ShowProfile} authorized={restriction.regular} />
             <RestrictedRoute exact path="/profile/:userID/edit" component={EditProfile} authorized={restriction.regular} />

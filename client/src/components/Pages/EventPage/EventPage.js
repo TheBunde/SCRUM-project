@@ -235,6 +235,7 @@ class EventPage extends Component {
                                             <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterAllActive()}>Alle aktive</a>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterPending()}>Under planlegging</a>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterApproved()}>Ferdig planlagte</a>
+                                            <div className="dropdown-divider"></div>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterArchived()}>Arkiverte</a>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterCancelled()}>Avlyste</a>
                                         </div>
@@ -249,6 +250,7 @@ class EventPage extends Component {
                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                                             <a className="dropdown-item" href="#/event" onClick={() => this.sortByName()}>Navn</a>
+                                            <div className="dropdown-divider"></div>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.sortByClosest()}>Nærmest</a>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.sortByDate()}>Lengst frem</a>
 

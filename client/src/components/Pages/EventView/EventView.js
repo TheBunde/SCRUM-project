@@ -220,22 +220,22 @@ class EventView extends Component{
                             <div id="eventViewFiles">
                                 <div>
                                     <h4>Personell</h4>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.personnel)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" disabled={this.state.personnel === ""} onClick={() => window.open("http://localhost:8080/image/" + this.state.personnel)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
                                     <h4>Kontrakt</h4>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" disabled={this.state.contract === ""} onClick={() => window.open("http://localhost:8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
                                     <h4>Teknisk rider</h4>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" disabled={this.state.tech_rider === ""} onClick={() => window.open("http://localhost:8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
                                     <h4>Hospitality rider</h4>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
+                                    <button id="eventViewInfoDownloadButtons" class="btn" disabled={this.state.hospitality_rider === ""} onClick={() => window.open("http://localhost:8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
                                 
                             </div>

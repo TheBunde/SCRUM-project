@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { createHashHistory } from 'history';
 
 export class Alert extends Component {
-    alerts: { id, text, type}[] = [];
+    alerts = { id, text, type};
     static nextId = 0;
 
     render() {

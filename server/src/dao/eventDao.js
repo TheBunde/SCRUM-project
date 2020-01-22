@@ -108,5 +108,5 @@ module.exports = class adminDao extends Dao{
 };
 
 function callback2(){
- console.log("Dummy function");
+
 }

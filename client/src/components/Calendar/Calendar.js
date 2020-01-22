@@ -19,10 +19,16 @@ import Navbar from "../Navbar/Navbar";
 
 const history = createHashHistory();
 
+/**
+ * @class Calendar
+ */
 export default class Calendar extends React.Component {
     check;
     size;
-
+    /**
+     * 
+     * @param {json} props 
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -50,7 +56,10 @@ export default class Calendar extends React.Component {
             )}).catch(error => console.error(error.message));
     }
 
-
+    /**
+     * 
+     * @param {date} backendDate - Date from backend
+     */
     formatDate(backendDate) {
         let thisDate = new Date(backendDate);
 

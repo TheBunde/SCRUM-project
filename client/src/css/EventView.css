@@ -328,7 +328,7 @@
     }
     #eventViewDescription{
         max-width: 95%;
-        margin: 5px auto 5px auto;
+        margin: 10px auto 5px auto;
         text-align: center;
     }
     #eventViewDescriptionBoxTitle{
@@ -344,12 +344,12 @@
         margin: 0px 0 0 15px; 
         max-width: 95%;
         min-width: 95%;
-        margin: 5px auto 0px auto;
+        margin: 10px auto 0px auto;
     }
 
     #eventViewCommentSection{
         max-width: 95%;
-        margin: 0px auto 5px auto;
+        margin: 0px auto 15px auto;
     }
     #eventViewTitle{
         grid-area: eventViewTitle;

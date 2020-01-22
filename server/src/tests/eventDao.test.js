@@ -16,7 +16,9 @@ let pool = mysql.createPool({
 
 let eventDao = new EventDao(pool);
 
-
+/**
+ * test for: getEventById() in eventDao.js
+ */
 test("test: getEventById()", done =>{
     function callback(status, data) {
         console.log(
@@ -31,12 +33,15 @@ test("test: getEventById()", done =>{
     eventDao.getEventByID(1, callback);
 });
 
+/**
+* test for: getAllEvents() in eventDao.js
+*/
 test("test: getAllEvents()", done =>{
     function callback(status, data) {
         console.log(
             "Test getAllEvents eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data.length).toBe(3);
+        expect(data.length).toBe(5);
         expect(data[0].event_id).toBe(2);
         done();
     }
@@ -44,6 +49,9 @@ test("test: getAllEvents()", done =>{
     eventDao.getAllEvents(callback);
 });
 
+/**
+ * test for: getAllArchived() in eventDao.js
+ */
 test("test: getAllArchived()", done =>{
     function callback2(status, data) {
         console.log(
@@ -62,6 +70,9 @@ test("test: getAllArchived()", done =>{
 
 });
 
+/**
+ * test for: updateFiled() in eventDao.js
+ */
 test("test: updateFiled", done =>{
     function callback2(status, data) {
         console.log(
@@ -78,6 +89,9 @@ test("test: updateFiled", done =>{
     eventDao.updateFiled(2,callback);
 });
 
+/**
+ * test for: addEvent() in eventDao.js
+ */
 test("test: addEvent()", done =>{
     function callback2(status, data) {
         console.log(
@@ -95,6 +109,9 @@ test("test: addEvent()", done =>{
     eventDao.addEvent(event, callback);
 });
 
+/**
+ * test for: deleteEvent() in eventDao.js
+ */
 test("test: deleteEvent()", done =>{
 
     function callback3(status, data) {
@@ -122,6 +139,9 @@ test("test: deleteEvent()", done =>{
     eventDao.getAllEvents(callback)
 });
 
+/**
+ * test for: getNonFiledEvents() in eventDao.js
+ */
 test("test: getNonFiledEvents()", done =>{
 
     function callback(status, data){
@@ -129,7 +149,7 @@ test("test: getNonFiledEvents()", done =>{
             "Test getNonFiledEvents eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data.length).toBeGreaterThanOrEqual(2);
-        expect(data[0].name).toBe("the Donn party");
+        expect(data[0].name).toBe("Just added");
         expect(data[1].filed).toBe(0);
         done();
     }
@@ -137,6 +157,9 @@ test("test: getNonFiledEvents()", done =>{
     eventDao.getNonFiledEvents(callback);
 });
 
+/**
+ * test for: getCategories() in eventDao.js
+ */
 test("test: getCategories()", done =>{
 
     function callback(status, data){
@@ -165,7 +188,9 @@ test("test: addCategory()", done =>{
     eventDao.addCategories(category, callback);
 });
 */
-
+/**
+ * test for: getCategoryFromEvent() in eventDao.js
+ */
 test("test: getCategoryFromEvent()", done =>{
     function callback(status, data) {
         console.log(
@@ -180,6 +205,9 @@ test("test: getCategoryFromEvent()", done =>{
 
 });
 
+/**
+ * test for: getTicket() in eventDao.js
+ */
 test("test: getTicket()", done =>{
 
     function callback(status, data){
@@ -194,6 +222,9 @@ test("test: getTicket()", done =>{
     eventDao.getTicket(callback);
 });
 
+/**
+ * test for: addTicket() in eventDao.js
+ */
 test("test: addTicket()", done =>{
 
     function callback(status, data){
@@ -208,6 +239,9 @@ test("test: addTicket()", done =>{
     eventDao.addTicket(event_ticket, callback);
 });
 
+/**
+ * test for: addContactInfo() in eventDao.js
+ */
 test("test: addContactInfo()", done =>{
     function callback(status, data){
         console.log(

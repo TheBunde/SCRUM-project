@@ -77,7 +77,7 @@ class OverviewPage extends Component{
                     <div id="overviewPageCardContent" className="card overview">
                         <div className="card-body">
                             <div id="overviewPageCardTitle">
-                                <h5 className="card-title">Se alle eventer</h5>
+                                <h5 className="card-title">Se alle arrangementer</h5>
                             </div>
                             <div id="overviewPageCardText">
                                 <p className="card-text">Få en oversikt over alle dine arrangementer.</p>

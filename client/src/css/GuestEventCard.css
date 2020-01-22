@@ -42,6 +42,16 @@
     height: 600px;
 }
 
+@media only screen and (max-width: 600px) {
+    .guestCardImage{
+        box-shadow: none;
+    }
+
+    .guestEventCard{
+        margin-top: 10px;
+    }
+}
+
 
 
 

@@ -239,7 +239,8 @@ test("test: updateEvent", done =>{
         console.log(
             "Test updateEvent eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data[0].canceled).toBe(1);
+        expect(data[0].name).toBe("oppdatert");
+        expect(data[0].img_url).toBe("oppdatert.jpg");
         done();
     }
 

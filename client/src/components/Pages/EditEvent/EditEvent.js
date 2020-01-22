@@ -136,15 +136,11 @@ class EditEvent extends Component{
     notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
     updateEventInfo(data){
-        let date = data[0].date.split("T");
-        let time = date[1].split(":");
-        let min = Number(time[1]);
-        if(min<10) min = "0"+min;
-
-        let thisDate = new Date(date[0]);
-        thisDate.setHours(Number(time[0]) +1);
+        let thisDate = new Date(data[0].date);
         let hour = thisDate.getHours();
         if(hour<10) hour = "0"+hour;
+        let min = thisDate.getMinutes();
+        if(hour<10) hour = "0" + min;
 
         this.setState({dateChosenHour: hour});
         this.setState({dateChosenMin: min});

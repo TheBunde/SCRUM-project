@@ -111,7 +111,7 @@ class EventView extends Component{
         function descriptionArray() {
             if(descriptionString !== undefined){
                 /*return descriptionString.substr(1,descriptionString.length-2).split("\\n");*/
-                return descriptionString.split("\\n");
+                return descriptionString.substr(1,descriptionString.length-2).split("\\n");
             } 
         }
 

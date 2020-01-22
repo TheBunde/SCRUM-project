@@ -301,6 +301,10 @@
     padding-right: 20px;
 }
 
+#eventViewParagraphs{
+    margin-bottom: 15px;
+}
+
 @Media only screen and (max-width: 840px){
     #eventViewBackground{
         padding: 0px;

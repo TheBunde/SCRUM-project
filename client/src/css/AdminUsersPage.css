@@ -21,7 +21,8 @@
         display: none;
     }
     #adminSearchField {
-        display: none;
+        width: 90%;
+        margin: 0.8rem auto 0.8rem auto;
     }
 }
 

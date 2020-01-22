@@ -288,41 +288,6 @@ test("test: getCategoryFromEvent()", done =>{
 
 
 /**
- * test for: getTicket() in eventDao.js
- */
-test("test: getTicket()", done =>{
-
-    function callback(status, data){
-        console.log(
-            "Test getTicket eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
-        );
-        expect(data.length).toBe(5);
-        expect(data[0].name).toBe("Standard");
-        done();
-    }
-
-    eventDao.getTicket(callback);
-});
-
-/**
- * test for: addTicket() in eventDao.js
- */
-test("test: addTicket()", done =>{
-
-    function callback(status, data){
-        console.log(
-            "Test addTicket eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
-        );
-        expect(data.affectedRows).toBe(1);
-        done();
-    }
-
-    let event_ticket = {eventID: 1, ticketID: 3, amount: 20, price: 100};
-    eventDao.addTicket(event_ticket, callback);
-});
-
-
-/**
  * test for: addContactInfo() in eventDao.js
  */
 test("test: addContactInfo()", done =>{

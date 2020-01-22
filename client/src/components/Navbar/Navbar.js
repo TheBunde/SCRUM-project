@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../../css/Navbar.css';
 import $ from 'jquery';
-import {auth, authenticate} from "../../service/UserService";
+import {auth, authenticate, sauthenticate} from "../../service/UserService";
 import {ProfileService} from "../../service/ProfileService";
 
 
@@ -24,6 +24,7 @@ class Navbar extends Component {
 
     signOut = () => {
         window.localStorage.removeItem("token");
+        auth.authenticated = false;
         window.location.hash = "/login";
     };
 
@@ -64,7 +65,7 @@ class Navbar extends Component {
 
                             <li className="nav-item">
                                 <a className="nav-link"
-                                   href = "#/overview">Hovedside</a>
+                                   href = "#/overview" onClick={authenticate}>Hovedside</a>
                             </li>
 
                             <li className="nav-item" id={"adminUsersLink"}>

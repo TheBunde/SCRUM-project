@@ -28,13 +28,14 @@ import Calendar from "./components/Calendar/Calendar";
 
 
 // Component for restricting access.
-const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
+const RestrictedRoute = ({component: Component, authorized, isAllowed, ...rest}) => (
+    console.log(isAllowed),
     <Route {...rest} render={(props) => (
-        authenticate(), // Checks if the user is authenticated, then updates the users role and status for use in the next line
-        auth.authenticated === true // If user is authenticated, check if they are authorized to view page
+         // Checks if the user is authenticated, then updates the users role and status for use in the next line
+        isAllowed === true // If user is authenticated, check if they are authorized to view page
             ? authorized.includes(auth.role) === true 
                 ? <Component {...props} /> 
-                : <Redirect to="overview" /> 
+                : <Redirect to="/overview" /> 
             : <Redirect to="" /> // User is not authenticated, and needs to log in
     )}/>
 );
@@ -58,7 +59,7 @@ ReactDOM.render(
             <Route exact path="/calendar" component={Calendar} />
             <Route exacth path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/about" component={About} />
-            <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} />
+            <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} isAllowed={authenticate()} />
             <RestrictedRoute exact path="/profile/:userID" component={ShowProfile} authorized={restriction.regular} />
             <RestrictedRoute exact path="/profile/:userID/edit" component={EditProfile} authorized={restriction.regular} />
             <RestrictedRoute exact path="/event" component={EventPage} authorized={restriction.regular} />

@@ -37,9 +37,11 @@ class LoginForm extends Component{
 
                 let token = response.data.jwt;
                 window.localStorage.setItem("token", token);
+                authenticate();
                 window.location.hash = "/overview";
             })
-            .then(authenticate)
+            //.then(authenticate())
+            //.then(window.location.hash = "/overview")
             .catch((err) => {
                 this.clearPassword();
                 this.notifyFailure();

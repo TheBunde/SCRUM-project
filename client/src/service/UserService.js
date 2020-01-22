@@ -53,7 +53,7 @@ export const auth = {
     authenticated: false,
     role: "",
     user_id : "",
-    authenticate(){
+    check(){
         let response = parseJwt(localStorage.getItem("token"));
         console.log(response);
         if(response !== null){
@@ -64,9 +64,31 @@ export const auth = {
             this.authenticated = false;
             this.role = "";
         }
+    },
+
+    async authenticate(){
+        let userService = new UserService();
+        let response = parseJwt(localStorage.getItem("token"));
+
+        if(response !== null){
+            let valid = await userService.checkToken();
+            if(valid){
+                console.log("Is this doing the work?", valid);
+                this.authenticated = true;
+                this.role = response.role.slice(1, response.role.length-1);
+                this.user_id = response.user_id;
+                return true;
+            } else{
+                this.authenticated = false;
+                this.role = "";
+                this.user_id = -1
+                return false;
+            }
+        }
     }
 };
 
+//export let uthenticate = auth.checkToken.bind(auth)
 export let authenticate = auth.authenticate.bind(auth);
 export class UserService {
     registerUser(user){
@@ -98,6 +120,14 @@ export class UserService {
                 "email" : email
             }
             )
+    }
+
+    checkToken(){
+        console.log("ouioui")
+        return Axios.get("http://" + ipAdress + ":8080/token/check", {headers: authenticationHeader()}).then(res => {
+            console.log("Valid?", res.data.valid);
+            return res.data.valid;
+        })
     }
 }
 

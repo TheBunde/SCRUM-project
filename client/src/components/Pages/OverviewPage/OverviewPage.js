@@ -27,6 +27,7 @@ class OverviewPage extends Component{
 
     componentDidMount() {
         authenticate();
+        console.log(auth.authenticated, "Testing testing 1 2 1 2");
         console.log(auth.user_id);
         let profileService = new ProfileService();
         profileService.getUser(auth.user_id)

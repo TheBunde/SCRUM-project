@@ -3,18 +3,6 @@ const Dao = require("./dao.js");
 module.exports = class adminDao extends Dao{
 
 
-    updateUser(userID, name, email, phone, callback){
-        super.query("UPDATE User SET name=?, email=?, phone=? WHERE user_id=?", [name, email, phone, userID], callback);
-    }
-
-    updatePhone(userID, phone, callback){
-        super.query("UPDATE User SET phone=? WHERE user_id=?", [phone, userID], callback);
-    }
-
-    updateEmail(userID, email, callback){
-        super.query("UPDATE User SET email=? WHERE user_id=?", [email, userID], callback);
-    }
-
     getRole(role, callback){
         super.query("SELECT role_id FROM Role WHERE role=?", [role], callback);
     }
@@ -56,5 +44,5 @@ module.exports = class adminDao extends Dao{
 };
 
 function callback2(){
-    console.log("Dummy function")
+
 }

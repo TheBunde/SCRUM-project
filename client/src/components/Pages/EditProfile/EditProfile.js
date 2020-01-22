@@ -44,6 +44,12 @@ class EditProfile extends Component {
 
     notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    notifyUsedEmail = () => toast("E-post er allerede i bruk", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyUsedPhone = () => toast("Telefonnummeret er allerede i bruk", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
+    notifyPasswordNoMatch = () => toast("Nytt passord og repetert nytt passord må være identiske", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
     notifyMissingPassword = () => toast("Du må fylle ut begge passord-feltene", {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
@@ -58,6 +64,8 @@ class EditProfile extends Component {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
     });
+
+
 
 
     componentDidMount() {
@@ -209,6 +217,17 @@ class EditProfile extends Component {
                                     />
                                     <br/>
                                 </div>
+                                <div className="col-sm-4">
+                                    <h5>Repeter nytt passord: </h5>
+                                    <input
+                                        id="reNewPasswordInput"
+                                        className="form-control form-control-lg"
+                                        type="password"
+                                        placeholder="Nytt passord"
+                                        aria-describedby="newPasHelp"
+                                    />
+                                    <br/>
+                                </div>
                                 <div className={"col-sm-4"}>
                                     <button type="button" className="btn btn-dark btn-lg"
                                             onClick={() => this.changePW()}>Lagre nytt passord
@@ -233,28 +252,34 @@ class EditProfile extends Component {
         const user_id = auth.user_id;
         const oldPWInput = document.getElementById("oldPasswordInput").value;
         const newPWInput = document.getElementById("newPasswordInput").value;
+        const reNewPWInput = document.getElementById("reNewPasswordInput").value;
 
         if ( // If any of the fields are empty, prompt the user to fill them in before proceeding
-            oldPWInput === null || oldPWInput === "",
-            newPWInput === null || newPWInput === ""
+            oldPWInput === null || oldPWInput === "" ||
+            newPWInput === null || newPWInput === "" ||
+            reNewPWInput === null || reNewPWInput === ""
         ) {
             this.notifyMissingPassword();
             return false;
         } else {
-            userService.updatePassword(email, oldPWInput, newPWInput, user_id)
-                .then((res) => {
-                    console.log(res.data.error);
-                    if (res.data.error === "Not authorized") {
-                        this.notifyPasswordFailure();
-                    } else {
-                        this.notifySuccessPw();
-                        window.location.hash = "/profile/" + auth.user_id;
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                    this.notifyFailure();
-                })
+            if (newPWInput !== reNewPWInput) {
+                this.notifyPasswordNoMatch();
+            } else {
+                userService.updatePassword(email, oldPWInput, newPWInput, user_id)
+                    .then((res) => {
+                        console.log(res.data.error);
+                        if (res.data.error === "Not authorized") {
+                            this.notifyPasswordFailure();
+                        } else {
+                            this.notifySuccessPw();
+                            window.location.hash = "/profile/" + auth.user_id;
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        this.notifyFailure();
+                    })
+            }
         }
     };
 
@@ -307,8 +332,14 @@ class EditProfile extends Component {
                                     window.location.hash = "/profile/" + auth.user_id;
                                 })
                                 .catch((err) => {
-                                    this.notifyFailure();
-                                })
+                                    if (err.response.data.sqlMessage.indexOf("email") > -1) {
+                                        this.notifyUsedEmail();
+                                    } else if (err.response.data.sqlMessage.indexOf("phone") > -1) {
+                                        this.notifyUsedPhone();
+                                    } else {
+                                        this.notifyFailure();
+                                    }
+                                });
                         })
                 }
             } else {
@@ -341,7 +372,14 @@ class EditProfile extends Component {
                                 window.location.hash = "/profile/" + auth.user_id;
                             })
                             .catch((err) => {
-                                this.notifyFailure();
+                                if (err.response.data.sqlMessage.indexOf("email") > -1) {
+                                    this.notifyUsedEmail();
+                                } else if(err.response.data.sqlMessage.indexOf("phone") > -1) {
+                                    this.notifyUsedPhone();
+                                } else {
+                                    this.notifyFailure();
+                                }
+
                             })
                     })
             }

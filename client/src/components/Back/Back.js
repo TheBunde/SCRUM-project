@@ -3,9 +3,10 @@ import '../../css/Back.css';
 import { createHashHistory } from 'history';
 
 const history = createHashHistory();
-
+/**
+ * @class Back
+ */
 class Back extends Component{
-
 
     render() {
         return (

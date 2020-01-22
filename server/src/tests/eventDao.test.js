@@ -80,7 +80,7 @@ test("test: getNonFiledEvents()", done =>{
             "Test getNonFiledEvents eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data.length).toBeGreaterThanOrEqual(4);
-        expect(data[0].name).toBe("Just added");
+        expect(data[0].name).toBe("Metallica metal");
         expect(data[1].filed).toBe(0);
         done();
     }
@@ -92,20 +92,15 @@ test("test: getNonFiledEvents()", done =>{
  * test for: getAllActive() in eventDao.js
  */
 test("test: getAllActive()", done =>{
-    function callback2(status, data) {
+    function callback(status, data) {
         console.log(
             "Test getAllActive eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data[0].pending).toBe(0);
-        expect(data.length).toBeGreaterThanOrEqual(2);
+        expect(data.length).toBeGreaterThanOrEqual(1);
         done();
     }
-
-    function callback(){
-        eventDao.getAllActive(callback2);
-    }
-
-    eventDao.updatePending(7,callback);
+        eventDao.getAllActive(callback);
 });
 
 /**
@@ -116,12 +111,12 @@ test("test: getAllCancelled()", done =>{
         console.log(
             "Test getAllCancelled eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data[0].cancel).toBe(1);
+        expect(data[0].canceled).toBe(1);
         expect(data.length).toBeGreaterThanOrEqual(2);
         done();
     }
 
-    function callback(){
+    function callback(status, data){
         eventDao.getAllCancelled(callback2);
     }
 
@@ -148,6 +143,7 @@ test("test: addEvent()", done =>{
     let event = {name : "Just added", date:  "2020-01-20 20:45:00",description:  "the DB test made this", place : "Sukkerhuset", categoryID: 1, artists : "Javascript, mysql, ci, nodeJs ", tech_rider:  "nintendo switch", hospitality_rider: "potato chips", personnel: "Team 5", img_url: "eagle.png", contract: "everyone agrees"};
     eventDao.addEvent(event, callback);
 });
+
 /**
  * test for: updateFiled() in eventDao.js
  */
@@ -167,7 +163,43 @@ test("test: updateFiled", done =>{
     eventDao.updateFiled(2,callback);
 });
 
+/**
+ * test for: updatePending() in eventDao.js
+ */
+test("test: updatePending", done =>{
+    function callback2(status, data) {
+        console.log(
+            "Test updatePending eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data[0].pending).toBe(0);
+        done();
+    }
 
+    function callback(){
+        eventDao.getEventByID(2, callback2)
+    }
+
+    eventDao.updatePending(2,callback);
+});
+
+/**
+ * test for: updateCancel() in eventDao.js
+ */
+test("test: updateCancel", done =>{
+    function callback2(status, data) {
+        console.log(
+            "Test updateCancel eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data[0].canceled).toBe(1);
+        done();
+    }
+
+    function callback(){
+        eventDao.getEventByID(2, callback2)
+    }
+
+    eventDao.updateCancel(2,callback);
+});
 
 /**
  * test for: deleteEvent() in eventDao.js
@@ -219,6 +251,7 @@ test("test: getCategories()", done =>{
     
     eventDao.getCategories(callback);
 });
+
 /*
 test("test: addCategory()", done =>{
 
@@ -234,6 +267,7 @@ test("test: addCategory()", done =>{
     eventDao.addCategories(category, callback);
 });
 */
+
 /**
  * test for: getCategoryFromEvent() in eventDao.js
  */
@@ -250,6 +284,8 @@ test("test: getCategoryFromEvent()", done =>{
     eventDao.getCategoryFromEvent(2, callback);
 
 });
+
+
 
 /**
  * test for: getTicket() in eventDao.js
@@ -284,6 +320,7 @@ test("test: addTicket()", done =>{
     let event_ticket = {eventID: 1, ticketID: 3, amount: 20, price: 100};
     eventDao.addTicket(event_ticket, callback);
 });
+
 
 /**
  * test for: addContactInfo() in eventDao.js

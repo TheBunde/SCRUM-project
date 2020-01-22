@@ -130,6 +130,9 @@ class AddEvent extends Component {
         this.state.Tickets.map(ticket => {
             if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
                 status = true;
+                if(this.state[ticket.name +"TicketPrice"] === "" || this.state[ticket.name +"TicketPrice"] === null){
+                    belowZero = true;
+                }
             }
             if(this.state[ticket.name + "TicketAmount"] < 0 || this.state[ticket.name + "TicketPrice"] < 0){
                 belowZero = true;
@@ -273,63 +276,69 @@ class AddEvent extends Component {
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Tech Riders:</p>
-                        <input type="file"
-                               className="form-control"
-                               placeholder={this.state.Placeholder}
-                               id="rider1Input"
-                               required={true}
-                               accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
-                        />
-                        <button type={"button"} className={""} onClick={() => this.submitNewTechRider()}>Bekreft
-                        </button>
+                        <div id ="EventNewFile">
+                            <input type="file"
+                                   className="form-control"
+                                   placeholder={this.state.Placeholder}
+                                   id="rider1Input"
+                                   required={true}
+                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
+                            />
+                            <button type={"button"} className={""} onClick={() => this.submitNewTechRider()}>Bekreft</button>
+                        </div>
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Hospitality Riders:</p>
-                        <input type="file"
-                               className="form-control"
-                               placeholder={this.state.Placeholder}
-                               id="rider2Input"
-                               required={true}
-                               accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
-                        />
-                        <button type={"button"} className={""}
-                                onClick={() => this.submitNewHospitalityRider()}>Bekreft
-                        </button>
+                        <div id ="EventNewFile">
+                            <input type="file"
+                                   className="form-control"
+                                   placeholder={this.state.Placeholder}
+                                   id="rider2Input"
+                                   required={true}
+                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
+                            />
+                            <button type={"button"} className={""} onClick={() => this.submitNewHospitalityRider()}>Bekreft</button>
+                        </div>
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Nødvendig personell:</p>
-                        <input type="file"
-                               className="form-control"
-                               placeholder={this.state.Placeholder}
-                               id="personellInput"
-                               required={true}
-                               accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
-                        />
-                        <button type={"button"} className={""} onClick={() => this.submitNewPersonell()}>Bekreft
-                        </button>
+                        <div id ="EventNewFile">
+                            <input type="file"
+                                   className="form-control"
+                                   placeholder={this.state.Placeholder}
+                                   id="personellInput"
+                                   required={true}
+                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document,  text/plain, application/pdf"}
+                            />
+                            <button type={"button"} className={""} onClick={() => this.submitNewPersonell()}>Bekreft</button>
+                        </div>
 
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Kontrakt:</p>
-                        <input type="file"
-                               className="form-control"
-                               placeholder={this.state.Placeholder}
-                               id="contractInput"
-                               required={true}
-                               accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain, application/pdf, image/*"}
-                        />
-                        <button type={"button"} className={""} onClick={() => this.submitNewContract()}>Bekreft</button>
+                        <div id ="EventNewFile">
+                            <input type="file"
+                                   className="form-control"
+                                   placeholder={this.state.Placeholder}
+                                   id="contractInput"
+                                   required={true}
+                                   accept={"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain, application/pdf, image/*"}
+                            />
+                            <button type={"button"} className={""} onClick={() => this.submitNewContract()}>Bekreft</button>
+                        </div>
 
                     </div>
                     <div id="EventInputFields">
                         <p id="EventInputLabels">Bilde:</p>
-                        <input type="file"
-                               className="form-control"
-                               placeholder={this.state.Placeholder}
-                               id="imageInput"
-                               required={true} accept={"image/*"}
-                        />
-                        <button type={"button"} className={""} onClick={() => this.submitNewPicture()}>Bekreft</button>
+                        <div id ="EventNewFile">
+                            <input type="file"
+                                   className="form-control"
+                                   placeholder={this.state.Placeholder}
+                                   id="imageInput"
+                                   required={true} accept={"image/*"}
+                            />
+                            <button type={"button"} className={""} onClick={() => this.submitNewPicture()}>Bekreft</button>
+                        </div>
                     </div>
 
                     <div id="EventInputFields">

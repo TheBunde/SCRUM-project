@@ -53,7 +53,7 @@ class Navbar extends Component {
     return (
       <div>
         <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
-          <a class="navbar-brand" href="#/">
+          <a class="navbar-brand" href="#/overview">
             <h1>Harmoni</h1>
           </a>
           <button
@@ -70,8 +70,8 @@ class Navbar extends Component {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
               <li className="nav-item">
-                <a className="nav-link" href="#/overview">
-                  Hovedside
+                <a className="nav-link" href="#/">
+                  Forside
                 </a>
               </li>
 

@@ -82,7 +82,7 @@ module.exports = class adminDao extends Dao{
     }
 
     getTicketFromEvent(eventID, callback){
-        super.query("SELECT event_id, Event_Ticket.ticket_category_id, price, number, name FROM Event_Ticket left join Ticket_Category on Event_Ticket.ticket_category_id = Ticket_Category.ticket_category_id WHERE event_id = ?", [eventID], callback)
+        super.query("SELECT event_id, Event_Ticket.ticket_category_id, price, number, name FROM Event_Ticket left join Ticket_Category on Event_Ticket.ticket_category_id = Ticket_Category.ticket_category_id WHERE event_id = ? order by price asc", [eventID], callback)
     }
 
     updateEvent(eventID, eventInfo, callback){

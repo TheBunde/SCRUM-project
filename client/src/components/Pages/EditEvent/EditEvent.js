@@ -71,12 +71,19 @@ class EditEvent extends Component{
 
     ticketCheck(){
         let status = false;
-        this.state.Tickets.map(ticket =>{
-            if(this.state[ticket.name + "TicketBox"] === true && (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0)){
+        let belowZero = false;
+        this.state.Tickets.map(ticket => {
+            if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
                 status = true;
             }
+            if(this.state[ticket.name + "TicketAmount"] < 0 || this.state[ticket.name + "TicketPrice"] < 0 || this.state[ticket.name + "TicketPrice"] === null){
+                belowZero = true;
+            }
         });
-        return status;
+        if(!belowZero) {
+            return status;
+        }
+        else return false;
     }
 
     componentDidMount() {

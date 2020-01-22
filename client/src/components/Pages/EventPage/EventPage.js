@@ -140,7 +140,7 @@ class EventPage extends Component {
 
     sortByClosest() {
         const now = new Date();
-        this.sortByDate()
+        this.sortByDate();
         this.setState({ shownEvents: this.state.loadedEvents.reverse().filter(a => this.timeFromNow(a, now) > 0) })
     }
 

@@ -4,11 +4,14 @@ import $ from "jquery";
 import { auth, authenticate } from "../../service/UserService";
 import { ProfileService } from "../../service/ProfileService";
 
-/*Changing ml-auto to mr-auto will change the placement of the navbar-collapse items to the left besides the logo/name to the left on the Navbar */
+/*
+* Comment about the Bootstrap-alignment
+*   Changing ml-auto to mr-auto will change the placement of the navbar-collapse items to the left besides the logo/name to the left on the Navbar 
+*/
 
-/**
+/*
  * Navbar component
- @class 
+ * @class Navbar
  */
 class Navbar extends Component {
   constructor(props) {
@@ -29,13 +32,17 @@ class Navbar extends Component {
   }
   
   /*
-  * This method 
+  * This method signs you; It redirects you to the login-page and removes the token stored in localStorage
   */
   signOut = () => {
     window.localStorage.removeItem("token");
     window.location.hash = "/login";
   };
 
+  /*
+  * This gives render() instructions about what to do while mounting the component for the first time,
+  * and because the navbar is conditional rendered providing only admins admin-functionality, this method authenticates to check if admin, then fetch the user information.
+  */
   componentDidMount() {
     let show = document.getElementById("adminUsersLink");
     let style = window.getComputedStyle(show);
@@ -58,6 +65,9 @@ class Navbar extends Component {
       });
   }
 
+  /*
+  * The method rendering the component, what happens when the component is called upon by index.js, by an user loading the given url using this component. 
+  */
   render() {
     return (
       <div>

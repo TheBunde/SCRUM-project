@@ -313,7 +313,7 @@ class EventView extends Component{
             event_id: this.props.match.params.id,
             user_id: auth.user_id,
             name: this.state.user.name,
-            date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+            date: new Date().toISOString().slice(0, 19),
             comment: commentInput
         })
 

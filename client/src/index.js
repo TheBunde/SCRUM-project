@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter, Route, Redirect} from 'react-router-dom';
+import {HashRouter, Route, Redirect, Switch} from 'react-router-dom';
 import './css/index.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -51,24 +51,27 @@ ReactDOM.render(
     <HashRouter>
         <ToastContainer />
         <div>
-            <Route exact path="/" component={guestMainPage} />
-            <Route exact path="/event/public/:id" component={guestEventView} />
-            <Route exact path="/portal" component={MainPage} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/calendar" component={Calendar} />
-            <Route exacth path="/forgotpassword" component={ForgotPassword} />
-            <Route exact path="/about" component={About} />
-            <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} />
-            <RestrictedRoute exact path="/profile/:userID" component={ShowProfile} authorized={restriction.regular} />
-            <RestrictedRoute exact path="/profile/:userID/edit" component={EditProfile} authorized={restriction.regular} />
-            <RestrictedRoute exact path="/event" component={EventPage} authorized={restriction.regular} />
-            <RestrictedRoute exact path="/event/:id" component={EventView} authorized={restriction.regular}/>
-            <RestrictedRoute exact path="/event/:id/edit" component={EditEvent} authorized={restriction.regular} />
-            <RestrictedRoute exact path="/overview/addEvent" component={AddEvent} authorized={restriction.regular} />
-            <RestrictedRoute exact path="/admin" component={AdminUserPage} authorized={restriction.admin} />
-            <RestrictedRoute exact path="/admin/users" component={AdminUserPage} authorized={restriction.admin} />
-            <RestrictedRoute exact path="/admin/users/:id/edit" component={EditUserPage} authorized={restriction.admin} />
+            <Switch>
+                <Route exact path="/" component={guestMainPage} />
+                <Route exact path="/event/public/:id" component={guestEventView} />
+                <Route exact path="/portal" component={MainPage} />
+                <Route exact path="/login" component={LoginPage} />
+                <Route exact path="/register" component={RegisterPage} />
+                <Route exact path="/calendar" component={Calendar} />
+                <Route exacth path="/forgotpassword" component={ForgotPassword} />
+                <Route exact path="/about" component={About} />
+                <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} />
+                <RestrictedRoute exact path="/profile/:userID" component={ShowProfile} authorized={restriction.regular} />
+                <RestrictedRoute exact path="/profile/:userID/edit" component={EditProfile} authorized={restriction.regular} />
+                <RestrictedRoute exact path="/event" component={EventPage} authorized={restriction.regular} />
+                <RestrictedRoute exact path="/event/:id" component={EventView} authorized={restriction.regular}/>
+                <RestrictedRoute exact path="/event/:id/edit" component={EditEvent} authorized={restriction.regular} />
+                <RestrictedRoute exact path="/overview/addEvent" component={AddEvent} authorized={restriction.regular} />
+                <RestrictedRoute exact path="/admin" component={AdminUserPage} authorized={restriction.admin} />
+                <RestrictedRoute exact path="/admin/users" component={AdminUserPage} authorized={restriction.admin} />
+                <RestrictedRoute exact path="/admin/users/:id/edit" component={EditUserPage} authorized={restriction.admin} />
+                <Route component={NotFound} />
+            </Switch>
         </div>
     </HashRouter>
     , (document.getElementById('root')));

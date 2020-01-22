@@ -62,30 +62,31 @@ class EditEvent extends Component{
             || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
     }
     checkDate(){
-        let day = this.state.date.getDate();
-        let month = this.state.date.getMonth() + 1;
-        let year = this.state.date.getFullYear();
-        let hour = this.state.dateChosenHour;
-        let min = this.state.dateChosenMin;
-        if (day < 10) {
-            day = "0" + day
-        }
-        if (month < 10) {
-            month = "0" + month
-        }
-        let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
+        let thisDate = this.state.date;
+        thisDate.setHours(this.state.dateChosenHour);
+        thisDate.setMinutes(this.state.dateChosenMin);
 
-        return new Date(date) > new Date();
+        return thisDate > new Date();
     }
 
     ticketCheck(){
         let status = false;
-        this.state.Tickets.map(ticket =>{
-            if(this.state[ticket.name + "TicketBox"] === true && (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0)){
+        let belowZero = false;
+        this.state.Tickets.map(ticket => {
+            if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
                 status = true;
+                if(this.state[ticket.name +"TicketPrice"] === "" || this.state[ticket.name +"TicketPrice"] === null){
+                    belowZero = true;
+                }
+            }
+            if(this.state[ticket.name + "TicketAmount"] < 0 || this.state[ticket.name + "TicketPrice"] < 0){
+                belowZero = true;
             }
         });
-        return status;
+        if(!belowZero) {
+            return status;
+        }
+        else return false;
     }
 
     componentDidMount() {

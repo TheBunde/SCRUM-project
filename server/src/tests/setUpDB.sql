@@ -160,7 +160,7 @@ insert into Contact_Info( name, phone, email, event_id) values ('Metallica', '23
 
 
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (1, 4, 0, 95);
-insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2, 1, 850, 200);
+insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2, 1, 1850, 200);
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2, 3, 1000, 2);
 
 

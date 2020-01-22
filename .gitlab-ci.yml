@@ -58,7 +58,7 @@ pages:
   stage: deploy
   dependencies:
     # commented out for testing:
-    #- server_tests
+    - server_tests
     - client_tests
   script:
     - mkdir .public

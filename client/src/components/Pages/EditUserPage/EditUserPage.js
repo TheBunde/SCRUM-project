@@ -84,8 +84,8 @@ class EditUserPage extends Component {
                                                 </button>
                                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     {this.state.roles.map(role => {
-                                                        return <a className="dropdown-item"
-                                                                  href = {"#/admin/users/"+this.state.id+"/edit"} onClick={() => this.handleDropdownChange(role)}>{role}</a>
+                                                        return <div className={"dropdown-item"}> <a
+                                                                  href = {"#/admin/users/"+this.state.id+"/edit"} onClick={() => this.handleDropdownChange(role)}>{role}</a></div>
                                                     })}
                                                 </div>
                                             </div>

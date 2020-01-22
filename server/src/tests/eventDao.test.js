@@ -231,6 +231,25 @@ test("test: deleteEvent()", done =>{
     eventDao.getAllEvents(callback)
 });
 
+/**
+ * test for: updateEvent() in eventDao.js
+ */
+test("test: updateEvent", done =>{
+    function callback2(status, data) {
+        console.log(
+            "Test updateEvent eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data[0].canceled).toBe(1);
+        done();
+    }
+
+    function callback(){
+        eventDao.getEventByID(7, callback2)
+    }
+    let event = {name: "oppdatert", description: "dette arrangementet er oppdatert", date: "2020-10-12 16:45:00", place: "Sukkerhuset", categoryID: 3, img_url: "oppdatert.jpg", artists: "ny og bedre..", tech_rider: "mere bedre", hospitality_rider: "oppgrader til vin", contract: "kontrakt", personnel: "flere folk"}
+    eventDao.updateEvent(7, event, callback);
+});
+
 
 
 
@@ -285,41 +304,6 @@ test("test: getCategoryFromEvent()", done =>{
 
 });
 
-
-
-/**
- * test for: getTicket() in eventDao.js
- */
-test("test: getTicket()", done =>{
-
-    function callback(status, data){
-        console.log(
-            "Test getTicket eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
-        );
-        expect(data.length).toBe(5);
-        expect(data[0].name).toBe("Standard");
-        done();
-    }
-
-    eventDao.getTicket(callback);
-});
-
-/**
- * test for: addTicket() in eventDao.js
- */
-test("test: addTicket()", done =>{
-
-    function callback(status, data){
-        console.log(
-            "Test addTicket eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
-        );
-        expect(data.affectedRows).toBe(1);
-        done();
-    }
-
-    let event_ticket = {eventID: 1, ticketID: 3, amount: 20, price: 100};
-    eventDao.addTicket(event_ticket, callback);
-});
 
 
 /**

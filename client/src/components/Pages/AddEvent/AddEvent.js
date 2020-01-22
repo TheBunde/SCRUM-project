@@ -134,7 +134,7 @@ class AddEvent extends Component {
         thisDate.setHours(this.state.dateChosenHour);
         thisDate.setMinutes(this.state.dateChosenMin);
 
-        return new Date(thisDate) > new Date();
+        return thisDate > new Date();
     }
 
     render() {

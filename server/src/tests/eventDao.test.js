@@ -111,7 +111,7 @@ test("test: getAllCancelled()", done =>{
         console.log(
             "Test getAllCancelled eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data[0].cancel).toBe(1);
+        expect(data[0].canceled).toBe(1);
         expect(data.length).toBeGreaterThanOrEqual(2);
         done();
     }

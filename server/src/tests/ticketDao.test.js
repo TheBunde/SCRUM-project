@@ -59,7 +59,7 @@ test("test: getTicketById()", done =>{
         console.log(
             "Test getTicketById eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data.length).toBe(2);
+        expect(data.length).toBe(1);
         expect(data[0].name).toBe("VIP");
         done();
     }

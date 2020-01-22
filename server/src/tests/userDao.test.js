@@ -92,7 +92,7 @@ test("changing password", done => {
     function callback2(status, data) {
        console.log("Test callback: status = " + status + ", data= " + JSON.stringify(data));
 
-       expect(data[0].password_hash).toBe("$2b$10$t4NnWAVrjC5OV2ZSRdQpHuQo6LOPnQiN/pxdhbRFYZU4fNS0Vy2OO");
+       expect(data[0].password_hash).toEqual(expect.not.stringMatching("75cf568134bd7a6a937592fb8f9aa5425a03e8d36edb2e894b187b4d0893d2e2eac917768a56a3fb16bdc7055d603e3be23ccb8e97c9cb5612d345218ec96279"));
        done();
     }
     function callback(status, data){

@@ -4,6 +4,8 @@ import "../GuestEventCard/GuestEventCard";
 import GuestEventCard from "../GuestEventCard/GuestEventCard";
 import {eventService} from "../../../../service/EventService";
 import NavbarMainPage from "../../../Navbar/NavbarMainPage";
+import Footer from '../../../Footer/Footer';
+
 class GuestMainPage extends Component {
     state = {
         events: [],
@@ -98,6 +100,7 @@ class GuestMainPage extends Component {
                             </div>
                         </div>
                     </div>
+                    <Footer />
                 </div>
             )
         }else{

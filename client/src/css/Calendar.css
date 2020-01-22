@@ -15,6 +15,9 @@
 
 #fullCalendar .fc-title{
 }
+td.fc-event-container div{
+    cursor: pointer;
+}
 
 @media only screen and (max-width: 800px){
     #CalendarShowDiv{

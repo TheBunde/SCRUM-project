@@ -251,8 +251,11 @@ class EventPage extends Component {
 
                                             <a className="dropdown-item" href="#/event" onClick={() => this.sortByName()}>Navn</a>
                                             <div className="dropdown-divider"></div>
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.sortByClosest()}>Nærmest</a>
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.sortByDate()}>Lengst frem</a>
+                                            <span className="dropdown-item-text">Dato:</span>
+                                            <div id="eventPageDDItems">
+                                                <a className="dropdown-item" href="#/event" onClick={() => this.sortByClosest()}>Nærmest</a>
+                                                <a className="dropdown-item" href="#/event" onClick={() => this.sortByDate()}>Lengst frem</a>
+                                            </div>
 
                                         </div>
                                     </div>

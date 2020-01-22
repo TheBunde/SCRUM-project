@@ -294,11 +294,13 @@ class EventView extends Component{
                                             <ul class="media-list">
                                             {this.state.comments.map(comments => (
                                                 <li class="media">
-                                                <div class="media-body">
-                                                    <span class="text-muted pull-right">
-                                                        <small class="text-muted">{this.formatDate(comments.date)}</small>
-                                                    </span>
-                                                    <strong class="text-info"> {comments.name}</strong>
+                                                <div class="media-body" id="eventViewCommentSectionComments">
+                                                    <div id="eventViewCommentSectionUserInfo">
+                                                        <strong class="text-info"> {comments.name}</strong>
+                                                        <span class="text-muted pull-right">
+                                                            <small class="text-muted">{this.formatDate(comments.date)}</small>
+                                                        </span>
+                                                    </div>
                                                     <p>
                                                         {comments.comment}
                                                     </p>

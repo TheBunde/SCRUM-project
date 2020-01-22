@@ -156,7 +156,7 @@ insert into Event(name, description, date, place, category_id, img_url, artists,
                           ('et siste event', 'I know', '21-06-24 15:50:00', 'Sukkerhuset', 3, 'siste.jpg', 'siste akt', 'det som ligger bakerst', 'siste ølet', 'han som ble ansatt sist'); -- cancelled event
 
 insert into Contact_Info( name, phone, email, event_id) values ('Donn team', '1991', 'Donn@linux.OS', 1);
-insert into Contact_Info( name, phone, email, event_id) values ('Metallica', '2386724692', 'metallica@metal.band', 1);
+insert into Contact_Info( name, phone, email, event_id) values ('Metallica', '2386724692', 'metallica@metal.band', 2);
 
 
 insert into Event_Ticket(event_id, ticket_category_id, price, number) values (1, 4, 0, 95);

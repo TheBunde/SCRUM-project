@@ -4,6 +4,8 @@ import "../GuestEventCard/GuestEventCard";
 import GuestEventCard from "../GuestEventCard/GuestEventCard";
 import {eventService} from "../../../../service/EventService";
 import NavbarMainPage from "../../../Navbar/NavbarMainPage";
+import Footer from '../../../Footer/Footer';
+
 class GuestMainPage extends Component {
     state = {
         events: [],
@@ -42,8 +44,10 @@ class GuestMainPage extends Component {
                             <div className="carousel-inner">
                                 <div className="carousel-item active">
                                     <a onClick={() => window.location.href = "#/event/public/" + id[0]}>
-                                    <img className="d-block w-100" src={"http://localhost:8080/image/" + urls[0]} alt={names[0]}/>
-                                        <div className="carousel-caption d-none d-md-block">
+
+                                    <img className="d-block w-100" src={"http://localhost:8080/image/" + urls[0]} alt="First slide"/>
+                                        <div className="carousel-caption d-100 d-md-block">
+
                                             <h5>{names[0]}</h5>
                                             <p>{places[0]}</p>
                                             <p>{this.formatDate(dates[0])}</p>
@@ -52,8 +56,10 @@ class GuestMainPage extends Component {
                                 </div>
                                 <div className="carousel-item">
                                     <a onClick={() => window.location.href = "#/event/public/" + id[1]}>
-                                        <img className="d-block w-100" src={"http://localhost:8080/image/" + urls[1]} alt={names[1]}/>
-                                        <div className="carousel-caption d-none d-md-block">
+
+                                        <img className="d-block w-100" src={"http://localhost:8080/image/" + urls[1]} alt="Second slide"/>
+                                        <div className="carousel-caption d-100 d-md-block">
+
                                             <h5>{names[1]}</h5>
                                             <p>{places[1]}</p>
                                             <p>{this.formatDate(dates[1])}</p>
@@ -98,6 +104,7 @@ class GuestMainPage extends Component {
                             </div>
                         </div>
                     </div>
+                    <Footer />
                 </div>
             )
         }else{

@@ -49,11 +49,8 @@ class OverviewPage extends Component{
                 <Navbar/>
 
                 <div className="jumbotron jumbotron-fluid">
-                    <div className="container">
+                    <div className="titleContainer">
                         <h1 id={"jumbotronTitle"} className="display-4">Skap harmoni.</h1>
-
-
-                        <p className="lead"></p>
                     </div>
                 </div>
                 <div id="OverviewDiv">

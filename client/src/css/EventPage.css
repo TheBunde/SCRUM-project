@@ -49,19 +49,32 @@
     padding: 20px 0 30px 0;
     grid-template-columns: 1fr 1fr 1fr;
 }
+#eventPageBar button{
+    width: 80%;
+}
 #eventPageBar a:hover{
     cursor: pointer;
     background-color: rgb(250, 250, 250);
 }
 #eventPageBar .dropdown-divider{
-    border-top: 1px solid #000000;
+    border-top: 1px solid #a2a2a2;
 }
-
+#eventPageSearchBarBox{
+}
 #eventPageSearchBar{
-    padding: 0 0 0 0;
+    margin: auto;
     width: 80%;
 }
 
+#eventPageBar .dropdown-item-text{
+    font-size: medium;
+    padding-left: 1.5rem;
+    cursor: default;
+}
+
+#eventPageDDItems{
+    padding-left: 0.5rem;
+}
 
 #eventPageEventTable{
     width: 90%;
@@ -188,12 +201,17 @@
     }
     #eventPageSort{
         width: 100%;
+        max-width: 222px;
         grid-area: sorter;
     }
     #eventPageSearchBarBox{
         width: 100%;
-        padding: 10px 0 0 0;
+        padding-top: 10px;
+        margin: 0 auto 0 auto;
         grid-area: sokefelt;
+    }
+    #eventPageSearchBar{
+        max-width: 342px;
     }
     #eventPageInfoContainer{
         width: 100vw;

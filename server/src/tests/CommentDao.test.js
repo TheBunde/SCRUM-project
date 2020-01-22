@@ -42,7 +42,7 @@ test("test: getComments()", done =>{
             "Test getComments eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
         expect(data.length).toBeGreaterThanOrEqual(2);
-        expect(data[0].commentText).toBe("this is a test comment");
+        expect(data[0].comment).toBe("this is a test comment");
         done();
     }
     eventDao.getComments(1, callback);

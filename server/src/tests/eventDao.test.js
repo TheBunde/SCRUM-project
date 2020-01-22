@@ -41,7 +41,7 @@ test("test: getAllEvents()", done =>{
         console.log(
             "Test getAllEvents eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data.length).toBe(3);
+        expect(data.length).toBe(5);
         expect(data[0].event_id).toBe(2);
         done();
     }

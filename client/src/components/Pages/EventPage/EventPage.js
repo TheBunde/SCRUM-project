@@ -39,23 +39,17 @@ class EventPage extends Component {
     }
 
     formatDate(backendDate) {
-        let tempDate = backendDate;
-        let year = tempDate.slice(0, 4);
-        let month = tempDate.slice(5, 7);
-        let date = tempDate.slice(8, 10);
-        let hours = tempDate.slice(11, 13);
-        let minutes = tempDate.slice(14, 16);
+        let thisDate = new Date(backendDate);
 
-        let thisDate = new Date(year + "-" + month + "-" +date +"T" + hours +":00:00");
-        thisDate.setHours(thisDate.getHours()+1);
-
-        year = thisDate.getFullYear();
-        month = thisDate.getMonth()+1;
+        let year = thisDate.getFullYear();
+        let month = thisDate.getMonth()+1;
         if(month < 10) month = "0" + month;
-        date = thisDate.getDate();
+        let date = thisDate.getDate();
         if(date < 10) date = "0" + date;
-        hours = thisDate.getHours();
+        let hours = thisDate.getHours();
         if(hours < 10) hours = "0" + hours;
+        let minutes = thisDate.getMinutes();
+        if(minutes < 10) minutes = "0" + minutes;
 
         return date + "." + month + "." + year + " " + hours + ":" + minutes;
     }
@@ -146,7 +140,7 @@ class EventPage extends Component {
 
     sortByClosest() {
         const now = new Date();
-        this.sortByDate()
+        this.sortByDate();
         this.setState({ shownEvents: this.state.loadedEvents.reverse().filter(a => this.timeFromNow(a, now) > 0) })
     }
 
@@ -238,10 +232,10 @@ class EventPage extends Component {
                                             Vis
                                         </button>
                                         <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterAllActive()}>Alle arrangementer som ikke er arkivert</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterAllActive()}>Alle aktive</a>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterPending()}>Under planlegging</a>
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterApproved()}>Ferdig planlagte arrangementer</a>
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterArchived()}>Arkiverte arrangementer</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterApproved()}>Ferdig planlagte</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterArchived()}>Arkiverte</a>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterCancelled()}>Avlyste</a>
                                         </div>
                                     </div>
@@ -255,9 +249,8 @@ class EventPage extends Component {
                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                                             <a className="dropdown-item" href="#/event" onClick={() => this.sortByName()}>Navn</a>
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.sortByClosest()}>Nærmeste</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.sortByClosest()}>Nærmest</a>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.sortByDate()}>Lengst frem</a>
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.sortByCategory()}>Kategori</a>
 
                                         </div>
                                     </div>

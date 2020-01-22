@@ -45,7 +45,6 @@ class EventView extends Component{
     }
 
     formatDate(backendDate) {
-        
         let thisDate = new Date(backendDate);
 
         let year = thisDate.getFullYear();
@@ -259,7 +258,6 @@ class EventView extends Component{
                     </div>
                     <div id="eventViewCommentSectionContainer">
                         <div id="eventViewCommentSection">
-                            
                                 <div class="comment-wrapper">
                                     <div class="panel panel-info">
                                         <div class="panel-heading">
@@ -315,14 +313,14 @@ class EventView extends Component{
             event_id: this.props.match.params.id,
             user_id: auth.user_id,
             name: this.state.user.name,
-            date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+            date: new Date(),
             comment: commentInput
-        })
+        });
 
-        this.setState({comments: commentArray})
+        this.setState({comments: commentArray});
         eventService.addComment(this.props.match.params.id, auth.user_id, commentInput).then((response) => console.log("Adding comment worked")).catch(error => console.error(error.message));
         commentInputElement.value = "";
-    }
+    };
 
 
     checkRights(){

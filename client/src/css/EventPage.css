@@ -175,10 +175,12 @@
             "vis sorter"
             "sokefelt sokefelt";
     }
-    #dropdownMenuButton{
+    #eventPageBar .dropdown-item{
+        margin: auto auto auto 5px;
     }
     #eventPageShow{
         width: 100%;
+        max-width: 222px;
         grid-area: vis;
     }
     #eventPageSort{
@@ -192,22 +194,18 @@
     }
     #eventPageInfoContainer{
         width: 100vw;
-        padding-left: 0;
-        margin-left: 0;
         object-fit: contain;
     }
     #eventPageEventTable{
         overflow: hidden;
     }
     #eventPageInfoContainer a{
-        padding-left: 0;
-        margin-left: 0;
         object-fit: contain;
         overflow: hidden;
     }
     #eventPageInfoContainer div{
          object-fit: contain;
-     }
+    }
     #eventPageEventTable{
         display: grid;
         width: 98vw;
@@ -215,18 +213,19 @@
         overflow: hidden;
     }
     .eventPageEventCard{
-        padding-left: 0;
-        margin-left: 0;
-        width: 100vw;
+        margin: 20px auto 20px auto;
+        width: 95%;
     }
     #eventPageBar div{
         margin: auto;
-        padding: auto;
     }
     #dropdownMenuButton{
         width: 90%;
     }
-
+    #eventPageCardImg{
+        height: 100%;
+        width: 100%;
+    }
 }
 @media only screen and (max-width: 1335px){
     #eventPageEventTable{

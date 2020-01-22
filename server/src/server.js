@@ -31,7 +31,9 @@ let storage = multer.diskStorage({
     }
 });
 
-const upload = multer({storage: storage});
+const upload = multer({storage: storage, limits: {
+        fileSize: 1024 * 1024 * 10   // 10 MB
+    }});
 
 
 
@@ -538,7 +540,7 @@ app.post("/uploadFile", upload.single("file"), (req, res) => {
         if (req.file.mimetype !== "text/plain" && req.file.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && req.file.mimetype !== "application/pdf") { //Not an image
             return res.send({
                 success: false,
-                error: "Only images are allowed"
+                error: "Only text-files or pdf are allowed"
             })
         } else {
             return res.send({
@@ -619,7 +621,9 @@ app.post("/user/reset_password", (req, res) => {
         }
     })
 });
-
+/**
+ * @param
+ */
 app.put("/user/:userID/edit/password",verifyToken, (req, res) => {
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {

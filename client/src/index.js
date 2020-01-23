@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter, Route, Redirect} from 'react-router-dom';
+import {HashRouter, Route, Redirect, Switch} from 'react-router-dom';
 import './css/index.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,6 +22,7 @@ import EditUserPage from "./components/Pages/EditUserPage/EditUserPage";
 import guestEventView from './components/Pages/Guest/GuestEventView/GuestEventView';
 import guestMainPage from './components/Pages/Guest/GuestMainPage/GuestMainPage';
 import ForgotPassword from "./components/Pages/ForgotPassword/ForgotPassword";
+import NotFound from "./components/Pages/NotFound/NotFound";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Calendar from "./components/Calendar/Calendar";
@@ -35,8 +36,8 @@ const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
         auth.authenticated === true // If user is authenticated, check if they are authorized to view page
             ? authorized.includes(auth.role) === true 
                 ? <Component {...props} /> 
-                : <Redirect to="overview" /> 
-            : <Redirect to="" /> // User is not authenticated, and needs to log in
+                : <Redirect to="/overview" /> 
+            : <Redirect to="/" /> // User is not authenticated, and needs to log in
     )}/>
 );
 
@@ -52,24 +53,27 @@ ReactDOM.render(
     <HashRouter>
         <ToastContainer />
         <div>
-            <Route exact path="/" component={guestMainPage} />
-            <Route exact path="/event/public/:id" component={guestEventView} />
-            <Route exact path="/portal" component={MainPage} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/calendar" component={Calendar} />
-            <Route exacth path="/forgotpassword" component={ForgotPassword} />
-            <Route exact path="/about" component={About} />
-            <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} />
-            <RestrictedRoute exact path="/profile/:userID" component={ShowProfile} authorized={restriction.regular} />
-            <RestrictedRoute exact path="/profile/:userID/edit" component={EditProfile} authorized={restriction.regular} />
-            <RestrictedRoute exact path="/event" component={EventPage} authorized={restriction.regular} />
-            <RestrictedRoute exact path="/event/:id" component={EventView} authorized={restriction.regular}/>
-            <RestrictedRoute exact path="/event/:id/edit" component={EditEvent} authorized={restriction.regular} />
-            <RestrictedRoute exact path="/overview/addEvent" component={AddEvent} authorized={restriction.regular} />
-            <RestrictedRoute exact path="/admin" component={AdminUserPage} authorized={restriction.admin} />
-            <RestrictedRoute exact path="/admin/users" component={AdminUserPage} authorized={restriction.admin} />
-            <RestrictedRoute exact path="/admin/users/:id/edit" component={EditUserPage} authorized={restriction.admin} />
+            <Switch>
+                <Route exact path="/" component={guestMainPage} />
+                <Route exact path="/event/public/:id" component={guestEventView} />
+                <Route exact path="/portal" component={MainPage} />
+                <Route exact path="/login" component={LoginPage} />
+                <Route exact path="/register" component={RegisterPage} />
+                <Route exact path="/calendar" component={Calendar} />
+                <Route exacth path="/forgotpassword" component={ForgotPassword} />
+                <Route exact path="/about" component={About} />
+                <RestrictedRoute exact path="/overview" component={OverviewPage} authorized={restriction.regular} />
+                <RestrictedRoute exact path="/profile/:userID" component={ShowProfile} authorized={restriction.regular} />
+                <RestrictedRoute exact path="/profile/:userID/edit" component={EditProfile} authorized={restriction.regular} />
+                <RestrictedRoute exact path="/event" component={EventPage} authorized={restriction.regular} />
+                <RestrictedRoute exact path="/event/:id" component={EventView} authorized={restriction.regular}/>
+                <RestrictedRoute exact path="/event/:id/edit" component={EditEvent} authorized={restriction.regular} />
+                <RestrictedRoute exact path="/overview/addEvent" component={AddEvent} authorized={restriction.regular} />
+                <RestrictedRoute exact path="/admin" component={AdminUserPage} authorized={restriction.admin} />
+                <RestrictedRoute exact path="/admin/users" component={AdminUserPage} authorized={restriction.admin} />
+                <RestrictedRoute exact path="/admin/users/:id/edit" component={EditUserPage} authorized={restriction.admin} />
+                <Route component={NotFound} />
+            </Switch>
         </div>
     </HashRouter>
     , (document.getElementById('root')));

@@ -239,7 +239,8 @@ test("test: updateEvent", done =>{
         console.log(
             "Test updateEvent eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data[0].canceled).toBe(1);
+        expect(data[0].name).toBe("oppdatert");
+        expect(data[0].img_url).toBe("oppdatert.jpg");
         done();
     }
 
@@ -303,22 +304,3 @@ test("test: getCategoryFromEvent()", done =>{
     eventDao.getCategoryFromEvent(2, callback);
 
 });
-
-
-
-/**
- * test for: addContactInfo() in eventDao.js
- */
-test("test: addContactInfo()", done =>{
-    function callback(status, data){
-        console.log(
-            "Test addTicket eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
-        );
-        expect(data.affectedRows).toBe(1);
-        done();
-    }
-
-    let contactInfo = {name: "hei sveis", phone: "00000000", email: "hwudijwdhwojndw@sohfsoidhjs.nckjw", eventID: 1};
-    eventDao.addContactInfo(contactInfo, callback);
-});
-

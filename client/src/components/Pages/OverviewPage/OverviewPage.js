@@ -4,7 +4,7 @@ import { createHashHistory } from 'history';
 import "../../../img/concert.jpg"
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer';
-import {UserService} from "../../../service/UserService";
+import {User, UserService} from "../../../service/UserService";
 import {authenticate, auth} from "../../../service/auth";
 
 const history = createHashHistory();
@@ -21,9 +21,6 @@ class OverviewPage extends Component{
     componentDidMount() {
         window.scrollTo(0,0);
         authenticate();
-
-        let profileService = new ProfileService();
-        profileService.getUser(auth.user_id)
 
         let userService = new UserService();
         userService.getUser(auth.user_id).then(user => {

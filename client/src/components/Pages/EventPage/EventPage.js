@@ -103,6 +103,7 @@ class EventPage extends Component {
     }
     eventFilterPending(){
         eventService.getNonFiledEvents().then(events => this.setState({
+            loadedEvents: events,
             shownEvents: events.filter(e=> (e.date > this.getCurrentDate()) && e.pending === 1 && e.canceled !== 1)
         })).then(this.resetSortDropdown())
             .catch(error => console.error(error.message));
@@ -117,6 +118,7 @@ class EventPage extends Component {
     }
     eventFilterApproved(){
         eventService.getNonFiledEvents().then(events => this.setState({
+            loadedEvents: events,
             shownEvents: events.filter(e => (e.date > this.getCurrentDate() && e.pending === 0 && e.canceled !== 1))
         })).then(this.resetSortDropdown())
             .catch(error => console.error(error.message));
@@ -128,7 +130,7 @@ class EventPage extends Component {
     }
 
     sortByName(){
-        this.setState({ shownEvents: this.state.loadedEvents.sort((a, b) => a.name.localeCompare(b.name)) })
+        this.setState({ shownEvents: this.state.shownEvents.sort((a, b) => a.name.localeCompare(b.name)) })
     }
 
     timeFromNow(date, now){
@@ -141,15 +143,15 @@ class EventPage extends Component {
     sortByClosest() {
         const now = new Date();
         this.sortByDate();
-        this.setState({ shownEvents: this.state.loadedEvents.reverse().filter(a => this.timeFromNow(a, now) > 0) })
+        this.setState({ shownEvents: this.state.shownEvents.reverse().filter(a => this.timeFromNow(a, now) > 0) })
     }
 
     sortByDate() {
         console.log(this.state.shownEvents[0].date);
-        this.setState({ shownEvents: this.state.loadedEvents.sort((a, b) => b.date.localeCompare(a.date)) })
+        this.setState({ shownEvents: this.state.shownEvents.sort((a, b) => b.date.localeCompare(a.date)) })
     }
     sortByCategory() {
-        this.setState({ shownEvents: this.state.loadedEvents.sort((a, b) => b.category_id - a.category_id) })
+        this.setState({ shownEvents: this.state.shownEvents.sort((a, b) => b.category_id - a.category_id) })
     }
 
     handleSearch() {

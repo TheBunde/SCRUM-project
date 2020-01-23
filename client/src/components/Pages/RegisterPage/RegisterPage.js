@@ -12,8 +12,16 @@ import {confirmAlert} from "react-confirm-alert";
 import {toast} from "react-toastify";
 import {validateEmail} from "../../../validaters";
 
-
+/** 
+* @class RegisterPage
+* class that extends React Component, showing as an registerscreen for the host-portal. 
+* Here you can register a new user with name, email, telephonenumber, password and a profile picture. 
+*/
 class RegisterPage extends Component {
+
+    /** 
+    * The constructor creates a state-object holding information about the different form-input-fields. It also binds this on to different functions, telling these functions what "this" refers to.
+    */
     constructor(props) {
         super(props);
         this.state = {
@@ -32,16 +40,27 @@ class RegisterPage extends Component {
         this.regUser = this.regUser.bind(this);
     }
 
+    /** 
+    * @param {event}
+    * Function adding a keyEventListener in the inputFields, which listenes after the enter-key and will register if all the fields are filled in correctly.
+    */
     keyPressed(event) {
         if (event.key === "Enter" && (this.state.name !== "" && this.state.email !== "" && this.state.phone !== "" && this.state.password !== "" && this.state.repeatedPassword !== "")) {
             this.regUser();
         }
     }
 
+    /** 
+    * The component will now render on top of the screen.
+    */
     componentDidMount() {
         window.scrollTo(0, 0);
     }
 
+    /** 
+    * Renders the component with all the input-fields in a form, with buttons directing you based on if you got to register or not. 
+    * An alert wil pop up if some of the fields are incorrectly filled in. 
+    */
     render() {
         return (
             <div class="pageSetup">
@@ -128,6 +147,7 @@ class RegisterPage extends Component {
         );
     }
 
+    
     toggleModal(feedback) {
         let title = "";
         if (feedback === "Bruker registrert!") {
@@ -155,7 +175,7 @@ class RegisterPage extends Component {
         position: toast.POSITION.BOTTOM_LEFT
     });
 
-
+    
     handleTextChange = event => {
         event.preventDefault();
         const name = event.target.name;

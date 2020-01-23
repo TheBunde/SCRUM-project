@@ -230,7 +230,7 @@ test("test: deleteEvent()", done =>{
     eventDao.addContactInfo(contactInfo, dummy);
     let ticket = {eventID: 8, ticketID: 3, amount: 20, price: 100};
     eventDao.addTicket(ticket, dummy);
-    let comment = {eventID: 8, userID: 3, commentText: "testing testing 1 2 1 2 "};
+    let comment = {eventID: 8, userID: 2, commentText: "testing testing 1 2 1 2 "};
     eventDao.addComment(comment, callback);
 });
 

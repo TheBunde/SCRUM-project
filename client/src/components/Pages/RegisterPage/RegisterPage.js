@@ -147,34 +147,34 @@ class RegisterPage extends Component {
         );
     }
 
-    
-    toggleModal(feedback) {
-        let title = "";
-        if (feedback === "Bruker registrert!") {
-            title = "Suksess"
-        } else {
-            title = "Feil"
-        }
-
-        this.setState({
-            synligModal: !this.state.synligModal,
-            modalFeedback: feedback,
-            modalTitle: title,
-        })
-    }
-
+    /**
+     * Notifying the user if something went wrong when trying to register
+     * @returns {ToastId}
+     */
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifying the user if the file is of another type than image
+     * @returns {ToastId}
+     */
     notifyWrongMimeType = () => toast("Du må laste opp et bilde", {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
     });
 
+    /**
+     * Notifying the user if the file is too big to be uploaded
+     * @returns {ToastId}
+     */
     notifyTooBigFile = () => toast("Filen du forsøkte å laste opp var for stor", {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
     });
 
+    /**
+     * Changes the state when input field is changed
+     * @param event
+     */
     
     handleTextChange = event => {
         event.preventDefault();
@@ -186,7 +186,10 @@ class RegisterPage extends Component {
         });
     };
 
-
+    /**
+     * Gives user a toast
+     * @param feedback is what kind of feedback the user should get
+     */
     showFeedback(feedback) {
         if (feedback === "phoneAndPasswords") {
             confirmAlert({
@@ -281,6 +284,11 @@ class RegisterPage extends Component {
         }
 
     }
+
+    /**
+     * The method will firstly validate the different input
+     * If they all go through the user will be registrated
+     */
 
     regUser = () => {
 

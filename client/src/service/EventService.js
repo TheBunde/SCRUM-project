@@ -103,6 +103,16 @@ class EventService{
         return axios.delete("http://" + ipAdress + ":8080/event/" + eventID, {headers: authenticationHeader()}).then(response => response.data);
     }
 
+    deleteEventComments(eventID){
+        console.log("Inne i delete metode");
+        return axios.delete("http://" + ipAdress + ":8080/event/" + eventID + "/comments", {headers: authenticationHeader()}).then(response => response.data);
+    }
+
+    deleteEventDetails(eventID){
+        console.log("Inne i delete metode");
+        return axios.delete("http://" + ipAdress + ":8080/event/" + eventID + "/details", {headers: authenticationHeader()}).then(response => response.data);
+    }
+
     getCategories(){
         return axios.get("http://" + ipAdress + ":8080/categories", {headers: authenticationHeader()}).then(response => response.data);
     }

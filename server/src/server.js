@@ -326,7 +326,34 @@ app.delete('/event/:id',verifyToken, (req, res) => {
         }
     });
     console.log('/event/:id: fikk request fra klient');
+});
 
+app.delete('/event/:id/details',verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.deleteEventDetails(parseInt(req.params.id), (status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+    console.log('/event/:id: fikk request fra klient');
+});
+
+app.delete('/event/:id/comments',verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.deleteEventComments(parseInt(req.params.id), (status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+    console.log('/event/:id: fikk request fra klient');
 });
 
 app.put("/event/:id/edit",verifyToken, (req, res) =>{

@@ -5,6 +5,7 @@ import GuestEventCard from "../GuestEventCard/GuestEventCard";
 import {eventService} from "../../../../service/EventService";
 import NavbarMainPage from "../../../Navbar/NavbarMainPage";
 import Footer from '../../../Footer/Footer';
+import ToTop from '../../../ToTop/ToTop'
 
 class GuestMainPage extends Component {
     state = {
@@ -35,6 +36,7 @@ class GuestMainPage extends Component {
                 <div>
                     <div id="GuestMainPageContainer">
                         <NavbarMainPage/>
+                        <ToTop />
                         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                             <ol className="carousel-indicators">
                                 <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"/>

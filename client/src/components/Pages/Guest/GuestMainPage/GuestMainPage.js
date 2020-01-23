@@ -43,7 +43,7 @@ class GuestMainPage extends Component {
                                 <div className="carousel-item active">
                                     <a href = {"#/event/public/" + id[0]}>
 
-                                    <img className="d-block w-100" src={"http://" + ipAdress + ":8080/image/" + urls[0]} alt="First slide"/>
+                                    <img className="d-block w-100" src={"http://" + ipAdress + ":8080/image/" + urls[0]} alt={names[0]}/>
                                         <div className="carousel-caption d-100 d-md-block">
 
                                             <h5>{names[0]}</h5>
@@ -55,7 +55,7 @@ class GuestMainPage extends Component {
                                 <div className="carousel-item">
                                     <a href = {"#/event/public/" + id[1]}>
 
-                                        <img className="d-block w-100" src={"http://" + ipAdress + ":8080/image/" + urls[1]} alt="Second slide"/>
+                                        <img className="d-block w-100" src={"http://" + ipAdress + ":8080/image/" + urls[1]} alt={names[1]}/>
                                         <div className="carousel-caption d-100 d-md-block">
 
                                             <h5>{names[1]}</h5>

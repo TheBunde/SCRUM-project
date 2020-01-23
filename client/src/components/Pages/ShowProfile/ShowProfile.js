@@ -10,7 +10,7 @@ import { User} from "../EditProfile/EditProfile";
 
 import Navbar from "../../Navbar/Navbar";
 import Back from "../../Back/Back";
-import {authenticate, auth} from "../../../service/UserService";
+import {authenticate, auth} from "../../../service/auth";
 import Footer from "../../Footer/Footer";
 
 const history = createHashHistory();

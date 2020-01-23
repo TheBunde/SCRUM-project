@@ -9,7 +9,7 @@ import { createHashHistory } from 'history';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import {UserService} from '../../../../service/UserService.js';
-import {auth} from "../../../../service/UserService";
+import {auth} from "../../../../service/auth";
 import {toast} from "react-toastify";
 
 const history = createHashHistory();

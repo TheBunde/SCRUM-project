@@ -5,7 +5,7 @@ import LoginForm from "../../LoginForm/LoginForm"
 import {NavbarMainPage} from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 import {FooterTransparent} from '../../Footer/Footer'
-import { auth } from "../../../service/UserService.js" 
+import { auth } from "../../../service/auth.js"
 import {Redirect} from 'react-router-dom';
 
 

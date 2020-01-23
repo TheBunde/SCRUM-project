@@ -5,7 +5,7 @@ import './css/index.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
-import {auth, authenticate} from "./service/UserService.js";
+import {auth, authenticate} from "./service/auth.js";
 import LoginPage from './components/Pages/LoginPage/LoginPage.js';
 import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js';
 import OverviewPage from './components/Pages/OverviewPage/OverviewPage.js';

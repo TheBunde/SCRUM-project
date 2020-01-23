@@ -23,14 +23,6 @@ class Navbar extends Component {
 
 
   /**
-  * This method fetches information about the user, which is then used further on by providing your profile picture,
-  profile name and some options in the navbar regarding your user profile.
-  */
-  someFn() {
-    this.props.getUser(this.state.user);
-  }
-  
-  /**
   * This method signs you; It redirects you to the login-page and removes the token stored in localStorage
   */
   signOut = () => {

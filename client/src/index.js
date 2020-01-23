@@ -26,8 +26,9 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Calendar from "./components/Calendar/Calendar";
 
-
-// Component for restricting access.
+/*
+* Component for restricting access, only giving the authenticated users (logged in users) access to the sites in the host-portal
+*/
 const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
     <Route {...rest} render={(props) => (
         authenticate(), // Checks if the user is authenticated, then updates the users role and status for use in the next line
@@ -39,8 +40,9 @@ const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
     )}/>
 );
 
-
-// Object with list of clearance levels used for routing and restricting access.
+/*
+* Object with list of clearance levels used for routing and restricting access.
+*/ 
 const restriction = {
     admin: "admin",
     regular: ["admin", "Sceneansvarlig", "Økonomisjef", "Barsjef", "Bartender", "Handyman", "Fotograf", "Markedsfører", "SoMe-ansvarlig", "Ølbrygger", "Lydteknikker", "Lystekniker", "Scenerigger", "Artistbooker", "Artistkontakt", "Konseptutvikler", "Quizmaster", "Festplanlegger"]

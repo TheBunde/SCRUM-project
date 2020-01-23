@@ -6,8 +6,9 @@ import Footer from '../../Footer/Footer'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import {toast} from "react-toastify";
-class EditUserPage extends Component {
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
+class EditUserPage extends Component {
 
     state = {
         id : -1,
@@ -66,7 +67,7 @@ class EditUserPage extends Component {
                             <div className={"pbContainer"}>
                                 <img id="EditUserAdminProfile" alt="profilePic"
                                      src={this.state.profile_photo === null
-                                     || this.state.profile_photo === "" ? "https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" : "http://localhost:8080/image/" + this.state.profile_photo}/>
+                                     || this.state.profile_photo === "" ? "https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" : "http://" + ipAdress + ":8080/image/" + this.state.profile_photo}/>
                             </div>
                         </div>
 

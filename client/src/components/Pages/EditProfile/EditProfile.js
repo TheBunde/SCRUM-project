@@ -3,70 +3,137 @@ import "../../../css/EditProfile.css"
 import {createHashHistory} from 'history';
 import {FileService} from "../../../service/FileService";
 import {Redirect} from 'react-router-dom';
-import {auth, authenticate, UserService, User} from "../../../service/UserService";
+import {auth, authenticate} from "../../../service/auth";
+import {UserService, User} from "../../../service/UserService";
 import {toast} from 'react-toastify';
 import {validateEmail, validatePhone} from "../../../validaters";
-
-
 import Navbar from "../../Navbar/Navbar";
-import Back from "../../Back/Back";
 import Footer from "../../Footer/Footer";
 
 const history = createHashHistory();
 
-
+/**
+ * @class EditProfile
+ */
 class EditProfile extends Component {
     user_id = this.props.match.params.userID;
     user;
 
+    /**
+     * sets the states for the user and the profile picture url to be empty
+     * @param props
+     */
     constructor(props) {
         super(props);
         this.state = {user: {}, img_url: ""}
 
     }
 
+    /**
+     * Notifies the user that the change to the user info was a success
+     */
     notifySuccess = () => {
         toast("Redigering av bruker vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
     };
 
+    /**
+     * Notifies the user that the change to the password was a succsess
+     */
     notifySuccessPw = () => {
         toast("Redigering av passord vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
     };
 
+    /**
+     * Notifies the user that something went wrong in the process
+     * @returns {ToastId}
+     */
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifies the user that the phone number is invalid
+     * @returns {ToastId}
+     */
     notifyUnvalidPhone = () => toast("Ugyldig telefonnummer", {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
     });
 
+    /**
+     * Notifies the user that the email is invalid
+     * @returns {ToastId}
+     */
     notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifies the user that the email is invalid because it is already registered with another account
+     * @returns {ToastId}
+     */
     notifyUsedEmail = () => toast("E-post er allerede i bruk", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifies the user that the phone number is invalid because it is already registered with another account
+     * @returns {ToastId}
+     */
     notifyUsedPhone = () => toast("Telefonnummeret er allerede i bruk", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifies the user that the new password and the new password check is not the same
+     * @returns {ToastId}
+     */
     notifyPasswordNoMatch = () => toast("Nytt passord og repetert nytt passord må være identiske", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifies the user that the input box for password are not filled
+     * @returns {ToastId}
+     */
     notifyMissingPassword = () => toast("Du må fylle ut begge passord-feltene", {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
     });
 
+    /**
+     * Notifies the user that the current password are wrong
+     * @returns {ToastId}
+     */
     notifyPasswordFailure = () => toast("Du har skrevet inn feil nåværende passord", {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
     });
 
+    /**
+     * Notifies the user that the password are to short
+     * @returns {ToastId}
+     */
+    notifyPasswordLength = () => toast("Det nye passordet må bestå av minst 8 tegn", {
+        type: toast.TYPE.ERROR,
+        position: toast.POSITION.BOTTOM_LEFT
+    });
+
+    /**
+     * Notifies the user that the file they want to upload is to large
+     * @returns {ToastId}
+     */
     notifyTooBigFile = () => toast("Filen du forsøkte å laste opp var for stor", {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
     });
 
+    /**
+     * Notifies the user if the data they wrote inn is too large
+     * @returns {ToastId}
+     */
+    notifyTooBigData = () => toast("Navnet du forsøkte å redigere inneholder for mange karakterer", {
+        type: toast.TYPE.ERROR,
+        position: toast.POSITION.BOTTOM_LEFT
+    });
 
-
-
+    /**
+     * authenticate() runs to get the authenticated user that is logged in
+     * the auth.user_id has to match the user_id that are in the params
+     * then the user values are picked up from the database and set in the user state
+     */
     componentDidMount() {
+        window.scrollTo(0,0);
         authenticate();
         if (this.props.match.params.userID === auth.user_id) {
             let userService = new UserService();
@@ -82,19 +149,18 @@ class EditProfile extends Component {
         }
     };
 
-
+    /**
+     * If any of these fields are empty, the function returns false, and prompts the user to fill the remaining fields.
+     * @param e
+     * @returns {boolean}
+     */
     checkFields = (e) => {
-        // If any of these fields are empty, the function returns false, and prompts the user to fill the remaining fields.
         const name = document.getElementById("nameInput").value.trim();
         const email = document.getElementById("emailInput").value.trim();
         const phone = document.getElementById("tlfInput").value.trim();
         const pw = this.state.user.password;
         const role = this.state.user.roleid;
-        const approved = this.state.user.approved
-        console.log(name, email, phone, pw, role, approved);
-
-        console.log(name === "");
-
+        const approved = this.state.user.approved;
         if (
             (name === null || name === "" ||
                 email === null || email === "" ||
@@ -116,10 +182,14 @@ class EditProfile extends Component {
         }
     };
 
-    hideButton() {
-        document.getElementById()
-    }
-
+    /**
+     * if the user_id in the params doesn't match they are redirected to showProfile for the user that are logged in (auth.user_id)
+     * else it returns input-boxes filled with the data that are registered in the database
+     * changes to the boxes are set as the new values and sent in if the user pushes the save button
+     * change password has its own set of input boxes and save button that double checks the new password
+     * if anything goes wrong the user is notified with a describing method
+     * @returns {*}
+     */
     render() {
         return (
             auth.user_id === this.props.match.params.userID ?
@@ -243,7 +313,13 @@ class EditProfile extends Component {
         )
     }
 
-    changePW = (e) => {
+    /**
+     * If any of the fields are empty, prompt the user to fill them in before proceeding
+     * Verifies that the passwords fields are filled out
+     * If so the method will check that the old password is correct, and then validate the newPassword and repeatNewPassword field.
+     * @returns {boolean}
+     */
+    changePW = () => {
         let userService = new UserService();
 
         const email = this.state.user.email;
@@ -252,14 +328,17 @@ class EditProfile extends Component {
         const newPWInput = document.getElementById("newPasswordInput").value;
         const reNewPWInput = document.getElementById("reNewPasswordInput").value;
 
-        if ( // If any of the fields are empty, prompt the user to fill them in before proceeding
+        if (
             oldPWInput === null || oldPWInput === "" ||
             newPWInput === null || newPWInput === "" ||
             reNewPWInput === null || reNewPWInput === ""
         ) {
             this.notifyMissingPassword();
             return false;
-        } else {
+        } else if(newPWInput.length < 8){
+            this.notifyPasswordLength();
+            return false;
+        } else{
             if (newPWInput !== reNewPWInput) {
                 this.notifyPasswordNoMatch();
             } else {
@@ -281,8 +360,13 @@ class EditProfile extends Component {
         }
     };
 
-    save = (e) => {
-        if (this.checkFields()) { // Check if any input-fields are empty
+    /**
+     * first it check if any input-fields are empty and if it isn't it tries to change password
+     * The method will then validate the filesize, and refuse to upload files which are too big
+     * Thereafter the update of the user will be done
+     */
+    save = () => {
+        if (this.checkFields()) {
             const oldPWInput = document.getElementById("oldPasswordInput").value;
             const newPWInput = document.getElementById("newPasswordInput").value;
 
@@ -291,12 +375,6 @@ class EditProfile extends Component {
             }
             let fileService = new FileService();
             let file = document.getElementById(("fileInput")).files[0];
-            /*
-            if (file.size > 10000000) { //Bigger than 10 MB
-                this.notifyTooBigFile();
-            } else {
-
-             */
             if (file !== undefined) {
                 if (file.size > 10000000) {
                     this.notifyTooBigFile();
@@ -334,6 +412,8 @@ class EditProfile extends Component {
                                         this.notifyUsedEmail();
                                     } else if (err.response.data.sqlMessage.indexOf("phone") > -1) {
                                         this.notifyUsedPhone();
+                                    } else if (err.response.data.sqlMessage.indexOf("Data too long") > -1) {
+                                        this.notifyTooBigData();
                                     } else {
                                         this.notifyFailure();
                                     }
@@ -374,6 +454,8 @@ class EditProfile extends Component {
                                     this.notifyUsedEmail();
                                 } else if(err.response.data.sqlMessage.indexOf("phone") > -1) {
                                     this.notifyUsedPhone();
+                                } else if (err.response.data.sqlMessage.indexOf("Data too long") > -1) {
+                                    this.notifyTooBigData();
                                 } else {
                                     this.notifyFailure();
                                 }
@@ -381,84 +463,7 @@ class EditProfile extends Component {
                             })
                     })
             }
-
-
-
         }
-
-
-        /*
-        if(this.checkFields()){ // Check if any input-fields are empty
-            let profileService = new ProfileService();
-            let newUser = new User(
-            this.state.user.user_id,
-            document.getElementById("nameInput").value,
-            document.getElementById("emailInput").value,
-            document.getElementById("tlfInput").value,
-            this.state.user.password,
-            this.state.user.roleid,
-            this.state.user.approved
-        );
-            console.log(user);
-            profileService.updateUser(user);
-        }
-        */
-        /*let newUser = new User(
-            this.state.user.user_id,
-            document.getElementById("nameInput").value,
-            document.getElementById("emailInput").value,
-            document.getElementById("tlfInput").value,
-            this.state.user.password,
-            this.state.user.roleid,
-            this.state.user.approved
-        );*/
-        /*
-        let newName = document.getElementById("nameInput").value;
-        let newTlf = document.getElementById("tlfInput").value;
-        let newEmail = document.getElementById("emailInput").value;
-        let newPassword = document.getElementById("newPasswordInput").value;
-        let oldPassword = document.getElementById("oldPasswordInput").value;
-
-
-        console.log(this.state.user);
-        this.setState({user: newUser});
-        console.log(newUser);
-        let check = true;
-
-
-        let profileService = new ProfileService();
-        if(oldPassword === ""){
-            oldPassword = null;
-        }
-        if(newPassword === ""){
-            newPassword = null;
-        }
-
-        if(oldPassword !== null && newPassword === null || oldPassword === null && newPassword !== null){
-            console.log("mangler å legge inn noe");
-        }else if(newName === "" || newTlf === "" || newEmail === ""){
-            console.log("Ikke gi tomme feilter");
-        }else{
-            if(oldPassword !== null && newPassword !== null){
-                console.log("vi ønsker å endre passord ");
-                /*
-                Her ønsker vi å først sjekke om det gamle passordet stemmer med det som ligger i databasen
-                dersom det stemmer skal det nye passordet erstattes med det gamle. dersom passordet ikke stemmer skal check settes til false
-                 */
-        //check = false; //if the password doesn't pass the test;
-        /*}
-        if(check){
-            console.log("Alt ok");
-            profileService.updateUser(newUser).catch(e => console.error(e));
-        }
-
-    }
-
-
-    console.log(newPassword);
-    console.log(oldPassword);*/
-
-
     }
 }
 

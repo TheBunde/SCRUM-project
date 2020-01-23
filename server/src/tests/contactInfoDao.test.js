@@ -67,3 +67,30 @@ test("test: updateContactInfo()", done =>{
     let contactInfo = {name: "hei sveis", phone: "00000001", email: "hwudijwdhwojndw@sohfsoidhjs.nckjw"};
     eventDao.updateContactInfo(1, contactInfo, callback);
 });
+
+/**
+ * test for: deleteEventDetails() in eventDao.js
+ */
+test("test: deleteEventDetails()", done =>{
+
+    function callback2(status, data) {
+        console.log(
+            "Test deleteEventDetails eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+        );
+        expect(data.affectedRows).toBe(1);
+        done();
+    }
+
+    function callback(status, data){
+        eventDao.deleteEventDetails(6, callback2);
+    }
+    // dummy function to send into query in dao.js, we do not want it to print extra or complicate our code
+    function dummy(status, data){
+
+    }
+
+    let contactInfo = {name: "hei sveis", phone: "00000000", email: "hwudijwdhwojndw@sohfsoidhjs.nckjw", eventID: 6};
+    eventDao.addContactInfo(contactInfo, dummy);
+    let ticket = {eventID: 6, ticketID: 3, amount: 20, price: 100};
+    eventDao.addTicket(ticket, callback);
+});

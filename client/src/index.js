@@ -5,7 +5,7 @@ import './css/index.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
-import {auth, authenticate} from "./service/UserService.js";
+import {auth, authenticate} from "./service/auth.js";
 import LoginPage from './components/Pages/LoginPage/LoginPage.js';
 import RegisterPage from './components/Pages/RegisterPage/RegisterPage.js';
 import OverviewPage from './components/Pages/OverviewPage/OverviewPage.js';
@@ -27,7 +27,7 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Calendar from "./components/Calendar/Calendar";
 
-/*
+/**
 * Component for restricting access, only giving the authenticated users (logged in users) access to the sites in the host-portal
 */
 const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
@@ -41,7 +41,7 @@ const RestrictedRoute = ({component: Component, authorized, ...rest}) => (
     )}/>
 );
 
-/*
+/**
 * Object with list of clearance levels used for routing and restricting access.
 */ 
 const restriction = {
@@ -49,6 +49,9 @@ const restriction = {
     regular: ["admin", "Sceneansvarlig", "Økonomisjef", "Barsjef", "Bartender", "Handyman", "Fotograf", "Markedsfører", "SoMe-ansvarlig", "Ølbrygger", "Lydteknikker", "Lystekniker", "Scenerigger", "Artistbooker", "Artistkontakt", "Konseptutvikler", "Quizmaster", "Festplanlegger"]
 };
 
+/**
+* Renders the site using ReactDOM and HashRouter. This makes it possible for the site to render different components depending on the url the user tries to access.
+*/
 ReactDOM.render(
     <HashRouter>
         <ToastContainer />

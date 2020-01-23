@@ -1,32 +1,48 @@
 import React, {Component} from 'react';
-
 import Footer from '../../Footer/Footer'
 import NavbarMainPage from '../../Navbar/NavbarMainPage'
 import NavBar from "../../Navbar/Navbar";
 import '../../../css/About.css'
-import {auth, authenticate} from "../../../service/UserService";
+import {auth, authenticate} from "../../../service/auth";
 
-
-// About, will be called by the "om" link in the footer
-
+/**
+ * @class About
+ * Will be called by the "om" link in the footer
+ */
 class About extends Component{
 
+    /**
+     * sets a standard state that the user is not logged in
+     * @param props
+     */
     constructor(props) {
         super(props);
         this.state = {
-            loggedIn: false //sets a standard state that the user is not logged in
+            loggedIn: false
         }
     }
 
+    /**
+     * authenticate() runs a check to see if the user is actually logged in
+     * if (auth.authenticated) if the user is logged in the state is changed
+     */
     componentDidMount() {
-        authenticate(); //runs a check to see if the user is actually logged in
+        window.scrollTo(0,0);
+        authenticate();
         if (auth.authenticated) {
             this.setState({
-                loggedIn : true // if the user is logged in the state is changed
+                loggedIn : true
             })
         }
     }
 
+    /**
+     * Navbar varies based on if you are logged inn or not
+     * Some basic text that describes what the system aims to do
+     * The pictures are links to different social media pages
+     * The map is set to Sukkerhuset because it is what we based our product on
+     * @returns {*}
+     */
     render() {
         return (
             <div class="pageSetup">

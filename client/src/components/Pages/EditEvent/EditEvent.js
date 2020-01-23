@@ -1,15 +1,19 @@
 import React, {Component} from 'react';
 import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
-import {validatePhone, validateEmail} from "../../../validaters";
+import {validatePhone, validateEmail, validateTickets, validateInput} from "../../../validaters";
 import {toast} from 'react-toastify';
 import Calendar from 'react-calendar'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 import {FileService} from "../../../service/FileService";
-
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 class EditEvent extends Component{
+    /**
+     * Setting up states for all input variables
+     * @param {JSON} props
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -18,7 +22,7 @@ class EditEvent extends Component{
             ContactName: "", ContactPhone: "", ContactEmail: "", haveContactInfo: true,
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
             Picture: "", Category: 1,
-            GratisTicketBox: false, GratisTicketAmount: null, GratisTicketPrice: null,
+            GratisTicketBox: false, GratisTicketAmount: null, GratisTicketPrice: 0,
             StandardTicketBox: false, StandardTicketAmount: null, StandardTicketPrice: null,
             VIPTicketBox: false, VIPTicketAmount: null, VIPTicketPrice: null,
             EarlyBirdTicketBox: false, EarlyBirdTicketAmount: null, EarlyBirdTicketPrice: null,
@@ -41,10 +45,18 @@ class EditEvent extends Component{
         this.registerEvent = this.registerEvent.bind(this);
     }
 
+    /**
+     * onChange function to change state variables
+     * @param {SyntheticEvent} event
+     */
     changeValue(event){
         this.setState({[event.target.id]: event.target.value})
     }
 
+    /**
+     * onChange function to change checkedbox state
+     * @param {SyntheticEvent} event
+     */
     changeBox(event) {
         this.setState({[event.target.id + "TicketBox"]: event.target.checked});
         if (this.state[event.target.id + "TicketBox"]){
@@ -53,14 +65,33 @@ class EditEvent extends Component{
         }
     }
 
+    /**
+     * onChange function to change date state from calendar
+     * @param {SyntheticEvent} event
+     */
     changeDate(event) {
         this.setState({date: event})
     }
 
+    /**
+     * Form validation that checks if the input is correctly filled
+     * @returns {boolean} true if all correct fields are filled
+     * @returns {boolean} false if inputs
+     */
     formValidation(){
+        return (validateInput(this.state.Name) && validateInput(this.state.Description) && validateInput(this.state.Place)
+            && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail) && this.ticketCheck());
+
+        /*
         return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === ""
-            || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
+            || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());*/
     }
+
+    /**
+     * Form validation that checks if the date is forward in time
+     * @returns {boolean} true if date is forward in time
+     * @returns {boolean} false if date is backwards in time
+     */
     checkDate(){
         let thisDate = this.state.date;
         thisDate.setHours(this.state.dateChosenHour);
@@ -69,27 +100,41 @@ class EditEvent extends Component{
         return thisDate > new Date();
     }
 
+    /**
+     * Form validation that checks if the ticket info is correctly filled
+     * @returns {boolean} true if ticket input is correct
+     * @returns {boolean} false if ticket input is incorrect
+     */
     ticketCheck(){
         let status = false;
         let belowZero = false;
+
         this.state.Tickets.map(ticket => {
-            if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
-                status = true;
-                if(this.state[ticket.name +"TicketPrice"] === "" || this.state[ticket.name +"TicketPrice"] === null){
+            if(this.state[ticket.name + "TicketBox"]) {
+                if (this.state[ticket.name + "TicketAmount"] > 0 && this.state[ticket.name + "TicketAmount"] !== null && this.state[ticket.name + "TicketPrice"] !== null) {
+                    if (validateTickets(this.state[ticket.name + "TicketAmount"]) && validateTickets(this.state[ticket.name + "TicketPrice"])) {
+                        status = true;
+                    } else {
+                        belowZero = true;
+                    }
+                } else {
                     belowZero = true;
                 }
             }
-            if(this.state[ticket.name + "TicketAmount"] < 0 || this.state[ticket.name + "TicketPrice"] < 0){
-                belowZero = true;
-            }
         });
+
         if(!belowZero) {
             return status;
         }
         else return false;
     }
 
+    /**
+     * Pulling all info regarding the event from the database,
+     * and filling the state with input info
+     */
     componentDidMount() {
+        window.scrollTo(0,0);
         eventService
             .getEventById(this.props.match.params.id)
             .then(data => this.updateEventInfo(data))
@@ -310,7 +355,7 @@ class EditEvent extends Component{
                         <div >
                             <p id = "EventInputLabels">Nåværende Tech Riders:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Tech)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Tech)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
@@ -333,7 +378,7 @@ class EditEvent extends Component{
                         <div >
                             <p id = "EventInputLabels">Nåværende Hospitality Riders:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Hospitality)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Hospitality)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
@@ -356,7 +401,7 @@ class EditEvent extends Component{
                         <div >
                             <p id = "EventInputLabels">Nåværende Personnel:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Personnel)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Personnel)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
@@ -379,7 +424,7 @@ class EditEvent extends Component{
                         <div>
                             <p id = "EventInputLabels">Nåværende Kontrakt:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Contract)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Contract)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
@@ -402,7 +447,7 @@ class EditEvent extends Component{
                         <div >
                             <p id = "EventInputLabels">Nåværende Bilde:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Picture)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Picture)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>

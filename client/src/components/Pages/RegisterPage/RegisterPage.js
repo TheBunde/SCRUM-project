@@ -38,6 +38,10 @@ class RegisterPage extends Component {
         }
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
     render() {
         return (
             <div class="pageSetup">
@@ -234,10 +238,20 @@ class RegisterPage extends Component {
                     }
                 ]
             })
-        } else if (feedback === "pwLen"){
+        } else if (feedback === "pwLen") {
             confirmAlert({
                 title: "Feil!",
                 message: "Passordet må bestå av minst 8 tegn",
+                buttons: [
+                    {
+                        label: "Ok"
+                    }
+                ]
+            })
+        } else if (feedback === "tooLongData") {
+            confirmAlert({
+                title: "Feil!",
+                message: "Navnet du har skrevet inn et for langt",
                 buttons: [
                     {
                         label: "Ok"
@@ -253,63 +267,63 @@ class RegisterPage extends Component {
         {
             if (!(this.state.phone.match(/^\d{8}$/)) && this.state.password !== this.state.repeatedPassword) {
                 this.showFeedback("phoneAndPasswords")
-            } 
-            else if (!(this.state.phone.match(/^\d{8}$/))) {
+            } else if (!(this.state.phone.match(/^\d{8}$/))) {
                 this.showFeedback("phone");
-            } 
-            else if (!(validateEmail(this.state.email))) {
+            } else if (!(validateEmail(this.state.email))) {
                 this.showFeedback("email");
-            }
-            else if (this.state.password.length < 8){
+            } else if (this.state.password.length < 8) {
                 this.showFeedback("pwLen");
-            } 
-            else if (this.state.password !== this.state.repeatedPassword) {
+            } else if (this.state.password !== this.state.repeatedPassword) {
                 this.showFeedback("passwords");
-            } 
-            else {
+            } else {
                 let userService = new UserService();
                 let fileService = new FileService();
                 let profilePicture = document.getElementById("imageUpload").files[0];
-                if (profilePicture.size > 10000000) { //Bigger than 10 MB
-                    this.notifyTooBigFile();
-                } else {
-                    fileService.uploadImage(profilePicture)
-                        .then((res) => {
-                            console.log(res);
-                            console.log("filename: " + res.data.filePath.filename);
-                            this.setState({
-                                image_url: res.data.filePath.filename
-                            });
-
-                        })
-                        .catch((err) => {
-                            console.log("ERROR:");
-                            console.error(err);
-                            console.log(err.status);
-                        })
-                        .then(() => {
-                            let user = new User(null, this.state.name, this.state.email, this.state.phone, this.state.image_url, this.state.password, null, null);
-                            userService.registerUser(user)
-                                .then(() => {
-                                    this.showFeedback("successfullRegistration");
-                                    window.location.hash = "/login";
-                                })
-                                .catch((error) => {
-                                    console.error(error.response.data);
-                                    if (error.response.data.sqlMessage.indexOf("email") > -1) {
-                                        console.log("e-post");
-                                        this.showFeedback("sameEmail");
-                                    }
-                                    if (error.response.data.sqlMessage.indexOf("phone") > -1) {
-                                        console.log("telefon");
-                                        this.showFeedback("samePhone");
-                                    }
-                                })
-                        })
-                        .catch((err) => {
-                            console.error(err);
-                        })
+                if (profilePicture !== undefined) {
+                    if (profilePicture.size > 10000000) { //Bigger than 10 MB
+                        this.notifyTooBigFile();
+                        return;
+                    }
                 }
+                fileService.uploadImage(profilePicture)
+                    .then((res) => {
+                        console.log(res);
+                        console.log("filename: " + res.data.filePath.filename);
+                        this.setState({
+                            image_url: res.data.filePath.filename
+                        });
+
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    })
+                    .then(() => {
+                        let user = new User(null, this.state.name, this.state.email, this.state.phone, this.state.image_url, this.state.password, null, null);
+                        userService.registerUser(user)
+                            .then(() => {
+                                this.showFeedback("successfullRegistration");
+                                window.location.hash = "/login";
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                                console.error(error.response.data);
+                                if (error.response.data.sqlMessage.indexOf("email") > -1) {
+                                    console.log("e-post");
+                                    this.showFeedback("sameEmail");
+                                }
+                                if (error.response.data.sqlMessage.indexOf("phone") > -1) {
+                                    console.log("telefon");
+                                    this.showFeedback("samePhone");
+                                }
+
+                                if(error.response.data.sqlMessage.indexOf("Data too long") > -1) {
+                                    this.showFeedback("tooLongData");
+                                }
+                            })
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    })
             }
         }
     };

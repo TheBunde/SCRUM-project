@@ -3,7 +3,7 @@ import NavbarMainPage from "../../Navbar/NavbarMainPage";
 import Navbar from "../../Navbar/Navbar";
 import Footer from "../../Footer/Footer";
 import "../../../css/NotFound.css";
-import {auth, authenticate} from "../../../service/UserService";
+import {auth, authenticate} from "../../../service/auth";
 
 class NotFound extends Component {
 
@@ -15,6 +15,7 @@ class NotFound extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         authenticate();
         if (auth.authenticated) {
             this.setState({
@@ -31,9 +32,11 @@ class NotFound extends Component {
         return(
             <div>
                 {this.state.loggedIn ? <Navbar /> : <NavbarMainPage />}
-                <div id={"NotFoundMain"}>
-                    <h1>404 Not Found</h1>
-                    <img src={"https://media.giphy.com/media/xTiN0L7EW5trfOvEk0/giphy.gif"} alt={"GIF"}/>
+                <div id="pageSetup">
+                    <div id={"NotFoundMain"}>
+                        <h1>404 Not Found</h1>
+                        <img src={"https://media.giphy.com/media/xTiN0L7EW5trfOvEk0/giphy.gif"} alt={"GIF"}/>
+                    </div>
                 </div>
                 <Footer />
             </div>

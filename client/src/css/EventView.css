@@ -267,15 +267,12 @@
     overflow-y: auto;
 }
 
-
-
 #eventViewTitleEvent{
     padding-top: 20px;
     display: grid;
     grid-template-areas:
             "eventViewStatus eventViewTitle eventViewDropdown";
     grid-template-columns: auto;
-    grid-area: title;
 }
 
 #eventViewStatus{

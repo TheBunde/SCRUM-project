@@ -9,7 +9,7 @@ class ToTop extends Component{
     render() {
         return (
             <div id="toTopButton">
-                <button type="button" class="btn btn-outline-dark btn-light" onClick={this.top}>➔</button>
+                <button type="button" class="btn btn-outline-dark btn-light" onClick={() => {$('html, body').animate({scrollTop: '0'}, 1000);}}>➔</button>
             </div>
         );
     }

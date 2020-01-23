@@ -4,8 +4,11 @@ import "../../../css/EventPage.css"
 import {eventService} from "../../../service/EventService";
 import $ from 'jquery';
 import Footer from '../../Footer/Footer'
+import ToTop from '../../ToTop/ToTop'
+
 var moment = require("moment");
 moment().format();
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 
 export class event {
@@ -250,6 +253,7 @@ class EventPage extends Component {
         return (
             <div id="eventPagePage" class="pageSetup">
                 <Navbar />
+                <ToTop />
                 <div>
                     <div id="eventPageBackground">
                         <div id="eventPageContainer">
@@ -343,7 +347,7 @@ class EventCard extends Component {
             <div id="eventPageEventCardLink">
                 <a href = {"#/event/" + this.props.event_id}>
                     <div class="card eventPageEventCard">
-                            <img id="eventPageCardImg" class="card-img-top eventPageEventCardImg" src={"http://localhost:8080/image/" + this.props.img_url} alt={this.props.name} />
+                            <img id="eventPageCardImg" class="card-img-top eventPageEventCardImg" src={"http://" + ipAdress + ":8080/image/" + this.props.img_url} alt={this.props.name} />
 
                             <div class="card-body" id="eventPageOuterCardBody">
 

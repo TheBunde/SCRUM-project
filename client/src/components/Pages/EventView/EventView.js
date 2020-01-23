@@ -80,10 +80,13 @@ class EventView extends Component{
         let date = tempDate.slice(8, 10);
         let hours = tempDate.slice(11, 13);
         let minutes = tempDate.slice(14, 16);
-
         return date + "." + month + "." + year + " " + hours + ":" + minutes;
     }
 
+    /**
+    * This method mounts the component with scrolling to the top of the browser and  
+    * fetches the event, tickets, contact info, comments and user info from the database.
+    */
     componentDidMount(){
         window.scrollTo(0,0);
         eventService.getEventById(this.props.match.params.id).then(events => this.setState({
@@ -109,9 +112,12 @@ class EventView extends Component{
         eventService.getComments(this.props.match.params.id).then(comments => this.setState({comments: comments})).catch(Error => console.log(Error));
         let userService = new UserService();
         userService.getUser(auth.user_id).then(user => this.setState({user: user})).catch((error) => {console.error(error);});
-        console.log("auth.user_id: " + auth.user_id);
     }
 
+    /** 
+    * @param {event} event
+    * This function adds a keyEventListener to the input-field in the comment section, adding the possibility to push enter to submit your comment.
+    */
     keyPressed(event) {
         if (event.key === "Enter" && (this.state.name !== "" && this.state.email !== "" && this.state.phone !== "" && this.state.password !== "" && this.state.repeatedPassword !== "")) {
             this.publishComment();

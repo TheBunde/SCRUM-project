@@ -40,11 +40,11 @@ export class User {
 
 /**
  * Service object for use in calls to backend regarding user data and actions
- * @module UserService
+ * User service
  */
 export class UserService {
     /**
-     * @function registerUser
+     *
      * @param {user} user 
      */
     registerUser(user){
@@ -52,7 +52,7 @@ export class UserService {
     }
 
     /**
-     * @function validate
+     *
      * @param {string} email 
      * @param {string} pw 
      */
@@ -61,7 +61,7 @@ export class UserService {
     }
 
     /**
-     * @function getHash
+     * 
      * @param {string} email 
      */
     getHash(email) {
@@ -70,7 +70,6 @@ export class UserService {
 
     /**
      * Updates password for specified user
-     * @function updatePassword
      * @param {string} email 
      * @param {string} password 
      * @param {string} newPassword 
@@ -89,7 +88,6 @@ export class UserService {
 
     /**
      * Resets and sends a new password to the specified users email.
-     * @function forgotPassword
      * @param {string} email 
      */
     forgotPassword(email) {
@@ -101,7 +99,7 @@ export class UserService {
     }
 
     /**
-     * @function updateUser
+     * 
      * @param {user} user 
      */
     updateUser(user){
@@ -109,7 +107,7 @@ export class UserService {
     }
 
     /**
-     * @function getUser
+     *
      * @param {number} userID 
      * @returns {Object} - Returns a User object with all user credentials.
      */

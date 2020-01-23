@@ -13,3 +13,7 @@ export function validatePhone(phone) {
 export function validateTickets(ticket) {
     return /^\d{1,9}$/.test(ticket);
 }
+
+export function validateInput(input){
+    return /^.{1,254}$/.test(input)
+}

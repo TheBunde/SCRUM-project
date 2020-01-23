@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
-import {validatePhone, validateEmail, validateTickets} from "../../../validaters";
+import {validatePhone, validateEmail, validateTickets, validateInput} from "../../../validaters";
 import {toast} from 'react-toastify';
 import Calendar from 'react-calendar'
 import Navbar from '../../Navbar/Navbar'
@@ -78,8 +78,12 @@ class EditEvent extends Component{
      * @returns {boolean} false if inputs
      */
     formValidation(){
+        return (validateInput(this.state.Name) && validateInput(this.state.Description) && validateInput(this.state.Place)
+            && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail) && this.ticketCheck());
+
+        /*
         return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === ""
-            || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
+            || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());*/
     }
 
     /**

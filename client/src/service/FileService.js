@@ -1,4 +1,5 @@
 import axios from "axios";
+import {auth, authenticationHeader} from "./auth";
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 /**
@@ -16,7 +17,8 @@ export class FileService {
     formData.append("file", image);
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "multipart/form-data",
+        "Authorization" : authenticationHeader().Authorization
       }
     };
     return axios.post(url, formData, config);
@@ -35,7 +37,8 @@ export class FileService {
     });
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "multipart/form-data",
+        "Authorization" : authenticationHeader().Authorization
       }
     };
     return axios.post(url, formData, config);
@@ -52,7 +55,8 @@ export class FileService {
     formData.append("file", file);
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "multipart/form-data",
+        "Authorization" : authenticationHeader().Authorization
       }
     };
     return axios.post(url, formData, config);

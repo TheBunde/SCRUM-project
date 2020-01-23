@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../../css/Navbar.css";
-import $ from "jquery";
 import { auth, authenticate } from "../../service/auth";
 import UserService from "../../service/UserService";
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
@@ -24,13 +23,7 @@ class Navbar extends Component {
   }
 
 
-  /**
-  * This method fetches information about the user, which is then used further on by providing your profile picture,
-  profile name and some options in the navbar regarding your user profile.
-  */
-  someFn() {
-    this.props.getUser(this.state.user);
-  }
+
   
   /**
   * This method signs you; It redirects you to the login-page and removes the token stored in localStorage
@@ -46,9 +39,8 @@ class Navbar extends Component {
   */
   componentDidMount() {
     let show = document.getElementById("adminUsersLink");
-    let style = window.getComputedStyle(show);
     authenticate();
-    if (auth.role == "admin") {
+    if (auth.role === "admin") {
       show.style.display = "block";
     } else {
       show.style.display = "none";
@@ -73,7 +65,7 @@ class Navbar extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark" id="navbar">
-          <a className="navbar-brand" href="#/overview">
+          <a className="navbar-brand" href={"#/overview"}>
             <h1>Harmoni</h1>
           </a>
           <button
@@ -85,24 +77,24 @@ class Navbar extends Component {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"/>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <a className="nav-link" href="#/">
+                <a className="nav-link" href={"#/"}>
                   Forside
                 </a>
               </li>
 
               <li className="nav-item" id={"adminUsersLink"}>
-                <a className="nav-link" href="#/admin/users">
+                <a className="nav-link" href={"/#/admin/users"}>
                   Rediger brukere
                 </a>
               </li>
 
               <li className="nav-item" id={"adminUsersLink"}>
-                <a className="nav-link" href="#/calendar">
+                <a className="nav-link" href={"/#/calendar"}>
                   Kalender
                 </a>
               </li>
@@ -110,7 +102,7 @@ class Navbar extends Component {
               <li className="nav-item dropdown">
                 <a
                     className="nav-link dropdown-toggle"
-                  href="#"
+                  href={"/#/"}
                   role="button"
                   data-toggle="dropdown"
                   aria-haspopup="true"
@@ -123,10 +115,10 @@ class Navbar extends Component {
                   aria-labelledby="navbarDropdown"
                   id="navbarDropdown"
                 >
-                  <a className="dropdown-item" href="#/event">
+                  <a className="dropdown-item" href={"#/event"}>
                     Alle arrangementer
                   </a>
-                  <a className="dropdown-item" href="#/overview/addEvent">
+                  <a className="dropdown-item" href={"#/overview/addEvent"}>
                     Legg til arrangement
                   </a>
                 </div>
@@ -135,7 +127,7 @@ class Navbar extends Component {
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
-                  href="#"
+                  href="/#"
                   role="button"
                   data-toggle="dropdown"
                   aria-haspopup="true"
@@ -173,7 +165,7 @@ class Navbar extends Component {
                   >
                     Rediger profil
                   </a>
-                  <div className="dropdown-divider"></div>
+                  <div className="dropdown-divider"/>
                   <a className="dropdown-item" href={"#/about"}>
                     Om
                   </a>
@@ -183,11 +175,11 @@ class Navbar extends Component {
                   >
                     Kontakt oss
                   </a>
-                  <div className="dropdown-divider"></div>
+                  <div className="dropdown-divider"/>
                   <a
                     className="dropdown-item"
                     onClick={() => this.signOut()}
-                    href="#"
+                    href="/#"
                   >
                     Logg ut
                   </a>

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import FontAwesome from 'react-fontawesome'
 import 'font-awesome/css/font-awesome.min.css'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
@@ -42,7 +41,7 @@ class EventView extends Component{
             contactInfo_email: "",
             comments: [],
             user: {}
-        }
+        };
         this.keyPressed = this.keyPressed.bind(this);
     }
 
@@ -98,7 +97,6 @@ class EventView extends Component{
         eventService.getComments(this.props.match.params.id).then(comments => this.setState({comments: comments})).catch(Error => console.log(Error));
         let userService = new UserService();
         userService.getUser(auth.user_id).then(user => this.setState({user: user})).catch((error) => {console.error(error);});
-        console.log("auth.user_id: " + auth.user_id);
     }
 
     keyPressed(event) {
@@ -127,7 +125,7 @@ class EventView extends Component{
                 <Navbar />
                 <div id="eventViewTitleEvent">
                     <div id="eventViewStatus">
-                        <a className={"btn btn-lg border-" + color}>{this.getStatus(this.state.canceled, this.state.pending, this.state.filed, this.state.date)}</a>
+                        <button className={"btn btn-lg border-" + color}>{this.getStatus(this.state.canceled, this.state.pending, this.state.filed, this.state.date)}</button>
                     </div>
                     <div id="eventViewTitle">
                         <h1>{this.state.name}</h1>
@@ -141,12 +139,12 @@ class EventView extends Component{
                             </button>
                             <div className="dropdown-menu dropdown-menu-right">
                                 <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventApproveButton(this.state.event_id)}>Godkjenn arrangement</button>
-                                <div className="dropdown-divider"></div>
+                                <div className="dropdown-divider"/>
                                 <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights() === 2|| this.checkRights()===3)} onClick={() => history.push("/event/" + this.state.event_id + "/edit")}>Rediger arrangement</button>
                                 <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===3)} onClick={() => this.submitEventArchiveButton(this.state.event_id)}>Arkiver arrangement</button>
-                                <div className="dropdown-divider"></div>
+                                <div className="dropdown-divider"/>
                                 <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventCancelButton(this.state.event_id)}>Avlys arrangement</button>
-                                <div className="dropdown-divider"></div>
+                                <div className="dropdown-divider"/>
                                 <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventDeleteButton(this.state.event_id)}>Slett arrangement</button>
                             </div>
                         </div>
@@ -162,19 +160,19 @@ class EventView extends Component{
                     
                     <div id="eventViewInfoBoxContainer">
                         <div id="eventViewInfoBox">
-                            <div class="card" id="eventViewInfoBoxCard">
-                                <div class="card-body" id="eventViewInfoBoxCardGridContainer">
+                            <div className="card" id="eventViewInfoBoxCard">
+                                <div className="card-body" id="eventViewInfoBoxCardGridContainer">
                                     <div>
                                         <h3>{this.state.category_name}</h3>
-                                        <h5 class="card-title">Sted: {this.state.place}</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">Dato: {this.formatDate(this.state.date)}</h6>
+                                        <h5 className="card-title">Sted: {this.state.place}</h5>
+                                        <h6 className="card-subtitle mb-2 text-muted">Dato: {this.formatDate(this.state.date)}</h6>
                                     </div>
 
                                     <div id="eventViewInfoBoxMap">
-                                        <div class="mapouter">
-                                            <div class="gmap_canvas">
-                                                <iframe width="300" height="300" id="gmap_canvas" src={"https://maps.google.com/maps?q=" + mapLocation(this.state.place) + "%2C%20Trondheim&t=&z=15&ie=UTF8&iwloc=&output=embed"} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-                                                <a href="https://www.embedgooglemap.net/blog/nordvpn-coupon-code/"></a>
+                                        <div className="mapouter">
+                                            <div className="gmap_canvas">
+                                                <iframe title={"maps"} width="300" height="300" id="gmap_canvas" src={"https://maps.google.com/maps?q=" +
+                                                mapLocation(this.state.place) + "%2C%20Trondheim&t=&z=15&ie=UTF8&iwloc=&output=embed"} frameBorder="0" scrolling="no" marginHeight="0" marginWidth={"0"}/>
                                             </div>
                                         </div>
                                     </div>
@@ -212,7 +210,7 @@ class EventView extends Component{
                         <div id="eventViewInfoTicketsContainer">
                             <div id="eventViewInfoTickets">
                             <h3>Billettyper</h3>
-                            <table class="table table-hover">
+                            <table className="table table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">Type</th>
@@ -222,7 +220,7 @@ class EventView extends Component{
                                 </thead>
                                 <tbody>
                                 {this.state.event_tickets.map(ticket => 
-                                    <tr>
+                                    <tr key={ticket.name}>
                                         <th scope="row" width="60">{ticket.name}</th>
                                         <td width="30">{ticket.price}</td>
                                         <td width="30">{ticket.number}</td>
@@ -236,22 +234,22 @@ class EventView extends Component{
                             <div id="eventViewFiles">
                                 <div>
                                     <h4>Personell</h4>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" disabled={this.state.personnel === ""} onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.personnel)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
+                                    <button id="eventViewInfoDownloadButtons" className="btn" disabled={this.state.personnel === ""} onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.personnel)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
                                     <h4>Kontrakt</h4>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" disabled={this.state.contract === ""} onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
+                                    <button id="eventViewInfoDownloadButtons" className="btn" disabled={this.state.contract === ""} onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.contract)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
                                     <h4>Teknisk rider</h4>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" disabled={this.state.tech_rider === ""} onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
+                                    <button id="eventViewInfoDownloadButtons" className="btn" disabled={this.state.tech_rider === ""} onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.tech_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
 
                                 <div>
                                     <h4>Hospitality rider</h4>
-                                    <button id="eventViewInfoDownloadButtons" class="btn" disabled={this.state.hospitality_rider === ""} onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
+                                    <button id="eventViewInfoDownloadButtons" className="btn" disabled={this.state.hospitality_rider === ""} onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.hospitality_rider)} target="_blank"><i className="fa fa-download"></i> Last ned</button>
                                 </div>
                                 
                             </div>
@@ -267,7 +265,7 @@ class EventView extends Component{
                                         <h1>Beskrivelse av arrangementet</h1>
                                     </div>
                                     {descriptionArray().map(paragraph => (
-                                        <div id="eventViewParagraphs">
+                                        <div key={paragraph} className="eventViewParagraphs">
                                             <h6>{paragraph}</h6>
                                         </div>
                                     ))}
@@ -277,29 +275,29 @@ class EventView extends Component{
                     </div>
                     <div id="eventViewCommentSectionContainer">
                         <div id="eventViewCommentSection">
-                                <div class="comment-wrapper">
-                                    <div class="panel panel-info">
-                                        <div class="panel-heading">
+                                <div className="comment-wrapper">
+                                    <div className="panel panel-info">
+                                        <div className="panel-heading">
                                             <h3>Kommentarfelt</h3>
                                         </div>
-                                        <div class="panel-warning">
+                                        <div className="panel-warning">
                                             <p>Her kan dere dele informasjon eller erfaringer som ble gjort under arrangementplanleggingen.</p>
                                         </div>
-                                        <div class="panel-body">
-                                        <textarea type="text" class="form-control" id="commentInput" placeholder="Skriv en kommentar ..." rows="3" onKeyPress={this.keyPressed}></textarea>
+                                        <div className="panel-body">
+                                        <textarea className="form-control" id="commentInput" placeholder="Skriv en kommentar ..." rows="3" onKeyPress={this.keyPressed}/>
                                         <br />
-                                        <button type="button" class="btn btn-outline-info pull-right" onClick={() => this.publishComment()}>Publiser</button>
-                                        <div class="clearfix"></div>
+                                        <button type="button" className="btn btn-outline-info pull-right" onClick={() => this.publishComment()}>Publiser</button>
+                                        <div className="clearfix"/>
                                         <hr />
                                         <div id="comments">
-                                            <ul class="media-list">
+                                            <ul className="media-list">
                                             {this.state.comments.map(comments => (
-                                                <li class="media">
-                                                <div class="media-body" id="eventViewCommentSectionComments">
+                                                <li className="media">
+                                                <div className="media-body" id="eventViewCommentSectionComments">
                                                     <div id="eventViewCommentSectionUserInfo">
-                                                        <strong class="text-info"> {comments.name}</strong>
-                                                        <span class="text-muted pull-right">
-                                                            <small class="text-muted">{this.formatDate(comments.date)}</small>
+                                                        <strong className="text-info"> {comments.name}</strong>
+                                                        <span className="text-muted pull-right">
+                                                            <small className="text-muted">{this.formatDate(comments.date)}</small>
                                                         </span>
                                                     </div>
                                                     <p>
@@ -526,32 +524,5 @@ class EventView extends Component{
 export default EventView;
 
 
-/* 
-
-<div id="eventViewButtons">
-    <div id="eventViewBack">
-        <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event"}>Tilbake</button>
-    </div>
-
-    <div id="eventViewEdit">
-        <button type="button" className="btn btn-outline-primary" onClick={() => window.location.href = "#/event/" + this.state.event_id + "/edit"}>Rediger</button>
-    </div>
-
-    <div id="eventViewArchive">
-        <button type="button" onClick={() => this.submitEventArchiveButton(this.state.event_id)}  className="btn btn-outline-primary">Arkiver</button>
-    </div>
-        
-    <div id="eventViewDelete">
-        <button type="button" onClick={() => this.submitEventDeleteButton(this.state.event_id)} className="btn btn-outline-danger">Slett</button>
-    </div>
-
-    <div id="eventViewDelete">
-        <button type="button" onClick={() => this.pend(this.state.event_id)} className="btn btn-outline-danger">pending</button>
-    </div>
-
-</div>
-
-
-*/
 
 

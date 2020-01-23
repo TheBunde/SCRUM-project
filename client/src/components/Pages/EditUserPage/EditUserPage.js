@@ -188,18 +188,18 @@ class EditUserPage extends Component {
                 .catch((error) => console.error(error))
         });
 
-        {
-            if (this.state.approved) {
-                adminService.approveUser(this.props.match.params.id)
-                    .then(response => console.log(response))
-                    .catch(error => console.error(error));
 
-            } else {
-                adminService.disapproveUser(this.props.match.params.id)
-                    .then(response => console.log(response))
-                    .catch(error => console.error(error));
-            }
+        if (this.state.approved) {
+            adminService.approveUser(this.props.match.params.id)
+                .then(response => console.log(response))
+                .catch(error => console.error(error));
+
+        } else {
+            adminService.disapproveUser(this.props.match.params.id)
+                .then(response => console.log(response))
+                .catch(error => console.error(error));
         }
+
 
         if (this.state.phone.match(/^\d{8}$/) && this.state.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){
             adminService.updateUser(this.state.name, this.state.email, this.state.phone, this.props.match.params.id)

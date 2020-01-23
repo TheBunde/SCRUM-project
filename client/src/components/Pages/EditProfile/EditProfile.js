@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import "../../../css/EditProfile.css"
-import {createHashHistory} from 'history';
 import {FileService} from "../../../service/FileService";
 import {Redirect} from 'react-router-dom';
 import {auth, authenticate} from "../../../service/auth";
@@ -10,7 +9,6 @@ import {validateEmail, validatePhone} from "../../../validaters";
 import Navbar from "../../Navbar/Navbar";
 import Footer from "../../Footer/Footer";
 
-const history = createHashHistory();
 
 /**
  * @class EditProfile

@@ -20,7 +20,7 @@ class LoginForm extends Component{
         this.state = {
             email: "",
             pw: "",
-        }
+        };
         this.keyPressed = this.keyPressed.bind(this);
     }
 
@@ -34,12 +34,8 @@ class LoginForm extends Component{
      */
     submit = () => {
         let userService = new UserService();
-        console.log(this.state.email);
         userService.validate(this.state.email, this.state.pw)
             .then((response) => {
-                console.log("Gikk");
-                console.log("jwt:" + response.data.jwt);
-
                 let token = response.data.jwt;
                 window.localStorage.setItem("token", token);
                 window.location.hash = "/overview";
@@ -74,20 +70,20 @@ class LoginForm extends Component{
         return(
             <div>
                 <form id="LoginFormForm">
-                    <div class="card LoginFormCard">
-                        <div class="card-body">
+                    <div className="card LoginFormCard">
+                        <div className="card-body">
                             <h1 id="login-title">Logg inn</h1>
-                            <div class="form-group" id="email-input-container">
-                                <label for="email-input">E-post</label>
+                            <div className="form-group" id="email-input-container">
+                                <label htmlFor="email-input">E-post</label>
                                 <input type="email" name={"email"} className="form-control" id="email-input" placeholder="Skriv inn e-post" name="email" onChange={this.updateInputValue} onKeyPress={this.keyPressed}/>
                             </div>
-                            <div class="form-group" id="password-input-container">
-                                <label for="password-input">Passord</label>
-                                <input type="password" class="form-control" id="password-input" placeholder="Skriv inn passord" onKeyPress={this.keyPressed} name="pw" onChange={this.updateInputValue} />
+                            <div className="form-group" id="password-input-container">
+                                <label htmlFor="password-input">Passord</label>
+                                <input type="password" className="form-control" id="password-input" placeholder="Skriv inn passord" onKeyPress={this.keyPressed} name="pw" onChange={this.updateInputValue} />
                             </div>
                             <div id="LoginFormButtons">
-                                <button type="button" class="btn btn-outline-dark" id="login-button" onClick={this.submit}>Logg inn</button>
-                                <button type="button" class="btn btn-outline-dark" id="login-button" onClick={() => window.location.href="#/register"}>Register</button>
+                                <button type="button" className="btn btn-outline-dark login-button" onClick={this.submit}>Logg inn</button>
+                                <button type="button" className="btn btn-outline-dark login-button" onClick={() => window.location.href="#/register"}>Register</button>
                             </div>
                             <div id="loginFormForgotPW">
                                 <a href="#/forgotpassword">Glemt passord?</a>

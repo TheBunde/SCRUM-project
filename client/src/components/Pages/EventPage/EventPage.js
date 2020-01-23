@@ -202,9 +202,7 @@ class EventPage extends Component {
             .catch(error => console.error(error.message));
     }
 
-    getUserFromNavbar = user => {
-            console.log(user);
-    };
+
 
     render() {
 
@@ -218,8 +216,8 @@ class EventPage extends Component {
     });
 
         return (
-            <div id="eventPagePage" class="pageSetup">
-                <Navbar getUser={this.getUserFromNavbar()} />
+            <div id="eventPagePage" className="pageSetup">
+                <Navbar/>
                 <ToTop />
                 <div>
                     <div id="eventPageBackground">
@@ -238,12 +236,12 @@ class EventPage extends Component {
                                             Vis
                                         </button>
                                         <div className="dropdown-menu" id="eventPageFilter" aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterAllActive()}>Alle aktive</a>
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterPending()}>Under planlegging</a>
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterApproved()}>Ferdig planlagte</a>
-                                            <div className="dropdown-divider"></div>
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterArchived()}>Arkiverte</a>
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterCancelled()}>Avlyste</a>
+                                                <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterAllActive()}>Alle aktive</a>
+                                                <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterPending()}>Under planlegging</a>
+                                                <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterApproved()}>Ferdig planlagte</a>
+                                            <div className="dropdown-divider"/>
+                                                <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterArchived()}>Arkiverte</a>
+                                                <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterCancelled()}>Avlyste</a>
                                         </div>
                                     </div>
                                 </div>
@@ -256,7 +254,7 @@ class EventPage extends Component {
                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                                             <a className="dropdown-item" href="#/event" onClick={() => this.sortByName()}>Navn</a>
-                                            <div className="dropdown-divider"></div>
+                                            <div className="dropdown-divider"/>
                                             <span className="dropdown-item-text">Dato:</span>
                                             <div id="eventPageDDItems">
                                                 <a className="dropdown-item" href="#/event" onClick={() => this.sortByClosest()}>Nærmest</a>
@@ -272,10 +270,10 @@ class EventPage extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="dropdown-divider border-dark"></div>
+                            <div className="dropdown-divider border-dark"/>
                             <div id="eventPageEventTable">
                                 {this.state.shownEvents.slice(0, this.state.length).map(event => (
-                                    <div>
+                                    <div key = {event.event_id}>
                                         <EventCard event_id={event.event_id} name={event.name} img_url={event.img_url} description={event.description} date={this.formatDate(event.date)} compareDate={event.date} place={event.place} pending={event.pending} filed={event.filed} canceled={event.canceled}/>
                                     </div>
                                 ))}
@@ -308,16 +306,16 @@ class EventCard extends Component {
         return (
             <div id="eventPageEventCardLink">
                 <a href = {"#/event/" + this.props.event_id}>
-                    <div class="card eventPageEventCard">
-                            <img id="eventPageCardImg" class="card-img-top eventPageEventCardImg" src={"http://" + ipAdress + ":8080/image/" + this.props.img_url} alt={this.props.name} />
+                    <div className="card eventPageEventCard">
+                            <img id="eventPageCardImg" className="card-img-top eventPageEventCardImg" src={"http://" + ipAdress + ":8080/image/" + this.props.img_url} alt={this.props.name} />
 
-                            <div class="card-body" id="eventPageOuterCardBody">
+                            <div className="card-body" id="eventPageOuterCardBody">
 
-                            <div id="eventPageCardBody" class="card-body">
-                                <h5 class="card-title">{this.props.name}</h5>
+                            <div id="eventPageCardBody" className="card-body">
+                                <h5 className="card-title">{this.props.name}</h5>
                                 <div id="eventPageStatus">
 
-                                    <a className={"btn btn-outline-"+color+" btn-sm"}>Status: {this.getStatus(this.props.canceled, this.props.pending, this.props.filed,  this.props.compareDate)}</a>
+                                    <button className={"btn btn-outline-"+color+" btn-sm"}>Status: {this.getStatus(this.props.canceled, this.props.pending, this.props.filed,  this.props.compareDate)}</button>
                                 </div>
                                 <div id="eventPageCardLocation">
                                     {this.props.place}

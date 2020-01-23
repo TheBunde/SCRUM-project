@@ -15,7 +15,7 @@ class LoginPage extends Component{
     }
     render() {
         return (
-            <div class="pageSetup">
+            <div className="pageSetup">
                 <div id="LoginFormDiv">
                     <div id="LoginFormWithoutFooter">
                         <div id="MainPageTitle"><a id="LoginPageTitle" href="#/portal">HARMONI</a></div>

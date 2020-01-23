@@ -399,31 +399,19 @@ app.delete("/event/tickets/:id", verifyToken,(req, res) =>{
 
 });
 
-app.get("/event/tickets/:id",verifyToken, (req, res) =>{
-    jwt.verify(req.token, privateKey, (err, authData) => {
+app.get("/event/tickets/:id", (req, res) =>{
+    /*jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
             res.sendStatus(401);
         } else {
+            */
             eventDao.getTicketFromEvent(req.params.id, (status, data) =>{
                 res.status(status);
                 res.json(data);
             })
-        }
+    /*  }
     });
-
-});
-
-app.get("/event/tickets/:id",verifyToken, (req, res) =>{
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.getTicketFromEvent(req.params.id, (status, data) =>{
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
+    */
 
 });
 
@@ -453,7 +441,6 @@ app.get("/event/comments/:id", verifyToken,(req, res) =>{
             })
         }
     });
-
 });
 
 
@@ -548,7 +535,6 @@ app.get("/tickets", verifyToken,(req, res) => {
             })
         }
     });
-
 });
 
 

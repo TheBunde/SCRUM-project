@@ -79,6 +79,7 @@ class EventView extends Component{
             category_name: events[0].category_name}))
             .catch(error => console.error(error.message));
         eventService.getTicketFromEvent(this.props.match.params.id).then(tickets => this.setState({event_tickets: tickets}));
+        console.log(this.state.event_tickets);
         eventService.getContactinfoForEvent(this.props.match.params.id).then(contactInfo => this.setState({contactInfo_name: contactInfo.name, contactInfo_phone: contactInfo.phone, contactInfo_email: contactInfo.email})).catch(Error => console.log(Error));
         eventService.getComments(this.props.match.params.id).then(comments => this.setState({comments: comments})).catch(Error => console.log(Error));
         let userService = new UserService();
@@ -153,7 +154,34 @@ class EventView extends Component{
                                 </div>
                             </div>
                         </div>
+
+                        <div id="eventViewInfoTicketsContainer">
+                            <div id="eventViewInfoTickets">
+                            <h3>Billettyper</h3>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Pris</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {this.state.event_tickets.map(ticket => 
+                                    <tr>
+                                        <th scope="row" width="60">{ticket.name}</th>
+                                        <td width="10">{ticket.price}</td>
+                                    </tr>)
+                                }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
+                        
+
+                    </div>
+
+                    
                     
                     
                     <div id="guestEventViewDescriptionContainer">

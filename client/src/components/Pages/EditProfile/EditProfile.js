@@ -7,10 +7,7 @@ import {auth, authenticate} from "../../../service/auth";
 import {UserService, User} from "../../../service/UserService";
 import {toast} from 'react-toastify';
 import {validateEmail, validatePhone} from "../../../validaters";
-
-
 import Navbar from "../../Navbar/Navbar";
-import Back from "../../Back/Back";
 import Footer from "../../Footer/Footer";
 
 const history = createHashHistory();

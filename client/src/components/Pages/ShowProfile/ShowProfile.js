@@ -6,7 +6,6 @@ import {UserService} from "../../../service/UserService.js";
 import {Redirect} from 'react-router-dom';
 import { User} from "../EditProfile/EditProfile";
 import Navbar from "../../Navbar/Navbar";
-import Back from "../../Back/Back";
 import {authenticate, auth} from "../../../service/auth";
 import Footer from "../../Footer/Footer";
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";

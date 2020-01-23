@@ -15,5 +15,5 @@ export function validateTickets(ticket) {
 }
 
 export function validateInput(input){
-    return /^.{1,254}$/.test(input)
+    return /^(.|\n){1,254}$/.test(input)
 }

@@ -22,9 +22,6 @@ class Navbar extends Component {
     };
   }
 
-
-
-  
   /**
   * This method signs you; It redirects you to the login-page and removes the token stored in localStorage
   */

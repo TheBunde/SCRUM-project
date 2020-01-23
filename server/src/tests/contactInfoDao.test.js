@@ -82,15 +82,15 @@ test("test: deleteEventDetails()", done =>{
     }
 
     function callback(status, data){
-        eventDao.deleteEventDetails(7, callback2);
+        eventDao.deleteEventDetails(6, callback2);
     }
     // dummy function to send into query in dao.js, we do not want it to print extra or complicate our code
     function dummy(status, data){
 
     }
 
-    let contactInfo = {name: "hei sveis", phone: "00000000", email: "hwudijwdhwojndw@sohfsoidhjs.nckjw", eventID: 7};
+    let contactInfo = {name: "hei sveis", phone: "00000000", email: "hwudijwdhwojndw@sohfsoidhjs.nckjw", eventID: 6};
     eventDao.addContactInfo(contactInfo, dummy);
-    let ticket = {eventID: 7, ticketID: 3, amount: 20, price: 100};
+    let ticket = {eventID: 6, ticketID: 3, amount: 20, price: 100};
     eventDao.addTicket(ticket, callback);
 });

@@ -19,6 +19,7 @@ class About extends Component{
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         authenticate(); //runs a check to see if the user is actually logged in
         if (auth.authenticated) {
             this.setState({

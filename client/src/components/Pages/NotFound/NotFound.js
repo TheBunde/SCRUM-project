@@ -15,6 +15,7 @@ class NotFound extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         authenticate();
         if (auth.authenticated) {
             this.setState({

@@ -1,3 +1,21 @@
+let mysql = require("mysql");
+const EventDao = require("../dao/eventDao.js");
+let runsqlfile = require("./runsqlfile.js");
+
+// GitLab CI Pool
+// GitLab CI Pool
+let pool = mysql.createPool({
+    connectionLimit: 1,
+    host: "mysql",
+    user: "root",
+    password: "secret",
+    database: "supertestdb",
+    debug: false,
+    multipleStatements: true
+});
+
+let eventDao = new EventDao(pool);
+
 /**
  * test for: getCategories() in eventDao.js
  */

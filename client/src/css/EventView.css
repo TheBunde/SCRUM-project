@@ -164,6 +164,10 @@
     border-radius: 5px;
     background-color: white;
     margin: 0 0 15px 0;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
 }
 
 #eventViewArtistsContainer{
@@ -179,6 +183,10 @@
     max-height: 500px;
     overflow-y: auto;
     margin: 0 0 15px 0;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
 }
 #eventViewFiles div{
     margin: 10px;
@@ -197,6 +205,10 @@
     max-height: 500px;
     overflow-y: auto;
     margin: 0 0 15px 0;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
 }
 #eventViewContactInfo h3{
     padding-bottom: 5px;
@@ -265,6 +277,10 @@
     max-height: 95;
     height: 98%;
     overflow-y: auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
 }
 
 #eventViewTitleEvent{
@@ -287,6 +303,12 @@
 #eventViewTitle{
     grid-area: eventViewTitle;
     text-align: center;
+    max-width: 90%;
+    margin: auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
 }
 
 #eventViewDropdown{

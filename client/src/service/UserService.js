@@ -5,7 +5,16 @@ let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 
 /**
- * User
+ * User class
+ * @class User
+ * @param {number} user_id 
+ * @param {string} name 
+ * @param {string} email 
+ * @param {string} phone 
+ * @param {File} profile_photo 
+ * @param {string} password 
+ * @param {number} roleId 
+ * @param {boolean} approved 
  */
 export class User {
     user_id;
@@ -16,17 +25,6 @@ export class User {
     password;
     roleid;
     approved;
-    /**
-     * 
-     * @param {number} user_id 
-     * @param {string} name 
-     * @param {string} email 
-     * @param {string} phone 
-     * @param {File} profile_photo 
-     * @param {string} password 
-     * @param {number} roleId 
-     * @param {boolean} approved 
-     */
     constructor(user_id, name, email, phone, profile_photo, password,roleId, approved) {
         this.user_id = user_id;
         this.name = name;
@@ -40,39 +38,43 @@ export class User {
 }
 
 
-
 /**
- * User service
+ * Service object for use in calls to backend regarding user data and actions
+ * @module UserService
  */
 export class UserService {
     /**
-     * 
+     * @function registerUser
      * @param {user} user 
      */
     registerUser(user){
         return Axios.post("http://" + ipAdress + ":8080/user", user);
     }
+
     /**
-     * 
+     * @function validate
      * @param {string} email 
      * @param {string} pw 
      */
     validate(email, pw){
         return Axios.post("http://" + ipAdress + ":8080/validate", {"email":  email, "password" : pw});
     }
+
     /**
-     * 
+     * @function getHash
      * @param {string} email 
      */
     getHash(email) {
         return Axios.get("http://" + ipAdress + ":8080/validate/" + email);
     }
+
     /**
-     * 
+     * Updates password for specified user
+     * @function updatePassword
      * @param {string} email 
      * @param {string} password 
      * @param {string} newPassword 
-     * @param {number} user_id 
+     * @param {int} user_id 
      */
     updatePassword(email, password, newPassword, user_id){
         console.log("User service: " + email);
@@ -84,8 +86,10 @@ export class UserService {
             }, {headers: authenticationHeader()}
         );
     }
+
     /**
-     * 
+     * Resets and sends a new password to the specified users email.
+     * @function forgotPassword
      * @param {string} email 
      */
     forgotPassword(email) {
@@ -97,15 +101,17 @@ export class UserService {
     }
 
     /**
-     * 
+     * @function updateUser
      * @param {user} user 
      */
     updateUser(user){
         return Axios.put("http://" + ipAdress + ":8080/profile/" + user.user_id + '/edit', user, {headers: authenticationHeader()});
     }
+
     /**
-     * 
+     * @function getUser
      * @param {number} userID 
+     * @returns {Object} - Returns a User object with all user credentials.
      */
     getUser(userID){
         return Axios.get("http://" + ipAdress + ":8080/user/" + userID, {headers: authenticationHeader()}).then(response => {

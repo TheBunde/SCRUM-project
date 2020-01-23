@@ -11,6 +11,7 @@ const saltRounds = 10;
 module.exports = class UserDao extends dao {
 
     /**
+     * @function registerUser
      * @param {Object} json - JSON object containing user info for registration: name, email, phone, profile photo
      */
     registerUser(json, callback) {
@@ -30,6 +31,7 @@ module.exports = class UserDao extends dao {
             });
     }
 
+    /** @function getUser */
     getUser(email, callback) {
         super.query("SELECT * from User join Role on User.role_id = Role.role_id where email = ? ", email, callback);
     }
@@ -42,6 +44,7 @@ module.exports = class UserDao extends dao {
 
     /** 
      * Changes password to the provided password
+     * @function changePassword
      * @param {Object} json - JSON object containing user_id and password.
      */
     changePassword(json, callback) {
@@ -62,6 +65,7 @@ module.exports = class UserDao extends dao {
 
     /**
      * Updates user in DB with provided attributes
+     * @function updateProfile
      * @param {Object} user - Object containing all user info
      */
     updateProfile(user, callback) {

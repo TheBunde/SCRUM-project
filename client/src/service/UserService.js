@@ -139,6 +139,35 @@ export class UserService {
             }
             )
     }
+
+    /**
+     * 
+     * @param {user} user 
+     */
+    updateUser(user){
+        return Axios.put("http://" + ipAdress + ":8080/profile/" + user.user_id + '/edit', user, {headers: authenticationHeader()});
+    }
+    /**
+     * 
+     * @param {number} userID 
+     */
+    getUser(userID){
+        return Axios.get("http://" + ipAdress + ":8080/user/" + userID, {headers: authenticationHeader()}).then(response => {
+            let a = response.data[0];
+            console.log(a);
+            return new User(
+                a.user_id,
+                a.name,
+                a.email,
+                a.phone,
+                a.profile_photo,
+                a.password,
+                a.roleid,
+                a.approved
+            );
+
+        }).catch(error => console.log(error));
+    }
 }
 
 export default UserService;

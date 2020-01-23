@@ -35,15 +35,14 @@ test("test: addComment()", done =>{
 /**
  * test for: getComment() in eventDao.js
  */
-test("test: getComment()", done =>{
+test("test: getComments()", done =>{
 
     function callback(status, data){
         console.log(
-            "Test getComment eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+            "Test getComments eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data.length).toBe(3);
-        expect(data[0].eventID).toBe(1);
-        expect(data[0].user_id).toBe(1);
+        expect(data.length).toBeGreaterThanOrEqual(2);
+        expect(data[0].comment).toBe("this is a test comment");
         done();
     }
     eventDao.getComments(1, callback);

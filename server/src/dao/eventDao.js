@@ -73,7 +73,7 @@ module.exports = class adminDao extends Dao{
         super.query("SELECT category_id FROM Event WHERE event_id = ?", [eventID], callback)
     }
 
-    getContactinfoForEvent(eventID, callback){
+    getContactInfoForEvent(eventID, callback){
         super.query("SELECT * FROM Contact_Info WHERE event_id = ?", [eventID], callback)
     }
 
@@ -88,7 +88,6 @@ module.exports = class adminDao extends Dao{
     updateEvent(eventID, eventInfo, callback){
         super.query("UPDATE Event SET name = ?, description = ?, date = ?, place = ?, category_id = ?, img_url = ?, artists = ?, tech_rider = ?, hospitality_rider = ?, contract = ?, personnel = ? WHERE event_id = ?", [eventInfo.name, eventInfo.description, eventInfo.date, eventInfo.place, eventInfo.categoryID, eventInfo.img_url, eventInfo.artists, eventInfo.tech_rider, eventInfo.hospitality_rider, eventInfo.contract, eventInfo.personnel, eventID], callback)
     }
-
 
     updateContactInfo(eventID, contactInfo, callback){
         super.query("UPDATE Contact_Info SET name = ?, phone = ?, email = ? WHERE event_id = ?", [contactInfo.name, contactInfo.phone, contactInfo.email, eventID], callback)

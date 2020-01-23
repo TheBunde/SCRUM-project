@@ -44,10 +44,16 @@ module.exports = class adminDao extends Dao{
         super.query("INSERT INTO Event_Ticket(event_id, ticket_category_id, price, number) VALUES (?, ?, ?, ?)", [ticket.eventID, ticket.ticketID, ticket.price, ticket.amount], callback)
     }
 
-    deleteEvent(eventID, callback){
-        super.query("DELETE FROM Comment WHERE event_id = ?", [eventID], callback2);
-        super.query("DELETE FROM Contact_Info WHERE event_id = ?", [eventID], callback2);
+    deleteEventComments(eventID, callback){
+        super.query("DELETE FROM Comment WHERE event_id = ?", [eventID], callback);
+    }
+
+    deleteEventDetails(eventID, callback){
+        super.query("DELETE FROM Contact_Info WHERE event_id = ?", [eventID], callback);
         super.query("DELETE FROM Event_Ticket WHERE event_id = ?", [eventID], callback2);
+    }
+
+    deleteEvent(eventID, callback){
         super.query("DELETE FROM Event WHERE event_id = ?", [eventID], callback)
     }
 

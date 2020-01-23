@@ -13,6 +13,11 @@ let pool = mysql.createPool({
     multipleStatements: true
 });
 
+
+/**
+ * @param
+ * @type {module.adminDao|*}
+ */
 let adminDao = new AdminDao(pool);
 
 

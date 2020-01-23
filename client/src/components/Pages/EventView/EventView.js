@@ -422,9 +422,10 @@ class EventView extends Component{
     }
 
     delete(id){
-        console.log(id);
         eventService
-            .deleteEvent(id)
+            .deleteEventComments(id)
+            .then(() => eventService.deleteEventDetails(id))
+            .then(() => eventService.deleteEvent(id))
             .then(() =>{
                 this.notifyDeleteSuccess();
                 history.push("/event")
@@ -433,7 +434,6 @@ class EventView extends Component{
     }
 
     archive(id){
-        console.log(id);
         eventService
             .updateFiled(id)
             .catch(e => console.error(e));
@@ -441,7 +441,6 @@ class EventView extends Component{
     }
 
     pend(id){
-        console.log(id);
         eventService
             .updatePending(id)
             .catch(e => console.error(e));
@@ -449,7 +448,6 @@ class EventView extends Component{
     }
 
     cancel(id){
-        console.log(id);
         eventService
             .updateCancel(id)
             .catch(e => console.error(e));

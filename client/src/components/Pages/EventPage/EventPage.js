@@ -4,11 +4,12 @@ import "../../../css/EventPage.css"
 import {eventService} from "../../../service/EventService";
 import $ from 'jquery';
 import Footer from '../../Footer/Footer'
-import {auth} from "../../../service/UserService.js"
 import ToTop from '../../ToTop/ToTop'
 
 var moment = require("moment");
 moment().format();
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
+
 
 export class event {
     constructor(event_id, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, category_id, filed, pending, canceled, img_url){
@@ -29,17 +30,27 @@ export class event {
     }
 }
 
+/**
+ * EventPage component
+ * @class EventPage
+ */
 class EventPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loadedEvents: [],
             shownEvents: [],
-            length: 4
-        }
+            length: 6
+        };
         this.handleSearch = this.handleSearch.bind(this);
     }
 
+    /**
+     * The formatDate() function formats the backendDate we get from database to work with other functions in the eventPage
+     * component and be more readable for Norwegian users.
+     * @param backendDate
+     * @returns {string}
+     */
     formatDate(backendDate) {
         let thisDate = new Date(backendDate);
 
@@ -56,28 +67,11 @@ class EventPage extends Component {
         return date + "." + month + "." + year + " " + hours + ":" + minutes;
     }
 
-    formatDate(backendDate) {
-        let tempDate = backendDate;
-        let year = tempDate.slice(0, 4);
-        let month = tempDate.slice(5, 7);
-        let date = tempDate.slice(8, 10);
-        let hours = tempDate.slice(11, 13);
-        let minutes = tempDate.slice(14, 16);
-
-        let thisDate = new Date(year + "-" + month + "-" +date +"T" + hours +":00:00");
-        thisDate.setHours(thisDate.getHours()+1);
-
-        year = thisDate.getFullYear();
-        month = thisDate.getMonth()+1;
-        if(month < 10) month = "0" + month;
-        date = thisDate.getDate();
-        if(date < 10) date = "0" + date;
-        hours = thisDate.getHours();
-        if(hours < 10) hours = "0" + hours;
-
-        return date + "." + month + "." + year + " " + hours + ":" + minutes;
-    }
-
+    /**
+     * getCurrentDate() creates a date object from which we get the current date down to minutes and returns it in the same
+     * format as the return from the formatDate() function for comparison purposes.
+     * @returns {string}
+     */
     getCurrentDate() {
         let newDate = new Date();
         let date = newDate.getDate();
@@ -100,25 +94,51 @@ class EventPage extends Component {
         return year + "-" + month + "-" + date + "T" + hours + ":" + minutes + ":00:000Z";
     }
 
-    eventFilterAllActive(){
-        this.fetchNonFiled();
+
+    /**
+     * eventFilterAllActive() calls a fetch from database through eventService, fetching all non-archived events. All fetched
+     * events are placed in the loadedEvents array while shownEvents is assigned events that are not cancelled. This makes
+     * sure only events that are being organized or are ready to be hosted will be shown when calling this function.
+     */
+    eventFilterAllActive() {
+        eventService.getNonFiledEvents().then(events => this.setState({
+            loadedEvents: events,
+            shownEvents: events.filter(e => e.canceled !== 1)
+        })).then(this.resetSortDropdown())
+            .catch(error => console.error(error.message));
     }
-    eventFilterPending(){
+
+    /**
+     * eventFilterPending() calls a fetch from database through eventService, fetching all non-archived events. All events
+     * are placed in the loadedEvents array while all events that are pending and not cancelled are placed in shownEvents.
+     * Rendering shownEvents with these criteria displays events that are being organized.
+     */
+    eventFilterPending() {
         eventService.getNonFiledEvents().then(events => this.setState({
             loadedEvents: events,
             shownEvents: events.filter(e=> (e.date > this.getCurrentDate()) && e.pending === 1 && e.canceled !== 1)
         })).then(this.resetSortDropdown())
             .catch(error => console.error(error.message));
     }
-    eventFilterArchived(){
+
+    /**
+     * eventFilterArchived() calls a fetch from database through eventService, fetching all archived events placing them
+     * in both loadedEvents and shownEvents.
+     */
+    eventFilterArchived() {
         eventService.getAllArchived().then(events => this.setState({
             loadedEvents: events,
             shownEvents: events
-            })).then(this.resetSortDropdown())
+        })).then(this.resetSortDropdown())
             .catch(error => console.error(error.message));
-        //this.getArchivedEvents();
     }
-    eventFilterApproved(){
+
+    /**
+     * eventFilterApproved() calls a fetch from database through eventService, fetching all non-archived events placing them
+     * in loadedEvents while events that are not pending and not cancelled are placed in shownEvents. This will display
+     * all events that are ready to be hosted.
+     */
+    eventFilterApproved() {
         eventService.getNonFiledEvents().then(events => this.setState({
             loadedEvents: events,
             shownEvents: events.filter(e => (e.date > this.getCurrentDate() && e.pending === 0 && e.canceled !== 1))
@@ -126,36 +146,57 @@ class EventPage extends Component {
             .catch(error => console.error(error.message));
     }
 
-    eventFilterCancelled(){
+    /**
+     * eventFilterCancelled() calls a fetch from database through eventService, fetching all cancelled events placing them
+     * in both loadedEvents and shownEvents to display all cancelled events.
+     */
+    eventFilterCancelled() {
         eventService.getCancelled().then(events => this.setState({shownEvents: events, loadedEvents: events})).then(this.resetSortDropdown());
-        console.log(this.state.shownEvents);
     }
 
-    sortByName(){
+    /**
+     * sortByName() sorts events in shownEvents by name.
+     */
+    sortByName() {
         this.setState({ shownEvents: this.state.shownEvents.sort((a, b) => a.name.localeCompare(b.name)) })
     }
 
-    timeFromNow(date, now){
+    /**
+     * timeFromNow() compares the current date to the date of an event, returning a value greater than zero if the event is
+     * still ahead in time, or less than zero if the date has passed.
+     * Used to sort upcoming events by which is closer in time.
+     * @param date
+     * @param now
+     * @returns {number}
+     */
+    timeFromNow(date, now) {
         const compareDate = new Date(date.date);
-        console.log(compareDate - now);
 
         return compareDate - now;
     }
 
+    /**
+     * sortByClosest() utilizes sortByDate() and timeFromNow() to sort events in shownEvents by which is closest in time,
+     * filtering out events that are in the past.
+     */
     sortByClosest() {
         const now = new Date();
         this.sortByDate();
         this.setState({ shownEvents: this.state.shownEvents.reverse().filter(a => this.timeFromNow(a, now) > 0) })
     }
 
+    /**
+     * sortByDate() sorts shownEvents to show events sorted chronologically, descending from the event furthest ahead in time.
+     */
     sortByDate() {
-        console.log(this.state.shownEvents[0].date);
         this.setState({ shownEvents: this.state.shownEvents.sort((a, b) => b.date.localeCompare(a.date)) })
     }
-    sortByCategory() {
-        this.setState({ shownEvents: this.state.shownEvents.sort((a, b) => b.category_id - a.category_id) })
-    }
 
+    /**
+     * handleSearch() takes input from searchBar(). If there is input, shownEvents will be updated to show events that has some
+     * string matching input from searchBar() and the page re-rendered.
+     * If input is cleared handleSearch() will call componentDidMount(), re-rendering the page with all active events and sort/filter dropDowns reset to default values.
+     */
     handleSearch() {
         const searchTitleElement = document.getElementById("searchBar");
         let searchTitle = searchTitleElement.value;
@@ -167,58 +208,51 @@ class EventPage extends Component {
         }
     }
 
+    /**
+     * This function is used to reset sort and filter dropDowns to their default values.
+     */
     resetSortAndFilterDropdowns() {
         $("#eventPageShow .btn:first-child ").text("Vis");
         $("#eventPageSort .btn:first-child ").text("Sorter etter");
     }
 
-    resetSortDropdown(){
+    /**
+     * This function used to reset sort dropDown.
+     */
+    resetSortDropdown() {
         $("#eventPageSort .btn:first-child ").text("Sorter etter");
     }
 
-    getAllEvents(){
-        eventService.getAllEvents().then(events => this.setState({
-            loadedEvents: events
-        }))
-            .catch(error => console.error(error.message));
-        return true;
-    }
-
-    fetchNonFiled(){
-        eventService.getNonFiledEvents().then(events => this.setState({
-            loadedEvents: events,
-            shownEvents: events
-        })).then(this.resetSortDropdown())
-            .catch(error => console.error(error.message));
-    }
-
-    componentDidMount(){
+    /**
+     * componentDidMount() provides instructions to render() about what to do on initial mount and when called by handleSearch().
+     */
+    componentDidMount() {
         window.scrollTo(0,0);
         eventService.getNonFiledEvents().then(events => this.setState({
             loadedEvents: events,
-            shownEvents: events
+            shownEvents: events.filter(e => e.canceled !== 1)
         }))
             .catch(error => console.error(error.message));
     }
 
-    getUserFromNavbar = user => {
-            console.log(user);
-    };
-
+    /**
+     * Renders the component when called upon by index.js or triggered by a setState/componentDidMount call.
+     * @returns {html}
+     */
     render() {
 
-        $(function(){
-            $("#eventPageShow a").click(function(){
+        $(function() {
+            $("#eventPageShow a").click(function() {
             $("#eventPageShow .btn:first-child ").text($(this).text());
         });
-            $("#eventPageSort a").click(function(){
+            $("#eventPageSort a").click(function() {
             $("#eventPageSort .btn:first-child ").text($(this).text());
         });
     });
 
         return (
             <div id="eventPagePage" class="pageSetup">
-                <Navbar getUser={this.getUserFromNavbar()} />
+                <Navbar />
                 <ToTop />
                 <div>
                     <div id="eventPageBackground">
@@ -241,8 +275,8 @@ class EventPage extends Component {
                                             <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterPending()}>Under planlegging</a>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterApproved()}>Ferdig planlagte</a>
                                             <div className="dropdown-divider"></div>
-                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterArchived()}>Arkiverte</a>
                                             <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterCancelled()}>Avlyste</a>
+                                            <a className="dropdown-item" href="#/event" onClick={() => this.eventFilterArchived()}>Arkiverte</a>
                                         </div>
                                     </div>
                                 </div>
@@ -299,16 +333,21 @@ class EventPage extends Component {
     }
 }
 
+/**
+ * EventCard component
+ * When called, builds the event cards for eventPage by using props.
+ * @class EventCard
+ */
 class EventCard extends Component {
 
-    render(){
+    render() {
 
         let color = this.getColor(this.props.canceled, this.props.pending, this.props.filed, this.props.compareDate);
         return (
             <div id="eventPageEventCardLink">
                 <a href = {"#/event/" + this.props.event_id}>
                     <div class="card eventPageEventCard">
-                            <img id="eventPageCardImg" class="card-img-top eventPageEventCardImg" src={"http://localhost:8080/image/" + this.props.img_url} alt={this.props.name} />
+                            <img id="eventPageCardImg" class="card-img-top eventPageEventCardImg" src={"http://" + ipAdress + ":8080/image/" + this.props.img_url} alt={this.props.name} />
 
                             <div class="card-body" id="eventPageOuterCardBody">
 
@@ -333,42 +372,59 @@ class EventCard extends Component {
     }
 
 
-
+    /**
+     * getStatus() is a function used to determine what state an event is currently in by looking at their pending and filed
+     * status and planned date vs. current date.
+     * @param canceled
+     * @param pending
+     * @param filed
+     * @param date
+     * @returns {string}
+     */
     getStatus(canceled, pending, filed, date){
         let status;
-        if(canceled === 1){
+        if(canceled === 1) {
             status = "Avlyst"
-        }else if(pending === 1 && filed === 0){
+        }else if(pending === 1 && filed === 0) {
             status = "Til godkjenning";
         }
-        else if(filed === 1 && pending === 0){
+        else if(filed === 1 && pending === 0) {
             status = "Arkivert";
         }
-        else if(filed === 1 && pending === 1){
+        else if(filed === 1 && pending === 1) {
             status = "Ikke utført";
         }
-        else if(pending === 0 && filed === 0 &&  date > this.getCurrentDate()){
+        else if(pending === 0 && filed === 0 &&  date > this.getCurrentDate()) {
             status = "Kommende";
-        }else{
+        } else {
             status = "Utført";
         }
         return status;
     }
 
+    /**
+     * getColor() is used to determine the outline color of the status marker in event cards by looking at pending and
+     * filed statuses and the date relative to current date.
+     * @param canceled
+     * @param pending
+     * @param filed
+     * @param date
+     * @returns {string}
+     */
     getColor(canceled, pending, filed, date){
         let color;
         if(canceled === 1) {
             color = "danger"
-        }else if(pending === 1 && filed === 0){
+        }else if(pending === 1 && filed === 0) {
             color = "warning";
         }
-        else if(filed === 1 && pending === 0){
+        else if(filed === 1 && pending === 0) {
             color = "secondary";
         }
-        else if(pending === 0 && filed === 0 &&  date > this.getCurrentDate()){
+        else if(pending === 0 && filed === 0 &&  date > this.getCurrentDate()) {
             color = "success";
         }
-        else if(pending === 1 && filed === 1){
+        else if(pending === 1 && filed === 1) {
             color = "primary";
         }else{
             color = "info";
@@ -376,6 +432,10 @@ class EventCard extends Component {
         return color;
     }
 
+    /**
+     * getCurrentDate() formats the date into a format we can use with out other functions.
+     * @returns {string}
+     */
     getCurrentDate() {
         let newDate = new Date();
         let date = newDate.getDate();

@@ -19,8 +19,14 @@
     margin: 200px 0 5px 5px;
     background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) );
     color: white;
-    width: max-content;
     display: inline-block;
+    width: fit-content;
+    overflow-y: auto;
+    min-width: 25%;
+    max-width: 60%;
+}
+.guestCardOverlay::-webkit-scrollbar {
+    display: none;
 }
 
 .guestCardImage{

@@ -6,11 +6,11 @@ import {eventService} from "../../../../service/EventService";
 import NavbarMainPage from "../../../Navbar/NavbarMainPage";
 import Footer from '../../../Footer/Footer';
 import ToTop from '../../../ToTop/ToTop'
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 class GuestMainPage extends Component {
     state = {
         events: [],
-        sortedEvents: [],
     };
 
     componentDidMount(){
@@ -25,13 +25,9 @@ class GuestMainPage extends Component {
         let dates = [];
         let names = [];
         let places = [];
-        let sort = [];
         let id = [];
         if(this.state.events.length >= 3){
-            let clone = this.state.events.slice(0);
-            sort = clone.sort((a,b) => a.date.localeCompare(b.date));
-            console.log(sort);
-            sort.forEach(event => {urls.push(event.img_url); names.push(event.name); places.push(event.place); id.push(event.event_id); dates.push(event.date)});
+            this.state.events.forEach(event => {urls.push(event.img_url); names.push(event.name); places.push(event.place); id.push(event.event_id); dates.push(event.date)});
             return (
                 <div>
                     <div id="GuestMainPageContainer">
@@ -47,7 +43,7 @@ class GuestMainPage extends Component {
                                 <div className="carousel-item active">
                                     <a href = {"#/event/public/" + id[0]}>
 
-                                    <img className="d-block w-100" src={"http://localhost:8080/image/" + urls[0]} alt="First slide"/>
+                                    <img className="d-block w-100" src={"http://" + ipAdress + ":8080/image/" + urls[0]} alt={names[0]}/>
                                         <div className="carousel-caption d-100 d-md-block">
 
                                             <h5>{names[0]}</h5>
@@ -59,7 +55,7 @@ class GuestMainPage extends Component {
                                 <div className="carousel-item">
                                     <a href = {"#/event/public/" + id[1]}>
 
-                                        <img className="d-block w-100" src={"http://localhost:8080/image/" + urls[1]} alt="Second slide"/>
+                                        <img className="d-block w-100" src={"http://" + ipAdress + ":8080/image/" + urls[1]} alt={names[1]}/>
                                         <div className="carousel-caption d-100 d-md-block">
 
                                             <h5>{names[1]}</h5>
@@ -70,7 +66,7 @@ class GuestMainPage extends Component {
                                 </div>
                                 <div className="carousel-item">
                                     <a href = {"#/event/public/" + id[2]}>
-                                    <img className="d-block w-100" src={"http://localhost:8080/image/" + urls[2]} alt={names[2]}/>
+                                    <img className="d-block w-100" src={"http://" + ipAdress + ":8080/image/" + urls[2]} alt={names[2]}/>
                                     <div className="carousel-caption d-100 d-md-block">
                                         <h5>{names[2]}</h5>
                                         <p>{places[2]}</p>
@@ -92,10 +88,29 @@ class GuestMainPage extends Component {
 
                         </div>
 
-                        <div id={"titleAndSearchBarDiv"}>
+                        <div className={"titleAndCardsContainer"}>
                             <div className={"guestMainPageTitleDiv"}>
                                 <h3>Alle arrangementer</h3>
                             </div>
+                            <div className={"eventCardsContainerBackground"}>
+                                <div className={"guestEventCardsContainer"}>
+                                    {this.state.events.map(event => (
+                                        <GuestEventCard key={event.event_id} id={event.event_id} name = {event.name} description = {event.description} date={event.date}
+                                                        place = {event.place} img_url = {event.img_url}/>))
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <Footer />
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                    <div className={"titleAndCardsContainer"}>
+                        <div className={"guestMainPageTitleDiv"}>
+                            <h3>Alle arrangementer</h3>
                         </div>
                         <div className={"eventCardsContainerBackground"}>
                             <div className={"guestEventCardsContainer"}>
@@ -106,34 +121,13 @@ class GuestMainPage extends Component {
                             </div>
                         </div>
                     </div>
-                    <Footer />
-                </div>
-            )
-        }else{
-            return(
-                <div>
-                    <div id={"titleAndSearchBarDiv"}>
-                        <div className={"guestMainPageTitleDiv"}>
-                            <h3>Alle arrangementer</h3>
-                        </div>
-                    </div>
-                    <div className={"eventCardsContainerBackground"}>
-                        <div className={"guestEventCardsContainer"}>
-                            {this.state.events.map(event => (
-                                <GuestEventCard key={event.event_id} id={event.event_id} name = {event.name} description = {event.description} date={event.date}
-                                                place = {event.place} img_url = {event.img_url}/>))
-                            }
-                        </div>
-                    </div>
                 </div>
             )
         }
-
     }
 
     formatDate(backendDate) {
         let thisDate = new Date(backendDate);
-
         let year = thisDate.getFullYear();
         let month = thisDate.getMonth()+1;
         if(month < 10) month = "0" + month;

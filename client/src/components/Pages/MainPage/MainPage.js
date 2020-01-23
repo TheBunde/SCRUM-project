@@ -3,7 +3,7 @@ import '../../../css/MainPage.css';
 import Navbar from '../../Navbar/Navbar.js';
 import {NavbarMainPage} from "../../Navbar/Navbar";
 import {FooterTransparent} from '../../Footer/Footer'
-import { auth } from "../../../service/UserService.js" 
+import { auth } from "../../../service/auth.js"
 import { Redirect } from "react-router-dom"
 
 
@@ -20,9 +20,11 @@ class MainPage extends Component {
         window.scrollTo(0,0);
     }
 
+    /**
+    * Checks if the user is logged in and redirects if true. Further on it shows the portal site, with two options; login and register.
+    */
     render() {  
         return (
-
             auth.authenticated === true
                 ? <Redirect to="/overview" /> // Redirecting to overview page if user already is logged in.
                 : 

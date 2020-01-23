@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import "../../css/LoginForm.css";
 import UserService from "../../service/UserService.js"
-import {authenticate} from "../../service/UserService";
+import {authenticate} from "../../service/auth";
 import {NavbarMainPage} from '../Navbar/Navbar.js'
 import {toast} from "react-toastify";
 

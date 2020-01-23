@@ -3,7 +3,7 @@ import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
 import {FileService} from "../../../service/FileService";
 import {toast} from 'react-toastify';
-import {validateEmail, validatePhone} from "../../../validaters";
+import {validateEmail, validatePhone, validateTickets, validateInput} from "../../../validaters";
 
 import Calendar from 'react-calendar'
 import Navbar from '../../Navbar/Navbar'
@@ -121,8 +121,9 @@ class AddEvent extends Component {
      * @returns {boolean} false if inputs
      */
     formValidation() {
-        return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === ""
-            || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
+        return (validateInput(this.state.Name) && this.state.Description !== "" && validateInput(this.state.Place)
+            && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail) && this.ticketCheck());
+
     }
 
     /**
@@ -133,17 +134,21 @@ class AddEvent extends Component {
     ticketCheck() {
         let status = false;
         let belowZero = false;
+
         this.state.Tickets.map(ticket => {
-            if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
-                status = true;
-                if(this.state[ticket.name +"TicketPrice"] === "" || this.state[ticket.name +"TicketPrice"] === null){
+            if(this.state[ticket.name + "TicketBox"]) {
+                if (this.state[ticket.name + "TicketAmount"] > 0 && this.state[ticket.name + "TicketAmount"] !== null && this.state[ticket.name + "TicketPrice"] !== null) {
+                    if (validateTickets(this.state[ticket.name + "TicketAmount"]) && validateTickets(this.state[ticket.name + "TicketPrice"])) {
+                        status = true;
+                    } else {
+                        belowZero = true;
+                    }
+                } else {
                     belowZero = true;
                 }
             }
-            if(this.state[ticket.name + "TicketAmount"] < 0 || this.state[ticket.name + "TicketPrice"] < 0){
-                belowZero = true;
-            }
         });
+
         if(!belowZero) {
             return status;
         }

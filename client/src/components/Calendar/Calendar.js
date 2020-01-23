@@ -1,12 +1,8 @@
-//import React from 'react'
 import listPlugin from '@fullcalendar/list';
-
 import * as React from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-
 import '../../css/Calendar.css';
 import { createHashHistory } from 'history';
 import './main.scss'
@@ -22,11 +18,12 @@ const history = createHashHistory();
 /**
  * @class Calendar
  */
-export default class Calendar extends React.Component {
+class Calendar extends React.Component {
     check;
     size;
+
     /**
-     * 
+     * Sets the state of an event array to be empty
      * @param {json} props 
      */
     constructor(props) {
@@ -36,20 +33,25 @@ export default class Calendar extends React.Component {
         }
     }
 
+    /**
+     * authenticate() runs to see if the user is logged in
+     * if / else sets a check variable true if they are logged in and false if are not
+     * Variable list is made empty
+     * Every active event (has been approved and is upcoming) are picked up from the database
+     * The data we want from the database are filtered out and pushed to the list variable
+     * the state are set to be everything that is on the list variable
+     */
     componentDidMount() {
         authenticate();
         if (auth.authenticated) {
-            console.log("Er logget inn");
             this.check = true;
         }else{
 
             this.check = false;
-            console.log("Er ikke logget inn");
         }
         let list = [];
         eventService.getAllActive().then(events => {
             events.map(item => list.push({id: item.event_id, title: item.name, date: this.formatDate(item.date)}))
-            console.log(list);
             this.setState({
                     events: list
                 }
@@ -57,8 +59,9 @@ export default class Calendar extends React.Component {
     }
 
     /**
-     * 
+     * the date are returned in the format year-month-date
      * @param {date} backendDate - Date from backend
+     * @returns {*}
      */
     formatDate(backendDate) {
         let thisDate = new Date(backendDate);
@@ -72,9 +75,17 @@ export default class Calendar extends React.Component {
         return year + "-" + month + "-" + date;
     }
 
+    /**
+     * variable size is set to the inner width of the window
+     * variable def is changed if size is bigger than 800 px
+     * the return() methods vary on if the user is logged in or not
+     * the calendar is a pre-made react component
+     * the def variable decides the outlook of the calendar based on the screen width with defaultValue
+     * the events in the calendar are the one set in the state
+     * @returns {*}
+     */
     render() {
         this.size = window.innerWidth;
-        let myEvents = this.state.events;
         let def;
         if(this.size > 800){
             def = "dayGridMonth";
@@ -97,7 +108,7 @@ export default class Calendar extends React.Component {
                                 right: ''
                             }}
                             eventLimit={true}
-                            events={myEvents}
+                            events={this.state.events}
                             eventClick={function (calEvent) {
                                 confirmAlert({
                                     title: calEvent.event._def.title,
@@ -136,7 +147,7 @@ export default class Calendar extends React.Component {
                             right: ''
                         }}
                         eventLimit={true}
-                        events={myEvents}
+                        events={this.state.events}
                         eventClick={function (calEvent) {
                             confirmAlert({
                                 title: calEvent.event._def.title,
@@ -159,5 +170,7 @@ export default class Calendar extends React.Component {
         }
     }
 }
+
+export default Calendar;
 
 

@@ -21,9 +21,6 @@ class OverviewPage extends Component{
         window.scrollTo(0,0);
         authenticate();
 
-        let profileService = new ProfileService();
-        profileService.getUser(auth.user_id)
-
         let userService = new UserService();
         userService.getUser(auth.user_id).then(user => {
                     this.setState({

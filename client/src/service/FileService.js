@@ -7,8 +7,9 @@ let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
  */
 export class FileService {
   /**
-   *
-   * @param {image} image - Takes a image
+   * Method to uploaded a image to the server
+   * @param image which will be uploaded
+   * @returns {Promise<AxiosResponse<T>>}
    */
   uploadImage(image) {
     const url = "http://" + ipAdress + ":8080/upload";
@@ -21,9 +22,11 @@ export class FileService {
     };
     return axios.post(url, formData, config);
   }
+
   /**
-   *
-   * @param {file} files - Takes multiple files
+   * Method to upload a maximum of 5 files to the server
+   * @param files to be uploaded
+   * @returns {Promise<AxiosResponse<T>>}
    */
   uploadFiles(files) {
     const url = "http://" + ipAdress + ":8080/uploadFiles";
@@ -38,9 +41,11 @@ export class FileService {
     };
     return axios.post(url, formData, config);
   }
+
   /**
-   *
-   * @param {file} file - Takes one file
+   * Method to upload one file (word, pdf, txt)
+   * @param file to be uploaded
+   * @returns {Promise<AxiosResponse<T>>}
    */
   uploadFile(file) {
     const url = "http://" + ipAdress + ":8080/uploadFile";
@@ -54,6 +59,11 @@ export class FileService {
     return axios.post(url, formData, config);
   }
 
+  /**
+   * Method to return a file
+   * @param fileName of the file we want to get
+   * @returns {Promise<AxiosResponse<T>>}
+   */
   getFile(fileName) {
     const url = "http://" + ipAdress + ":8080/image/" + fileName;
     console.log("URL:");

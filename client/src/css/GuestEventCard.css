@@ -51,6 +51,18 @@
         margin-top: 10px;
     }
 }
+@media only screen and (max-width: 400px){
+    #guestEventCardCard{
+        object-fit: contain;
+    }
+
+    .guestCardOverlay{
+        word-break: break-word;
+        max-width: 280px;
+        margin-top: 190px;
+        object-fit: contain;
+    }
+}
 
 
 

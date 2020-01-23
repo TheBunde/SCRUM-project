@@ -392,7 +392,7 @@ class EventView extends Component{
     submitEventApproveButton(id) {
         confirmAlert({
             title: 'Bekreftelse av godkjenning',
-            message: 'Er du sikker på at du vil godkjnne arrangementet?',
+            message: 'Er du sikker på at du vil godkjenne arrangementet?',
             buttons: [
                 {
                     label: 'Ja',

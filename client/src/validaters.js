@@ -6,3 +6,7 @@ export function validateEmail(email) {
 export function validatePhone(phone) {
     return phone.match(/^\d{8}$/);
 }
+
+export function validateTickets(ticket) {
+    return /^\d{1,9}$/.test(ticket);
+}

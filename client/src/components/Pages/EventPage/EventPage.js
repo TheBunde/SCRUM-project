@@ -9,6 +9,7 @@ import ToTop from '../../ToTop/ToTop'
 
 var moment = require("moment");
 moment().format();
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 export class event {
     constructor(event_id, name, date, description, place, artists, tech_rider, hospitality_rider, personnel, category_id, filed, pending, canceled, img_url){
@@ -308,7 +309,7 @@ class EventCard extends Component {
             <div id="eventPageEventCardLink">
                 <a href = {"#/event/" + this.props.event_id}>
                     <div class="card eventPageEventCard">
-                            <img id="eventPageCardImg" class="card-img-top eventPageEventCardImg" src={"http://localhost:8080/image/" + this.props.img_url} alt={this.props.name} />
+                            <img id="eventPageCardImg" class="card-img-top eventPageEventCardImg" src={"http://" + ipAdress + ":8080/image/" + this.props.img_url} alt={this.props.name} />
 
                             <div class="card-body" id="eventPageOuterCardBody">
 

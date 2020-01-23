@@ -7,6 +7,7 @@ import Calendar from 'react-calendar'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 import {FileService} from "../../../service/FileService";
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 class EditEvent extends Component{
     /**
@@ -354,7 +355,7 @@ class EditEvent extends Component{
                         <div >
                             <p id = "EventInputLabels">Nåværende Tech Riders:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Tech)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Tech)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
@@ -377,7 +378,7 @@ class EditEvent extends Component{
                         <div >
                             <p id = "EventInputLabels">Nåværende Hospitality Riders:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Hospitality)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Hospitality)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
@@ -400,7 +401,7 @@ class EditEvent extends Component{
                         <div >
                             <p id = "EventInputLabels">Nåværende Personnel:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Personnel)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Personnel)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
@@ -423,7 +424,7 @@ class EditEvent extends Component{
                         <div>
                             <p id = "EventInputLabels">Nåværende Kontrakt:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Contract)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Contract)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
@@ -446,7 +447,7 @@ class EditEvent extends Component{
                         <div >
                             <p id = "EventInputLabels">Nåværende Bilde:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Picture)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Picture)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>

@@ -56,7 +56,8 @@ let pool = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB,
-    debug: false
+    debug: false,
+    charset: 'utf8mb4_general_ci'
 });
 
 

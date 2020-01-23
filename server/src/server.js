@@ -162,7 +162,7 @@ app.get("/contactinfo/:id",verifyToken, (req, res) => {
         if (err) {
             res.sendStatus(401);
         } else {
-            eventDao.getContactinfoForEvent(req.params.id, (status, data) =>{
+            eventDao.getContactInfoForEvent(req.params.id, (status, data) =>{
                 res.status(status);
                 res.json(data);
             })

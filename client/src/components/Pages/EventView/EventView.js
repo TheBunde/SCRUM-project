@@ -392,7 +392,7 @@ class EventView extends Component{
     submitEventApproveButton(id) {
         confirmAlert({
             title: 'Bekreftelse av godkjenning',
-            message: 'Er du sikker på at du vil godkjnne arrangementet?',
+            message: 'Er du sikker på at du vil godkjenne arrangementet?',
             buttons: [
                 {
                     label: 'Ja',
@@ -425,9 +425,11 @@ class EventView extends Component{
         console.log(id);
         eventService
             .deleteEvent(id)
+            .then(() =>{
+                this.notifyDeleteSuccess();
+                history.push("/event")
+            } )
             .catch(e => console.error(e));
-        this.notifyDeleteSuccess();
-        history.push("/event")
     }
 
     archive(id){

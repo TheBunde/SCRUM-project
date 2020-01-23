@@ -18,6 +18,7 @@ class About extends Component{
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         authenticate();
         console.log(auth.authenticated);
         if (auth.authenticated) {

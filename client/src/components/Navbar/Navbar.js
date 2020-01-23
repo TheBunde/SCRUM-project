@@ -70,12 +70,12 @@ class Navbar extends Component {
   render() {
     return (
       <div>
-        <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
-          <a class="navbar-brand" href="#/overview">
+        <nav className="navbar navbar-expand-lg navbar-dark" id="navbar">
+          <a className="navbar-brand" href="#/overview">
             <h1>Harmoni</h1>
           </a>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -83,10 +83,10 @@ class Navbar extends Component {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                 <a className="nav-link" href="#/">
                   Forside
@@ -105,9 +105,9 @@ class Navbar extends Component {
                 </a>
               </li>
 
-              <li class="nav-item dropdown">
+              <li className="nav-item dropdown">
                 <a
-                  class="nav-link dropdown-toggle"
+                    className="nav-link dropdown-toggle"
                   href="#"
                   role="button"
                   data-toggle="dropdown"
@@ -117,14 +117,14 @@ class Navbar extends Component {
                   Arrangementer
                 </a>
                 <div
-                  class="dropdown-menu"
+                    className="dropdown-menu"
                   aria-labelledby="navbarDropdown"
                   id="navbarDropdown"
                 >
-                  <a class="dropdown-item" href="#/event">
+                  <a className="dropdown-item" href="#/event">
                     Alle arrangementer
                   </a>
-                  <a class="dropdown-item" href="#/overview/addEvent">
+                  <a className="dropdown-item" href="#/overview/addEvent">
                     Legg til arrangement
                   </a>
                 </div>

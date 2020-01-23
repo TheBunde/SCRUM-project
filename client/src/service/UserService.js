@@ -71,7 +71,6 @@ export const auth = {
     user_id : "",
     authenticate(){
         let response = parseJwt(localStorage.getItem("token"));
-        console.log(response);
         if(response !== null && response.role !== undefined){
             this.authenticated = true;
             this.role = response.role.slice(1, response.role.length-1);
@@ -154,7 +153,6 @@ export class UserService {
     getUser(userID){
         return Axios.get("http://" + ipAdress + ":8080/user/" + userID, {headers: authenticationHeader()}).then(response => {
             let a = response.data[0];
-            console.log(a);
             return new User(
                 a.user_id,
                 a.name,

@@ -6,7 +6,6 @@ class GuestEventCard extends Component {
     render(){
         return (
             <div>
-
                 <a href = {"#/event/public/" + this.props.id}>
                     <div className="card bg-dark text-white guestEventCard" id="guestEventCardCard">
                         <img className="card-img guestCardImage" src={"http://localhost:8080/image/" + this.props.img_url} alt="Card image"/>
@@ -17,7 +16,6 @@ class GuestEventCard extends Component {
                     </div>
                 </a>
             </div>
-
         )
     }
 }

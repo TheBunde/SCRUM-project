@@ -10,19 +10,20 @@ import {auth, authenticate} from "../../../service/UserService";
 // About, will be called by the "om" link in the footer
 
 class About extends Component{
+
     constructor(props) {
         super(props);
         this.state = {
-            loggedIn: false
+            loggedIn: false //sets a standard state that the user is not logged in
         }
     }
 
     componentDidMount() {
-        authenticate();
-        console.log(auth.authenticated);
+        window.scrollTo(0,0);
+        authenticate(); //runs a check to see if the user is actually logged in
         if (auth.authenticated) {
             this.setState({
-                loggedIn : true
+                loggedIn : true // if the user is logged in the state is changed
             })
         }
     }
@@ -72,9 +73,6 @@ class About extends Component{
                         </div>
                     </div>
                 </div>
-
-
-
                 <Footer/>
             </div>
         );

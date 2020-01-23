@@ -25,6 +25,7 @@ class OverviewPage extends Component{
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         authenticate();
         console.log(auth.user_id);
         let userService = new UserService();

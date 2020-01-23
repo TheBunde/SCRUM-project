@@ -72,6 +72,7 @@ class EditProfile extends Component {
 
 
     componentDidMount() {
+        window.scrollTo(0,0);
         authenticate();
         if (this.props.match.params.userID === auth.user_id) {
             let userService = new UserService();

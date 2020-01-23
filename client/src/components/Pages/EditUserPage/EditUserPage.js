@@ -26,6 +26,39 @@ class EditUserPage extends Component {
     };
 
 
+    componentDidMount() {
+        window.scrollTo(0,0);
+        adminService.getUser(this.props.match.params.id)
+            .then((user) => {
+                    this.setState({
+                        id : this.props.match.params.id,
+                        name: user[0].name,
+                        email: user[0].email,
+                        phone: user[0].phone,
+                        profile_photo : user[0].profile_photo,
+                        approved: user[0].approved,
+                        tempRole: user[0].role_id
+                    });
+                adminService.getRoleByID(this.state.tempRole).then(role => this.setState({roleChosen: role[0].role})).catch(error => console.error(error))
+                }
+            )
+            .catch((error) => {
+                console.error(error);
+            });
+        let roles = [];
+        adminService.getRoles().then(rolesReceived => {
+            rolesReceived.map(role => {
+                roles.push(role.role)
+            });
+            this.setState({
+                roles: roles
+            })
+
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
+
     render() {
         return (
             <div className="pageSetup">
@@ -200,38 +233,7 @@ class EditUserPage extends Component {
         }
     };
 
-    componentDidMount() {
-        window.scrollTo(0,0);
-        adminService.getUser(this.props.match.params.id)
-            .then((user) => {
-                    this.setState({
-                        id : this.props.match.params.id,
-                        name: user[0].name,
-                        email: user[0].email,
-                        phone: user[0].phone,
-                        profile_photo : user[0].profile_photo,
-                        approved: user[0].approved,
-                        tempRole: user[0].role_id
-                    });
-                adminService.getRoleByID(this.state.tempRole).then(role => this.setState({roleChosen: role[0].role})).catch(error => console.error(error))
-                }
-            )
-            .catch((error) => {
-                console.error(error);
-            });
-        let roles = [];
-        adminService.getRoles().then(rolesReceived => {
-            rolesReceived.map(role => {
-                roles.push(role.role)
-            });
-            this.setState({
-                roles: roles
-            })
-
-        }).catch((error) => {
-            console.error(error);
-        });
-    }
+    
 }
 
 export default EditUserPage;

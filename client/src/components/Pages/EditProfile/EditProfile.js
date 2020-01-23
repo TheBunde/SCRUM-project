@@ -119,6 +119,15 @@ class EditProfile extends Component {
     });
 
     /**
+     * Notifies the user if the data they wrote inn is too large
+     * @returns {ToastId}
+     */
+    notifyTooBigData = () => toast("Navnet du forsøkte å redigere inneholder for mange karakterer", {
+        type: toast.TYPE.ERROR,
+        position: toast.POSITION.BOTTOM_LEFT
+    });
+
+    /**
      * authenticate() runs to get the authenticated user that is logged in
      * the auth.user_id has to match the user_id that are in the params
      * then the user values are picked up from the database and set in the user state
@@ -306,11 +315,11 @@ class EditProfile extends Component {
 
     /**
      * If any of the fields are empty, prompt the user to fill them in before proceeding
-     * KAN NOEN SOM KJENNER METODEN KOMMENTERE
-     * @param e
+     * Verifies that the passwords fields are filled out
+     * If so the method will check that the old password is correct, and then validate the newPassword and repeatNewPassword field.
      * @returns {boolean}
      */
-    changePW = (e) => {
+    changePW = () => {
         let userService = new UserService();
 
         const email = this.state.user.email;
@@ -353,10 +362,10 @@ class EditProfile extends Component {
 
     /**
      * first it check if any input-fields are empty and if it isn't it tries to change password
-     * KAN NOEN SOM KJENNER METODEN KOMMENTERE
-     * @param e
+     * The method will then validate the filesize, and refuse to upload files which are too big
+     * Thereafter the update of the user will be done
      */
-    save = (e) => {
+    save = () => {
         if (this.checkFields()) {
             const oldPWInput = document.getElementById("oldPasswordInput").value;
             const newPWInput = document.getElementById("newPasswordInput").value;
@@ -403,6 +412,8 @@ class EditProfile extends Component {
                                         this.notifyUsedEmail();
                                     } else if (err.response.data.sqlMessage.indexOf("phone") > -1) {
                                         this.notifyUsedPhone();
+                                    } else if (err.response.data.sqlMessage.indexOf("Data too long") > -1) {
+                                        this.notifyTooBigData();
                                     } else {
                                         this.notifyFailure();
                                     }
@@ -443,6 +454,8 @@ class EditProfile extends Component {
                                     this.notifyUsedEmail();
                                 } else if(err.response.data.sqlMessage.indexOf("phone") > -1) {
                                     this.notifyUsedPhone();
+                                } else if (err.response.data.sqlMessage.indexOf("Data too long") > -1) {
+                                    this.notifyTooBigData();
                                 } else {
                                     this.notifyFailure();
                                 }

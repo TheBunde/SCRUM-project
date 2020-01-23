@@ -3,7 +3,7 @@ import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
 import {FileService} from "../../../service/FileService";
 import {toast} from 'react-toastify';
-import {validateEmail, validatePhone, validateTickets} from "../../../validaters";
+import {validateEmail, validatePhone, validateTickets, validateInput} from "../../../validaters";
 
 import Calendar from 'react-calendar'
 import Navbar from '../../Navbar/Navbar'
@@ -121,8 +121,9 @@ class AddEvent extends Component {
      * @returns {boolean} false if inputs
      */
     formValidation() {
-        return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === ""
-            || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
+        return (validateInput(this.state.Name) && validateInput(this.state.Description) && validateInput(this.state.Place)
+            && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail) && this.ticketCheck());
+
     }
 
     /**

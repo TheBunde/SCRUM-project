@@ -73,7 +73,7 @@ module.exports = class adminDao extends Dao{
         super.query("SELECT category_id FROM Event WHERE event_id = ?", [eventID], callback)
     }
 
-    getContactinfoForEvent(eventID, callback){
+    getContactInfoForEvent(eventID, callback){
         super.query("SELECT * FROM Contact_Info WHERE event_id = ?", [eventID], callback)
     }
 

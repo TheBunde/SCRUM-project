@@ -306,11 +306,11 @@ class EditProfile extends Component {
 
     /**
      * If any of the fields are empty, prompt the user to fill them in before proceeding
-     * KAN NOEN SOM KJENNER METODEN KOMMENTERE
-     * @param e
+     * Verifies that the passwords fields are filled out
+     * If so the method will check that the old password is correct, and then validate the newPassword and repeatNewPassword field.
      * @returns {boolean}
      */
-    changePW = (e) => {
+    changePW = () => {
         let userService = new UserService();
 
         const email = this.state.user.email;
@@ -353,10 +353,10 @@ class EditProfile extends Component {
 
     /**
      * first it check if any input-fields are empty and if it isn't it tries to change password
-     * KAN NOEN SOM KJENNER METODEN KOMMENTERE
-     * @param e
+     * The method will then validate the filesize, and refuse to upload files which are too big
+     * Thereafter the update of the user will be done
      */
-    save = (e) => {
+    save = () => {
         if (this.checkFields()) {
             const oldPWInput = document.getElementById("oldPasswordInput").value;
             const newPWInput = document.getElementById("newPasswordInput").value;

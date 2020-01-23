@@ -58,6 +58,11 @@ class EditProfile extends Component {
         position: toast.POSITION.BOTTOM_LEFT
     });
 
+    notifyPasswordLength = () => toast("Det nye passordet må bestå av minst 8 tegn", {
+        type: toast.TYPE.ERROR,
+        position: toast.POSITION.BOTTOM_LEFT
+    });
+
     notifyTooBigFile = () => toast("Filen du forsøkte å laste opp var for stor", {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
@@ -259,7 +264,10 @@ class EditProfile extends Component {
         ) {
             this.notifyMissingPassword();
             return false;
-        } else {
+        } else if(newPWInput.length < 8){
+            this.notifyPasswordLength();
+            return false;
+        } else{
             if (newPWInput !== reNewPWInput) {
                 this.notifyPasswordNoMatch();
             } else {

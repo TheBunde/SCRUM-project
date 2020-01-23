@@ -44,7 +44,7 @@ class ViewUser extends Component {
                         </div>
                     </div>
                     <div className="col-sm-2" id="viewUserEditButton">
-                        <button className="btn btn-primary" onClick={() => {this.handleClick.bind(this); window.location.href="#/admin/users/" + this.props.id + "/edit"}} role="button">Rediger</button>
+                        <button className="btn btn-primary" onClick={() => {this.handleClick.bind(this); window.location.href="#/admin/users/" + this.props.id + "/edit"}}>Rediger</button>
                     </div>
                      </div>
                 </li>

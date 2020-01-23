@@ -30,7 +30,6 @@ export const auth = {
     user_id : "",
     authenticate(){
         let response = parseJwt(localStorage.getItem("token"));
-        console.log(response);
         if(response !== null && response.role !== undefined){
             this.authenticated = true;
             this.role = response.role.slice(1, response.role.length-1);

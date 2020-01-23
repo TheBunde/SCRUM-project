@@ -37,9 +37,9 @@ export class User {
         this.roleid = roleId;
         this.approved = approved;
     }
-
-
 }
+
+
 
 /**
  * User service
@@ -93,7 +93,7 @@ export class UserService {
             {
                 "email" : email
             }
-            )
+        )
     }
 
     /**
@@ -110,7 +110,6 @@ export class UserService {
     getUser(userID){
         return Axios.get("http://" + ipAdress + ":8080/user/" + userID, {headers: authenticationHeader()}).then(response => {
             let a = response.data[0];
-            console.log(a);
             return new User(
                 a.user_id,
                 a.name,

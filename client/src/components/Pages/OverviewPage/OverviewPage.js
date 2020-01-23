@@ -7,12 +7,9 @@ import {ProfileService} from "../../../service/ProfileService";
 import Footer from '../../Footer/Footer';
 import {auth, authenticate} from "../../../service/UserService";
 
-
 const history = createHashHistory();
 
-
 class OverviewPage extends Component{
-
     constructor(props) {
         super(props);
         this.state = {
@@ -21,13 +18,8 @@ class OverviewPage extends Component{
         }
     }
 
-    getUserID(){
-        console.log(this.state.user.user_id);
-    }
-
     componentDidMount() {
         authenticate();
-        console.log(auth.user_id);
         let profileService = new ProfileService();
         profileService.getUser(auth.user_id)
             .then(user => {
@@ -36,76 +28,83 @@ class OverviewPage extends Component{
                     })
                 }
             )
-            .catch((error) => {
-                console.error(error);
-            });
-        console.log("SE ME " + this.state.user)
+            .catch(error => console.error(error));
     };
 
     render() {
-
         return (
             <div class="pageSetup">
                 <Navbar/>
+
+                {/* ---- JUMBOTRON ---- */}
 
                 <div className="jumbotron jumbotron-fluid">
                     <div className="titleContainer">
                         <h1 id={"jumbotronTitle"} className="display-4">Skap harmoni.</h1>
                     </div>
                 </div>
+
+
+                {/* ---- CARDS ---- */}
+
                 <div id="OverviewDiv">
+                    <div id="overviewPageCardContainer">
 
-                <div id="overviewPageCardContainer">
+                        {/* ---- ADD ARRANGEMENT CARD ---*/}
 
-                    <div id="overviewPageCardContent" className="card overview">
-                        <div className="card-body">
-                            <div id="overviewPageCardTitle">
-                                <h5 className="card-title">Legg til arrangement</h5>
-                            </div>
-                            <div id="overviewPageCardText">
-                                <p className="card-text">Legg til de eventene du måtte ønske.</p>
-                            </div>
-                            <div id="overviewPageCardBtn">
-                                <button className="btn btn-primary" onClick={this.addEvent} role="button">Legg til arrangement</button>
+                        <div id="overviewPageCardContent" className="card overview">
+                            <div className="card-body">
+                                <div id="overviewPageCardTitle">
+                                    <h5 className="card-title">Legg til arrangement</h5>
+                                </div>
+                                <div id="overviewPageCardText">
+                                    <p className="card-text">Legg til de eventene du måtte ønske.</p>
+                                </div>
+                                <div id="overviewPageCardBtn">
+                                    <button className="btn btn-primary" onClick={this.addEvent} role="button">Legg til arrangement</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div id="overviewPageCardContent" className="card overview">
-                        <div className="card-body">
-                            <div id="overviewPageCardTitle">
-                                <h5 className="card-title">Se alle arrangementer</h5>
-                            </div>
-                            <div id="overviewPageCardText">
-                                <p className="card-text">Få en oversikt over alle dine arrangementer.</p>
-                            </div>
-                            <div id="overviewPageCardBtn">
-                                <button className="btn btn-success" onClick={this.seeEvents} role="button">Se alle arrangement</button>
+                        {/* ---- SEE ALL ARRANGEMENTS CARD ---*/}
+
+                        <div id="overviewPageCardContent" className="card overview">
+                            <div className="card-body">
+                                <div id="overviewPageCardTitle">
+                                    <h5 className="card-title">Se alle arrangementer</h5>
+                                </div>
+                                <div id="overviewPageCardText">
+                                    <p className="card-text">Få en oversikt over alle dine arrangementer.</p>
+                                </div>
+                                <div id="overviewPageCardBtn">
+                                    <button className="btn btn-success" onClick={this.seeEvents} role="button">Se alle arrangement</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div id="overviewPageCardContent" className="card overview">
-                        <div className="card-body">
-                            <div id="overviewPageCardTitle">
-                                <h5 className="card-title">Vis profil</h5>
-                            </div>
-                            <div id="overviewPageCardText">
-                                <p className="card-text">Vil du endre profilen din kan du gjøre det her.</p>
-                            </div>
-                            <div id="overviewPageCardBtn">
-                                <button className="btn btn-warning" onClick={() => this.seeProfile(auth.user_id)}  role="button">Vis profil</button>
+                        {/* ---- SHOW PROFILE CARD ---*/}
+
+                        <div id="overviewPageCardContent" className="card overview">
+                            <div className="card-body">
+                                <div id="overviewPageCardTitle">
+                                    <h5 className="card-title">Vis profil</h5>
+                                </div>
+                                <div id="overviewPageCardText">
+                                    <p className="card-text">Vil du endre profilen din kan du gjøre det her.</p>
+                                </div>
+                                <div id="overviewPageCardBtn">
+                                    <button className="btn btn-warning" onClick={() => this.seeProfile(auth.user_id)}  role="button">Vis profil</button>
+                                </div>
                             </div>
                         </div>
+
+
                     </div>
-                </div>
                 </div>
                 <Footer />
             </div>
         );
     }
-
-
 
     addEvent(){
         history.push("/overview/addEvent")
@@ -119,10 +118,6 @@ class OverviewPage extends Component{
         console.log("SE ME ");
 
         history.push("/profile/" + id)
-    }
-
-    logOut(){
-        history.push("/")
     }
 }
 

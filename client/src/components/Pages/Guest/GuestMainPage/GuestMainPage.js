@@ -9,7 +9,6 @@ import Footer from '../../../Footer/Footer';
 class GuestMainPage extends Component {
     state = {
         events: [],
-        sortedEvents: [],
     };
 
     componentDidMount(){
@@ -24,13 +23,9 @@ class GuestMainPage extends Component {
         let dates = [];
         let names = [];
         let places = [];
-        let sort = [];
         let id = [];
         if(this.state.events.length >= 3){
-            let clone = this.state.events.slice(0);
-            sort = clone.sort((a,b) => a.date.localeCompare(b.date));
-            console.log(sort);
-            sort.forEach(event => {urls.push(event.img_url); names.push(event.name); places.push(event.place); id.push(event.event_id); dates.push(event.date)});
+            this.state.events.forEach(event => {urls.push(event.img_url); names.push(event.name); places.push(event.place); id.push(event.event_id); dates.push(event.date)});
             return (
                 <div>
                     <div id="GuestMainPageContainer">
@@ -90,10 +85,29 @@ class GuestMainPage extends Component {
 
                         </div>
 
-                        <div id={"titleAndSearchBarDiv"}>
+                        <div className={"titleAndCardsContainer"}>
                             <div className={"guestMainPageTitleDiv"}>
                                 <h3>Alle arrangementer</h3>
                             </div>
+                            <div className={"eventCardsContainerBackground"}>
+                                <div className={"guestEventCardsContainer"}>
+                                    {this.state.events.map(event => (
+                                        <GuestEventCard key={event.event_id} id={event.event_id} name = {event.name} description = {event.description} date={event.date}
+                                                        place = {event.place} img_url = {event.img_url}/>))
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <Footer />
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                    <div className={"titleAndCardsContainer"}>
+                        <div className={"guestMainPageTitleDiv"}>
+                            <h3>Alle arrangementer</h3>
                         </div>
                         <div className={"eventCardsContainerBackground"}>
                             <div className={"guestEventCardsContainer"}>
@@ -104,34 +118,13 @@ class GuestMainPage extends Component {
                             </div>
                         </div>
                     </div>
-                    <Footer />
-                </div>
-            )
-        }else{
-            return(
-                <div>
-                    <div id={"titleAndSearchBarDiv"}>
-                        <div className={"guestMainPageTitleDiv"}>
-                            <h3>Alle arrangementer</h3>
-                        </div>
-                    </div>
-                    <div className={"eventCardsContainerBackground"}>
-                        <div className={"guestEventCardsContainer"}>
-                            {this.state.events.map(event => (
-                                <GuestEventCard key={event.event_id} id={event.event_id} name = {event.name} description = {event.description} date={event.date}
-                                                place = {event.place} img_url = {event.img_url}/>))
-                            }
-                        </div>
-                    </div>
                 </div>
             )
         }
-
     }
 
     formatDate(backendDate) {
         let thisDate = new Date(backendDate);
-
         let year = thisDate.getFullYear();
         let month = thisDate.getMonth()+1;
         if(month < 10) month = "0" + month;

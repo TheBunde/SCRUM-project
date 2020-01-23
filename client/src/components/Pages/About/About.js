@@ -4,7 +4,7 @@ import Footer from '../../Footer/Footer'
 import NavbarMainPage from '../../Navbar/NavbarMainPage'
 import NavBar from "../../Navbar/Navbar";
 import '../../../css/About.css'
-import {auth, authenticate} from "../../../service/UserService";
+import {auth, authenticate} from "../../../service/auth";
 
 
 // About, will be called by the "om" link in the footer

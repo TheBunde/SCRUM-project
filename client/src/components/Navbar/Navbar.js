@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "../../css/Navbar.css";
 import $ from "jquery";
-import { auth, authenticate, UserService } from "../../service/UserService";
+import { auth, authenticate } from "../../service/auth";
+import UserService from "../../service/UserService";
 
 /**
 * Comment about the Bootstrap-alignment

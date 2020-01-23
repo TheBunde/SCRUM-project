@@ -5,12 +5,22 @@
     padding-bottom: 20px;
 }
 
-.guestMainPageTitleDiv{
-    margin-left: 70px;
-    float: left;
-    margin-top: 100px;
-    display: flex;
+.guestEventCardsContainer{
+    padding: 10px 40px 10px 10px;
+    grid-gap: 30px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 90%;
+    margin: auto;
 }
+.guestMainPageTitleDiv{
+    width: 90%;
+    margin: 100px auto auto auto;
+    padding-left: 20px;
+}
+
+
+/* ---- CAROUSEL ---- */
 
 .carousel-caption{
     margin: auto;
@@ -27,6 +37,7 @@
     filter: invert(100%);
 }
 
+
 .carousel-item img{
     object-fit: cover;
 }
@@ -39,14 +50,7 @@
     cursor: pointer;
 }
 
-.guestEventCardsContainer{
-    padding: 10px 40px 10px 10px;
-    grid-gap: 30px;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    width: 90%;
-    margin: auto;
-}
+/* ---- Mobile view ----*/
 
 @media only screen and (max-width: 600px) {
 
@@ -63,11 +67,6 @@
         height: 500px;
         margin-bottom: 200px;
     }
-
-
-
-
-
 
     .guestEventCardsContainer{
         display: flex;

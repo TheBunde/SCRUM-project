@@ -3,7 +3,8 @@ import "../../../css/EditProfile.css"
 import {createHashHistory} from 'history';
 import {FileService} from "../../../service/FileService";
 import {Redirect} from 'react-router-dom';
-import {auth, authenticate, UserService, User} from "../../../service/UserService";
+import {auth, authenticate} from "../../../service/auth";
+import {UserService, User} from "../../../service/UserService";
 import {toast} from 'react-toastify';
 import {validateEmail, validatePhone} from "../../../validaters";
 
@@ -54,6 +55,11 @@ class EditProfile extends Component {
     });
 
     notifyPasswordFailure = () => toast("Du har skrevet inn feil nåværende passord", {
+        type: toast.TYPE.ERROR,
+        position: toast.POSITION.BOTTOM_LEFT
+    });
+
+    notifyPasswordLength = () => toast("Det nye passordet må bestå av minst 8 tegn", {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
     });
@@ -260,7 +266,10 @@ class EditProfile extends Component {
         ) {
             this.notifyMissingPassword();
             return false;
-        } else {
+        } else if(newPWInput.length < 8){
+            this.notifyPasswordLength();
+            return false;
+        } else{
             if (newPWInput !== reNewPWInput) {
                 this.notifyPasswordNoMatch();
             } else {

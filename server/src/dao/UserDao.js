@@ -4,11 +4,18 @@ let bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 
-
+/**
+ * Module for use in DB calls regarding retrieval of user data and functionality
+ * @module UserDao
+ */
 module.exports = class UserDao extends dao {
 
+    /**
+     * @param {Object} json - JSON object containing user info for registration: name, email, phone, profile photo
+     */
     registerUser(json, callback) {
         let val = [json.name, json.email, json.phone, json.profile_photo];
+        /** Hashes password and sends the hashed password to the DB */
         bcrypt.hash(json.password, saltRounds)
             .then((resp) => {
                 val.push(resp);
@@ -23,23 +30,23 @@ module.exports = class UserDao extends dao {
             });
     }
 
-    /*
-    getHash(email, callback) {
-        super.query("SELECT password_hash from User where email = ?", [email], callback);
-    }
-    */
-
     getUser(email, callback) {
         super.query("SELECT * from User join Role on User.role_id = Role.role_id where email = ? ", email, callback);
     }
 
+    /** @function getApprovedUser - Retrieves the user matching the specified email if it is approved */
     getApprovedUser(email, callback) {
         super.query("SELECT * from User JOIN Role on User.role_id = Role.role_id where email = ? AND approved = 1", email, callback)
     }
 
 
+    /** 
+     * Changes password to the provided password
+     * @param {Object} json - JSON object containing user_id and password.
+     */
     changePassword(json, callback) {
         let val = [json.user_id];
+        /** Hashing password and pushing it to the front of the val array for use in query */
         bcrypt.hash(json.password, saltRounds).then(res => {
             val.unshift(res); // Hashing and then inserting at the beginning of val for use in the query.
             super.query(
@@ -48,10 +55,15 @@ module.exports = class UserDao extends dao {
                 callback
             )
         }).catch((err) => {
-            console.log("Error error nono nicht gut");
+            console.error(err);
         });
     }
 
+
+    /**
+     * Updates user in DB with provided attributes
+     * @param {Object} user - Object containing all user info
+     */
     updateProfile(user, callback) {
         if (user.profile_photo === "") {
             let val = [user.name, user.phone, user.email, user.user_id];

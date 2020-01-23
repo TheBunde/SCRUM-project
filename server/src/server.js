@@ -24,12 +24,9 @@ const jwt = require('jsonwebtoken');
  * @see <a href="http://localhost:3000">Harmoni</a>
  */
 
-
-
 /**
  * @type {Object}
  */
-
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(__dirname, "../../files/uploads/"));

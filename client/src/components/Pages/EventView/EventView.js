@@ -12,11 +12,14 @@ import '../../../css/CommentSection.css'
 import {auth} from "../../../service/auth";
 import UserService from "../../../service/UserService";
 import {toast} from "react-toastify";
+
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
-
-
 const history = createHashHistory();
 
+/** 
+* @class EventView
+* class extending React Component, being the component showing all the collected information about an event for users in the host-portal. 
+*/
 class EventView extends Component{
     constructor(props){
         super(props);
@@ -46,6 +49,10 @@ class EventView extends Component{
         this.keyPressed = this.keyPressed.bind(this);
     }
 
+    /** 
+    * @param {String} backendDate
+    * Function formatting the date from MySQL type DATETIME to a presentable string.
+    */
     formatDate(backendDate) {
         let thisDate = new Date(backendDate);
 
@@ -62,6 +69,10 @@ class EventView extends Component{
         return date + "." + month + "." + year + " " + hours + ":" + minutes;
     }
 
+    /** 
+    * @param {String} backendDate
+    * Function formatting the date from MySQL type DATETIME to a presentable string.
+    */
     formatDateComments(backendDate) {
         let tempDate = backendDate;
         let year = tempDate.slice(0, 4);

@@ -41,7 +41,7 @@ class RegisterPage extends Component {
     }
 
     /** 
-    * @param {event}
+    * @param {event} event
     * Function adding a keyEventListener in the inputFields, which listenes after the enter-key and will register if all the fields are filled in correctly.
     */
     keyPressed(event) {

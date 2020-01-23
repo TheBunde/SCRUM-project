@@ -426,9 +426,11 @@ class EventView extends Component{
         console.log(id);
         eventService
             .deleteEvent(id)
+            .then(() =>{
+                this.notifyDeleteSuccess();
+                history.push("/event")
+            } )
             .catch(e => console.error(e));
-        this.notifyDeleteSuccess();
-        history.push("/event")
     }
 
     archive(id){

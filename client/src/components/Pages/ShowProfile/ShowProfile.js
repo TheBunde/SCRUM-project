@@ -5,8 +5,9 @@ import {UserService} from "../../../service/UserService.js";
 import {Redirect} from 'react-router-dom';
 import { User} from "../EditProfile/EditProfile";
 import Navbar from "../../Navbar/Navbar";
-import {authenticate, auth} from "../../../service/UserService";
+import {authenticate, auth} from "../../../service/auth";
 import Footer from "../../Footer/Footer";
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 const history = createHashHistory();
 
@@ -37,6 +38,7 @@ class ShowProfile extends Component {
      *
      */
     componentDidMount() {
+        window.scrollTo(0,0);
         authenticate();
         if (this.props.match.params.userID !== auth.user_id) {
             this.setState({
@@ -74,7 +76,7 @@ class ShowProfile extends Component {
                         <h1>Min profil</h1>
                         <hr id="ShowProfileHR"/>
                         <div id="ShowProfilePic">
-                            <img id="ShowProfileProfile" alt="profilePic" src={this.state.user.profile_photo === null || this.state.user.profile_photo === "" ? "https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" : "http://localhost:8080/image/" + this.state.user.profile_photo}
+                            <img id="ShowProfileProfile" alt="profilePic" src={this.state.user.profile_photo === null || this.state.user.profile_photo === "" ? "https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" : "http://" + ipAdress + ":8080/image/" + this.state.user.profile_photo}
                                  width="250" height="250"/>
                         </div>
                         <div id="ShowProfileText">

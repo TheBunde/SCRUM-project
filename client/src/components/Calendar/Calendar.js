@@ -10,7 +10,7 @@ import NavbarMainPage from "../Navbar/NavbarMainPage";
 import {eventService} from "../../service/EventService";
 import {confirmAlert} from "react-confirm-alert";
 import Footer from "../Footer/Footer";
-import {auth, authenticate} from "../../service/UserService";
+import {auth, authenticate} from "../../service/auth.js";
 import Navbar from "../Navbar/Navbar";
 
 const history = createHashHistory();

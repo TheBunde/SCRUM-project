@@ -86,6 +86,7 @@ class AdminUsersPage extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         adminService.getUsers()
             .then((users) => {
                     this.setState({

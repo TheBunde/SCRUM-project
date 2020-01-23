@@ -3,7 +3,7 @@ import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
 import {FileService} from "../../../service/FileService";
 import {toast} from 'react-toastify';
-import {validateEmail, validatePhone} from "../../../validaters";
+import {validateEmail, validatePhone, validateTickets} from "../../../validaters";
 
 import Calendar from 'react-calendar'
 import Navbar from '../../Navbar/Navbar'
@@ -13,7 +13,7 @@ class AddEvent extends Component {
 
     /**
      * Setting up states for all input variables
-     * @param props
+     * @param {JSON} props
      */
     constructor(props) {
         super(props);
@@ -44,6 +44,7 @@ class AddEvent extends Component {
      * Pulling categories and tickets at startup
      */
     componentDidMount() {
+        window.scrollTo(0,0);
         console.log(this.state);
         eventService
             .getCategories()
@@ -115,7 +116,7 @@ class AddEvent extends Component {
     }
 
     /**
-     *
+     * Form validation that checks if the input is correctly filled
      * @returns {boolean} true if all correct fields are filled
      * @returns {boolean} false if inputs
      */
@@ -124,26 +125,40 @@ class AddEvent extends Component {
             || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
     }
 
+    /**
+     * Form validation that checks if the ticket info is correctly filled
+     * @returns {boolean} true if ticket input is correct
+     * @returns {boolean} false if ticket input is incorrect
+     */
     ticketCheck() {
         let status = false;
         let belowZero = false;
+
         this.state.Tickets.map(ticket => {
-            if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
-                status = true;
-                if(this.state[ticket.name +"TicketPrice"] === "" || this.state[ticket.name +"TicketPrice"] === null){
+            if(this.state[ticket.name + "TicketBox"]) {
+                if (this.state[ticket.name + "TicketAmount"] > 0 && this.state[ticket.name + "TicketAmount"] !== null && this.state[ticket.name + "TicketPrice"] !== null) {
+                    if (validateTickets(this.state[ticket.name + "TicketAmount"]) && validateTickets(this.state[ticket.name + "TicketPrice"])) {
+                        status = true;
+                    } else {
+                        belowZero = true;
+                    }
+                } else {
                     belowZero = true;
                 }
             }
-            if(this.state[ticket.name + "TicketAmount"] < 0 || this.state[ticket.name + "TicketPrice"] < 0){
-                belowZero = true;
-            }
         });
+
         if(!belowZero) {
             return status;
         }
         else return false;
     }
 
+    /**
+     * Form validation that checks if the date is forward in time
+     * @returns {boolean} true if date is forward in time
+     * @returns {boolean} false if date is backwards in time
+     */
     checkDate() {
         let thisDate = this.state.date;
         thisDate.setHours(this.state.dateChosenHour);
@@ -152,6 +167,11 @@ class AddEvent extends Component {
         return thisDate > new Date();
     }
 
+    /**
+     * Rendering all the input connected to states.
+     * Button at bottom that will start Register-process if form validation is correct
+     * @returns {*}
+     */
     render() {
         return (
             <div class="pageSetup">
@@ -448,40 +468,9 @@ class AddEvent extends Component {
         );
     }
 
-    /*
-    testFileUpload() {
-        let fileService = new FileService();
-        let fileContract = document.getElementById("contractInput");
-        let filePersonell = document.getElementById("personellInput");
-        let fileRider1 = document.getElementById("rider1Input");
-        let fileRider2 = document.getElementById("rider2Input");
-
-
-        let filesUpload = [];
-
-        filesUpload.push(fileContract.files[0]);
-        filesUpload.push(filePersonell.files[0]);
-        filesUpload.push(fileRider1.files[0]);
-        filesUpload.push(fileRider2.files[0]);
-
-        console.log(filesUpload);
-        let fileNames = [];
-
-        fileService.uploadFiles(filesUpload)
-            .then((res) => {
-                //
-                console.log(res.data.filePath);
-                console.log(fileNames);
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-
-
-    }
-
+    /**
+     * Uploading contract to server
      */
-
     submitNewContract() {
         let fileService = new FileService();
         let fileContract = document.getElementById("contractInput");
@@ -503,6 +492,9 @@ class AddEvent extends Component {
         }
     }
 
+    /**
+     * Uploading tech rider to server
+     */
     submitNewTechRider() {
         let fileService = new FileService();
         let fileRider1 = document.getElementById("rider1Input");
@@ -523,10 +515,11 @@ class AddEvent extends Component {
                     this.notifyNoFileUploaded();
                 })
         }
-
-
     }
 
+    /**
+     * Uploading hospitality rider to server
+     */
     submitNewHospitalityRider() {
         let fileService = new FileService();
         let fileRider2 = document.getElementById("rider2Input");
@@ -547,10 +540,11 @@ class AddEvent extends Component {
                     this.notifyNoFileUploaded();
                 })
         }
-
-
     }
 
+    /**
+     * Uploading personnel to server
+     */
     submitNewPersonell() {
         let fileService = new FileService();
         let filePersonell = document.getElementById("personellInput");
@@ -571,10 +565,11 @@ class AddEvent extends Component {
                     this.notifyNoFileUploaded();
                 })
         }
-
-
     }
 
+    /**
+     * Uploading picture to server
+     */
     submitNewPicture() {
         let fileService = new FileService();
         let image = document.getElementById("imageInput");
@@ -596,6 +591,9 @@ class AddEvent extends Component {
         }
     }
 
+    /**
+     * Registers the event to the database if all input is valid
+     */
     registerEvent() {
         console.log("Registrating event");
         if (this.formValidation() && this.checkDate()) {
@@ -604,7 +602,6 @@ class AddEvent extends Component {
             } else if (!(validatePhone(this.state.ContactPhone))) {
                 this.notifyUnvalidPhone();
             } else {
-                //Added because the setState above did not run before the request to the database was made -Max
                 let day = this.state.date.getDate();
                 let month = this.state.date.getMonth() + 1;
                 let year = this.state.date.getFullYear();
@@ -636,20 +633,10 @@ class AddEvent extends Component {
         }
     }
 
-    uploadImage() {
-        let fileService = new FileService();
-        let image = document.getElementById("fileInput");
-        console.log(image.files[0]);
-
-        fileService.uploadImage(image.files[0])
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    }
-
+    /**
+     * Using the given eventId to register to tables with eventId as foreign key
+     * @param {number} EventId
+     */
     registerByID(EventId) {
         this.state.Tickets.map(ticket => {
             if (this.state[ticket.name + "TicketBox"]) {

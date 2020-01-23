@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "../../css/Navbar.css";
 import $ from "jquery";
-import { auth, authenticate, UserService } from "../../service/UserService";
+import { auth, authenticate } from "../../service/auth";
+import UserService from "../../service/UserService";
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 /**
 * Comment about the Bootstrap-alignment
@@ -146,7 +148,7 @@ class Navbar extends Component {
                       this.state.user.profile_photo === null ||
                       this.state.user.profile_photo === ""
                         ? "https://www.sketchengine.eu/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
-                        : "http://localhost:8080/image/" +
+                        : "http://" + ipAdress + ":8080/image/" +
                           this.state.user.profile_photo
                     }
                     width="30"

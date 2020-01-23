@@ -3,7 +3,7 @@ import Footer from '../../Footer/Footer'
 import NavbarMainPage from '../../Navbar/NavbarMainPage'
 import NavBar from "../../Navbar/Navbar";
 import '../../../css/About.css'
-import {auth, authenticate} from "../../../service/UserService";
+import {auth, authenticate} from "../../../service/auth";
 
 /**
  * @class About
@@ -27,6 +27,7 @@ class About extends Component{
      * if (auth.authenticated) if the user is logged in the state is changed
      */
     componentDidMount() {
+        window.scrollTo(0,0);
         authenticate();
         if (auth.authenticated) {
             this.setState({

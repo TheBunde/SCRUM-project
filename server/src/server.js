@@ -24,31 +24,13 @@ const jwt = require('jsonwebtoken');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-//app.use(express.static(path.join(__dirname;
 app.use('/ftp', express.static('../../files/uploads'), serveIndex('files', {'icons': true}));
-
-/**
- * Dummy class
- */
-class DummyClass {
-
-}
-
-/**
- * test
- * @typedef {get} get
- * @property {number} id - Student ID
- * 
- */
-
-
 
 /**
  * @type {Object}
  */
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        console.log(__dirname + '/../../..');
         cb(null, path.join(__dirname, "../../files/uploads/"));
     },
     filename: (req, file, cb) => {
@@ -74,7 +56,8 @@ let pool = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB,
-    debug: false
+    debug: false,
+    charset: 'utf8mb4_general_ci'
 });
 
 
@@ -88,6 +71,7 @@ app.use(function (req, res, next) {
     next();
 });
 
+
 const userDao = new UserDao(pool);
 let adminDao = new AdminDao(pool);
 let eventDao = new EventDao(pool);
@@ -99,12 +83,16 @@ let privateKey = (publicKey = secret.secret);
 
 
 /**
- * Get categories
+ * Get categories - Retrieves all categories
  * @function get
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object 
+ * @returns {Promise} Promise object resolving in either an error or all categories
  */
-app.get("/categories", verifyToken,(req, res) => {
+app.get("/categories", verifyToken, (req, res) => {
     /**
-     * verify
+     * verification using JWT (JSON Web Tokens)
+     * [Link](https://jwt.io/)
      */
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
@@ -118,11 +106,18 @@ app.get("/categories", verifyToken,(req, res) => {
     });
 
 });
+
 /**
  * GET category id
  * @function get /category/:id
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object 
  */
 app.get("/category/:id", verifyToken,(req, res) =>{
+    /**
+     * verification using JWT (JSON Web Tokens)
+     * [Link](https://jwt.io/)
+     */
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
             res.sendStatus(401);
@@ -139,10 +134,17 @@ app.get("/category/:id", verifyToken,(req, res) =>{
 
 
 //CONTACTINFO
-/** test
- * @default test
+
+/** Posts contact info provided in request body
+ * @function post
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object 
  */
 app.post("/contactinfo", verifyToken,(req, res) => {
+    /**
+     * verification using JWT (JSON Web Tokens)
+     * [Link](https://jwt.io/)
+     */
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
             res.sendStatus(401);
@@ -154,10 +156,20 @@ app.post("/contactinfo", verifyToken,(req, res) => {
         }
     });
 });
+
 /**
- * @type {get} get
+ * Retrieves contact info based on id specified in the url.
+ * @param {int} id unique identifier
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object 
+ * @function get /contactinfo/:id
+ * @returns {promise} Promise resolving in an error or res object containing contact info requested.
  */
 app.get("/contactinfo/:id",verifyToken, (req, res) => {
+    /**
+     * verification using JWT (JSON Web Tokens)
+     * [Link](https://jwt.io/)
+     */
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
             res.sendStatus(401);
@@ -168,12 +180,23 @@ app.get("/contactinfo/:id",verifyToken, (req, res) => {
             })
         }
     });
-
 });
+
 
 //EVENT
 
+/**
+ * Posts an event with all its parameters
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object 
+ * @function post /event
+ * @returns {promise} Promise resolving in an error or res object containing contact info requested.
+ */
 app.post("/event", verifyToken,(req, res) => {
+    /**
+     * verification using JWT (JSON Web Tokens)
+     * [Link](https://jwt.io/)
+     */
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
             res.sendStatus(401);
@@ -188,7 +211,11 @@ app.post("/event", verifyToken,(req, res) => {
 });
 
 
-
+/**
+ * Retrieves all events
+ * @function get
+ * @returns Promise resolving with either an error or an object containing all event objects in the database
+ */
 app.get("/event/all", (req, res) => {
     console.log("/event fikk request fra klient");
     eventDao.getAllEvents((status, data) => {
@@ -197,6 +224,11 @@ app.get("/event/all", (req, res) => {
     });
 });
 
+/**
+ * Retrieves all events with status archived
+ * @function get
+ * @returns Promise resolving in either an error status or an object containing all archived event objects
+ */
 app.get("/event/archived",verifyToken, (req, res) => {
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
@@ -212,20 +244,24 @@ app.get("/event/archived",verifyToken, (req, res) => {
 
 });
 
+/**
+ * Retrieves all active events
+ * @function get
+ * @returns Promise object resolving in either an error or an object containing all event objects that are marked as active
+ */
 app.get("/event/active",(req, res) => {
-    /*jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-
-     */
-            console.log("/event fikk request fra klient");
-            eventDao.getAllActive((status, data) => {
-                res.status(status);
-                res.json(data);
-            });
+    console.log("/event fikk request fra klient");
+    eventDao.getAllActive((status, data) => {
+        res.status(status);
+        res.json(data);
     });
+});
 
+/**
+ * Retrieves all cancelled events
+ * @function get
+ * @returns Promise object resolving in either an error or an object containing all event objects that are marked as cancelled
+ */
 app.get("/event/cancelled", verifyToken, (req, res) => {
     let token = req.token;
     jwt.verify(token, privateKey, (err, authData) => {
@@ -241,7 +277,11 @@ app.get("/event/cancelled", verifyToken, (req, res) => {
     });
 });
 
-
+/**
+ * Retrieves all non-filed/non-archived events
+ * @function get
+ * @returns Promise object resolving in either an error or an object containing all event objects that are not marked as filed.
+ */
 app.get("/event/nonFiled",verifyToken, (req, res) => {
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
@@ -256,6 +296,13 @@ app.get("/event/nonFiled",verifyToken, (req, res) => {
     });
 
 });
+
+/**
+ * Retrieves an event based on the id provided in the URL
+ * @function get
+ * @param {int} id unique event identifier 
+ * @returns {Promise} Promise object resolving in either an error or an object containing the specified event
+ */
 app.get("/event/:eventID",(req, res) => {
     console.log("/event/ID fikk request fra klient");
     eventDao.getEventByID(req.params.eventID, (status, data) => {
@@ -264,7 +311,11 @@ app.get("/event/:eventID",(req, res) => {
     })
 });
 
-
+/**
+ * Updates an events archived status to true
+ * @function put
+ * @param {int} id unique event identifier
+ */
 app.put('/event/:eventID/archived', verifyToken,(req, res) => {
     jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {

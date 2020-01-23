@@ -57,6 +57,7 @@ class ViewUser extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         adminService.getRoleByID(this.props.role).then(role =>
             this.setState({role: role[0].role})).catch((error) => {console.error(error)})
     }

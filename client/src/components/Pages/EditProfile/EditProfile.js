@@ -3,7 +3,8 @@ import "../../../css/EditProfile.css"
 import {createHashHistory} from 'history';
 import {FileService} from "../../../service/FileService";
 import {Redirect} from 'react-router-dom';
-import {auth, authenticate, UserService, User} from "../../../service/UserService";
+import {auth, authenticate} from "../../../service/auth";
+import {UserService, User} from "../../../service/UserService";
 import {toast} from 'react-toastify';
 import {validateEmail, validatePhone} from "../../../validaters";
 import Navbar from "../../Navbar/Navbar";
@@ -100,6 +101,15 @@ class EditProfile extends Component {
     });
 
     /**
+     * Notifies the user that the password are to short
+     * @returns {ToastId}
+     */
+    notifyPasswordLength = () => toast("Det nye passordet må bestå av minst 8 tegn", {
+        type: toast.TYPE.ERROR,
+        position: toast.POSITION.BOTTOM_LEFT
+    });
+
+    /**
      * Notifies the user that the file they want to upload is to large
      * @returns {ToastId}
      */
@@ -114,6 +124,7 @@ class EditProfile extends Component {
      * then the user values are picked up from the database and set in the user state
      */
     componentDidMount() {
+        window.scrollTo(0,0);
         authenticate();
         if (this.props.match.params.userID === auth.user_id) {
             let userService = new UserService();
@@ -315,7 +326,10 @@ class EditProfile extends Component {
         ) {
             this.notifyMissingPassword();
             return false;
-        } else {
+        } else if(newPWInput.length < 8){
+            this.notifyPasswordLength();
+            return false;
+        } else{
             if (newPWInput !== reNewPWInput) {
                 this.notifyPasswordNoMatch();
             } else {

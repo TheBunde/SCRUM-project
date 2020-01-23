@@ -119,6 +119,15 @@ class EditProfile extends Component {
     });
 
     /**
+     * Notifies the user if the data they wrote inn is too large
+     * @returns {ToastId}
+     */
+    notifyTooBigData = () => toast("Navnet du forsøkte å redigere inneholder for mange karakterer", {
+        type: toast.TYPE.ERROR,
+        position: toast.POSITION.BOTTOM_LEFT
+    });
+
+    /**
      * authenticate() runs to get the authenticated user that is logged in
      * the auth.user_id has to match the user_id that are in the params
      * then the user values are picked up from the database and set in the user state
@@ -403,6 +412,8 @@ class EditProfile extends Component {
                                         this.notifyUsedEmail();
                                     } else if (err.response.data.sqlMessage.indexOf("phone") > -1) {
                                         this.notifyUsedPhone();
+                                    } else if (err.response.data.sqlMessage.indexOf("Data too long") > -1) {
+                                        this.notifyTooBigData();
                                     } else {
                                         this.notifyFailure();
                                     }
@@ -443,6 +454,8 @@ class EditProfile extends Component {
                                     this.notifyUsedEmail();
                                 } else if(err.response.data.sqlMessage.indexOf("phone") > -1) {
                                     this.notifyUsedPhone();
+                                } else if (err.response.data.sqlMessage.indexOf("Data too long") > -1) {
+                                    this.notifyTooBigData();
                                 } else {
                                     this.notifyFailure();
                                 }

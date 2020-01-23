@@ -61,7 +61,7 @@ test("test: updateContactInfo()", done =>{
     }
 
     function callback(status, data){
-        eventDao.getContactinfoForEvent(1, callback2);
+        eventDao.getContactInfoForEvent(1, callback2);
     }
 
     let contactInfo = {name: "hei sveis", phone: "00000001", email: "hwudijwdhwojndw@sohfsoidhjs.nckjw"};

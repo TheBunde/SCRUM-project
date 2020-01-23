@@ -44,6 +44,7 @@ class AddEvent extends Component {
      * Pulling categories and tickets at startup
      */
     componentDidMount() {
+        window.scrollTo(0,0);
         console.log(this.state);
         eventService
             .getCategories()

@@ -125,6 +125,7 @@ class EditEvent extends Component{
      * and filling the state with input info
      */
     componentDidMount() {
+        window.scrollTo(0,0);
         eventService
             .getEventById(this.props.match.params.id)
             .then(data => this.updateEventInfo(data))

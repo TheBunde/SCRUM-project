@@ -10,7 +10,9 @@ import {Redirect} from 'react-router-dom';
 
 
 class LoginPage extends Component{
-    
+    componentDidMount(){
+        window.scrollTo(0,0);
+    }
     render() {
         return (
             <div class="pageSetup">

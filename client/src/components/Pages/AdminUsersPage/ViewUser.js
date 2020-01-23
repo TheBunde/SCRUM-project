@@ -18,24 +18,32 @@ class ViewUser extends Component {
                      <div className="row" id={"ViewUserMain"}>
 
                     <div className="col" id={"idCol"}>
+                        <div id="viewUsersMobileLegend">Id:</div>
                         <p>{this.props.id}</p>
                     </div>
                     <div className="col-sm-2">
+                        <div id="viewUsersMobileLegend">Navn:</div>
                         <p>{this.props.name}</p>
                     </div>
                     <div className="col-sm-2">
+                        <div id="viewUsersMobileLegend">E-post:</div>
                         <p>{this.props.email}</p>
                     </div>
                     <div className="col-sm-1">
+                        <div id="viewUsersMobileLegend">Tlf.:</div>
                         <p>{this.props.phone}</p>
                     </div>
                     <div className="col-sm-2">
+                        <div id="viewUsersMobileLegend">Rolle:</div>
                         <p>{this.state.role}</p>
                     </div>
-                    <div className="col-sm-2">
-                        <input type="radio" checked={this.props.approved === 1} readOnly={true} />
+                    <div className="col-sm-2" id="viewUserConfirmed">
+                        <div id="viewUsersMobileLegend">Godkjent:</div>
+                        <div>
+                            <input type="radio" checked={this.props.approved === 1} readOnly={true} />
+                        </div>
                     </div>
-                    <div className="col-sm-2">
+                    <div className="col-sm-2" id="viewUserEditButton">
                         <button className="btn btn-primary" onClick={() => {this.handleClick.bind(this); window.location.href="#/admin/users/" + this.props.id + "/edit"}} role="button">Rediger</button>
                     </div>
                      </div>
@@ -49,6 +57,7 @@ class ViewUser extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         adminService.getRoleByID(this.props.role).then(role =>
             this.setState({role: role[0].role})).catch((error) => {console.error(error)})
     }

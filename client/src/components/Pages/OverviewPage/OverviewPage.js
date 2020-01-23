@@ -3,9 +3,8 @@ import "../../../css/Overview.css"
 import { createHashHistory } from 'history';
 import "../../../img/concert.jpg"
 import Navbar from '../../Navbar/Navbar'
-import {ProfileService} from "../../../service/ProfileService";
 import Footer from '../../Footer/Footer';
-import {auth, authenticate} from "../../../service/UserService";
+import {auth, authenticate, UserService} from "../../../service/UserService";
 
 const history = createHashHistory();
 
@@ -19,10 +18,14 @@ class OverviewPage extends Component{
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         authenticate();
+
         let profileService = new ProfileService();
         profileService.getUser(auth.user_id)
-            .then(user => {
+
+        let userService = new UserService();
+        userService.getUser(auth.user_id).then(user => {
                     this.setState({
                         user: user
                     })

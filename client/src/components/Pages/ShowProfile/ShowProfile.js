@@ -3,7 +3,7 @@ import "../../../css/ShowProfile.css"
 import { createHashHistory } from 'history';
 
 import {adminService} from '../../../service/AdminService'
-import {ProfileService} from "../../../service/ProfileService";
+import {UserService} from "../../../service/UserService.js";
 import {Redirect} from 'react-router-dom';
 import { User} from "../EditProfile/EditProfile";
 
@@ -29,6 +29,7 @@ class ShowProfile extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         authenticate();
         //console.log("ID tried: " + this.props.match.params.userID);
         if (this.props.match.params.userID !== auth.user_id) {
@@ -39,8 +40,8 @@ class ShowProfile extends Component {
             this.setState({
                 authorized: true
             });
-            let profileService = new ProfileService();
-            profileService.getUser(this.user_id)
+            let userService = new UserService();
+            userService.getUser(this.user_id)
                 .then(user =>
                     this.setState({
                         user: user

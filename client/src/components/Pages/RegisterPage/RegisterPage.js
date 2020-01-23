@@ -38,6 +38,10 @@ class RegisterPage extends Component {
         }
     }
 
+    componentDidMount(){
+        window.scrollTo(0,0);
+    }
+
     render() {
         return (
             <div class="pageSetup">
@@ -234,6 +238,16 @@ class RegisterPage extends Component {
                     }
                 ]
             })
+        } else if (feedback === "pwLen"){
+            confirmAlert({
+                title: "Feil!",
+                message: "Passordet må bestå av minst 8 tegn",
+                buttons: [
+                    {
+                        label: "Ok"
+                    }
+                ]
+            })
         }
 
     }
@@ -243,16 +257,20 @@ class RegisterPage extends Component {
         {
             if (!(this.state.phone.match(/^\d{8}$/)) && this.state.password !== this.state.repeatedPassword) {
                 this.showFeedback("phoneAndPasswords")
-
-            } else if (!(this.state.phone.match(/^\d{8}$/))) {
+            } 
+            else if (!(this.state.phone.match(/^\d{8}$/))) {
                 this.showFeedback("phone");
-            } else if (!(validateEmail(this.state.email))) {
+            } 
+            else if (!(validateEmail(this.state.email))) {
                 this.showFeedback("email");
-            } else if (this.state.password !== this.state.repeatedPassword) {
-
+            }
+            else if (this.state.password.length < 8){
+                this.showFeedback("pwLen");
+            } 
+            else if (this.state.password !== this.state.repeatedPassword) {
                 this.showFeedback("passwords");
-
-            } else {
+            } 
+            else {
                 let userService = new UserService();
                 let fileService = new FileService();
                 let profilePicture = document.getElementById("imageUpload").files[0];

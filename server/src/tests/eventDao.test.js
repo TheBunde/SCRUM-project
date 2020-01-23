@@ -231,75 +231,22 @@ test("test: deleteEvent()", done =>{
     eventDao.getAllEvents(callback)
 });
 
-
-
-
-
 /**
- * test for: getCategories() in eventDao.js
+ * test for: updateEvent() in eventDao.js
  */
-test("test: getCategories()", done =>{
-
-    function callback(status, data){
+test("test: updateEvent", done =>{
+    function callback2(status, data) {
         console.log(
-            "Test getCategories eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
+            "Test updateEvent eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data.length).toBe(3);
-        expect(data[0].name).toBe("forelesning");
-        done();
-    }
-    
-    eventDao.getCategories(callback);
-});
-
-/*
-test("test: addCategory()", done =>{
-
-    function callback(status, data){
-        console.log(
-            "Test addCategory(Event_Category) eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
-        );
-        expect(data.affectedRows).toBe(1);
+        expect(data[0].name).toBe("oppdatert");
+        expect(data[0].img_url).toBe("oppdatert.jpg");
         done();
     }
 
-    let category = {eventID : 1, categoryID: 2};
-    eventDao.addCategories(category, callback);
-});
-*/
-
-/**
- * test for: getCategoryFromEvent() in eventDao.js
- */
-test("test: getCategoryFromEvent()", done =>{
-    function callback(status, data) {
-        console.log(
-            "Test getCategoryFromEvent for event 1 eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
-        );
-        expect(data.length).toBe(1);
-        expect(data[0].category_id).toBe(2);
-        done();
+    function callback(){
+        eventDao.getEventByID(7, callback2)
     }
-
-    eventDao.getCategoryFromEvent(2, callback);
-
+    let event = {name: "oppdatert", description: "dette arrangementet er oppdatert", date: "2020-10-12 16:45:00", place: "Sukkerhuset", categoryID: 3, img_url: "oppdatert.jpg", artists: "ny og bedre..", tech_rider: "mere bedre", hospitality_rider: "oppgrader til vin", contract: "kontrakt", personnel: "flere folk"}
+    eventDao.updateEvent(7, event, callback);
 });
-
-
-
-/**
- * test for: addContactInfo() in eventDao.js
- */
-test("test: addContactInfo()", done =>{
-    function callback(status, data){
-        console.log(
-            "Test addTicket eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
-        );
-        expect(data.affectedRows).toBe(1);
-        done();
-    }
-
-    let contactInfo = {name: "hei sveis", phone: "00000000", email: "hwudijwdhwojndw@sohfsoidhjs.nckjw", eventID: 1};
-    eventDao.addContactInfo(contactInfo, callback);
-});
-

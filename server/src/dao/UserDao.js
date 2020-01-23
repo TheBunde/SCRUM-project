@@ -3,6 +3,8 @@ let crypto = require('crypto');
 let bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+
+
 module.exports = class UserDao extends dao {
 
     registerUser(json, callback) {

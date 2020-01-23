@@ -7,10 +7,7 @@ import {toast} from "react-toastify";
 
 let crypto = require('crypto');
 
-/*class LoginForm extends Component<{props: submit}>{
-const jwt =  require('jsonwebtoken');
-//const private_key = 'pizza1234';*/
-/**
+/*
  * @class LoginForm
  */
 class LoginForm extends Component{

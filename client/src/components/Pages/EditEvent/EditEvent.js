@@ -8,8 +8,11 @@ import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 import {FileService} from "../../../service/FileService";
 
-
 class EditEvent extends Component{
+    /**
+     * Setting up states for all input variables
+     * @param {JSON} props
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -41,10 +44,18 @@ class EditEvent extends Component{
         this.registerEvent = this.registerEvent.bind(this);
     }
 
+    /**
+     * onChange function to change state variables
+     * @param {SyntheticEvent} event
+     */
     changeValue(event){
         this.setState({[event.target.id]: event.target.value})
     }
 
+    /**
+     * onChange function to change checkedbox state
+     * @param {SyntheticEvent} event
+     */
     changeBox(event) {
         this.setState({[event.target.id + "TicketBox"]: event.target.checked});
         if (this.state[event.target.id + "TicketBox"]){
@@ -53,14 +64,29 @@ class EditEvent extends Component{
         }
     }
 
+    /**
+     * onChange function to change date state from calendar
+     * @param {SyntheticEvent} event
+     */
     changeDate(event) {
         this.setState({date: event})
     }
 
+    /**
+     * Form validation that checks if the input is correctly filled
+     * @returns {boolean} true if all correct fields are filled
+     * @returns {boolean} false if inputs
+     */
     formValidation(){
         return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === ""
             || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());
     }
+
+    /**
+     * Form validation that checks if the date is forward in time
+     * @returns {boolean} true if date is forward in time
+     * @returns {boolean} false if date is backwards in time
+     */
     checkDate(){
         let thisDate = this.state.date;
         thisDate.setHours(this.state.dateChosenHour);
@@ -69,6 +95,11 @@ class EditEvent extends Component{
         return thisDate > new Date();
     }
 
+    /**
+     * Form validation that checks if the ticket info is correctly filled
+     * @returns {boolean} true if ticket input is correct
+     * @returns {boolean} false if ticket input is incorrect
+     */
     ticketCheck(){
         let status = false;
         let belowZero = false;
@@ -89,7 +120,12 @@ class EditEvent extends Component{
         else return false;
     }
 
+    /**
+     * Pulling all info regarding the event from the database,
+     * and filling the state with input info
+     */
     componentDidMount() {
+        window.scrollTo(0,0);
         eventService
             .getEventById(this.props.match.params.id)
             .then(data => this.updateEventInfo(data))

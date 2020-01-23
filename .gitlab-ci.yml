@@ -8,7 +8,7 @@ services:
 variables:
   MYSQL_DATABASE: supertestdb
   MYSQL_ROOT_PASSWORD: secret
-  
+
 # Install node libraries
 #before_script:
 #  - cd client
@@ -16,7 +16,6 @@ variables:
 #  - cd ../server
 #  - npm install
 #  - cd ..
-  
 
 # Run JEST tests
 server_tests:
@@ -66,8 +65,10 @@ pages:
     - mkdir .public/server
     - mkdir .public/jsdoc
 
-    - cp -r server/coverage/* .public/server
-    - cp -r client/coverage/* .public/client
+    #- cp -r server/coverage/* .public/server
+    #- cp -r client/coverage/* .public/client
+    - cp -r server/coverage .public/server
+    - cp -r client/coverage .public/client
     - mv .public public
   artifacts:
     paths:

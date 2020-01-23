@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import '../../../css/MainPage.css';
-
 import Navbar from '../../Navbar/Navbar.js';
 import {NavbarMainPage} from "../../Navbar/Navbar";
 import {FooterTransparent} from '../../Footer/Footer'
 import { auth } from "../../../service/UserService.js" 
-import {Redirect} from 'react-router-dom';
+import { Redirect } from "react-router-dom"
 
+
+/**
+* @class MainPage
+* This class is seen as the portal login-screen, giving the user the option to either login or register a new user in the host-portal. 
+*/
 class MainPage extends Component {
+    
+    /** 
+    * The component will now render on top of the screen.
+    */
     componentDidMount(){
         window.scrollTo(0,0);
     }

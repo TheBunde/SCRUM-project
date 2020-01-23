@@ -9,8 +9,7 @@ import { createHashHistory } from 'history';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import '../../../css/CommentSection.css'
-import {ProfileService} from '../../../service/ProfileService';
-import {auth} from "../../../service/UserService";
+import {auth, UserService} from "../../../service/UserService";
 import {toast} from "react-toastify";
 
 
@@ -95,8 +94,8 @@ class EventView extends Component{
         eventService.getTicketFromEvent(this.props.match.params.id).then(tickets => this.setState({event_tickets: tickets}));
         eventService.getContactinfoForEvent(this.props.match.params.id).then(contactInfo => this.setState({contactInfo_name: contactInfo.name, contactInfo_phone: contactInfo.phone, contactInfo_email: contactInfo.email})).catch(Error => console.log(Error));
         eventService.getComments(this.props.match.params.id).then(comments => this.setState({comments: comments})).catch(Error => console.log(Error));
-        let profileService = new ProfileService();
-        profileService.getUser(auth.user_id).then(user => this.setState({user: user})).catch((error) => {console.error(error);});
+        let userService = new UserService();
+        userService.getUser(auth.user_id).then(user => this.setState({user: user})).catch((error) => {console.error(error);});
         console.log("auth.user_id: " + auth.user_id);
     }
 
@@ -393,7 +392,7 @@ class EventView extends Component{
     submitEventApproveButton(id) {
         confirmAlert({
             title: 'Bekreftelse av godkjenning',
-            message: 'Er du sikker på at du vil godkjnne arrangementet?',
+            message: 'Er du sikker på at du vil godkjenne arrangementet?',
             buttons: [
                 {
                     label: 'Ja',
@@ -423,16 +422,18 @@ class EventView extends Component{
     }
 
     delete(id){
-        console.log(id);
         eventService
-            .deleteEvent(id)
+            .deleteEventComments(id)
+            .then(() => eventService.deleteEventDetails(id))
+            .then(() => eventService.deleteEvent(id))
+            .then(() =>{
+                this.notifyDeleteSuccess();
+                history.push("/event")
+            } )
             .catch(e => console.error(e));
-        this.notifyDeleteSuccess();
-        history.push("/event")
     }
 
     archive(id){
-        console.log(id);
         eventService
             .updateFiled(id)
             .catch(e => console.error(e));
@@ -440,7 +441,6 @@ class EventView extends Component{
     }
 
     pend(id){
-        console.log(id);
         eventService
             .updatePending(id)
             .catch(e => console.error(e));
@@ -448,7 +448,6 @@ class EventView extends Component{
     }
 
     cancel(id){
-        console.log(id);
         eventService
             .updateCancel(id)
             .catch(e => console.error(e));

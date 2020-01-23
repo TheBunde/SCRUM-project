@@ -4,6 +4,7 @@ import Navbar from '../../Navbar/Navbar'
 import ViewUser from "./ViewUser";
 import {adminService} from '../../../service/AdminService'
 import "../../../css/AdminUsersPage.css"
+import Footer from '../../Footer/Footer'
 
 
 class AdminUsersPage extends Component {
@@ -18,48 +19,52 @@ class AdminUsersPage extends Component {
 
     render() {
         return (
+            <div>
+                <div id="AdminUsersPageContainerDiv">
+                    <div className={"AdminUsersPageWrapper"}>
+                        <Navbar/>
+                        <div id="AdminUsersPageOverflow">
+                            <div id={"adminSearchField"}>
+                                <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="adminSearchBar" onChange={() => this.handleSearch()}/>
+                            </div>
 
-            <div className={"AdminUsersPageWrapper"}>
-                <Navbar/>
-                <div id="AdminUsersPageOverflow">
-                    <div id={"adminSearchField"}>
-                        <input className="form-control border-dark" type="text" placeholder="Søk" aria-label="Search" id="adminSearchBar" onChange={() => this.handleSearch()}/>
-                    </div>
+                            <div className={"card"} id={"AdminUsersPageContainer"}>
+                                <div className={"card-header"}>
+                                    <div className={"row"}>
 
-                    <div className={"card"} id={"AdminUsersPageContainer"}>
-                        <div className={"card-header"}>
-                            <div className={"row"}>
-
-                                <div className="col-sm-1">
-                                    <p>Id</p>
-                                </div>
-                                <div className="col-sm-2">
-                                    <p>Navn</p>
-                                </div>
-                                <div className="col-sm-2">
-                                    <p>Email</p>
-                                </div>
-                                <div className="col-sm-1">
-                                    <p>Telefon</p>
-                                </div>
-                                <div className="col-sm-2">
-                                    <p>Rolle</p>
-                                </div>
-                                <div className="col-sm-2">
-                                    <p>Godkjent</p>
-                                </div>
-                                <div className="col-sm-2">
-                                    <p>Rediger</p>
+                                        <div className="col-sm-1">
+                                            <p>Id</p>
+                                        </div>
+                                        <div className="col-sm-2">
+                                            <p>Navn</p>
+                                        </div>
+                                        <div className="col-sm-2">
+                                            <p>Email</p>
+                                        </div>
+                                        <div className="col-sm-1">
+                                            <p>Telefon</p>
+                                        </div>
+                                        <div className="col-sm-2">
+                                            <p>Rolle</p>
+                                        </div>
+                                        <div className="col-sm-2">
+                                            <p>Godkjent</p>
+                                        </div>
+                                        <div className="col-sm-2">
+                                            <p>Rediger</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
+                            {this.state.shownUsers.map((user) => {
+                                console.log(user);
+                                return (<ViewUser key={user.user_id} id={user.user_id} name={user.name} email={user.email} phone={user.phone} role={user.role_id} approved={user.approved} />)
+                            })}
                         </div>
                     </div>
-
-                    {this.state.shownUsers.map((user) => {
-                        console.log(user);
-                        return (<ViewUser key={user.user_id} id={user.user_id} name={user.name} email={user.email} phone={user.phone} role={user.role_id} approved={user.approved} />)
-                    })}
                 </div>
+                <Footer />
             </div>
         );
     }
@@ -81,6 +86,7 @@ class AdminUsersPage extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         adminService.getUsers()
             .then((users) => {
                     this.setState({

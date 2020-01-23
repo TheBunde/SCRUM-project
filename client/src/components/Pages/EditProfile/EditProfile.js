@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import "../../../css/EditProfile.css"
 import {createHashHistory} from 'history';
-import {ProfileService} from '../../../service/ProfileService'
 import {FileService} from "../../../service/FileService";
-import {User, UserService} from "../../../service/UserService";
 import {Redirect} from 'react-router-dom';
-import {auth, authenticate} from "../../../service/UserService";
+import {auth, authenticate, UserService, User} from "../../../service/UserService";
 import {toast} from 'react-toastify';
 import {validateEmail, validatePhone} from "../../../validaters";
 
@@ -69,10 +67,11 @@ class EditProfile extends Component {
 
 
     componentDidMount() {
+        window.scrollTo(0,0);
         authenticate();
         if (this.props.match.params.userID === auth.user_id) {
-            let profileService = new ProfileService();
-            profileService.getUser(this.user_id)
+            let userService = new UserService();
+            userService.getUser(this.user_id)
                 .then(user =>
                     this.setState({
                         user: user
@@ -314,7 +313,7 @@ class EditProfile extends Component {
                             console.error(err);
                         })
                         .then(() => {
-                            let profileService = new ProfileService();
+                            let userService = new UserService();
                             let newUser = new User(
                                 this.state.user.user_id,
                                 document.getElementById("nameInput").value,
@@ -326,7 +325,7 @@ class EditProfile extends Component {
                                 this.state.user.approved
                             );
                             console.log(newUser);
-                            profileService.updateUser(newUser)
+                            userService.updateUser(newUser)
                                 .then(() => {
                                     this.notifySuccess();
                                     window.location.hash = "/profile/" + auth.user_id;
@@ -354,7 +353,7 @@ class EditProfile extends Component {
                         console.error(err);
                     })
                     .then(() => {
-                        let profileService = new ProfileService();
+                        let userService = new UserService();
                         let newUser = new User(
                             this.state.user.user_id,
                             document.getElementById("nameInput").value,
@@ -366,7 +365,7 @@ class EditProfile extends Component {
                             this.state.user.approved
                         );
                         console.log(newUser);
-                        profileService.updateUser(newUser)
+                        userService.updateUser(newUser)
                             .then(() => {
                                 this.notifySuccess();
                                 window.location.hash = "/profile/" + auth.user_id;

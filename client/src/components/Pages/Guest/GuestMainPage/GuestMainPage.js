@@ -5,6 +5,7 @@ import GuestEventCard from "../GuestEventCard/GuestEventCard";
 import {eventService} from "../../../../service/EventService";
 import NavbarMainPage from "../../../Navbar/NavbarMainPage";
 import Footer from '../../../Footer/Footer';
+import ToTop from '../../../ToTop/ToTop'
 
 class GuestMainPage extends Component {
     state = {
@@ -30,6 +31,7 @@ class GuestMainPage extends Component {
                 <div>
                     <div id="GuestMainPageContainer">
                         <NavbarMainPage/>
+                        <ToTop />
                         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                             <ol className="carousel-indicators">
                                 <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"/>
@@ -38,7 +40,7 @@ class GuestMainPage extends Component {
                             </ol>
                             <div className="carousel-inner">
                                 <div className="carousel-item active">
-                                    <a onClick={() => window.location.href = "#/event/public/" + id[0]}>
+                                    <a href = {"#/event/public/" + id[0]}>
 
                                     <img className="d-block w-100" src={"http://localhost:8080/image/" + urls[0]} alt="First slide"/>
                                         <div className="carousel-caption d-100 d-md-block">
@@ -50,7 +52,7 @@ class GuestMainPage extends Component {
                                     </a>
                                 </div>
                                 <div className="carousel-item">
-                                    <a onClick={() => window.location.href = "#/event/public/" + id[1]}>
+                                    <a href = {"#/event/public/" + id[1]}>
 
                                         <img className="d-block w-100" src={"http://localhost:8080/image/" + urls[1]} alt="Second slide"/>
                                         <div className="carousel-caption d-100 d-md-block">
@@ -62,7 +64,7 @@ class GuestMainPage extends Component {
                                     </a>
                                 </div>
                                 <div className="carousel-item">
-                                    <a onClick={() => window.location.href = "#/event/public/" + id[2]}>
+                                    <a href = {"#/event/public/" + id[2]}>
                                     <img className="d-block w-100" src={"http://localhost:8080/image/" + urls[2]} alt={names[2]}/>
                                     <div className="carousel-caption d-100 d-md-block">
                                         <h5>{names[2]}</h5>

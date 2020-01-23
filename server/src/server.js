@@ -162,7 +162,7 @@ app.get("/contactinfo/:id",verifyToken, (req, res) => {
         if (err) {
             res.sendStatus(401);
         } else {
-            eventDao.getContactinfoForEvent(req.params.id, (status, data) =>{
+            eventDao.getContactInfoForEvent(req.params.id, (status, data) =>{
                 res.status(status);
                 res.json(data);
             })
@@ -326,7 +326,34 @@ app.delete('/event/:id',verifyToken, (req, res) => {
         }
     });
     console.log('/event/:id: fikk request fra klient');
+});
 
+app.delete('/event/:id/details',verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.deleteEventDetails(parseInt(req.params.id), (status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+    console.log('/event/:id: fikk request fra klient');
+});
+
+app.delete('/event/:id/comments',verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            eventDao.deleteEventComments(parseInt(req.params.id), (status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+    console.log('/event/:id: fikk request fra klient');
 });
 
 app.put("/event/:id/edit",verifyToken, (req, res) =>{
@@ -372,31 +399,19 @@ app.delete("/event/tickets/:id", verifyToken,(req, res) =>{
 
 });
 
-app.get("/event/tickets/:id",verifyToken, (req, res) =>{
-    jwt.verify(req.token, privateKey, (err, authData) => {
+app.get("/event/tickets/:id", (req, res) =>{
+    /*jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
             res.sendStatus(401);
         } else {
+            */
             eventDao.getTicketFromEvent(req.params.id, (status, data) =>{
                 res.status(status);
                 res.json(data);
             })
-        }
+    /*  }
     });
-
-});
-
-app.get("/event/tickets/:id",verifyToken, (req, res) =>{
-    jwt.verify(req.token, privateKey, (err, authData) => {
-        if (err) {
-            res.sendStatus(401);
-        } else {
-            eventDao.getTicketFromEvent(req.params.id, (status, data) =>{
-                res.status(status);
-                res.json(data);
-            })
-        }
-    });
+    */
 
 });
 
@@ -426,7 +441,6 @@ app.get("/event/comments/:id", verifyToken,(req, res) =>{
             })
         }
     });
-
 });
 
 
@@ -521,7 +535,6 @@ app.get("/tickets", verifyToken,(req, res) => {
             })
         }
     });
-
 });
 
 
@@ -733,7 +746,6 @@ app.get("/users/", verifyToken,(req, res) => {
 app.post("/user", (req, res) => {
     console.log("post /user");
     console.log(req.body);
-
     userDao.registerUser(req.body, (status, data) => {
         console.log("http status code: "+status);
         if(status === 200){

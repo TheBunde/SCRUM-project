@@ -202,40 +202,6 @@ test("test: updateCancel", done =>{
 });
 
 /**
- * test for: deleteEvent() in eventDao.js
- */
-test("test: deleteEvent()", done =>{
-
-    function callback3(status, data) {
-        console.log(
-        "Test deleteEvent eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
-        );
-        expect(data.affectedRows).toBe(1);
-        done();
-    }
-
-    function callback(status, data){
-        eventDao.deleteEventDetails(8, dummy);
-        eventDao.deleteEventComments(8, dummy);
-        eventDao.deleteEvent(8, callback3);
-    }
-    // dummy function to send into query in dao.js, we do not want it to print extra or complicate our code
-    function dummy(status, data){
-
-    }
-
-    let event = {name : "to be deleted", date:  "2020-01-20 20:45:00",description:  "the DB test made this to be deleted", place : "Sukkerhuset", artists : "Javascript, mysql, ci, nodeJs ", tech_rider:  "nintendo switch", hospitality_rider: "potato chips", personnel: "Team 5", img_url: "eagle.png", categoryID: 1};
-    eventDao.addEvent(event, dummy);
-    let contactInfo = {name: "hei sveis", phone: "00000000", email: "hwudijwdhwojndw@sohfsoidhjs.nckjw", eventID: 5};
-    eventDao.addContactInfo(contactInfo, dummy);
-    let ticket = {eventID: 8, ticketID: 3, amount: 20, price: 100};
-    eventDao.addTicket(ticket, dummy);
-    let comment = {eventID: 8, userID: 3, commentText: "testing testing 1 2 1 2 "};
-    eventDao.addComment(comment, callback);
-});
-
-
-/**
  * test for: deleteEventDetails() in eventDao.js
  */
 test("test: deleteEvent()", done =>{
@@ -264,7 +230,7 @@ test("test: deleteEvent()", done =>{
     eventDao.addContactInfo(contactInfo, dummy);
     let ticket = {eventID: 8, ticketID: 3, amount: 20, price: 100};
     eventDao.addTicket(ticket, dummy);
-    let comment = {eventID: 8, userID: 3, commentText: "testing testing 1 2 1 2 "};
+    let comment = {eventID: 8, userID: 2, commentText: "testing testing 1 2 1 2 "};
     eventDao.addComment(comment, callback);
 });
 

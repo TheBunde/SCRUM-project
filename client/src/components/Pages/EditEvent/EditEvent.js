@@ -79,7 +79,7 @@ class EditEvent extends Component{
      * @returns {boolean} false if inputs
      */
     formValidation(){
-        return (validateInput(this.state.Name) && validateInput(this.state.Description) && validateInput(this.state.Place)
+        return (validateInput(this.state.Name) && this.state.Description !== "" && validateInput(this.state.Place)
             && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail) && this.ticketCheck());
 
         /*
@@ -354,7 +354,7 @@ class EditEvent extends Component{
                     <div id = "EventInputFiles">
                         <div >
                             <p id = "EventInputLabels">Nåværende Tech Riders:</p>
-                            <button id="eventViewInfoDownloadButtons" className="btn"
+                            <button id="eventViewInfoDownloadButtons" className="btn" disabled={this.state.Tech === ""}
                                     onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Tech)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
@@ -377,7 +377,7 @@ class EditEvent extends Component{
                     <div id="EventInputFiles">
                         <div >
                             <p id = "EventInputLabels">Nåværende Hospitality Riders:</p>
-                            <button id="eventViewInfoDownloadButtons" className="btn"
+                            <button id="eventViewInfoDownloadButtons" className="btn" disabled={this.state.Hospitality === ""}
                                     onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Hospitality)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
@@ -400,7 +400,7 @@ class EditEvent extends Component{
                     <div id="EventInputFiles">
                         <div >
                             <p id = "EventInputLabels">Nåværende Personnel:</p>
-                            <button id="eventViewInfoDownloadButtons" className="btn"
+                            <button id="eventViewInfoDownloadButtons" className="btn" disabled={this.state.Personnel === ""}
                                     onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Personnel)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
@@ -423,7 +423,7 @@ class EditEvent extends Component{
                     <div id="EventInputFiles">
                         <div>
                             <p id = "EventInputLabels">Nåværende Kontrakt:</p>
-                            <button id="eventViewInfoDownloadButtons" className="btn"
+                            <button id="eventViewInfoDownloadButtons" className="btn" disabled={this.state.Contract === ""}
                                     onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Contract)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
@@ -446,7 +446,7 @@ class EditEvent extends Component{
                     <div id="EventInputFiles">
                         <div >
                             <p id = "EventInputLabels">Nåværende Bilde:</p>
-                            <button id="eventViewInfoDownloadButtons" className="btn"
+                            <button id="eventViewInfoDownloadButtons" className="btn" disabled={this.state.Picture === ""}
                                     onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Picture)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>

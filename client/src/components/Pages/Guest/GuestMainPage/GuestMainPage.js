@@ -15,10 +15,10 @@ class GuestMainPage extends Component {
 
     componentDidMount(){
         window.scrollTo(0,0);
-        eventService.getAllActive().then(events => {this.setState({events: events})}).catch(error => {console.error(error)});
+        eventService.getAllActive()
+            .then(events => {this.setState({events: events})})
+            .catch(error => {console.error(error)});
     }
-
-
 
     render() {
         let urls = [];
@@ -54,8 +54,8 @@ class GuestMainPage extends Component {
                                 </div>
                                 <div className="carousel-item">
                                     <a href = {"#/event/public/" + id[1]}>
-
                                         <img className="d-block w-100" src={"http://" + ipAdress + ":8080/image/" + urls[1]} alt={names[1]}/>
+
                                         <div className="carousel-caption d-100 d-md-block">
 
                                             <h5>{names[1]}</h5>
@@ -85,7 +85,6 @@ class GuestMainPage extends Component {
                                 <span className="carousel-control-next-icon" aria-hidden="true"/>
                                 <span className="sr-only">Next</span>
                             </a>
-
                         </div>
 
                         <div className={"titleAndCardsContainer"}>

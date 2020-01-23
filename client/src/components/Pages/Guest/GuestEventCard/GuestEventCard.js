@@ -7,10 +7,9 @@ class GuestEventCard extends Component {
     render(){
         return (
             <div>
-
                 <a href = {"#/event/public/" + this.props.id}>
                     <div className="card bg-dark text-white guestEventCard" id="guestEventCardCard">
-                        <img className="card-img guestCardImage" src={"http://" + ipAdress + ":8080/image/" + this.props.img_url} alt="Card image"/>
+                        <img className="card-img guestCardImage" src={"http://" + ipAdress + ":8080/image/" + this.props.img_url} alt="Card"/>
                             <div className="card-img-overlay guestCardOverlay" id="guestCardOverlayDiv">
                                 <h5 className="card-title eventName">{this.props.name}</h5>
                                 <p className="card-text">{this.props.place}</p>
@@ -18,7 +17,6 @@ class GuestEventCard extends Component {
                     </div>
                 </a>
             </div>
-
         )
     }
 }

@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
-import FontAwesome from 'react-fontawesome'
 import 'font-awesome/css/font-awesome.min.css'
 import NavbarMainPage from '../../../Navbar/NavbarMainPage'
 import Footer from '../../../Footer/Footer'
 import '../../../../css/GuestEventView.css'
 import {eventService} from '../../../../service/EventService'
 import { createHashHistory } from 'history';
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import {UserService} from '../../../../service/UserService.js';
 import {auth} from "../../../../service/auth";
-import {toast} from "react-toastify";
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
-const history = createHashHistory();
+
 
 class EventView extends Component{
     constructor(props){

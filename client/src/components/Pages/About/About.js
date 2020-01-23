@@ -45,7 +45,7 @@ class About extends Component{
      */
     render() {
         return (
-            <div class="pageSetup">
+            <div className="pageSetup">
                 {this.state.loggedIn === true ? <NavBar />: <NavbarMainPage />}
                 <div id='AboutMain'>
                     <h3>Harmoni</h3>
@@ -80,10 +80,9 @@ class About extends Component{
                     <div id="aboutEventViewMap">
                         <div className="mapouter">
                             <div className="gmap_canvas">
-                                <iframe width="500" height="500" id="gmap_canvas"
+                                <iframe title={"maps"} width="500" height="500" id="gmap_canvas"
                                         src={"https://maps.google.com/maps?q=sukkerhuset%2C%20Trondheim&t=&z=15&ie=UTF8&iwloc=&output=embed"}
-                                        frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0"></iframe>
-                                <a href="https://www.embedgooglemap.net/blog/nordvpn-coupon-code/"></a>
+                                        frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0"/>
                             </div>
                         </div>
                     </div>

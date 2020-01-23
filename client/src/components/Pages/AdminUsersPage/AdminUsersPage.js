@@ -58,7 +58,6 @@ class AdminUsersPage extends Component {
                             </div>
 
                             {this.state.shownUsers.map((user) => {
-                                console.log(user);
                                 return (<ViewUser key={user.user_id} id={user.user_id} name={user.name} email={user.email} phone={user.phone} role={user.role_id} approved={user.approved} />)
                             })}
                         </div>
@@ -72,7 +71,6 @@ class AdminUsersPage extends Component {
     handleSearch() {
         const searchTitleElement = document.getElementById("adminSearchBar");
         let searchTitle = searchTitleElement.value;
-        console.log(searchTitle);
         if(searchTitle !== ""){
             this.setState({shownUsers: this.state.shownUsers.filter(e =>
                     e.user_id.toString().toLowerCase().includes(searchTitle.toLowerCase()) ||

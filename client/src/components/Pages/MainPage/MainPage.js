@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import '../../../css/MainPage.css';
-import Navbar from '../../Navbar/Navbar.js';
-import {NavbarMainPage} from "../../Navbar/Navbar";
 import {FooterTransparent} from '../../Footer/Footer'
 import { auth } from "../../../service/auth.js"
 import { Redirect } from "react-router-dom"
@@ -32,7 +30,7 @@ class MainPage extends Component {
             <div>
                 <div id="MainPageDiv">
                     <div id="MainPageDivWithoutFooter">
-                        <div id="MainPageTitle"><a>HARMONI</a></div>
+                        <div id="MainPageTitle">HARMONI</div>
                         <div id="MainPageText"><h4>En portal for informasjonsflyt under planlegging av arrangementer</h4></div>
                         <div id="MainPageButtonDiv">
                             <div id="MainPageButtons">

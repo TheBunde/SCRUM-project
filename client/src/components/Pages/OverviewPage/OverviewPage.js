@@ -34,7 +34,7 @@ class OverviewPage extends Component{
 
     render() {
         return (
-            <div class="pageSetup">
+            <div className="pageSetup">
                 <Navbar/>
 
                 {/* ---- JUMBOTRON ---- */}

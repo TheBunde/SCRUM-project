@@ -498,17 +498,16 @@ app.post("/tickets",verifyToken, (req, res) => {
 });
 
 app.get("/tickets", verifyToken,(req, res) => {
-    /*jwt.verify(req.token, privateKey, (err, authData) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
             res.sendStatus(401);
-        } else {*/
+        } else {
             eventDao.getTicket((status, data) => {
                 res.status(status);
                 res.json(data)
             })
-        //}
-    //});
-
+        }
+    });
 });
 
 

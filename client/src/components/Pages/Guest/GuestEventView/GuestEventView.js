@@ -153,7 +153,34 @@ class EventView extends Component{
                                 </div>
                             </div>
                         </div>
+
+                        <div id="eventViewInfoTicketsContainer">
+                            <div id="eventViewInfoTickets">
+                            <h3>Billettyper</h3>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Pris</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {this.state.event_tickets.map(ticket => 
+                                    <tr>
+                                        <th scope="row" width="60">{ticket.name}</th>
+                                        <td width="10">{ticket.price}</td>
+                                    </tr>)
+                                }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
+                        
+
+                    </div>
+
+                    
                     
                     
                     <div id="guestEventViewDescriptionContainer">

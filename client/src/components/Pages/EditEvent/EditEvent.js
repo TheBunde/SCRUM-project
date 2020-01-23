@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
-import {validatePhone, validateEmail} from "../../../validaters";
+import {validatePhone, validateEmail, validateTickets} from "../../../validaters";
 import {toast} from 'react-toastify';
 import Calendar from 'react-calendar'
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer'
 import {FileService} from "../../../service/FileService";
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 class EditEvent extends Component{
     /**
@@ -21,7 +22,7 @@ class EditEvent extends Component{
             ContactName: "", ContactPhone: "", ContactEmail: "", haveContactInfo: true,
             Tech: "", Hospitality: "", Personnel: "", Contract: "",
             Picture: "", Category: 1,
-            GratisTicketBox: false, GratisTicketAmount: null, GratisTicketPrice: null,
+            GratisTicketBox: false, GratisTicketAmount: null, GratisTicketPrice: 0,
             StandardTicketBox: false, StandardTicketAmount: null, StandardTicketPrice: null,
             VIPTicketBox: false, VIPTicketAmount: null, VIPTicketPrice: null,
             EarlyBirdTicketBox: false, EarlyBirdTicketAmount: null, EarlyBirdTicketPrice: null,
@@ -103,17 +104,21 @@ class EditEvent extends Component{
     ticketCheck(){
         let status = false;
         let belowZero = false;
+
         this.state.Tickets.map(ticket => {
-            if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
-                status = true;
-                if(this.state[ticket.name +"TicketPrice"] === "" || this.state[ticket.name +"TicketPrice"] === null){
+            if(this.state[ticket.name + "TicketBox"]) {
+                if (this.state[ticket.name + "TicketAmount"] > 0 && this.state[ticket.name + "TicketAmount"] !== null && this.state[ticket.name + "TicketPrice"] !== null) {
+                    if (validateTickets(this.state[ticket.name + "TicketAmount"]) && validateTickets(this.state[ticket.name + "TicketPrice"])) {
+                        status = true;
+                    } else {
+                        belowZero = true;
+                    }
+                } else {
                     belowZero = true;
                 }
             }
-            if(this.state[ticket.name + "TicketAmount"] < 0 || this.state[ticket.name + "TicketPrice"] < 0){
-                belowZero = true;
-            }
         });
+
         if(!belowZero) {
             return status;
         }
@@ -346,7 +351,7 @@ class EditEvent extends Component{
                         <div >
                             <p id = "EventInputLabels">Nåværende Tech Riders:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Tech)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Tech)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
@@ -369,7 +374,7 @@ class EditEvent extends Component{
                         <div >
                             <p id = "EventInputLabels">Nåværende Hospitality Riders:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Hospitality)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Hospitality)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
@@ -392,7 +397,7 @@ class EditEvent extends Component{
                         <div >
                             <p id = "EventInputLabels">Nåværende Personnel:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Personnel)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Personnel)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
@@ -415,7 +420,7 @@ class EditEvent extends Component{
                         <div>
                             <p id = "EventInputLabels">Nåværende Kontrakt:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Contract)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Contract)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>
@@ -438,7 +443,7 @@ class EditEvent extends Component{
                         <div >
                             <p id = "EventInputLabels">Nåværende Bilde:</p>
                             <button id="eventViewInfoDownloadButtons" className="btn"
-                                    onClick={() => window.open("http://localhost:8080/image/" + this.state.Picture)}
+                                    onClick={() => window.open("http://" + ipAdress + ":8080/image/" + this.state.Picture)}
                                     target="_blank"><i className="fa fa-download"></i> Last ned
                             </button>
                         </div>

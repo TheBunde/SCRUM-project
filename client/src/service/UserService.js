@@ -1,7 +1,8 @@
 import Axios from "axios";
-
+import {authenticationHeader} from "./auth";
 //Axios.interceptors.response.use(response => response.data);
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
+
 
 /**
  * User
@@ -36,9 +37,8 @@ export class User {
         this.roleid = roleId;
         this.approved = approved;
     }
-
-
 }
+
 //Credit user imgx64 from StackOverflow || https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
 let parseJwt =  (token) => {
     if(token !== null && typeof token !== "undefined"){
@@ -83,6 +83,7 @@ export const auth = {
 };
 
 export let authenticate = auth.authenticate.bind(auth);
+
 
 /**
  * User service
@@ -136,7 +137,7 @@ export class UserService {
             {
                 "email" : email
             }
-            )
+        )
     }
 
     /**

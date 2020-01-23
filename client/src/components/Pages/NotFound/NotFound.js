@@ -3,7 +3,7 @@ import NavbarMainPage from "../../Navbar/NavbarMainPage";
 import Navbar from "../../Navbar/Navbar";
 import Footer from "../../Footer/Footer";
 import "../../../css/NotFound.css";
-import {auth, authenticate} from "../../../service/UserService";
+import {auth, authenticate} from "../../../service/auth";
 
 class NotFound extends Component {
 

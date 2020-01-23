@@ -9,8 +9,9 @@ import { createHashHistory } from 'history';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import {UserService} from '../../../../service/UserService.js';
-import {auth} from "../../../../service/UserService";
+import {auth} from "../../../../service/auth";
 import {toast} from "react-toastify";
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 const history = createHashHistory();
 
@@ -116,7 +117,7 @@ class EventView extends Component{
                 <div id="guestEventViewBackground">
                     <div id="guestEventViewImageContainer">
                         <div id="guestEventViewImage">
-                            <img src={"http://localhost:8080/image/" + this.state.img_url} alt={this.state.name} />
+                            <img src={"http://" + ipAdress + ":8080/image/" + this.state.img_url} alt={this.state.name} />
                         </div>
                     </div>
                     

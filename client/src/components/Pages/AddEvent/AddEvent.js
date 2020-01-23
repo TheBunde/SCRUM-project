@@ -3,7 +3,7 @@ import "../../../css/AddEvent.css"
 import {eventService} from "../../../service/EventService";
 import {FileService} from "../../../service/FileService";
 import {toast} from 'react-toastify';
-import {validateEmail, validatePhone} from "../../../validaters";
+import {validateEmail, validatePhone, validateTickets} from "../../../validaters";
 
 import Calendar from 'react-calendar'
 import Navbar from '../../Navbar/Navbar'
@@ -133,17 +133,21 @@ class AddEvent extends Component {
     ticketCheck() {
         let status = false;
         let belowZero = false;
+
         this.state.Tickets.map(ticket => {
-            if (this.state[ticket.name + "TicketAmount"] != null && this.state[ticket.name + "TicketAmount"] > 0){
-                status = true;
-                if(this.state[ticket.name +"TicketPrice"] === "" || this.state[ticket.name +"TicketPrice"] === null){
+            if(this.state[ticket.name + "TicketBox"]) {
+                if (this.state[ticket.name + "TicketAmount"] > 0 && this.state[ticket.name + "TicketAmount"] !== null && this.state[ticket.name + "TicketPrice"] !== null) {
+                    if (validateTickets(this.state[ticket.name + "TicketAmount"]) && validateTickets(this.state[ticket.name + "TicketPrice"])) {
+                        status = true;
+                    } else {
+                        belowZero = true;
+                    }
+                } else {
                     belowZero = true;
                 }
             }
-            if(this.state[ticket.name + "TicketAmount"] < 0 || this.state[ticket.name + "TicketPrice"] < 0){
-                belowZero = true;
-            }
         });
+
         if(!belowZero) {
             return status;
         }

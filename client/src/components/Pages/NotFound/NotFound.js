@@ -32,9 +32,11 @@ class NotFound extends Component {
         return(
             <div>
                 {this.state.loggedIn ? <Navbar /> : <NavbarMainPage />}
-                <div id={"NotFoundMain"}>
-                    <h1>404 Not Found</h1>
-                    <img src={"https://media.giphy.com/media/xTiN0L7EW5trfOvEk0/giphy.gif"} alt={"GIF"}/>
+                <div id="pageSetup">
+                    <div id={"NotFoundMain"}>
+                        <h1>404 Not Found</h1>
+                        <img src={"https://media.giphy.com/media/xTiN0L7EW5trfOvEk0/giphy.gif"} alt={"GIF"}/>
+                    </div>
                 </div>
                 <Footer />
             </div>

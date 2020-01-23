@@ -5,6 +5,8 @@ import {eventService} from "../../../service/EventService";
 import $ from 'jquery';
 import Footer from '../../Footer/Footer'
 import {auth} from "../../../service/UserService.js"
+import ToTop from '../../ToTop/ToTop'
+
 var moment = require("moment");
 moment().format();
 
@@ -217,6 +219,7 @@ class EventPage extends Component {
         return (
             <div id="eventPagePage" class="pageSetup">
                 <Navbar getUser={this.getUserFromNavbar()} />
+                <ToTop />
                 <div>
                     <div id="eventPageBackground">
                         <div id="eventPageContainer">

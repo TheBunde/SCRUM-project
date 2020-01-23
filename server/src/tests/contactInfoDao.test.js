@@ -33,7 +33,7 @@ test("test: addContactInfo()", done =>{
 });
 
 /**
- * test for: updateContactInfo() in eventDao.js
+ * test for: getContactInfo() in eventDao.js
  */
 test("test: getContactInfoForEvent()", done =>{
     function callback(status, data){
@@ -44,7 +44,7 @@ test("test: getContactInfoForEvent()", done =>{
         expect(data[0].phone).toBe("2386724692");
         done();
     }
-    eventDao.getContactinfoForEvent(2, callback);
+    eventDao.getContactInfoForEvent(2, callback);
 });
 
 /**

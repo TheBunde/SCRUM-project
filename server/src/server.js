@@ -162,7 +162,7 @@ app.get("/contactinfo/:id",verifyToken, (req, res) => {
         if (err) {
             res.sendStatus(401);
         } else {
-            eventDao.getContactinfoForEvent(req.params.id, (status, data) =>{
+            eventDao.getContactInfoForEvent(req.params.id, (status, data) =>{
                 res.status(status);
                 res.json(data);
             })
@@ -426,7 +426,6 @@ app.get("/event/comments/:id", verifyToken,(req, res) =>{
             })
         }
     });
-
 });
 
 
@@ -511,16 +510,16 @@ app.post("/tickets",verifyToken, (req, res) => {
 });
 
 app.get("/tickets", verifyToken,(req, res) => {
-    jwt.verify(req.token, privateKey, (err, authData) => {
+    /*jwt.verify(req.token, privateKey, (err, authData) => {
         if (err) {
             res.sendStatus(401);
-        } else {
+        } else {*/
             eventDao.getTicket((status, data) => {
                 res.status(status);
                 res.json(data)
             })
-        }
-    });
+        //}
+    //});
 
 });
 

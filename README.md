@@ -29,22 +29,22 @@ cd ../client
 npm install
 ```
 
-### `Run application`
-## `Start the server`
+## `Run application`
+### `Start the server`
 From the top-level repository folder:
 ```
 cd server
 npm start
 ```
 
-## `Start the client`
+### `Start the client`
 From the top-level repository folder:
 ```
 cd client
 npm start
 ```
 
-# `Open application`
+### `Open application`
 ```
 Open http://localhost:3000 in your preferred browser
 ```

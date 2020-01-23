@@ -235,15 +235,12 @@ class EventPage extends Component {
             .catch(error => console.error(error.message));
     }
 
-<<<<<<< HEAD
 
-
-=======
     /**
      * Renders the component when called upon by index.js or triggered by a setState/componentDidMount call.
      * @returns {html}
      */
->>>>>>> d37b5c6cdd72248cf158d73347aaae4ac444842f
+
     render() {
 
         $(function() {

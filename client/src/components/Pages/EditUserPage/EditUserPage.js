@@ -47,7 +47,7 @@ class EditUserPage extends Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">Navn</label>
                                         <input name = "name" value={this.state.name} className="form-control" type="text"
-                                               id={"EditUserPageInput"}
+                                               className={"EditUserPageInput"}
                                                onChange={this.handleTextChange.bind(this)}/>
                                     </div>
 
@@ -57,7 +57,7 @@ class EditUserPage extends Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleInputPassword1">E-post</label>
                                         <input name = "email" value={this.state.email} className="form-control" type="text"
-                                               id={"EditUserPageInput"}
+                                               className={"EditUserPageInput"}
                                                onChange={this.handleTextChange.bind(this)}/>
                                     </div>
 
@@ -85,7 +85,7 @@ class EditUserPage extends Component {
                                                     {this.state.roleChosen}</button>
                                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     {this.state.roles.map(role => {
-                                                        return <div className={"dropdown-item"}
+                                                        return <div key={role} className={"dropdown-item"}
                                                                     href={"/#/admin/users/" + this.props.id + "/edit"}
                                                                     onClick={() => this.handleDropdownChange(role)}>{role}
                                                                 </div>
@@ -101,7 +101,7 @@ class EditUserPage extends Component {
                                         </div>
                                     </div>
                                     <div className="form-check">
-                                        <input onClick={() => this.handleCheckboxChange()} className="form-check-input"
+                                        <input onChange={() => this.handleCheckboxChange()} className="form-check-input"
                                                type="checkbox" checked={this.state.approved} value="checkbox"
                                                id="godkjentCheckbox"/>
                                         <label className="form-check-label" htmlFor="defaultCheck1">Godkjent</label>

@@ -118,7 +118,7 @@ class EventView extends Component{
     * This function adds a keyEventListener to the input-field in the comment section, adding the possibility to push enter to submit your comment.
     */
     keyPressed(event) {
-        if (event.key === "Enter" && (this.state.name !== "" && this.state.email !== "" && this.state.phone !== "" && this.state.password !== "" && this.state.repeatedPassword !== "")) {
+        if(event.key === "Enter" && (this.state.name !== "" && this.state.email !== "" && this.state.phone !== "" && this.state.password !== "" && this.state.repeatedPassword !== "")) {
             this.publishComment();
         }
     }

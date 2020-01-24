@@ -21,6 +21,7 @@ class LoginPage extends Component{
         window.scrollTo(0,0);
     }
 
+
     /** 
     * The component renders with the LoginForm-component and Footer at the bottom of the screen.
     */

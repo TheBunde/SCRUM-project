@@ -152,6 +152,12 @@
     text-align: center;
     padding-bottom: 20px;
 }
+#eventViewDescriptionBox h6{
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
 
 #eventViewInfoBoxContainer{
     grid-area: eventViewInfoContainer;
@@ -277,6 +283,9 @@
     max-height: 95;
     height: 98%;
     overflow-y: auto;
+    
+}
+#eventViewCommentSection p{
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     -ms-hyphens: auto;

@@ -16,6 +16,13 @@ class ForgotPassword extends Component {
             email: "",
             emailRep: ""
         }
+        this.keyPressed = this.keyPressed.bind(this);
+    }
+
+    keyPressed(event){
+        if (event.key === "Enter") {
+            this.submit();
+        }
     }
 
     /**
@@ -41,14 +48,14 @@ class ForgotPassword extends Component {
                                                         <input type="name" name={"email"} className="form-control"
                                                             id="emailInput"
                                                             onChange={this.handleTextChange.bind(this)}
-                                                            aria-describedby="emailHelp" placeholder="E-post..."/>
+                                                            aria-describedby="emailHelp" placeholder="E-post..." onKeyPress={this.keyPressed}/>
                                                     </div>
                                                     <div id="RegisterPageFormFieldsDivForgot">
                                                         <label htmlFor="exampleInputEmail1">Gjenta e-post: </label>
                                                         <input type="name" name={"emailRep"} className="form-control"
                                                             id="repEmailInput"
                                                             onChange={this.handleTextChange.bind(this)}
-                                                            aria-describedby="emailHelp" placeholder="E-post..." required="true"/>
+                                                            aria-describedby="emailHelp" placeholder="E-post..." required="true" onKeyPress={this.keyPressed}/>
                                                     </div>
                                                     <div id="RegisterPageFormButtonDivForgot">
                                                         <button type={"button"} className={"btn btn-outline-dark"} onClick={() => this.submit()}>Resett passord</button>

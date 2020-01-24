@@ -17,10 +17,11 @@
 
 #ShowProfileText{
     padding: 50px 0 50px 0;
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    -ms-hyphens: auto;
+    max-width: 100%;
     hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
 }
 
 #ShowProfileBtn{

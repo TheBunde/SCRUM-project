@@ -399,7 +399,6 @@ class EditProfile extends Component {
                                 this.state.user.roleid,
                                 this.state.user.approved
                             );
-                            console.log(newUser);
                             userService.updateUser(newUser)
                                 .then(() => {
                                     this.notifySuccess();

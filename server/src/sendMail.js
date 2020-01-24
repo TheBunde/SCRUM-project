@@ -5,7 +5,10 @@ dotenv.config();
 
 module.exports = class mail{
 
-    
+    /** 
+    * @param {json} json
+    * This method sends the user an email, welcoming them to the service Harmoni provide.
+    */
     sendMail(json) {
         console.log("Sending mail to: "+json.email);
         const transporter = nodemailer.createTransport({
@@ -30,6 +33,9 @@ module.exports = class mail{
                 "<p> - skap Harmoni.</p>"
         };
         
+        /**
+        * This function sends the mail 
+        */
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
                 console.log(error);
@@ -39,8 +45,12 @@ module.exports = class mail{
         });
     }
 
+    /** 
+    * @param {json} json
+    * @param {String} newPass
+    * This function sends the user an mail if it is requested to reset password
+    */
     sendResetPasswordMail(json, newPass) {
-        console.log("Sending reset password mail to: "+json.email+". New password for "+json.name+" is: "+newPass);
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {

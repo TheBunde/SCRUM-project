@@ -19,7 +19,7 @@ class NotFound extends Component {
     }
 
     /**
-     * Runs before the component is rendering. Moves to the top of the screen, and sets the state depending on authorization
+     * Runs before the component is rendered. Moves to the top of the screen, and sets the state depending on authorization
      */
     componentDidMount() {
         window.scrollTo(0,0);

@@ -17,7 +17,7 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
+      user: {name: ""},
       user_id: -1
     };
   }
@@ -60,10 +60,19 @@ class Navbar extends Component {
   */
   render() {
 
-    function showUserName(){
-      return this.state.user.name.substring(0,20);
+    /** 
+    * @param {String} name
+    * This function limits the shown username in navbar to only 18characters and shows only your first name.
+    */
+    function showUserName(name){
+      if(name !== undefined){
+        let r = name.split(" ")[0];
+        if(r.length > 18){
+          return r.substring(0,18) + "..."
+        }
+        return r.substring(0,18);
+      }
     }
-
 
     return (
       <div>
@@ -145,7 +154,7 @@ class Navbar extends Component {
                     width="30"
                     height="30"
                   />
-                  <a>{showUserName()}</a>
+                  <a>{showUserName(this.state.user.name)}</a>
                 </a>
                 <div
                   className="dropdown-menu"

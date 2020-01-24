@@ -1,7 +1,7 @@
 /**
  * module used child classes to execute mysql queries, the children are:
  * AdminDao, EventDao, and UserDao
- * @type {module.Dao}
+ * @module Dao
  */
 
 module.exports = class Dao {

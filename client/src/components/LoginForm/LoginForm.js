@@ -7,12 +7,11 @@ import {toast} from "react-toastify";
 
 let crypto = require('crypto');
 
-/*
- * @class LoginForm
+/**
+ * LoginForm
  */
 class LoginForm extends Component{
     /**
-     * 
      * @param {json} props 
      */
     constructor(props){
@@ -24,6 +23,10 @@ class LoginForm extends Component{
         this.keyPressed = this.keyPressed.bind(this);
     }
 
+    /**
+     * Alerts the user if e-mail or password is wrong. Also gives an error if the user is not yet validated.
+     * @function
+     */
     notifyFailure = () => toast("E-post/passord var feil eller så er bruker ikke godkjent", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
 
@@ -31,6 +34,7 @@ class LoginForm extends Component{
     /**
      * Submitting the values in state to a validate function to check if email/pw are valid.
      * If so, send the user to the home page/overview page.
+     * @function
      */
     submit = () => {
         let userService = new UserService();
@@ -49,23 +53,37 @@ class LoginForm extends Component{
 
     };
 
-    /** Runs every time input-fields are updated. Updates the state with the most current values. */
+    /** 
+     * Runs every time input-fields are updated. Updates the state with the most current values. 
+     * @function
+     */
     updateInputValue = (e) => {
         this.setState({
             [e.target.name]: e.target.value 
         });
     }
 
+    /** 
+     * Clears password field if an error is encountered. Mainly to discourage trial and error of passwords.
+     * @function
+     */
     clearPassword = () => {
         document.getElementById("password-input").value = "";
     }
 
+    /** 
+     * Submits the entered data when the ENTER key is pressed
+     * @function
+     */
     keyPressed(event){
         if (event.key === "Enter") {
             this.submit();
         }
     }
 
+    /**
+     * Displays a form for login. Contains a text-input-field for both e-mail and password and buttons for registration and login. If login is successful, the user is then redirected to the overview page.
+     */
     render(){        
         return(
             <div>

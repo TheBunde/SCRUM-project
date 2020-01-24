@@ -121,7 +121,7 @@ class Navbar extends Component {
                 </div>
               </li>
 
-              <li className="nav-item dropdown">
+              <li className="nav-item dropdown" id="navbarWordConstraint">
                 <a
                   className="nav-link dropdown-toggle"
                   href="/#"

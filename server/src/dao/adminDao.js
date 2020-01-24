@@ -7,6 +7,15 @@ module.exports = class adminDao extends Dao{
         super.query("SELECT role_id FROM Role WHERE role=?", [role], callback);
     }
 
+    updateUser(user, callback){
+        let val = [user.name, user.phone, user.email, user.user_id];
+        super.query(
+            'UPDATE User SET name = ?, phone = ?, email = ? where user_id = ?',
+            val,
+            callback
+        );
+    }
+
     getRoleById(roleID, callback){
         super.query("SELECT role FROM Role WHERE role_id=?", [roleID], callback);
     }

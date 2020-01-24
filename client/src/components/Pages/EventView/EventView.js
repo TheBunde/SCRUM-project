@@ -303,7 +303,7 @@ class EventView extends Component{
                                         <div id="comments">
                                             <ul className="media-list">
                                             {this.state.comments.map(comments => (
-                                                <li className="media">
+                                                <li key={comments.name} className="media">
                                                 <div className="media-body" id="eventViewCommentSectionComments">
                                                     <div id="eventViewCommentSectionUserInfo">
                                                         <strong className="text-info"> {comments.name}</strong>

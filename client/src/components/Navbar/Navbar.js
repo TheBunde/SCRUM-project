@@ -122,14 +122,9 @@ class Navbar extends Component {
               </li>
 
               <li className="nav-item dropdown" id="navbarProfileDivLi" >
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="/#"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  id="navbarProfileDiv"
+                <a  className="nav-link dropdown-toggle" href="/#" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    id="navbarProfileDiv"
                 >
                   <img
                     id="navProfile"
@@ -144,7 +139,7 @@ class Navbar extends Component {
                     width="30"
                     height="30"
                   />
-                  <a id="navbarProfileDivName">{this.state.user.name}</a>
+                  <p id="navbarProfileDivName">{this.state.user.name}</p>
                 </a>
                 <div
                   className="dropdown-menu"

@@ -70,11 +70,14 @@
 
 #navbarProfileDiv{
     max-width: 250px;
+    display: flex; 
+    
 }
 #navbarProfileDivName{
     overflow:hidden; 
     white-space: nowrap;
     text-overflow: ellipsis;
+    margin: 0px;
 }
 
 

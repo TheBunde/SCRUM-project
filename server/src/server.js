@@ -683,7 +683,7 @@ app.put("/profile/:userId/edit", stripToken, (req, res) => {
  * @param {Object} res - Express response object
  */
 
-app.put("/user/:userId/edit", stripToken, (req, res) => {
+app.put("/admin/:userId/edit", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {auth, authenticationHeader} from "./auth";
+import {authenticationHeader} from "./auth";
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 /**

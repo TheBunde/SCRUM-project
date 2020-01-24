@@ -45,8 +45,12 @@ module.exports = class mail{
         });
     }
 
+    /** 
+    * @param {json} json
+    * @param {String} newPass
+    * This function sends the user an mail if it is requested to reset password
+    */
     sendResetPasswordMail(json, newPass) {
-        console.log("Sending reset password mail to: "+json.email+". New password for "+json.name+" is: "+newPass);
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {

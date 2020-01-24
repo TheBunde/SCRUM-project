@@ -89,5 +89,4 @@ pages:
     paths:
       - public
   only:
-    #- master
-    - dev
+    - master

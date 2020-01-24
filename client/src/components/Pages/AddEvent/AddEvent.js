@@ -123,7 +123,6 @@ class AddEvent extends Component {
      * @returns {boolean} false if inputs
      */
     formValidation() {
-        return false;
 
         return (validateInput(this.state.Name) && this.state.Description !== "" && validateInput(this.state.Place)
             && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail));

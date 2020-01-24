@@ -165,7 +165,7 @@ class EventView extends Component{
                             <div className="dropdown-menu dropdown-menu-right">
                                 <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventApproveButton(this.state.event_id)}>Godkjenn arrangement</button>
                                 <div className="dropdown-divider"/>
-                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()=== 4)} onClick={() => history.push("/event/" + this.state.event_id + "/edit")}>Rediger arrangement</button>
+                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()=== 4 || this.checkRights() === 1 || this.checkRights() === 2 || this.checkRights() === 3)} onClick={() => history.push("/event/" + this.state.event_id + "/edit")}>Rediger arrangement</button>
                                 <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===3)} onClick={() => this.submitEventArchiveButton(this.state.event_id)}>Arkiver arrangement</button>
                                 <div className="dropdown-divider"/>
                                 <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventCancelButton(this.state.event_id)}>Avlys arrangement</button>

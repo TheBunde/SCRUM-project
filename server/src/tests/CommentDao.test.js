@@ -58,13 +58,13 @@ test("test: deleteEventComment()", done =>{
         console.log(
             "Test deleteEventComment eventDao callback: status=" + status + ", data=" + JSON.stringify(data)
         );
-        expect(data.affectedRows).toBe(1);
+        expect(data.affectedRows).toBeGreaterThanOrEqual(1);
         done();
     }
 
     function callback(staus, data){
         eventDao.deleteEventComments(5, callback2)
     }
-    let comment = {eventID: 5, userID: 3, commentText: "testing testing 1 2 1 2 "};
+    let comment = {eventID: 5, userID: 2, commentText: "testing testing 1 2 1 2 "};
     eventDao.addComment(comment, callback);
 });

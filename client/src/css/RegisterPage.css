@@ -48,11 +48,14 @@
 }
 
 #RegisterPageFormButtonDiv{
-    width: 80%;
+    width: 60%;
     margin: auto;
     padding-top: 10px;
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 1fr 1fr;
+}
+#RegisterPageFormButtonDiv button{
+    margin: 10px;
 }
 #RegisterPageFormButtonDivForgot{
     padding-top: 10px;
@@ -76,5 +79,11 @@
     }
     #RegisterPageFormFieldsDiv{
         grid-template-columns: 5fr 10fr;
+    }
+
+    #RegisterPageFormButtonDiv{
+        width: 90%;
+        
+    
     }
 }

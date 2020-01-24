@@ -158,7 +158,6 @@ class AddEvent extends Component {
     formValidation() {
         return (validateInput(this.state.Name) && this.state.Description !== "" && validateInput(this.state.Place)
             && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail) && this.ticketCheck());
-
     }
 
     /**
@@ -650,7 +649,6 @@ class AddEvent extends Component {
         } else {
             this.notifyNoFileUploaded();
         }
-
     }
 
     /**

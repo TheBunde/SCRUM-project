@@ -60,13 +60,6 @@ export class UserService {
         return Axios.post("http://" + ipAdress + ":8080/validate", {"email":  email, "password" : pw});
     }
 
-    /**
-     * 
-     * @param {string} email 
-     */
-    getHash(email) {
-        return Axios.get("http://" + ipAdress + ":8080/validate/" + email);
-    }
 
     /**
      * Updates password for specified user

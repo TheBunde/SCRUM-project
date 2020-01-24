@@ -46,6 +46,7 @@ class EventService{
     uploadImage(file) {
         return axios.post("http://" + ipAdress + ":8080/filesUpload", file);
     }
+
     /**
      * 
      * @param {string} name 
@@ -125,7 +126,7 @@ class EventService{
      * @param {number} ticketID 
      * @param {number} eventID 
      * @param {number} amount 
-     * @param {numver} price 
+     * @param {number} price
      */
     addTicket(ticketID, eventID, amount, price){
         let newTicket = {ticketID: ticketID, eventID: eventID, amount: amount, price: price};

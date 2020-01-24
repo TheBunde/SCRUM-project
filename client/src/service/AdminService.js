@@ -57,7 +57,7 @@ class AdminService{
      * @param {number} userID 
      */
     getUser(userID){
-        return axios.get("http://" + ipAdress + ":8080/user/" + userID, {headers: authenticationHeader()}).then(response => response.data);
+        return axios.get("http://" + ipAdress + ":8080/users/" + userID, {headers: authenticationHeader()}).then(response => response.data);
     }
     /**
      * Get all users

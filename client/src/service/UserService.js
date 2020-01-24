@@ -48,7 +48,7 @@ export class UserService {
      * @param {user} user 
      */
     registerUser(user){
-        return Axios.post("http://" + ipAdress + ":8080/user", user);
+        return Axios.post("http://" + ipAdress + ":8080/users", user);
     }
 
     /**
@@ -70,7 +70,7 @@ export class UserService {
      */
     updatePassword(email, password, newPassword, user_id){
         console.log("User service: " + email);
-        return Axios.put("http://" + ipAdress + ":8080/user/" + user_id + "/edit/password",
+        return Axios.put("http://" + ipAdress + ":8080/users/" + user_id + "/edit/password",
             {
                 "email": email,
                 "password": password,
@@ -84,7 +84,7 @@ export class UserService {
      * @param {string} email 
      */
     forgotPassword(email) {
-        return Axios.post("http://" + ipAdress + ":8080/user/reset_password",
+        return Axios.post("http://" + ipAdress + ":8080/users/reset_password",
             {
                 "email" : email
             }
@@ -105,7 +105,7 @@ export class UserService {
      * @returns {Object} - Returns a User object with all user credentials.
      */
     getUser(userID){
-        return Axios.get("http://" + ipAdress + ":8080/user/" + userID, {headers: authenticationHeader()}).then(response => {
+        return Axios.get("http://" + ipAdress + ":8080/users/" + userID, {headers: authenticationHeader()}).then(response => {
             let a = response.data[0];
             return new User(
                 a.user_id,

@@ -4,6 +4,11 @@ let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
 
 class GuestEventCard extends Component {
+
+    /** renders card with event information
+     *
+     * @return {*}
+     */
     render(){
         return (
             <div>

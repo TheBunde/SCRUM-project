@@ -82,6 +82,8 @@ pages:
     #- cp -r client/coverage/* .public/client
     - cp -r server/coverage .public/server
     - cp -r client/coverage .public/client
+    - cp -r server/jsdoc .public/server
+    - cp -r client/jsdoc .public/client
     - mv .public public
   artifacts:
     paths:

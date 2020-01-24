@@ -128,7 +128,7 @@ class RegisterPage extends Component {
                                                     </button>
                                                     <button type="button" className="btn btn-outline-dark"
                                                             onClick={() => window.location.href = "#/login"}>
-                                                        Allerede bruker?
+                                                        Logg inn
                                                     </button>
                                                 </div>
                                             </div>

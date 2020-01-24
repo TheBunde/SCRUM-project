@@ -59,6 +59,12 @@ class Navbar extends Component {
   * The method rendering the component, what happens when the component is called upon by index.js, by an user loading the given url using this component. 
   */
   render() {
+
+    function showUserName(){
+      return this.state.user.name.substring(0,20);
+    }
+
+
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark" id="navbar">
@@ -122,14 +128,9 @@ class Navbar extends Component {
               </li>
 
               <li className="nav-item dropdown" id="navbarProfileDivLi" >
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="/#"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  id="navbarProfileDiv"
+                <a  className="nav-link dropdown-toggle" href="/#" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    id="navbarProfileDiv"
                 >
                   <img
                     id="navProfile"
@@ -144,7 +145,7 @@ class Navbar extends Component {
                     width="30"
                     height="30"
                   />
-                  <a id="navbarProfileDivName">{this.state.user.name}</a>
+                  <a>{showUserName()}</a>
                 </a>
                 <div
                   className="dropdown-menu"

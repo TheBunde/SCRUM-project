@@ -68,14 +68,12 @@
     
 }
 
-#navbarProfileDiv{
-    max-width: 250px;
+#navbarProfileDiv{  
+    max-width: 250px; 
+    
 }
-#navbarProfileDivName{
-    overflow:hidden; 
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
+
+
 
 
 /*Må endre til id per nav-item og dropdown-item for at dette sjal fungere

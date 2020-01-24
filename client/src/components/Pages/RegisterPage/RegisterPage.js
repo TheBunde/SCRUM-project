@@ -63,14 +63,14 @@ class RegisterPage extends Component {
     */
     render() {
         return (
-            <div class="pageSetup">
+            <div className="pageSetup">
                 <div id="LoginFormDiv">
                     <div id="LoginFormWithoutFooter">
                         <div id="MainPageTitle"><a id="LoginPageTitle" href="#/portal">HARMONI</a></div>
                         <div className={"wrapper"}>
                             <div className={"registerContainer"}>
-                                <div class="card RegisterPageCard">
-                                    <div class="card-body">
+                                <div className="card RegisterPageCard">
+                                    <div className="card-body">
                                         <h1 id={"regTitle"}>Registrer</h1>
                                         <form>
                                             <div className="form-group" id="RegisterPageFormGroup">
@@ -106,14 +106,14 @@ class RegisterPage extends Component {
                                                 <div id="RegisterPageFormFieldsDiv">
                                                     <label htmlFor="exampleInputPassword1">Passord:</label>
                                                     <input type="password" name="password" className="form-control"
-                                                           id="passwordInput"
+                                                           className="passwordInput"
                                                            onChange={this.handleTextChange.bind(this)}
                                                            placeholder="Passord..." onKeyPress={this.keyPressed}/>
                                                 </div>
                                                 <div id="RegisterPageFormFieldsDiv">
                                                     <label htmlFor="exampleInputPassword1">Gjenta passord:</label>
                                                     <input type="password" name={"repeatedPassword"}
-                                                           className="form-control" id="passwordInput"
+                                                           className="form-control" className="passwordInput"
                                                            onChange={this.handleTextChange.bind(this)}
                                                            placeholder="Gjenta passord..."
                                                            onKeyPress={this.keyPressed}/>

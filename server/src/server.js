@@ -675,6 +675,27 @@ app.put("/profile/:userId/edit", stripToken, (req, res) => {
 
 });
 
+app.put("/admin/:userId/edit", stripToken, (req, res) => {
+    /**
+     * verification using JWT (JSON Web Tokens)
+     * [Link](https://jwt.io/)
+     */
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.sendStatus(401);
+        } else {
+            adminDao.updateUser(req.body, (status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        }
+    });
+
+});
+
+
+
+
 
 // ROLES
 

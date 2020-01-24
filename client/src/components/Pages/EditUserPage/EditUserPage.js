@@ -49,7 +49,6 @@ class EditUserPage extends Component {
                                     <div className="form-group">
                                         <label htmlFor="exampleInputEmail1">Navn</label>
                                         <input name = "name" value={this.state.name} className="form-control" type="text"
-                                               className={"EditUserPageInput"}
                                                onChange={this.handleTextChange.bind(this)}/>
                                     </div>
 
@@ -57,11 +56,13 @@ class EditUserPage extends Component {
                                     {/* --- EMAIL --- */}
 
                                     <div className="form-group">
-                                        <label htmlFor="exampleInputPassword1">E-post</label>
+                                        <label className={"form-check-label"} htmlFor="exampleCheck1">E-post</label>
                                         <input name = "email" value={this.state.email} className="form-control" type="text"
-                                               className={"EditUserPageInput"}
+                                               id={"EditUserPageInput"}
                                                onChange={this.handleTextChange.bind(this)}/>
                                     </div>
+
+
 
                                     {/* --- PHONE --- */}
 

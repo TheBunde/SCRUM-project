@@ -377,7 +377,12 @@ class EventView extends Component{
     * This function checks your role to determine which actions you should have access to, depending on your role. 
     */
     checkRights(){
-        if(this.state.filed === 1) return 5;
+        if(this.state.filed === 1 || this.state.canceled === 1){
+            if(auth.role === "admin" || auth.role === "Sceneansvarlig"){
+                return 5;
+            }
+            else return 4;
+        }
 
         else {
             if (auth.role === "admin") return 1;

@@ -28,7 +28,7 @@ test("test: addComment()", done =>{
         expect(data.affectedRows).toBe(1);
         done();
     }
-    let comment = {eventID: 1, userID: 3, commentText: "testing testing 1 2 1 2 "};
+    let comment = {eventID: 1, userID: 2, commentText: "testing testing 1 2 1 2 "};
     eventDao.addComment(comment, callback);
 });
 

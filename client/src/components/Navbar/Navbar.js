@@ -17,7 +17,7 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
+      user: {name: ""},
       user_id: -1
     };
   }
@@ -59,6 +59,21 @@ class Navbar extends Component {
   * The method rendering the component, what happens when the component is called upon by index.js, by an user loading the given url using this component. 
   */
   render() {
+
+    /** 
+    * @param {String} name
+    * This function limits the shown username in navbar to only 18characters and shows only your first name.
+    */
+    function showUserName(name){
+      if(name !== undefined){
+        let r = name.split(" ")[0];
+        if(r.length > 18){
+          return r.substring(0,18) + "..."
+        }
+        return r.substring(0,18);
+      }
+    }
+
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark" id="navbar">
@@ -139,7 +154,7 @@ class Navbar extends Component {
                     width="30"
                     height="30"
                   />
-                  <p id="navbarProfileDivName">{this.state.user.name}</p>
+                  <a>{showUserName(this.state.user.name)}</a>
                 </a>
                 <div
                   className="dropdown-menu"

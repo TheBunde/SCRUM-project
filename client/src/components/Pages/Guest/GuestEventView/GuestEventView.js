@@ -270,6 +270,32 @@ class EventView extends Component{
         }
         return color;
     }
+
+    /**
+     * formats a date from the database
+     * @returns {string}
+     */
+    getCurrentDate() {
+        let newDate = new Date();
+        let date = newDate.getDate();
+        if(date<10){
+            date = "0" + date;
+        }
+        let month = newDate.getMonth()+1;
+        if(month<10){
+            month = "0" + month;
+        }
+        let year = newDate.getFullYear();
+        let hours = newDate.getHours();
+        if(hours<10){
+            hours = "0" + hours;
+        }
+        let minutes = newDate.getMinutes();
+        if(minutes<10){
+            minutes = "0" + minutes;
+        }
+        return year + "-" + month + "-" + date + "T" + hours + ":" + minutes + ":00:000Z";
+    }
 }
 
 export default EventView;

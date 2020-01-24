@@ -170,7 +170,7 @@ class EventView extends Component{
                                 <div className="dropdown-divider"/>
                                 <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventCancelButton(this.state.event_id)}>Avlys arrangement</button>
                                 <div className="dropdown-divider"/>
-                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2)} onClick={() => this.submitEventDeleteButton(this.state.event_id)}>Slett arrangement</button>
+                                <button className="dropdown-item" type="button" disabled={!(this.checkRights()===1 || this.checkRights()===2 || this.checkRights()===5)} onClick={() => this.submitEventDeleteButton(this.state.event_id)}>Slett arrangement</button>
                             </div>
                         </div>
                     </div>
@@ -377,10 +377,19 @@ class EventView extends Component{
     * This function checks your role to determine which actions you should have access to, depending on your role. 
     */
     checkRights(){
-        if(auth.role === "admin") return 1;
-        else if(auth.role === "Sceneansvarlig") return 2;
-        else if(auth.role === "Økonomisjef") return 3;
-        else return 4;
+        if(this.state.filed === 1 || this.state.canceled === 1){
+            if(auth.role === "admin" || auth.role === "Sceneansvarlig"){
+                return 5;
+            }
+            else return 4;
+        }
+
+        else {
+            if (auth.role === "admin") return 1;
+            else if (auth.role === "Sceneansvarlig") return 2;
+            else if (auth.role === "Økonomisjef") return 3;
+            else return 4;
+        }
     };
 
     /** 

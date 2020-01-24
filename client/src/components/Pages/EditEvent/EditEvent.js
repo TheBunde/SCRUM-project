@@ -81,10 +81,6 @@ class EditEvent extends Component{
     formValidation(){
         return (validateInput(this.state.Name) && this.state.Description !== "" && validateInput(this.state.Place)
             && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail) && this.ticketCheck());
-
-        /*
-        return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === ""
-            || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());*/
     }
 
     /**
@@ -161,33 +157,65 @@ class EditEvent extends Component{
             .catch(Error => console.log(Error));
     }
 
+    /**
+     * Notifying successful registration of event
+     */
     notifySuccess = () => {
         toast("Registrering av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
     };
 
-    notifySuccessDelete = () => {
-        toast("Sletting av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
-    };
-
+    /**
+     * Notifying that something went wrong if input is invalid
+     * @returns {ToastId}
+     */
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifying the user need to change date to valid date
+     * @returns {ToastId}
+     */
     notifyDateFailure = () => toast("Du kan ikke velge et tidspunkt som ikke er fremover i tid", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifying that a file isnt uploaded
+     * @returns {ToastId}
+     */
     notifyNoFileUploaded = () => toast("Du må laste opp en fil", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifying successful file upload
+     * @returns {ToastId}
+     */
     notifyPictureUploaded = () => toast("Fil lastet opp. Trykk på lagre endringer for å lagre alt", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifying invalid phonenumber
+     * @returns {ToastId}
+     */
     notifyUnvalidPhone = () => toast("Ugyldig telefonnummer", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifying invalid email
+     * @returns {ToastId}
+     */
     notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifying that the file is too big
+     * @returns {ToastId}
+     */
     notifyTooBigFile = () => toast("En av filene du forsøkte å laste opp var for store", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
-    notifyNegativeNumber = () => toast("Du kan ikke skrive inn et negativt tall", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
-
+    /**
+     * Notifying that the ticket input is invalid
+     * @returns {ToastId}
+     */
     notifyTicketsError = () => toast("Du må fylle ut billettkategori med positive tall", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
-
+    /**
+     * Setting all states to data from database. Called in componentDidMount
+     * @param {JSON} data - Data from database
+     */
     updateEventInfo(data){
         let thisDate = new Date(data[0].date);
         let hour = thisDate.getHours();
@@ -211,6 +239,10 @@ class EditEvent extends Component{
 
     }
 
+    /**
+     * Setting all ticket states to correct info from database. Called in componentDidMount
+     * @param {JSON[]} data - Data from database
+     */
     updateTicketInfo(data) {
         data.map(ticket => {
             eventService
@@ -220,12 +252,22 @@ class EditEvent extends Component{
         })
     }
 
+    /**
+     * Setting all ticket states to correct info from database. Called in updateTicketInfo(data)
+     * @param {String} name - name of ticket
+     * @param {number} amount - amount of tickets for sale
+     * @param {number} price - price of one ticket
+     */
     updateTicketAmount(name, amount, price){
         this.setState({[name + "TicketBox"]: true});
         this.setState({[name + "TicketAmount"]: amount});
         this.setState({[name + "TicketPrice"]: price});
     }
 
+    /**
+     * Setting all contact info states to correct info from database. Called in componentDidMount
+     * @param data
+     */
     updateContactInfo(data){
         if(data === undefined){
             this.setState({haveContactInfo: false} )
@@ -237,6 +279,11 @@ class EditEvent extends Component{
         }
     }
 
+    /**
+     * Renders all input boxes pre-filled with the existing info regarding the event.
+     * Button at bottom to update the event if validation remains correct.
+     * @returns {*}
+     */
     render() {
         return (
             <div>
@@ -574,6 +621,9 @@ class EditEvent extends Component{
         );
     }
 
+    /**
+     * Uploading contract to server
+     */
     submitNewContract() {
         let fileService = new FileService();
         let fileContract = document.getElementById("contractInput");
@@ -600,6 +650,9 @@ class EditEvent extends Component{
         }
     }
 
+    /**
+     * Uploading tech rider to server
+     */
     submitNewTechRider() {
         let fileService = new FileService();
         let fileRider1 = document.getElementById("rider1Input");
@@ -624,12 +677,11 @@ class EditEvent extends Component{
         } else {
             this.notifyNoFileUploaded();
         }
-
-
-
-
     }
 
+    /**
+     * Uploading hospitality rider to server
+     */
     submitNewHospitalityRider() {
         let fileService = new FileService();
         let fileRider2 = document.getElementById("rider2Input");
@@ -654,13 +706,11 @@ class EditEvent extends Component{
         } else {
             this.notifyNoFileUploaded();
         }
-
-
-
-
-
     }
 
+    /**
+     * Uploading personnel to server
+     */
     submitNewPersonell() {
         let fileService = new FileService();
         let filePersonell = document.getElementById("personellInput");
@@ -685,12 +735,11 @@ class EditEvent extends Component{
         } else {
             this.notifyNoFileUploaded();
         }
-
-
-
-
     }
 
+    /**
+     * Uploading picture to server
+     */
     submitNewPicture() {
         let fileService = new FileService();
         let image = document.getElementById("imageInput");
@@ -714,11 +763,11 @@ class EditEvent extends Component{
         } else {
             this.notifyNoFileUploaded();
         }
-
-
-
     }
 
+    /**
+     * Updates the event to the database if all input remains valid
+     */
     registerEvent(){
         if(this.formValidation() && this.checkDate()){
             if (!(validateEmail(this.state.ContactEmail))) {
@@ -764,6 +813,11 @@ class EditEvent extends Component{
             }
         }
     }
+
+    /**
+     * Using the given eventId to update tables with eventId as foreign key
+     * @param {number} EventId - eventId connected to event
+     */
     updateById(eventID){
         this.state.Tickets.map(ticket =>{
             if(this.state[ticket.name + "TicketBox"]){

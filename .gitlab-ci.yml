@@ -9,14 +9,6 @@ variables:
   MYSQL_DATABASE: supertestdb
   MYSQL_ROOT_PASSWORD: secret
 
-# Install node libraries
-#before_script:
-#  - cd client
-#  - npm install
-#  - cd ../server
-#  - npm install
-#  - cd ..
-
 # Run JEST tests
 server_tests:
   stage: test
@@ -39,30 +31,6 @@ client_tests:
     paths:
       - client/coverage
       #- coverage/
-
-# Make JSDoc
-#client_jsdoc:
- # stage: build
- #script:
-  #  - cd client
- #   - npm install
- #   - npm run doc
-
- # artifacts:
-  #  paths:
-  #    - client/jsdoc
-      
-# Make server JSDoc
-#server_jsdoc:
- ##script:
- #   - cd server
- #   - npm install
-  #  - npm run doc
-
-  #artifacts:
- #   paths:
-  #    - server/jsdoc
-
 
 # Publish coverage report on gitlab-pages
 pages:

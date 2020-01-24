@@ -651,7 +651,6 @@ class AddEvent extends Component {
         } else {
             this.notifyNoFileUploaded();
         }
-
     }
 
     /**

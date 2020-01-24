@@ -81,10 +81,6 @@ class EditEvent extends Component{
     formValidation(){
         return (validateInput(this.state.Name) && this.state.Description !== "" && validateInput(this.state.Place)
             && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail) && this.ticketCheck());
-
-        /*
-        return !(this.state.Name === "" || this.state.Description === "" || this.state.Place === ""
-            || this.state.Artists === "" || this.state.ContactName === "" || this.state.ContactEmail === "" || this.state.ContactPhone === "" || !this.ticketCheck());*/
     }
 
     /**
@@ -168,10 +164,6 @@ class EditEvent extends Component{
         toast("Registrering av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
     };
 
-    notifySuccessDelete = () => {
-        toast("Sletting av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
-    };
-
     /**
      * Notifying that something went wrong if input is invalid
      * @returns {ToastId}
@@ -213,8 +205,6 @@ class EditEvent extends Component{
      * @returns {ToastId}
      */
     notifyTooBigFile = () => toast("En av filene du forsøkte å laste opp var for store", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
-
-    notifyNegativeNumber = () => toast("Du kan ikke skrive inn et negativt tall", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
     /**
      * Notifying that the ticket input is invalid

@@ -4,7 +4,6 @@ import NavbarMainPage from '../../../Navbar/NavbarMainPage'
 import Footer from '../../../Footer/Footer'
 import '../../../../css/GuestEventView.css'
 import {eventService} from '../../../../service/EventService'
-import { createHashHistory } from 'history';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import {UserService} from '../../../../service/UserService.js';
 import {auth} from "../../../../service/auth";
@@ -107,7 +106,6 @@ class EventView extends Component{
             return place.trim(" ,");
         }
 
-        let color = this.getColor(this.state.canceled, this.state.pending, this.state.filed, this.state.date);
 
         return (
             <div>

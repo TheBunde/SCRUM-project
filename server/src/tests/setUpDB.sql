@@ -65,11 +65,12 @@ create table Category
 
 create table Comment
 (
+  comment_id int not null auto_increment,
   event_id int not null,
   user_id int not null,
   comment text not null,
   date datetime not null,
-  constraint comment_pk primary key (event_id, user_id)
+  constraint comment_pk primary key (comment_id)
 );
 
 
@@ -166,6 +167,7 @@ insert into Event_Ticket(event_id, ticket_category_id, price, number) values (2,
 
 insert into Comment(event_id, user_id, comment, date) values (1,1,'this is a test comment', now());
 insert into Comment(event_id, user_id, comment, date) values (1,2,'this is also a test comment', now());
+insert into Comment(event_id, user_id, comment, date) values (5,2,'this is also a test comment', now());
 
 update User set approved = 1, role_id = 1 where user_id = 2;
 update User set approved = 1, role_id = 2 where user_id = 3;

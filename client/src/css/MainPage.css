@@ -6,6 +6,7 @@
     background-size: cover;
     min-height: 100vh;
     z-index: 2000;
+    max-width: 100%;
 }
 
 #MainPageTitle {
@@ -35,6 +36,10 @@
 
 #MainPageButtons button{
     width: 220px;
+}
+
+#MainPageDivWithoutFooter{
+    min-height: 90vh;
 }
 
 @Media only screen and (max-width: 840px){

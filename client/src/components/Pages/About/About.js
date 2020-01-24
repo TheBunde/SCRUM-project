@@ -1,19 +1,52 @@
 import React, {Component} from 'react';
-
 import Footer from '../../Footer/Footer'
-import Navbar from '../../Navbar/Navbar'
+import NavbarMainPage from '../../Navbar/NavbarMainPage'
+import NavBar from "../../Navbar/Navbar";
 import '../../../css/About.css'
+import {auth, authenticate} from "../../../service/auth";
 
-
-
-// About, will be called by the "om" link in the footer
-
+/**
+ * @class About
+ * Will be called by the "om" link in the footer
+ */
 class About extends Component{
-    
+
+    /**
+     * sets a standard state that the user is not logged in
+     * @param props
+     */
+    constructor(props) {
+        super(props);
+        this.state = {
+            loggedIn: false
+        }
+    }
+
+    /**
+     * authenticate() runs a check to see if the user is actually logged in
+     * if (auth.authenticated) if the user is logged in the state is changed
+     */
+    componentDidMount() {
+        window.scrollTo(0,0);
+        authenticate();
+        if (auth.authenticated) {
+            this.setState({
+                loggedIn : true
+            })
+        }
+    }
+
+    /**
+     * Navbar varies based on if you are logged inn or not
+     * Some basic text that describes what the system aims to do
+     * The pictures are links to different social media pages
+     * The map is set to Sukkerhuset because it is what we based our product on
+     * @returns {*}
+     */
     render() {
         return (
-            <div class="pageSetup">
-                <Navbar />
+            <div className="pageSetup">
+                {this.state.loggedIn === true ? <NavBar />: <NavbarMainPage />}
                 <div id='AboutMain'>
                     <h3>Harmoni</h3>
                     <p id="aboutText">
@@ -47,17 +80,13 @@ class About extends Component{
                     <div id="aboutEventViewMap">
                         <div className="mapouter">
                             <div className="gmap_canvas">
-                                <iframe width="500" height="500" id="gmap_canvas"
+                                <iframe title={"maps"} width="500" height="500" id="gmap_canvas"
                                         src={"https://maps.google.com/maps?q=sukkerhuset%2C%20Trondheim&t=&z=15&ie=UTF8&iwloc=&output=embed"}
-                                        frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0"></iframe>
-                                <a href="https://www.embedgooglemap.net/blog/nordvpn-coupon-code/"></a>
+                                        frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0"/>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
                 <Footer/>
             </div>
         );

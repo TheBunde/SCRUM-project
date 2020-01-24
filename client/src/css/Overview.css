@@ -4,7 +4,7 @@
     text-align: center;
 }
 
-.cardsContainer{
+#overviewPageCardContainer{
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 100px;
@@ -31,13 +31,18 @@
 }
 
 .jumbotron{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    height: 370px;
+    height: 500px;
     background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("https://wp3921-flywheel.netdna-ssl.com/wp-content/uploads/2019/03/electricaura_contact-festival201805x.jpg");
     background-size: cover;
-    background-position-y: 400px;
+    background-position-y: 500px;
 }
-
+.titleContainer{
+    vertical-align: middle;
+}
 
 
 #OverviewDiv{
@@ -75,10 +80,16 @@
     width: 100px;
 }
 
+#overviewPageCardContainer{
+    margin: auto;
+    text-align: center;
+}
+
 @media only screen and (max-width: 800px){
     #overviewPageCardContainer{
         display: grid;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        justify-content: center;
         grid-template-areas: "overviewPageCardTitle"
                              "overviewPageCardText"
                              "overviewPageCardBtn";

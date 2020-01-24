@@ -1,24 +1,30 @@
 
-
 #EventInputFields{
     width: 50%;
     text-align: left;
     margin: auto;
 }
 
-#EventInputCalendar{
+#EventInputFiles{
+    width: 50%;
+    text-align: left;
     margin: auto;
-    padding: auto;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+}
+
+#EventNewFile{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+}
+
+#EventInputCalendar .react-calendar{
+    margin: auto;
 }
 
 #EventInputLabels{
     font-weight: bold;
     margin: 20px 0 0 0;
-}
-
-#EventInputFields button{
-    margin: 5px 0 0 0;
 }
 
 #EventInputTicketContainer{
@@ -43,9 +49,10 @@
     width: 90%;
     margin: auto;
 }
-
-#EventTicketAmount div{
-    padding: 0 0 0 5%;
+#EventTicketPrice{
+    width: 90%;
+    margin: auto;
+    padding-top: 10px;
 }
 
 #EventDateInput{
@@ -77,13 +84,30 @@
 
 
 @media only screen and (max-width: 800px){
+    #EventInputFields{
+        width: 90%;
+    }
+
+    #EventInputDescription{
+        width: 90%;
+    }
+
+    #EventInputFiles{
+        width: 90%;
+        text-align: left;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
 
     #EventInputTicketContainer{
         grid-template-columns: 1fr;
     }
+
     #EventInputTicketBoxes{
         margin-bottom: 20px;
     }
+
     #EventInputCheckboxes{
         text-align: left;
         width: 90%;
@@ -91,15 +115,12 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
+
     #EventTicketInnerCheckbox{
         padding-top: 8%
     }
-    #EventTicketLabels{
-        padding: 0;
-        margin: 0;
-    }
+
     #EventTicketInnerLabel{
         text-align: left;
     }
-
 }

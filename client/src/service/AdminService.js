@@ -1,68 +1,90 @@
 import axios from 'axios';
+import {authenticationHeader} from "./auth";
 
-//let ipAdress = "10.24.3.122";
-//let ipAdress = "localhost";
-let ipAdress = "10.22.2.85";
+let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
-
-
+/**
+ * Class to handle admin service
+ * @type {service}
+ */
 class AdminService{
 
-
-    updateUser(name, email,phone, userID) {
-        return axios.put("http://localhost:8080/users/" + userID + "/newName", {
+    /**
+     * 
+     * @param {string} name 
+     * @param {string} email 
+     * @param {string} phone 
+     * @param {number} userID 
+     */
+    updateUser(name, email, phone, userID) {
+        return axios.put("http://localhost:8080/admin/" + userID + "/edit", {
             name: name,
             email: email,
-            phone: phone
-        }).then(response => response.data);
+            phone: phone,
+            user_id: userID,
+        }, {headers: authenticationHeader()}).then(response => response.data);
     }
-    updateName(name, userID){
-        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/newName", {name: name}).then(response => response.data);
-
-    }
-
-    updatePhone(phone, userID){
-        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/newPhone", {phone: phone}).then(response => response.data);
-    }
-
-    updateEmail(email, userID){
-        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/newEmail", {email: email}).then(response => response.data);
-    }
-
+    /**
+     * Get all roles
+     */
     getRoles(){
-        return axios.get("http://" + ipAdress + ":8080/roles").then(response => response.data);
+        return axios.get("http://" + ipAdress + ":8080/roles", {headers: authenticationHeader()}).then(response => response.data);
     }
-
+    /**
+     * Get role by id
+     * @param {number} roleID 
+     */
     getRoleByID(roleID){
-        return axios.get("http://" + ipAdress + ":8080/role/" + roleID).then(response => response.data);
+        return axios.get("http://" + ipAdress + ":8080/role/" + roleID, {headers: authenticationHeader()}).then(response => response.data);
     }
-
+    /**
+     * 
+     * @param {number} role 
+     */
     getRole(role){
-        return axios.get("http://" + ipAdress + ":8080/roles/" + role).then(response => response.data);
+        return axios.get("http://" + ipAdress + ":8080/roles/" + role, {headers: authenticationHeader()}).then(response => response.data);
     }
-
+    /**
+     * 
+     * @param {number} userID 
+     * @param {number} roleID 
+     */
     assignRole(userID, roleID){
-        return axios.post("http://" + ipAdress + ":8080/users/" + userID + "/role/", {roleID: roleID}).then(response => response.data);
+        return axios.post("http://" + ipAdress + ":8080/users/" + userID + "/role/", {roleID: roleID}, {headers: authenticationHeader()}).then(response => response.data);
     }
-
+    /**
+     * 
+     * @param {number} userID 
+     */
     getUser(userID){
-        return axios.get("http://" + ipAdress + ":8080/user/" + userID).then(response => response.data);
+        return axios.get("http://" + ipAdress + ":8080/users/" + userID, {headers: authenticationHeader()}).then(response => response.data);
     }
-
+    /**
+     * Get all users
+     */
     getUsers(){
-        return axios.get("http://" + ipAdress + ":8080/users/").then(response => response.data);
+        return axios.get("http://" + ipAdress + ":8080/users/", {headers: authenticationHeader()}).then(response => response.data);
     }
-
+    /**
+     * Delete one user
+     * @param {number} userID 
+     */
     deleteUser(userID){
-        return axios.delete("http://" + ipAdress + ":8080/users/" + userID).then(response => response.data);
+        return axios.delete("http://" + ipAdress + ":8080/users/" + userID, {headers: authenticationHeader()}).then(response => response.data);
     }
-
+    /**
+     * Approve one user
+     * @param {number} userID 
+     */
     approveUser(userID){
-        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/approve").then(response => response.data);
+        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/approve", {}, {headers: authenticationHeader()}).then(response => response.data);
     }
-
+    /**
+     * Disapprove one user
+     * @param {number} userID 
+     */
     disapproveUser(userID){
-        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/disapprove").then(response => response.data);
+        return axios.put("http://" + ipAdress + ":8080/users/" + userID + "/disapprove", {}, {headers: authenticationHeader()}).then(response => response.data);
     }
 
 }

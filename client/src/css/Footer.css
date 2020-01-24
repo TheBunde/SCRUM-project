@@ -1,5 +1,6 @@
 #Footer{
-    background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(68, 111, 184));
+    /* background-image: linear-gradient(to bottom right, rgb(20, 57, 121), rgb(68, 111, 184)); */
+    background-image: linear-gradient(to bottom right, rgb(20, 49, 80), rgb(8, 71, 72));
     z-index: 3;
     width: 100%;
     padding: 20px 0 20px 0;
@@ -41,13 +42,11 @@
     padding: 0 10px 0 10px;
 }
 
-
 #FooterTransparent{
     z-index: 3;
-    width: 100vw;
+    max-width: 100vw;
     padding: 20px 0 20px 0;
     text-align: center;
-    position: absolute;
     bottom: 0px;
 }
 #FooterTransparent a{
@@ -65,9 +64,6 @@
 #FooterTransparentLink{
     padding: 0 10px 0 10px;
 }
-
-
-
 
 @Media only screen and (max-width: 800px){
     #footerDropUp{

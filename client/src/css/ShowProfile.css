@@ -12,10 +12,16 @@
 
 #ShowProfileProfile{
     border-radius: 50%;
+    object-fit: cover;
 }
 
 #ShowProfileText{
     padding: 50px 0 50px 0;
+    max-width: 100%;
+    hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
 }
 
 #ShowProfileBtn{
@@ -28,6 +34,21 @@
 
 #h5{
     display: inline;
+}
+
+#ShowProfileDiv{
+    margin-top: 10px;
+}
+
+#ShowProfileDiv h1{
+    margin-bottom: 15px;
+}
+
+#ShowProfileHR{
+    width: 20%;
+    height: 2px;
+    background-color: rgb(39, 64, 74);
+    margin-bottom: 30px;    
 }
 
 /*

@@ -65,11 +65,12 @@ create table Category
 
 create table Comment
 (
+  comment_id int not null auto_increment,
   event_id int not null,
   user_id int not null,
   comment text not null,
   date datetime not null,
-  constraint comment_pk primary key (event_id, user_id)
+  constraint comment_pk primary key (comment_id)
 );
 
 

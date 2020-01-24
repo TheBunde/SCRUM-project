@@ -23,11 +23,10 @@ class Navbar extends Component {
   }
 
   /**
-  * This method signs you; It redirects you to the login-page and removes the token stored in localStorage
+  * This method signs you; It redirects you to the front-page and removes the token stored in localStorage
   */
   signOut = () => {
     window.localStorage.removeItem("token");
-    window.location.hash = "/portal";
   };
 
   /**
@@ -187,7 +186,7 @@ class Navbar extends Component {
                   <a
                     className="dropdown-item"
                     onClick={() => this.signOut()}
-                    href="/#"
+                    href="/"
                   >
                     Logg ut
                   </a>

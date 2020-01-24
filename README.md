@@ -1,4 +1,4 @@
-![Pipeline](https://gitlab.stud.iie.ntnu.no/olejlia/scrum-project---team-5---harmoni/badges/dev/pipeline.svg)
+![Pipeline](https://gitlab.stud.iie.ntnu.no/olejlia/scrum-project---team-5---harmoni/badges/master/pipeline.svg)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

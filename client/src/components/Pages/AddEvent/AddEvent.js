@@ -45,7 +45,6 @@ class AddEvent extends Component {
      */
     componentDidMount() {
         window.scrollTo(0,0);
-        console.log(this.state);
         eventService
             .getCategories()
             .then(categories => this.setState({Categories: categories}))

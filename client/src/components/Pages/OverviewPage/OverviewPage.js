@@ -18,6 +18,7 @@ class OverviewPage extends Component{
         }
     }
 
+    /** Scrolls to top of the page, authenticates and gets user information from DB*/
     componentDidMount() {
         window.scrollTo(0,0);
         authenticate();
@@ -32,6 +33,8 @@ class OverviewPage extends Component{
             .catch(error => console.error(error));
     };
 
+
+    /** Renders component */
     render() {
         return (
             <div className="pageSetup">

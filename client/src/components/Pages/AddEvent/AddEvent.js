@@ -113,7 +113,7 @@ class AddEvent extends Component {
      * Notifying that the ticket input is invalid
      * @returns {ToastId}
      */
-    notifyTicketsError = () => toast("Du må fylle ut billettkategori med positive tall", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+    notifyTicketsError = () => toast("Du må fylle ut billettkategori med positive tall under 9 siffre", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
     /**
      * Notifying successful file upload

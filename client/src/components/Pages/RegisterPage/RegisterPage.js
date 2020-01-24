@@ -120,15 +120,15 @@ class RegisterPage extends Component {
                                                 </div>
                                                 <div id="RegisterPageFormButtonDiv">
                                                     <button type="button"
-                                                            id={"regBtn"}
+                                                            className={"login-button"}
                                                             className="btn btn-outline-dark"
                                                             onClick={this.regUser.bind(this)}
                                                             disabled={this.state.name === "" || this.state.email === ""
                                                             || this.state.phone === "" || this.state.password === "" || this.state.repeatedPassword === ""}>Registrer
                                                     </button>
-                                                    <button type="button" className="btn btn-outline-dark"
+                                                    <button type="button" className={"login-button"} className="btn btn-outline-dark"
                                                             onClick={() => window.location.href = "#/login"}>
-                                                        Allerede bruker?
+                                                        Logg inn
                                                     </button>
                                                 </div>
                                             </div>

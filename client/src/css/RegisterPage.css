@@ -48,7 +48,7 @@
 }
 
 #RegisterPageFormButtonDiv{
-    width: 50%;
+    width: 80%;
     margin: auto;
     padding-top: 10px;
     display: grid;
@@ -59,6 +59,7 @@
 }
 #RegisterPageFormButtonDivForgot button{
     margin: 10px;
+    width: 25%;
 }
 
 .registerContainer input{

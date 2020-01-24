@@ -8,6 +8,10 @@ import Footer from '../../Footer/Footer'
 
 
 class AdminUsersPage extends Component {
+    /**
+     * Sets the state when component is made
+     * @param props
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -16,6 +20,11 @@ class AdminUsersPage extends Component {
         }
 
     }
+
+    /**
+     * Renders the component
+     * @returns {*}
+     */
 
     render() {
         return (
@@ -68,6 +77,9 @@ class AdminUsersPage extends Component {
         );
     }
 
+    /**
+     * Method which sets the state based on what input the user gives
+     */
     handleSearch() {
         const searchTitleElement = document.getElementById("adminSearchBar");
         let searchTitle = searchTitleElement.value;
@@ -83,6 +95,9 @@ class AdminUsersPage extends Component {
         }
     }
 
+    /**
+     * Moves to the top of the screen. Then all users will be loaded from the database, and sets the state
+     */
     componentDidMount() {
         window.scrollTo(0,0);
         adminService.getUsers()

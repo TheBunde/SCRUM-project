@@ -116,8 +116,6 @@ class OverviewPage extends Component{
     }
 
     seeProfile(id){
-        console.log("SE ME ");
-
         history.push("/profile/" + id)
     }
 }

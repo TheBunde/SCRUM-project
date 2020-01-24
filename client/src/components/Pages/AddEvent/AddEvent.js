@@ -123,9 +123,10 @@ class AddEvent extends Component {
      * @returns {boolean} false if inputs
      */
     formValidation() {
+        return false;
+
         return (validateInput(this.state.Name) && this.state.Description !== "" && validateInput(this.state.Place)
             && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail));
-
     }
 
     /**
@@ -625,6 +626,11 @@ class AddEvent extends Component {
      * Registers the event to the database if all input is valid
      */
     registerEvent() {
+        let photo = this.state.Picture;
+        if(document.getElementById("imageInput").files.length === 0){
+            photo = "default-image.jpg";
+        }
+
         console.log("Registrating event");
         if (this.formValidation() && this.checkDate()) {
             if (!(validateEmail(this.state.ContactEmail))) {
@@ -646,7 +652,7 @@ class AddEvent extends Component {
                 let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
 
                 eventService
-                    .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Category, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
+                    .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Category, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, photo, this.state.Contract)
                     .then(data => this.registerByID(data.insertId))
                     .catch(Error => console.log(Error));
                 this.notifySuccess();

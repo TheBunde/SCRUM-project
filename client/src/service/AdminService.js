@@ -17,7 +17,7 @@ class AdminService{
      * @param {number} userID 
      */
     updateUser(name, email, phone, userID) {
-        return axios.put("http://localhost:8080/admin/" + userID + "/edit", {
+        return axios.put("http://localhost:8080/user/" + userID + "/edit", {
             name: name,
             email: email,
             phone: phone,

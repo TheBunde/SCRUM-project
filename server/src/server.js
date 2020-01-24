@@ -674,8 +674,16 @@ app.put("/profile/:userId/edit", stripToken, (req, res) => {
     });
 
 });
+/**
+ * Updates specified user with provided changes from req.body
+ * @function put - User
+ * @param {int} id - Unique user identifier
+ * @param {function} stripToken - Function to verify/prepare tokens for verification. @see {@link stripToken}
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 
-app.put("/admin/:userId/edit", stripToken, (req, res) => {
+app.put("/user/:userId/edit", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)

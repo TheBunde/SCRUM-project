@@ -1,14 +1,21 @@
-
 ![Pipeline](https://gitlab.stud.iie.ntnu.no/olejlia/scrum-project---team-5---harmoni/badges/dev/pipeline.svg)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Harmoni is an web-application developed by team 5 in the subject TDAT2003 Systemutvikling 2. 
+The consist of the following people:
+*  Max Torre Schau
+*  Simon Årdal
+*  Lisa Willa
+*  Martin Johannes Nilsen
+*  Torbjørn Bøe Lauvvik
+*  Ole Jonas Liahagen
+*  Helene Jonson
+*  Per Holt-Seeland
 ## How to run the application?
 
 
 
-In the project directory, you can run:
 
 ### `Requirements`
 

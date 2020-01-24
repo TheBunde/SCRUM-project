@@ -15,7 +15,7 @@ let pool = mysql.createPool({
 
 
 /**
- * @param
+ * @param mysql pool
  * @type {module.adminDao|*}
  */
 let adminDao = new AdminDao(pool);

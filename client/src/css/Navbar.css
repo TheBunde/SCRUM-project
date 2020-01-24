@@ -67,6 +67,13 @@
     
 }
 
+#navbarWordConstraint{
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+
 /*Må endre til id per nav-item og dropdown-item for at dette sjal fungere
 #navbarSupportedContent .dropdown-item a{
     color: black;

@@ -24,12 +24,9 @@ const jwt = require('jsonwebtoken');
  * @see <a href="http://localhost:3000">Harmoni</a>
  */
 
-
-
 /**
  * @type {Object}
  */
-
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(__dirname, "../../files/uploads/"));
@@ -85,7 +82,7 @@ const privateKey = (publicKey = secret.secret);
  * @function get - All categories
  * @param {function} stripToken - Function to verify/prepare tokens for verification. @see {@link stripToken}
  * @param {Object} req - Express request object
- * @param {Object} res - Express response object 
+ * @param {Object} res - Express response object
  * @returns {promise} Promise object resolving in either an error or all categories
  */
 app.get("/categories", stripToken, (req, res) => {
@@ -112,10 +109,10 @@ app.get("/categories", stripToken, (req, res) => {
  * @function get - Category by id
  * @param {int} id - Unique category identifier
  * @param {Object} req - Express request object
- * @param {Object} res - Express response object 
+ * @param {Object} res - Express response object
  * @returns {promise} Promise object resolving in either an error status or a category object
  */
-app.get("/category/:id", stripToken,(req, res) =>{
+app.get("/category/:id", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -136,14 +133,14 @@ app.get("/category/:id", stripToken,(req, res) =>{
 
 //CONTACTINFO
 
-/** 
+/**
  *Posts contact info provided in request body
  * @function post - Contact info
  * @param {function} stripToken - Function to verify/prepare tokens for verification. @see {@link stripToken}
  * @param {Object} req - Express request object
- * @param {Object} res - Express response object 
+ * @param {Object} res - Express response object
  */
-app.post("/contactinfo", stripToken,(req, res) => {
+app.post("/contactinfo", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -167,7 +164,7 @@ app.post("/contactinfo", stripToken,(req, res) => {
  * @param {int} id - Unique contact info identifier
  * @param {function} stripToken - Function to verify/prepare tokens for verification. @see {@link stripToken}
  * @param {Object} req - Express request object
- * @param {Object} res - Express response object 
+ * @param {Object} res - Express response object
  * @returns {promise} Promise resolving in an error or res object containing contact info requested.
  */
 app.get("/contactinfo/:id", stripToken, (req, res) => {
@@ -179,7 +176,7 @@ app.get("/contactinfo/:id", stripToken, (req, res) => {
         if (err) {
             res.sendStatus(401);
         } else {
-            eventDao.getContactInfoForEvent(req.params.id, (status, data) =>{
+            eventDao.getContactInfoForEvent(req.params.id, (status, data) => {
                 res.status(status);
                 res.json(data);
             })
@@ -195,7 +192,7 @@ app.get("/contactinfo/:id", stripToken, (req, res) => {
  * @function post - Event
  * @param {function} stripToken - Function to verify/prepare tokens for verification. @see {@link stripToken}
  * @param {Object} req - Express request object
- * @param {Object} res - Express response object 
+ * @param {Object} res - Express response object
  * @returns {promise} Promise resolving in an error or res object containing contact info requested.
  */
 app.post("/event", stripToken, (req, res) => {
@@ -289,9 +286,9 @@ app.get("/event/cancelled", stripToken, (req, res) => {
      */
     let token = req.token;
     jwt.verify(token, privateKey, (err, authData) => {
-        if(err) {
+        if (err) {
             res.sendStatus(401);
-        } else{
+        } else {
             console.log(authData);
             eventDao.getAllCancelled((status, data) => {
                 res.status(status);
@@ -406,7 +403,7 @@ app.put('/event/:eventID/cancel', stripToken, (req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.put('/event/:eventID/pending', stripToken,(req, res) => {
+app.put('/event/:eventID/pending', stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -431,9 +428,9 @@ app.put('/event/:eventID/pending', stripToken,(req, res) => {
  * @param {function} stripToken - Function to verify/prepare tokens for verification. @see {@link stripToken}
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
- * @returns Promise resolving in either an error 
+ * @returns Promise resolving in either an error
  */
-app.delete('/event/:id',stripToken, (req, res) => {
+app.delete('/event/:id', stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -459,7 +456,7 @@ app.delete('/event/:id',stripToken, (req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.delete('/event/:id/details',stripToken, (req, res) => {
+app.delete('/event/:id/details', stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -484,7 +481,7 @@ app.delete('/event/:id/details',stripToken, (req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.delete('/event/:id/comments',stripToken, (req, res) => {
+app.delete('/event/:id/comments', stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -509,7 +506,7 @@ app.delete('/event/:id/comments',stripToken, (req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.put("/event/:id/edit",stripToken, (req, res) =>{
+app.put("/event/:id/edit", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -535,7 +532,7 @@ app.put("/event/:id/edit",stripToken, (req, res) =>{
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.put("/event/contactinfo/:id",stripToken, (req, res) =>{
+app.put("/event/contactinfo/:id", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -544,7 +541,7 @@ app.put("/event/contactinfo/:id",stripToken, (req, res) =>{
         if (err) {
             res.sendStatus(401);
         } else {
-            eventDao.updateContactInfo(req.params.id, req.body, (status, data) =>{
+            eventDao.updateContactInfo(req.params.id, req.body, (status, data) => {
                 res.status(status);
                 res.json(data);
             })
@@ -562,7 +559,7 @@ app.put("/event/contactinfo/:id",stripToken, (req, res) =>{
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.delete("/event/tickets/:id", stripToken,(req, res) =>{
+app.delete("/event/tickets/:id", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -571,7 +568,7 @@ app.delete("/event/tickets/:id", stripToken,(req, res) =>{
         if (err) {
             res.sendStatus(401);
         } else {
-            eventDao.deleteTicketsForEvent(req.params.id, (status, data) =>{
+            eventDao.deleteTicketsForEvent(req.params.id, (status, data) => {
                 res.status(status);
                 res.json(data);
             })
@@ -589,8 +586,8 @@ app.delete("/event/tickets/:id", stripToken,(req, res) =>{
  * @param {Object} res - Express response object
  * @returns {promise} Returns a promise object resolving with either an error status or an object containing all events for the event
  */
-app.get("/event/tickets/:id", (req, res) =>{
-    eventDao.getTicketFromEvent(req.params.id, (status, data) =>{
+app.get("/event/tickets/:id", (req, res) => {
+    eventDao.getTicketFromEvent(req.params.id, (status, data) => {
         res.status(status);
         res.json(data);
     });
@@ -604,7 +601,7 @@ app.get("/event/tickets/:id", (req, res) =>{
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.post("/event/comments",stripToken, (req, res) =>{
+app.post("/event/comments", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -613,7 +610,7 @@ app.post("/event/comments",stripToken, (req, res) =>{
         if (err) {
             res.sendStatus(401);
         } else {
-            eventDao.addComment(req.body, (status, data) =>{
+            eventDao.addComment(req.body, (status, data) => {
                 res.status(status);
                 res.json(data);
             })
@@ -632,7 +629,7 @@ app.post("/event/comments",stripToken, (req, res) =>{
  * @param {Object} res - Express response object
  * @returns {promise} - Returns a promise resolving in either an error status or an object containing all comments related to the event
  */
-app.get("/event/comments/:id", stripToken,(req, res) =>{
+app.get("/event/comments/:id", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -641,14 +638,13 @@ app.get("/event/comments/:id", stripToken,(req, res) =>{
         if (err) {
             res.sendStatus(401);
         } else {
-            eventDao.getComments(req.params.id, (status, data) =>{
+            eventDao.getComments(req.params.id, (status, data) => {
                 res.status(status);
                 res.json(data);
             })
         }
     });
 });
-
 
 
 //PROFILE
@@ -738,7 +734,7 @@ app.get("/roles", stripToken, (req, res) => {
  * @param {Object} res - Express response object
  * @returns {promise} - Returns a promise object resolving in either an error status or an object containing the specified role
  */
-app.get("/role/:roleID",stripToken, (req, res) => {
+app.get("/role/:roleID", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -766,7 +762,7 @@ app.get("/role/:roleID",stripToken, (req, res) => {
  * @param {Object} res - Express response object
  * @returns {promise} - Returns a promise object resolving in either an error status or an object containing the specified role
  */
-app.get("/roles/:role", stripToken,(req, res) => {
+app.get("/roles/:role", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -782,8 +778,6 @@ app.get("/roles/:role", stripToken,(req, res) => {
         }
     });
 });
-
-
 
 
 //TICKETS
@@ -822,7 +816,7 @@ app.post("/tickets", stripToken, (req, res) => {
  * @param {Object} res - Express response object
  * @returns {promise} - Returns a promise object resolving in either an error status or an object containing the tickets for the event
  */
-app.get("/tickets", stripToken,(req, res) => {
+app.get("/tickets", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -849,7 +843,7 @@ app.get("/tickets", stripToken,(req, res) => {
  * @param {Object} res - Express response object
  * @returns {promise} - Returns a promise object resolving in either an error status or an object containing the ticket requested
  */
-app.get("/tickets/:id", stripToken,(req, res)=>{
+app.get("/tickets/:id", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -858,7 +852,7 @@ app.get("/tickets/:id", stripToken,(req, res)=>{
         if (err) {
             res.sendStatus(401);
         } else {
-            eventDao.getTicketById(req.params.id, (status, data) =>{
+            eventDao.getTicketById(req.params.id, (status, data) => {
                 res.status(status);
                 res.json(data);
             })
@@ -877,29 +871,34 @@ app.get("/tickets/:id", stripToken,(req, res)=>{
  * @param {Object} res - Express response object
  * @returns {promise} - Returns a promise object containing a success boolean, true/false and a filePath
  */
-app.post('/upload', upload.single('file'), function (req, res) {
-    if (!req.file) {
-        console.log("No file received");
-        return res.send({
-            success: false
-        });
-    } else {
-        console.log("File received");
-        console.log(req.file.mimetype);
-        console.log(req.file.mimetype.split("/")[0]);
-        if (req.file.mimetype.split("/")[0] !== "image") { //Not an image
-            return res.send({
-                success: false,
-                error: "Only images are allowed"
-            })
-        } else {
-            return res.send({
-                filePath: req.file,
-                success: true
+app.post('/upload', stripToken, upload.single('file'), function (req, res) {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.send({
+                success: false
             });
+        } else {
+            if (!req.file) {
+                return res.send({
+                    success: false
+                });
+            } else {
+                if (req.file.mimetype.split("/")[0] !== "image") { //Not an image
+                    return res.send({
+                        success: false,
+                        error: "Only images are allowed"
+                    })
+                } else {
+                    return res.send({
+                        filePath: req.file,
+                        success: true
+                    });
+                }
+
+            }
         }
 
-    }
+    });
 });
 
 
@@ -911,25 +910,26 @@ app.post('/upload', upload.single('file'), function (req, res) {
  * @param {Object} res - Express response object
  * @returns {promise} - Returns a promise object resolving in either an object containing an error message or containing a filePath and a boolean = true
  */
-app.post("/uploadFile", upload.single("file"), (req, res) => {
-    if (!req.file) {
-        console.log("No file received");
-        return res.send({
-            success: false
-        });
-    } else {
-        if (req.file.mimetype !== "text/plain" && req.file.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && req.file.mimetype !== "application/pdf") { //Not an image
-            return res.send({
-                success: false,
-                error: "Only text-files or pdf are allowed"
+app.post("/uploadFile", stripToken, upload.single("file"), (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.send({
+                success: false
             })
         } else {
-            return res.send({
-                filePath: req.file,
-                success: true
-            });
+            if (req.file.mimetype !== "text/plain" && req.file.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && req.file.mimetype !== "application/pdf") { //Not an image
+                return res.send({
+                    success: false,
+                    error: "Only text-files or pdf are allowed"
+                })
+            } else {
+                return res.send({
+                    filePath: req.file,
+                    success: true
+                });
+            }
         }
-    }
+    });
 });
 
 
@@ -941,30 +941,39 @@ app.post("/uploadFile", upload.single("file"), (req, res) => {
  * @param {Object} res - Express response object
  * @returns {promise} - Returns a promise object resolving in an object containing either an error message or the file paths for the uploaded files as well as a boolean = true
  */
-app.post("/uploadFiles", upload.array("files", 5), (req, res) => {
-    if (!req.files) {
-        console.log("No file received");
-        return res.send({
-            success: false
-        });
-    } else {
-        console.log(req.files);
-        console.log("File received");
-        //Check for application type, must be either a plain text, word-doc or pdf
-        //If at least one of the elements are not plain text and not word-doc and not pdf the files will not be uploaded
-
-        if (!req.files.some(element => element.mimetype.split("/")[0] !== "image" && element.mimetype !== "text/plain" && element.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && element.mimetype !== "application/pdf")) {
-            return res.send({
-                filePath: req.files,
-                success: true
+app.post("/uploadFiles", stripToken, upload.array("files", 5), (req, res) => {
+    jwt.verify(req.token, privateKey, (err, authData) => {
+        if (err) {
+            res.send({
+                success: false
             })
         } else {
-            return res.send({
-                success: false,
-                error: "You have uploaded some files which are not allowed"
-            })
+            if (!req.files) {
+                console.log("No file received");
+                return res.send({
+                    success: false
+                });
+            } else {
+                console.log(req.files);
+                console.log("File received");
+                //Check for application type, must be either a plain text, word-doc or pdf
+                //If at least one of the elements are not plain text and not word-doc and not pdf the files will not be uploaded
+
+                if (!req.files.some(element => element.mimetype.split("/")[0] !== "image" && element.mimetype !== "text/plain" && element.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && element.mimetype !== "application/pdf")) {
+                    return res.send({
+                        filePath: req.files,
+                        success: true
+                    })
+                } else {
+                    return res.send({
+                        success: false,
+                        error: "You have uploaded some files which are not allowed"
+                    })
+                }
+            }
         }
-    }
+    });
+
 });
 
 
@@ -974,7 +983,7 @@ app.post("/uploadFiles", upload.array("files", 5), (req, res) => {
  * @param {String} imagePath - Path to the desired image
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
- * @returns {promise} - Returns a promise object resolving in an object containing the requested file 
+ * @returns {promise} - Returns a promise object resolving in an object containing the requested file
  */
 app.get('/image/:imagePath', (req, res) => {
     res.sendFile(path.join(__dirname, '../../files/uploads/' + req.params.imagePath));
@@ -994,7 +1003,7 @@ app.post("/user/reset_password", (req, res) => {
     userDao.getUser(req.body.email, (status, data) => {
         if (data.length > 0) {
             let newPass = makeid(8);
-            userDao.changePassword({user_id : data[0].user_id, password: newPass}, (statusCode, result) => {
+            userDao.changePassword({user_id: data[0].user_id, password: newPass}, (statusCode, result) => {
                 res.status(statusCode);
                 res.json(result);
                 mail.sendResetPasswordMail(data[0], newPass);
@@ -1014,7 +1023,7 @@ app.post("/user/reset_password", (req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.put("/user/:userID/edit/password",stripToken, (req, res) => {
+app.put("/user/:userID/edit/password", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -1029,14 +1038,17 @@ app.put("/user/:userID/edit/password",stripToken, (req, res) => {
                     /**
                      * Interpret hashed pasword and compare the password passed by the user to this one.
                      */
-                    let passwordHash = JSON.stringify(data[0].password_hash).slice(1,-1);
-                    bcrypt.compare(req.body.password, passwordHash, function(err, response) {
+                    let passwordHash = JSON.stringify(data[0].password_hash).slice(1, -1);
+                    bcrypt.compare(req.body.password, passwordHash, function (err, response) {
                         if (err) {
                             res.status(401);
                             console.error(err);
                         }
                         if (response) { // If response is true <=> If the passwords are equal
-                            userDao.changePassword({user_id: parseInt(req.params.userID), password: req.body.newPassword}, (statusCode, result) => {
+                            userDao.changePassword({
+                                user_id: parseInt(req.params.userID),
+                                password: req.body.newPassword
+                            }, (statusCode, result) => {
                                 console.log("Status-code: " + statusCode);
                                 res.status(statusCode);
                                 res.json(result);
@@ -1063,7 +1075,7 @@ app.put("/user/:userID/edit/password",stripToken, (req, res) => {
  * @param {Object} res - Express response object
  * @returns {promise} - Returns a promise object resolving in either an error object or and object containing the specified user
  */
-app.get("/user/:userID", stripToken,(req, res) => {
+app.get("/user/:userID", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -1090,7 +1102,7 @@ app.get("/user/:userID", stripToken,(req, res) => {
  * @param {Object} res - Express response object
  * @returns {promise} - Returns a promise resolving in either an error object or an object containing all the user objects.
  */
-app.get("/users", stripToken,(req, res) => {
+app.get("/users", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -1117,7 +1129,7 @@ app.get("/users", stripToken,(req, res) => {
  */
 app.post("/user", (req, res) => {
     userDao.registerUser(req.body, (status, data) => {
-        if(status === 200){
+        if (status === 200) {
             mail.sendMail(req.body);
         }
         res.status(status);
@@ -1134,8 +1146,8 @@ app.post("/user", (req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.put("/users/:userID", stripToken,(req, res) => {
-     /**
+app.put("/users/:userID", stripToken, (req, res) => {
+    /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
      */
@@ -1161,7 +1173,7 @@ app.put("/users/:userID", stripToken,(req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.post("/users/:userID/role",stripToken, (req, res) => {
+app.post("/users/:userID/role", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -1187,8 +1199,8 @@ app.post("/users/:userID/role",stripToken, (req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.delete("/users/:userID/", stripToken,(req, res) => {
-     /**
+app.delete("/users/:userID/", stripToken, (req, res) => {
+    /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
      */
@@ -1213,7 +1225,7 @@ app.delete("/users/:userID/", stripToken,(req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.put("/users/:userID/approve",stripToken, (req, res) => {
+app.put("/users/:userID/approve", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -1240,8 +1252,8 @@ app.put("/users/:userID/approve",stripToken, (req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.put("/users/:userID/disapprove",stripToken, (req, res) => {
-     /**
+app.put("/users/:userID/disapprove", stripToken, (req, res) => {
+    /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
      */
@@ -1262,10 +1274,10 @@ app.put("/users/:userID/disapprove",stripToken, (req, res) => {
 //VALIDATE
 
 function makeid(length) {
-    let result           = '';
-    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
+    for (var i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
@@ -1312,7 +1324,7 @@ function makeid(length) {
  * @returns {promise} - Returns a promise object resolving in either an error or an object containing a signed jwt-token
  */
 app.post("/validate", (req, res) => {
-    
+
     userDao.getApprovedUser(req.body.email, (status, data) => {
         if (data.length > 0) {
             let passwordHash = JSON.stringify(data[0].password_hash).slice(1, -1);

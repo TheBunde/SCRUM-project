@@ -83,7 +83,7 @@ class LoginForm extends Component{
                             </div>
                             <div id="LoginFormButtons">
                                 <button type="button" className="btn btn-outline-dark login-button" onClick={this.submit}>Logg inn</button>
-                                <button type="button" className="btn btn-outline-dark login-button" onClick={() => window.location.href="#/register"}>Register</button>
+                                <button type="button" className="btn btn-outline-dark login-button" onClick={() => window.location.href="#/register"}>Registrer</button>
                             </div>
                             <div id="loginFormForgotPW">
                                 <a href="#/forgotpassword">Glemt passord?</a>

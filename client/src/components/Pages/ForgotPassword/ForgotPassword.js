@@ -6,7 +6,10 @@ import UserService from "../../../service/UserService";
 
 
 class ForgotPassword extends Component {
-
+    /**
+     * Constructor called when component is made
+     * @param props
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -15,6 +18,10 @@ class ForgotPassword extends Component {
         }
     }
 
+    /**
+     * Renders the component when loaded
+     * @returns {*}
+     */
     render() {
         return (
             <div className="LoginFormForm">
@@ -66,12 +73,23 @@ class ForgotPassword extends Component {
         )
 
     }
+
+    /**
+     * Notifying the user if e-mails are not identical
+     * @returns {ToastId}
+     */
     notifyFailure = () => toast("E-postene må være identiske", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifying if change of password is done
+     */
     notifySuccess = () => {
         toast("Endring av passord er gjennomført. Sjekk din e-post for mer informasjon", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
     };
 
+    /**
+     * Submit which will change the password of the specific user
+     */
     submit = () => {
         if (this.state.email === this.state.emailRep) {
             let userService = new UserService();
@@ -94,9 +112,17 @@ class ForgotPassword extends Component {
         console.log(this.state);
     };
 
+    /**
+     * Moves to the top when component
+     */
     componentDidMount() {
         window.scrollTo(0, 0);
     }
+
+    /**
+     * Changes the state when input fields changes
+     * @param event
+     */
     handleTextChange = event => {
         event.preventDefault();
         const name = event.target.name;

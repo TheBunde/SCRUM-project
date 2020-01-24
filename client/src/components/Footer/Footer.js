@@ -3,6 +3,7 @@ import '../../css/Footer.css';
 
 /**
  * @class Footer
+ * This is the bottom component of the site, rendered on nearly every site, for showing the option to see "about" and send us a mail with the "contact us"-link.
  */
 class Footer extends Component {
   render() {  
@@ -19,6 +20,8 @@ class Footer extends Component {
 }
 /**
  * @class FooterTransparent
+ * The bottom component showing on mainPage, registerPage, loginPage and forgotPassword.
+ * The difference between this and the other footer is that this is transparent, which was better looking with the dedicated background image used on these sites.
  */
 class FooterTransparent extends Component {
   render() {  

@@ -7,6 +7,10 @@ import {auth, authenticate} from "../../../service/auth";
 
 class NotFound extends Component {
 
+    /**
+     * Sets the state when component is made
+     * @param props
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -14,6 +18,9 @@ class NotFound extends Component {
         }
     }
 
+    /**
+     * Runs before the component is rendering. Moves to the top of the screen, and sets the state depending on authorization
+     */
     componentDidMount() {
         window.scrollTo(0,0);
         authenticate();
@@ -28,6 +35,10 @@ class NotFound extends Component {
         }
     }
 
+    /**
+     * Renders the component
+     * @returns {*}
+     */
     render() {
         return(
             <div>

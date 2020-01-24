@@ -16,8 +16,8 @@ class AdminService{
      * @param {string} phone 
      * @param {number} userID 
      */
-    updateUser(name, email,phone, userID) {
-        return axios.put("http://localhost:8080/profile/" + userID + "/edit", {
+    updateUser(name, email, phone, userID) {
+        return axios.put("http://localhost:8080/admin/" + userID + "/edit", {
             name: name,
             email: email,
             phone: phone,

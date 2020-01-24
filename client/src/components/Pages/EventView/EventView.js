@@ -124,6 +124,9 @@ class EventView extends Component{
     }
 
     render() {
+        /** 
+        * This function is used for formatting text into paragraphs
+        */
         let descriptionString = JSON.stringify(this.state.description);
         function descriptionArray() {
             if(descriptionString !== undefined){
@@ -132,6 +135,10 @@ class EventView extends Component{
             } 
         }
 
+        /** 
+        * @param {String} place
+        * This function is used for formatting the place-parameter to the format the embeded map want it in.
+        */
         function mapLocation(place) {
             return place.trim(" ,");
         }
@@ -310,7 +317,7 @@ class EventView extends Component{
                                         <div id="comments">
                                             <ul className="media-list">
                                             {this.state.comments.map(comments => (
-                                                <li className="media">
+                                                <li key={comments.name} className="media">
                                                 <div className="media-body" id="eventViewCommentSectionComments">
                                                     <div id="eventViewCommentSectionUserInfo">
                                                         <strong className="text-info"> {comments.name}</strong>
@@ -339,6 +346,12 @@ class EventView extends Component{
         );
     }
 
+    /** 
+    * @param {event} event
+    * This function gets called on when the "comment"-button is pushed. 
+    * It fetches the information from the input-fields, pushes an comment locally with setState
+    *   for the comment to instantly show up, and sends the comment to the database.
+    */
     publishComment = event => {
 
         let commentInputElement = document.getElementById("commentInput");

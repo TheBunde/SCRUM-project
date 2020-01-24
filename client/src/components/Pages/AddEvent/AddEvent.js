@@ -86,6 +86,8 @@ class AddEvent extends Component {
 
     notifyNegativeNumber = () => toast("Du kan ikke skrive inn et negativt tall", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    notifyTicketsError = () => toast("Du må fylle ut billettkategori med positive tall", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
     notifyPictureUploaded = () => toast("Fil lastet opp. Trykk på lagre endringer for å lagre alt", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
 
 
@@ -123,10 +125,9 @@ class AddEvent extends Component {
      * @returns {boolean} false if inputs
      */
     formValidation() {
-        return false;
-
         return (validateInput(this.state.Name) && this.state.Description !== "" && validateInput(this.state.Place)
-            && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail));
+            && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail) && this.ticketCheck());
+
     }
 
     /**
@@ -156,7 +157,6 @@ class AddEvent extends Component {
             return status;
         }
         else {
-            this.notifyNegativeNumber();
             return false;
         }
     }
@@ -626,11 +626,6 @@ class AddEvent extends Component {
      * Registers the event to the database if all input is valid
      */
     registerEvent() {
-        let photo = this.state.Picture;
-        if(document.getElementById("imageInput").files.length === 0){
-            photo = "default-image.jpg";
-        }
-
         console.log("Registrating event");
         if (this.formValidation() && this.checkDate()) {
             if (!(validateEmail(this.state.ContactEmail))) {
@@ -652,7 +647,7 @@ class AddEvent extends Component {
                 let date = year + "-" + month + "-" + day + " " + hour + ":" + min + ":00";
 
                 eventService
-                    .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Category, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, photo, this.state.Contract)
+                    .addEvents(this.state.Name, date, this.state.Description, this.state.Place, this.state.Category, this.state.Artists, this.state.Tech, this.state.Hospitality, this.state.Personnel, this.state.Picture, this.state.Contract)
                     .then(data => this.registerByID(data.insertId))
                     .catch(Error => console.log(Error));
                 this.notifySuccess();
@@ -662,8 +657,8 @@ class AddEvent extends Component {
         } else {
             if (!this.checkDate()) {
                 this.notifyDateFailure();
-            } else if (this.ticketCheck()) {
-                this.notifyNegativeNumber()
+            } else if (!this.ticketCheck()) {
+                this.notifyTicketsError();
             }
             else {
                 this.setState({Placeholder: "Dette feltet må fylles inn"});
@@ -683,8 +678,6 @@ class AddEvent extends Component {
                     eventService
                         .addTicket(ticket.ticket_category_id, EventId, this.state[ticket.name + "TicketAmount"], this.state[ticket.name + "TicketPrice"])
                         .catch(Error => console.log(Error))
-                } else {
-                    this.notifyNegativeNumber();
                 }
             }
         });

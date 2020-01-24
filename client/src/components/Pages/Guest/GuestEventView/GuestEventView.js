@@ -272,8 +272,6 @@ class EventView extends Component{
         }
         return color;
     }
-
-
 }
 
 export default EventView;

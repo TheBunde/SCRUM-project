@@ -373,17 +373,19 @@ class EventView extends Component{
     };
 
 
+    /** 
+    * This function checks your role to determine which actions you should have access to, depending on your role. 
+    */
     checkRights(){
         if(auth.role === "admin") return 1;
-
         else if(auth.role === "Sceneansvarlig") return 2;
-
         else if(auth.role === "Økonomisjef") return 3;
-
         else return 4;
-
     };
 
+    /** 
+    * This shows up an toast/alert for when you want to delete an event
+    */
     notifyDeleteSuccess = () => {
         toast("Sletting av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
     };

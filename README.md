@@ -8,7 +8,7 @@ The consist of the following people:
 *  Simon Årdal
 *  Lisa Willa
 *  Martin Johannes Nilsen
-*  Torbjørn Bøe Lauuvik
+*  Torbjørn Bøe Lauvvik
 *  Ole Jonas Liahagen
 *  Helene Jonson
 *  Per Holt-Seeland

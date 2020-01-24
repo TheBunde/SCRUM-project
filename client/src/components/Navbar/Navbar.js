@@ -27,7 +27,7 @@ class Navbar extends Component {
   */
   signOut = () => {
     window.localStorage.removeItem("token");
-    window.location.hash = "/login";
+    window.location.hash = "/portal";
   };
 
   /**

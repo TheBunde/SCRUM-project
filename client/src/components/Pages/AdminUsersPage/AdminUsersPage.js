@@ -79,6 +79,7 @@ class AdminUsersPage extends Component {
 
     /**
      * Method which sets the state based on what input the user gives
+     *
      */
     handleSearch() {
         const searchTitleElement = document.getElementById("adminSearchBar");
@@ -97,6 +98,7 @@ class AdminUsersPage extends Component {
 
     /**
      * Moves to the top of the screen. Then all users will be loaded from the database, and sets the state
+     *
      */
     componentDidMount() {
         window.scrollTo(0,0);

@@ -13,6 +13,8 @@ class GuestMainPage extends Component {
         events: [],
     };
 
+
+    /** Scrolls to top of the page and gets all active events from DB and puts them in the component state */
     componentDidMount(){
         window.scrollTo(0,0);
         eventService.getAllActive()
@@ -20,6 +22,10 @@ class GuestMainPage extends Component {
             .catch(error => {console.error(error)});
     }
 
+    /** Render method which renders the component.
+     * @return component with carousel if there are more than or exactly 3 active events to show. Shows the three events nearest in time.
+     * @return component without carousel if there are less than 3 active events to show.
+     */
     render() {
         let urls = [];
         let dates = [];
@@ -125,6 +131,12 @@ class GuestMainPage extends Component {
         }
     }
 
+    /**
+     *
+     * Formats string from DB to readable date.
+     * @param backendDate
+     * @return {string}
+     */
     formatDate(backendDate) {
         let thisDate = new Date(backendDate);
         let year = thisDate.getFullYear();

@@ -23,7 +23,10 @@ class EditUserPage extends Component {
         approved: "",
     };
 
-
+    /**
+     * Render the entire page on which the admin can change user information.
+     * @returns{*}
+     * */
 
     render() {
         return (
@@ -58,7 +61,6 @@ class EditUserPage extends Component {
                                     <div className="form-group">
                                         <label className={"form-check-label"} htmlFor="exampleCheck1">E-post</label>
                                         <input name = "email" value={this.state.email} className="form-control" type="text"
-                                               id={"EditUserPageInput"}
                                                onChange={this.handleTextChange.bind(this)}/>
                                     </div>
 
@@ -69,7 +71,6 @@ class EditUserPage extends Component {
                                     <div className="form-group">
                                         <label className="form-check-label" htmlFor="exampleCheck1">Telefon</label>
                                         <input name = "phone" value={this.state.phone} className="form-control" type="text"
-                                               id={"EditUserPageInput"}
                                                onChange={this.handleTextChange.bind(this)}/>
                                     </div>
 
@@ -124,6 +125,10 @@ class EditUserPage extends Component {
         );
     }
 
+    /**updates the state as the text in the name input gets changed.
+     * @param event
+     */
+
     handleTextChange = event => {
         event.preventDefault();
         const name = event.target.name;
@@ -134,24 +139,31 @@ class EditUserPage extends Component {
         });
     };
 
+
+    /** deletes user form database*/
     deleteUser() {
         adminService.deleteUser(this.props.match.params.id)
             .then(() => window.location.hash = "/admin/users")
             .catch((error) => console.error(error))
     }
 
+    /** updates state when the approved-checkbox gets changed. */
     handleCheckboxChange() {
         this.setState({
             approved: !this.state.approved
         })
     }
 
+    /** updates state when an item from the role-dropdown gets changed*/
     handleDropdownChange(role) {
         this.setState({
             roleChosen: role
         })
     }
 
+    /** launches confirm dialog when save button gets clicked. Asks the user whether he/she wants to confirm changes or cancel.
+     *  If the user confirms he/she wants to confirm changes, the saveChanges() method gets called.
+     */
     submitSaveChanges() {
         confirmAlert({
             title: 'Bekreftelse av rediering',
@@ -167,6 +179,11 @@ class EditUserPage extends Component {
             ]
         });
     }
+
+
+    /** launches confirm dialog when delete button gets clicked. Asks the user whether he/she wants to delete user or cancel.
+     *  If the user confirms he/she wants to confirm delete, the deleteUser() method gets called.
+     */
 
     submitDeleteButton() {
         confirmAlert({
@@ -184,6 +201,8 @@ class EditUserPage extends Component {
         });
     }
 
+
+    /** Method that saves the changes done to a user in the database. */
     saveChanges() {
         adminService.getRole(this.state.roleChosen).then(id => {
             adminService.assignRole(this.props.match.params.id, id[0].role_id)
@@ -212,6 +231,8 @@ class EditUserPage extends Component {
             toast("Ugyldig telefonnummer eller epost.", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
         }
     };
+
+    /** Scrolls to top page and gets user and roles from database. */
 
     componentDidMount() {
         let roles = [];

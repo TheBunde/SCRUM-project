@@ -121,14 +121,10 @@ class Navbar extends Component {
                 </div>
               </li>
 
-              <li className="nav-item dropdown" id="navbarWordConstraint">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="/#"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
+              <li className="nav-item dropdown" id="navbarProfileDivLi" >
+                <a  className="nav-link dropdown-toggle" href="/#" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    id="navbarProfileDiv"
                 >
                   <img
                     id="navProfile"
@@ -143,7 +139,7 @@ class Navbar extends Component {
                     width="30"
                     height="30"
                   />
-                  {this.state.user.name}
+                  <p id="navbarProfileDivName">{this.state.user.name}</p>
                 </a>
                 <div
                   className="dropdown-menu"

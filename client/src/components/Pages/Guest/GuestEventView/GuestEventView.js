@@ -10,8 +10,10 @@ import {UserService} from '../../../../service/UserService.js';
 import {auth} from "../../../../service/auth";
 let ipAdress = process.env.REACT_APP_HOSTNAME || "localhost";
 
-
-
+/** 
+* @class EventView
+* Class extending React Component, being the site showing information about an event for the not-loggedin-users.
+*/
 class EventView extends Component{
     constructor(props){
         super(props);
@@ -40,6 +42,10 @@ class EventView extends Component{
         }
     }
 
+    /** 
+    * @param {String} backendDate
+    * This function formats the date for the infobox shown on the right hand side of the screen.
+    */
     formatDate(backendDate) {
         let thisDate = new Date(backendDate);
 
@@ -56,6 +62,9 @@ class EventView extends Component{
         return date + "." + month + "." + year + " " + hours + ":" + minutes;
     }
 
+    /**
+    * This function scrolls to the top of the screen and fetches all the information from the backend database. 
+    */
     componentDidMount(){
         window.scrollTo(0,0);
         eventService.getEventById(this.props.match.params.id).then(events => this.setState({
@@ -206,7 +215,14 @@ class EventView extends Component{
         );
     }
 
-
+    /**
+     * Runs through the values from the database and sets a status on each event based on what values it has
+     * @param canceled
+     * @param pending
+     * @param filed
+     * @param date
+     * @returns {string}
+     */
     getStatus(canceled, pending, filed, date){
         let status;
         if(canceled === 1){
@@ -228,6 +244,14 @@ class EventView extends Component{
         return status;
     }
 
+    /**
+     * Runs through the values from the database and sets a color for the status box based on what values it has
+     * @param canceled
+     * @param pending
+     * @param filed
+     * @param date
+     * @returns {string}
+     */
     getColor(canceled, pending, filed, date){
         let color;
         if(canceled === 1) {
@@ -248,61 +272,9 @@ class EventView extends Component{
         }
         return color;
     }
-
-    getCurrentDate() {
-        let newDate = new Date();
-        let date = newDate.getDate();
-        if(date<10){
-            date = "0" + date;
-        }
-        let month = newDate.getMonth()+1;
-        if(month<10){
-            month = "0" + month;
-        }
-        let year = newDate.getFullYear();
-        let hours = newDate.getHours();
-        if(hours<10){
-            hours = "0" + hours;
-        }
-        let minutes = newDate.getMinutes();
-        if(minutes<10){
-            minutes = "0" + minutes;
-        }
-        return year + "-" + month + "-" + date + "T" + hours + ":" + minutes + ":00:000Z";
-    }
-
-
 }
 
 export default EventView;
 
-
-/* 
-
-<div id="guestEventViewInfoTicketsContainer">
-                            <div id="guestEventViewInfoTickets">
-                            <h3>Billettyper</h3>
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Type</th>
-                                        <th scope="col">Pris</th>
-                                        <th scope="col">Antall</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {this.state.event_tickets.map(ticket => 
-                                    <tr>
-                                        <th scope="row" width="60">{ticket.name}</th>
-                                        <td width="30">{ticket.price}</td>
-                                        <td width="30">{ticket.number}</td>
-                                    </tr>)
-                                }
-                                </tbody>
-                            </table>
-                        </div>
-
-
-*/
 
 

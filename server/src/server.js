@@ -674,6 +674,14 @@ app.put("/profile/:userId/edit", stripToken, (req, res) => {
     });
 
 });
+/**
+ * Updates specified user with provided changes from req.body
+ * @function put - User
+ * @param {int} id - Unique user identifier
+ * @param {function} stripToken - Function to verify/prepare tokens for verification. @see {@link stripToken}
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 
 app.put("/admin/:userId/edit", stripToken, (req, res) => {
     /**
@@ -999,7 +1007,7 @@ app.get('/image/:imagePath', (req, res) => {
  * @param {Object} res - Express response object
  * @returns {promise} - Returns a promise object resolving in either an error object or an object containing the result
  */
-app.post("/user/reset_password", (req, res) => {
+app.post("/users/reset_password", (req, res) => {
     userDao.getUser(req.body.email, (status, data) => {
         if (data.length > 0) {
             let newPass = makeid(8);
@@ -1023,7 +1031,7 @@ app.post("/user/reset_password", (req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.put("/user/:userID/edit/password", stripToken, (req, res) => {
+app.put("/users/:userID/edit/password", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -1075,7 +1083,7 @@ app.put("/user/:userID/edit/password", stripToken, (req, res) => {
  * @param {Object} res - Express response object
  * @returns {promise} - Returns a promise object resolving in either an error object or and object containing the specified user
  */
-app.get("/user/:userID", stripToken, (req, res) => {
+app.get("/users/:userID", stripToken, (req, res) => {
     /**
      * verification using JWT (JSON Web Tokens)
      * [Link](https://jwt.io/)
@@ -1127,7 +1135,7 @@ app.get("/users", stripToken, (req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-app.post("/user", (req, res) => {
+app.post("/users", (req, res) => {
     userDao.registerUser(req.body, (status, data) => {
         if (status === 200) {
             mail.sendMail(req.body);

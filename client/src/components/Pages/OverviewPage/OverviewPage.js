@@ -4,7 +4,7 @@ import { createHashHistory } from 'history';
 import "../../../img/concert.jpg"
 import Navbar from '../../Navbar/Navbar'
 import Footer from '../../Footer/Footer';
-import {User, UserService} from "../../../service/UserService";
+import {UserService} from "../../../service/UserService";
 import {authenticate, auth} from "../../../service/auth";
 
 const history = createHashHistory();

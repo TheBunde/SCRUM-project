@@ -58,6 +58,9 @@ class AddEvent extends Component {
 
     }
 
+    /**
+     * Notifying successful registration of event
+     */
     notifySuccess = () => {
         toast("Registrering av arrangement vellykket", {
             type: toast.TYPE.SUCCESS,
@@ -65,29 +68,58 @@ class AddEvent extends Component {
         });
     };
 
+    /**
+     * Notifying that something went wrong if input is invalid
+     * @returns {ToastId}
+     */
     notifyFailure = () => toast("Noe gikk galt", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifying the user need to change date to valid date
+     * @returns {ToastId}
+     */
     notifyDateFailure = () => toast("Du kan ikke velge et tidspunkt som ikke er fremover i tid", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifying invalid phonenumber
+     * @returns {ToastId}
+     */
     notifyUnvalidPhone = () => toast("Ugyldig telefonnummer", {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
     });
 
+    /**
+     * Notifying invalid email
+     * @returns {ToastId}
+     */
     notifyUnvalidEmail = () => toast("Ugyldig e-post", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
-
+    /**
+     * Notifying that the file is too big
+     * @returns {ToastId}
+     */
     notifyTooBigFile = () => toast("En av filene du forsøkte å laste opp var for stor", {
         type: toast.TYPE.ERROR,
         position: toast.POSITION.BOTTOM_LEFT
     });
 
+    /**
+     * Notifying that a file isnt uploaded
+     * @returns {ToastId}
+     */
     notifyNoFileUploaded = () => toast("Du må laste opp en fil", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
-    notifyNegativeNumber = () => toast("Du kan ikke skrive inn et negativt tall", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
-
+    /**
+     * Notifying that the ticket input is invalid
+     * @returns {ToastId}
+     */
     notifyTicketsError = () => toast("Du må fylle ut billettkategori med positive tall", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    /**
+     * Notifying successful file upload
+     * @returns {ToastId}
+     */
     notifyPictureUploaded = () => toast("Fil lastet opp. Trykk på lagre endringer for å lagre alt", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
 
 

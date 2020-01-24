@@ -215,7 +215,14 @@ class EventView extends Component{
         );
     }
 
-
+    /**
+     * Runs through the values from the database and sets a status on each event based on what values it has
+     * @param canceled
+     * @param pending
+     * @param filed
+     * @param date
+     * @returns {string}
+     */
     getStatus(canceled, pending, filed, date){
         let status;
         if(canceled === 1){
@@ -237,6 +244,14 @@ class EventView extends Component{
         return status;
     }
 
+    /**
+     * Runs through the values from the database and sets a color for the status box based on what values it has
+     * @param canceled
+     * @param pending
+     * @param filed
+     * @param date
+     * @returns {string}
+     */
     getColor(canceled, pending, filed, date){
         let color;
         if(canceled === 1) {

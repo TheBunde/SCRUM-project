@@ -85,12 +85,10 @@ class EventView extends Component{
             category_name: events[0].category_name}))
             .catch(error => console.error(error.message));
         eventService.getTicketFromEvent(this.props.match.params.id).then(tickets => this.setState({event_tickets: tickets}));
-        console.log(this.state.event_tickets);
         eventService.getContactinfoForEvent(this.props.match.params.id).then(contactInfo => this.setState({contactInfo_name: contactInfo.name, contactInfo_phone: contactInfo.phone, contactInfo_email: contactInfo.email})).catch(Error => console.log(Error));
         eventService.getComments(this.props.match.params.id).then(comments => this.setState({comments: comments})).catch(Error => console.log(Error));
         let userService = new UserService();
         userService.getUser(auth.user_id).then(user => this.setState({user: user})).catch((error) => {console.error(error);});
-        console.log("auth.user_id: " + auth.user_id);
     }
 
     render() {

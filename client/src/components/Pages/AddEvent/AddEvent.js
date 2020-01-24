@@ -86,6 +86,8 @@ class AddEvent extends Component {
 
     notifyNegativeNumber = () => toast("Du kan ikke skrive inn et negativt tall", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
 
+    notifyTicketsError = () => toast("Du må fylle ut billettkategori med positive tall", {type: toast.TYPE.ERROR, position: toast.POSITION.BOTTOM_LEFT});
+
     notifyPictureUploaded = () => toast("Fil lastet opp. Trykk på lagre endringer for å lagre alt", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
 
 
@@ -124,7 +126,7 @@ class AddEvent extends Component {
      */
     formValidation() {
         return (validateInput(this.state.Name) && this.state.Description !== "" && validateInput(this.state.Place)
-            && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail));
+            && validateInput(this.state.Artists) && validateInput(this.state.ContactName) && validateInput(this.state.ContactEmail) && validateInput(this.state.ContactEmail) && this.ticketCheck());
 
     }
 
@@ -155,7 +157,6 @@ class AddEvent extends Component {
             return status;
         }
         else {
-            this.notifyNegativeNumber();
             return false;
         }
     }
@@ -656,8 +657,8 @@ class AddEvent extends Component {
         } else {
             if (!this.checkDate()) {
                 this.notifyDateFailure();
-            } else if (this.ticketCheck()) {
-                this.notifyNegativeNumber()
+            } else if (!this.ticketCheck()) {
+                this.notifyTicketsError();
             }
             else {
                 this.setState({Placeholder: "Dette feltet må fylles inn"});
@@ -677,8 +678,6 @@ class AddEvent extends Component {
                     eventService
                         .addTicket(ticket.ticket_category_id, EventId, this.state[ticket.name + "TicketAmount"], this.state[ticket.name + "TicketPrice"])
                         .catch(Error => console.log(Error))
-                } else {
-                    this.notifyNegativeNumber();
                 }
             }
         });

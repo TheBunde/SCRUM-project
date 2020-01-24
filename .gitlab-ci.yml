@@ -29,28 +29,28 @@ server_tests:
       - server/coverage
       #- coverage/
 
-client_tests:
-  stage: test
-  script:
-    - cd client
-    - npm install
-    - npm test
-  artifacts:
-    paths:
-      - client/coverage
+#client_tests:
+ # stage: test
+ # script:
+ #   - cd client
+ #   - npm install
+ #   - npm test
+#  artifacts:
+ #   paths:
+ #     - client/coverage
       #- coverage/
 
 # Make JSDoc
-client_jsdoc:
-  stage: build
-  script:
-    - cd client
-    - npm install
-    - npm run doc
+#client_jsdoc:
+ # stage: build
+ #script:
+  #  - cd client
+ #   - npm install
+ #   - npm run doc
 
-  artifacts:
-    paths:
-      - client/jsdoc
+ # artifacts:
+  #  paths:
+  #    - client/jsdoc
       
 # Make server JSDoc
 server_jsdoc:

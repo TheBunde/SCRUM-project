@@ -388,6 +388,10 @@ class EventView extends Component{
         toast("Sletting av arrangement vellykket", {type: toast.TYPE.SUCCESS, position: toast.POSITION.BOTTOM_LEFT});
     };
 
+    /**
+     * An alert that confirms if you want to delete event
+     * @param id
+     */
     submitEventDeleteButton(id) {
         confirmAlert({
             title: 'Bekreftelse av sletting',
@@ -404,6 +408,10 @@ class EventView extends Component{
         });
     }
 
+    /**
+     * An alert that confirms if you want to archive event
+     * @param id
+     */
     submitEventArchiveButton(id) {
         confirmAlert({
             title: 'Bekreftelse av arkivering',
@@ -420,6 +428,10 @@ class EventView extends Component{
         });
     }
 
+    /**
+     * An alert that confirms if you want to approve event
+     * @param id
+     */
     submitEventApproveButton(id) {
         confirmAlert({
             title: 'Bekreftelse av godkjenning',
@@ -436,6 +448,10 @@ class EventView extends Component{
         });
     }
 
+    /**
+     * An alert that confirms if you want to cancel event
+     * @param id
+     */
     submitEventCancelButton(id) {
         confirmAlert({
             title: 'Bekreftelse av avlysing',
@@ -452,6 +468,10 @@ class EventView extends Component{
         });
     }
 
+    /**
+     * Deletes all data from the database that is connected to the event, then deletes the event.
+     * @param id
+     */
     delete(id){
         eventService
             .deleteEventComments(id)
@@ -464,6 +484,10 @@ class EventView extends Component{
             .catch(e => console.error(e));
     }
 
+    /**
+     * runs a method that switches the archived value in the database from 0 to 1, making it archived
+     * @param id
+     */
     archive(id){
         eventService
             .updateFiled(id)
@@ -471,6 +495,10 @@ class EventView extends Component{
         history.push("/event")
     }
 
+    /**
+     * runs a method that switches the pending value in the database from 1 to 0, making it a upcoming event
+     * @param id
+     */
     pend(id){
         eventService
             .updatePending(id)
@@ -478,6 +506,10 @@ class EventView extends Component{
         history.push("/event")
     }
 
+    /**
+     * runs a method that switches the cancel value in the database from 0 to 1, canceling the event
+     * @param id
+     */
     cancel(id){
         eventService
             .updateCancel(id)
@@ -485,6 +517,14 @@ class EventView extends Component{
         history.push("/event")
     }
 
+    /**
+     * Runs through the values from the database and sets a status on each event based on what values it has
+     * @param canceled
+     * @param pending
+     * @param filed
+     * @param date
+     * @returns {string}
+     */
     getStatus(canceled, pending, filed, date){
         let status;
         if(canceled === 1){
@@ -506,6 +546,14 @@ class EventView extends Component{
         return status;
     }
 
+    /**
+     * Runs through the values from the database and sets a color for the status box based on what values it has
+     * @param canceled
+     * @param pending
+     * @param filed
+     * @param date
+     * @returns {string}
+     */
     getColor(canceled, pending, filed, date){
         let color;
         if(canceled === 1) {
@@ -527,6 +575,10 @@ class EventView extends Component{
         return color;
     }
 
+    /**
+     * formats a date from the database
+     * @returns {string}
+     */
     getCurrentDate() {
         let newDate = new Date();
         let date = newDate.getDate();

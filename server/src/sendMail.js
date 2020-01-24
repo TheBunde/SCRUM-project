@@ -50,7 +50,7 @@ module.exports = class mail{
         });
         
         const mailOptions = {
-            from: '"Harmoni passord resett" <noreply.harmoni@gmail.com>',
+            from: '"Harmoni | Tilbakestilling av passord" <noreply.harmoni@gmail.com>',
             to: json.email,
             subject: 'Tilbakestilling av passord Harmoni',
             //text: "Hei "+json.name+"! Du har nylig tilbakestilt ditt passord på Harmoni. Ditt nye passord er: "+newPass

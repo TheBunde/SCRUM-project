@@ -46,8 +46,7 @@ From the top-level repository folder:
 ```
 cd server
 ```
-
-`**Follow instructions here before continuing: [Installation](https://gitlab.stud.iie.ntnu.no/olejlia/scrum-project---team-5---harmoni/-/wikis/System/Installasjon)**`
+**`Follow instructions here before continuing: [Installation](https://gitlab.stud.iie.ntnu.no/olejlia/scrum-project---team-5---harmoni/-/wikis/System/Installasjon)`**
 
 ```
 npm start

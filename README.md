@@ -47,9 +47,8 @@ From the top-level repository folder:
 cd server
 ```
 
-Lokalliser: `ENVFILE.txt` og følg instruksjonene i [installasjonsmanualen på Wikien](https://gitlab.stud.iie.ntnu.no/olejlia/scrum-project---team-5---harmoni/-/wikis/System/Installasjon)
+**Follow instructions here before continuing: [Installation](https://gitlab.stud.iie.ntnu.no/olejlia/scrum-project---team-5---harmoni/-/wikis/System/Installasjon)**
 
-Etter dette gå videre:
 ```
 npm start
 ```

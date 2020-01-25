@@ -12,6 +12,7 @@ The consist of the following people:
 *  Ole Jonas Liahagen
 *  Helene Jonson
 *  Per Holt-Seeland
+*  Mathias Olsen
 ## How to run the application?
 
 

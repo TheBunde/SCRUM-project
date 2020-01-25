@@ -3,7 +3,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Harmoni is an web-application developed by team 5 in the subject TDAT2003 Systemutvikling 2. 
-The consist of the following people:
+The team consist of the following people:
 *  Max Torre Schau
 *  Simon Årdal
 *  Lisa Willa

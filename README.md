@@ -45,6 +45,12 @@ npm install
 From the top-level repository folder:
 ```
 cd server
+```
+
+Lokalliser: `ENVFILE.txt` og følg instruksjonene i installasjonsmanualen på Wikien
+
+Etter dette gå videre:
+```
 npm start
 ```
 
